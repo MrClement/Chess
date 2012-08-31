@@ -1,8 +1,7 @@
 package DerpyAI;
 
 import java.util.ArrayList;
-import sharedfiles.Board;
-import sharedfiles.Piece;
+import sharedfiles.*;
 
 public class DerpyAI {
 private Boolean myColor; 
@@ -27,39 +26,43 @@ return b;}
 
 
 public boolean isPieceOurs(Piece p){
-	if (this.myColor == p.getColor() && !(p instanceof(Blank)){
+	if (this.myColor == p.getColor() && !(p instanceof Blank)){
 		return true;}
 		else return false;}
 
 public ArrayList<Piece> enemyThreats(Board b){
-	ArrayList<Piece> ourThreatenedPieces = new ArrayList();
+	ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
 			for(int j=0; j<=8; j++){
-				if(this.isPieceOurs([piece at (i,j)]){
-					if(this.pieceIsThreatened([piece at (i,j)])){
-						ourThreatenedPieces.add([piece at (i,j)])
+				//if(this.isPieceOurs([piece at (i,j)]){
+					//if(this.pieceIsThreatened([piece at (i,j)])){
+						//ourThreatenedPieces.add([piece at (i,j)])
 							}
 						}
-					}
-	return ourThreatenedPieces;}
+					
+	return ourThreatenedPieces;
+	
+}
 
 
 public ArrayList<Piece> ourThreats(Board b){
-			ArrayList theirThreatenedPieces = new ArrayList<Piece>();
+			ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
 				for(int i=0; i<8; i++){
 					for(int j=0; j<=8; j++){
-						if(!(this.isPieceOurs([piece at (i,j)])){
-							if(this.pieceIsThreatened([piece at (i,j)])){
-								theirThreatenedPieces.add([piece at (i,j)])
+						//if(!(this.isPieceOurs([piece at (i,j)])){
+							//if(this.pieceIsThreatened([piece at (i,j)])){
+								//theirThreatenedPieces.add([piece at (i,j)])
 							}
 						}
-					}
-				}
-	return theirThreatenedPieces;}
+					
+				
+	return theirThreatenedPieces;
+}
 			
 			
 public boolean pieceIsThreatened(Piece p) {
-	
+	boolean b = false; 
+	return b; 
 }
 
 //Moves
@@ -68,12 +71,14 @@ return b;}
 			
 public Board makeMove(Board b){
 	if (this.inCheck() == false){
-		this.GetOutOfCheck(b);}
+		this.getOutOfCheck(b);}
 		else {
 			
 
 			}
-		return b;}
-
+		return b;
 	}
+
+
 }
+
