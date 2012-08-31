@@ -26,8 +26,8 @@ public class Board {
 		arr[2][0]=new Bishop(false);
 		arr[5][0]=new Bishop(false);
 	
-		arr[4][0]=new Queen(false);
-		arr[3][0]=new King(false);
+		arr[3][0]=new Queen(false);
+		arr[4][0]=new King(false);
 	
 		//white setup
 		arr[0][7]=new Rook(true);
@@ -39,8 +39,8 @@ public class Board {
 		arr[2][7]=new Bishop(true);
 		arr[5][7]=new Bishop(true);
 	
-		arr[4][7]=new Queen(true);
-		arr[3][7]=new King(true);
+		arr[3][7]=new Queen(true);
+		arr[4][7]=new King(true);
 
 	}
 	
@@ -49,7 +49,7 @@ public class Board {
 		for(int y=0; y<8; y++){
 	
 			for(int x=0; x<8; x++){
-				System.out.print(arr[y][x].toString()+" | ");
+				System.out.print(arr[x][y].toString()+" | ");
 			}
 		
 			System.out.println();
