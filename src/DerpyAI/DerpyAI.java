@@ -51,9 +51,9 @@ public class DerpyAI {
 		ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
 			for(int j=0; j<=8; j++){
-				//if(!(this.isPieceOurs([piece at (i,j)])){
-				//if(this.pieceIsThreatened([piece at (i,j)])){
-				//theirThreatenedPieces.add([piece at (i,j)])
+				//if(!(this.isPieceOurs(b[i][j]))){
+				//if(this.pieceIsThreatened(b[i][j]))){
+				//theirThreatenedPieces.add(b[i][j])))
 			}
 		}
 
