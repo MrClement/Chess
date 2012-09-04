@@ -10,6 +10,7 @@ public class DerpyAI {
 	public ArrayList<Piece> ourPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
 
+	//constructor
 	public DerpyAI(Boolean b, Board c){
 		myColor = b; 
 		boardStore = new ArrayList<Board>();
@@ -36,12 +37,13 @@ public class DerpyAI {
 		return b;
 	} 
 
-
+	//checks if a piece is ours
 	public boolean isPieceOurs(Piece p){
 		if (this.myColor == p.getColor() && !(p instanceof Blank)){
 			return true;}
 		else return false;}
-
+	
+	//returns an arraylist of our pieces that are threatened by enemy an enemy piece
 	public ArrayList<Piece> enemyThreats(Board b){
 		ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
@@ -59,7 +61,7 @@ public class DerpyAI {
 
 	}
 
-
+	//returns an arraylist of enemy pieces that we threaten
 	public ArrayList<Piece> ourThreats(Board b){
 		ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
@@ -75,17 +77,18 @@ public class DerpyAI {
 		return theirThreatenedPieces;
 	}
 
-
+	//asks if a piece is threatened
 	public boolean pieceIsThreatened(Piece p) {
 		boolean b = false; 
 		return b; 
 	}
 
-	//Moves
+	//makes a move to get out of check
 	public Board getOutOfCheck(Board b){
 		return b;
 	}
-
+	
+	//uses provided board to make a move, returns a board with the move made
 	public Board makeMove(Board b){
 		if (this.inCheck() == false){
 			this.getOutOfCheck(b);}
