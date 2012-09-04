@@ -9,7 +9,7 @@ public class Driver {
 
 	public static void main(String[] args) {
 			DerpyAI testAI = new DerpyAI(false, new Board()); 
-			testAI.FindOurPieces(); 
+			testAI.findOurPieces(); 
 			ArrayList<Piece> a = testAI.getOurPieces(); 
 			for (int i = 0; i < a.size(); i++){
 				System.out.print(a.get(i) + " "); 

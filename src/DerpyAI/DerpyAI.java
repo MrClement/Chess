@@ -22,7 +22,7 @@ public class DerpyAI {
 		return ourPieces; 
 	}
 	
-	public void FindOurPieces(){ // Creates an array of our pieces
+	public void findOurPieces(){ // Creates an array of our pieces
 	Piece[][] boardState = currentBoard.getBoardArray(); 
 	for(int i=0;i<8;i++){
 			for(int a=0;a<8;a++){ 
@@ -49,11 +49,14 @@ public class DerpyAI {
 		ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
 			for(int j=0; j<=8; j++){
-				//if(this.isPieceOurs([piece at (i,j)]){
-				//if(this.pieceIsThreatened([piece at (i,j)])){
-				//ourThreatenedPieces.add([piece at (i,j)])
+				if(this.isPieceOurs(b.getBoardArray()[i][j])){
+					if(this.pieceIsThreatened(b.getBoardArray()[i][j])){
+						ourThreatenedPieces.add(b.getBoardArray()[i][j]);
+					}
+				}
 			}
 		}
+						
 
 		return ourThreatenedPieces;
 
@@ -64,12 +67,13 @@ public class DerpyAI {
 		ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
 		for(int i=0; i<8; i++){
 			for(int j=0; j<=8; j++){
-				//if(!(this.isPieceOurs(b[i][j]))){
-				//if(this.pieceIsThreatened(b[i][j]))){
-				//theirThreatenedPieces.add(b[i][j])))
+				if(!(this.isPieceOurs(b.getBoardArray()[i][j]))){
+					if(this.pieceIsThreatened(b.getBoardArray()[i][j])){
+						theirThreatenedPieces.add(b.getBoardArray()[i][j]);
+					}
+				}
 			}
 		}
-
 
 		return theirThreatenedPieces;
 	}
