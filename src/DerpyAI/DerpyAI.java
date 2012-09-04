@@ -10,6 +10,8 @@ public class DerpyAI {
 	public ArrayList<Piece> ourPieces; //Our Array of Pieces
 	public ArrayList<Piece> theirPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
+	
+	private ArrayList<Move> allMoves;
 
 	//constructor
 	public DerpyAI(Boolean b, Board c){
@@ -19,6 +21,8 @@ public class DerpyAI {
 		ourPieces = new ArrayList<Piece>();
 		ourPieces = new ArrayList<Piece>();
 		currentBoard = c; 
+		
+		allMoves = new ArrayList<Move>();
 	}
 
 	///////////////////////////Board State Checks//////////////////////////////////////////
@@ -33,32 +37,27 @@ public class DerpyAI {
 	}
 
 	public void findOurPieces(){ // Creates an array of our pieces
-	Piece[][] boardState = currentBoard.getBoardArray(); 
-	for(int i=0;i<8;i++){
-			for(int a=0;a<8;a++){ 
+		Piece[][] boardState = currentBoard.getBoardArray(); 
+		for(int i=0; i < 8; i++){
+			for(int a=0; a < 8; a++){ 
 				if (this.isPieceOurs(boardState[i][a])) ourPieces.add(boardState[i][a]); 
 			}
 		}
 	}
-	
-	//Returns if the king is in check
-	public boolean inCheck(){
-		boolean b = false;
-		
-		return b;
-	} 
 
 	//checks if a piece is ours
-	public boolean isPieceOurs(Piece p){
+	public boolean isPieceOurs(Piece p) {
 		if (this.myColor == p.getColor() && !(p instanceof Blank)){
-			return true;}
-		else return false;}
+			return true;
+		}
+		else return false;
+	}
 	
 	//returns an arraylist of our pieces that are threatened by enemy an enemy piece
 	public ArrayList<Piece> enemyThreats(Board b){
 		ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
-		for(int i=0; i<8; i++){
-			for(int j=0; j<=8; j++){
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j <= 8; j++){
 				if(this.isPieceOurs(b.getBoardArray()[i][j])){
 					if(this.pieceIsThreatened(b.getBoardArray()[i][j])){
 						ourThreatenedPieces.add(b.getBoardArray()[i][j]);
@@ -74,8 +73,8 @@ public class DerpyAI {
 	//returns an arraylist of enemy pieces that we threaten
 	public ArrayList<Piece> ourThreats(Board b){
 		ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
-		for(int i=0; i<8; i++){
-			for(int j=0; j<=8; j++){
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j <= 8; j++){
 				if(!(this.isPieceOurs(b.getBoardArray()[i][j]))){
 					if(this.pieceIsThreatened(b.getBoardArray()[i][j])){
 						theirThreatenedPieces.add(b.getBoardArray()[i][j]);
@@ -93,6 +92,13 @@ public class DerpyAI {
 		return b; 
 	}
 
+	//Returns if the king is in check
+	public boolean inCheck() {
+		boolean b = false;
+		
+		return b;
+	} 
+	
 	//makes a move to get out of check
 	public Board getOutOfCheck(Board b){
 		return b;
@@ -100,13 +106,29 @@ public class DerpyAI {
 	
 	//uses provided board to make a move, returns a board with the move made
 	public Board makeMove(Board b){
-		if (this.inCheck() == false){
-			this.getOutOfCheck(b);}
+		
+		boardStore.add(b);
+		
+		Board boardWithPieceMoved = null;
+		
+		if (this.inCheck()){
+			//We're in check, call getOutOfCheck to get us a board where we're not in check
+			boardWithPieceMoved = this.getOutOfCheck(b);
+		}
 		else {
 
 
 		}
-		return b;
+		boardStore.add(boardWithPieceMoved);
+		currentBoard = boardWithPieceMoved;
+		if(this.inCheck())concedeGame(); //If we're still in check even after all that, there's no way out of check. Concede to the other player.
+		
+		return boardWithPieceMoved;
+	}
+	
+	public void concedeGame() {
+		System.out.println("DerpyAI has lost the game.");
+		System.exit(0); //Exit with Terminated status 0
 	}
 
 }

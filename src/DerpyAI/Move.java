@@ -5,6 +5,8 @@ import sharedfiles.*;
 
 public class Move {
 
+	private boolean moveOwner; //false = black made the move, true = white made the move
+	
 	public Piece pieceInvolved;
 	public Point originalLocation;
 	public Point newLocation;
@@ -12,11 +14,17 @@ public class Move {
 	private boolean pieceWasTaken;
 	private Piece pieceTaken;
 
-	public Move(Piece pieceInvolved, Point originalLocation, Point newLocation) {
+	public Move(boolean owner, Piece pieceInvolved, Point originalLocation, Point newLocation) {
 
+		this.moveOwner = owner;
+		
 		this.pieceInvolved = pieceInvolved;
 		this.originalLocation = originalLocation;
 		this.newLocation = newLocation;
+	}
+
+	public boolean moveOwner() {
+		return moveOwner;
 	}
 
 	public void setPieceWasTaken(Piece pieceTaken) {
