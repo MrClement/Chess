@@ -18,7 +18,11 @@ public class DerpyAI {
 		currentBoard = c; 
 	}
 	
-	public void getOurPieces(){ // Creates an array of our pieces
+	public ArrayList<Piece> getOurPieces(){
+		return ourPieces; 
+	}
+	
+	public void FindOurPieces(){ // Creates an array of our pieces
 	Piece[][] boardState = currentBoard.getBoardArray(); 
 	for(int i=0;i<8;i++){
 			for(int a=0;a<8;a++){ 
@@ -91,15 +95,6 @@ public class DerpyAI {
 		return b;
 	}
 
-	
-	public void main (String args[][]){
-		DerpyAI testAI = new DerpyAI(false, new Board()); 
-		testAI.getOurPieces(); 
-		for (int i = 0; i < ourPieces.size(); i++){
-			System.out.print(ourPieces.get(i) + " "); 
-		}
-			
-	}
-
 }
+
 
