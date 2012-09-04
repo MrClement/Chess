@@ -7,7 +7,7 @@ public class DerpyAI {
 	private Boolean myColor; //black is false, white is true. 
 	private ArrayList<Board> boardStore; //The current, and all previous boards
 	private ArrayList<Piece> takenPieces; //The pieces we took
-	private ArrayList<Piece> ourPieces; //Our Array of Pieces
+	public ArrayList<Piece> ourPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
 
 	public DerpyAI(Boolean b, Board c){
@@ -18,9 +18,6 @@ public class DerpyAI {
 		currentBoard = c; 
 	}
 	
-	public ArrayList<Piece> getOurPieces(){
-		return ourPieces; 
-	}
 	
 	public void findOurPieces(){ // Creates an array of our pieces
 	Piece[][] boardState = currentBoard.getBoardArray(); 
