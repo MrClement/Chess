@@ -30,5 +30,14 @@ public class Move {
 		return pieceWasTaken;
 	}
 
+	public Piece getPieceTaken() {
+		return pieceTaken;
+	}
+
+	public void setPieceTaken(Piece pieceTaken) {
+		this.pieceTaken = pieceTaken;
+	}
+
+
 
 }
