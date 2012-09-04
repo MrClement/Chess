@@ -8,6 +8,7 @@ public class DerpyAI {
 	private ArrayList<Board> boardStore; //The current, and all previous boards
 	private ArrayList<Piece> takenPieces; //The pieces we took
 	public ArrayList<Piece> ourPieces; //Our Array of Pieces
+	public ArrayList<Piece> theirPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
 
 	public DerpyAI(Boolean b, Board c){
@@ -15,21 +16,30 @@ public class DerpyAI {
 		boardStore = new ArrayList<Board>();
 		takenPieces = new ArrayList<Piece>();
 		ourPieces = new ArrayList<Piece>();
+		ourPieces = new ArrayList<Piece>();
 		currentBoard = c; 
 	}
-	
-	
-	public void findOurPieces(){ // Creates an array of our pieces
+
+	///////////////////////////Board State Checks//////////////////////////////////////////
+
+	public void findTheirPieces(){ // Creates an array of their pieces
 	Piece[][] boardState = currentBoard.getBoardArray(); 
 	for(int i=0;i<8;i++){
 			for(int a=0;a<8;a++){ 
-				if (boardState[i][a].getColor() == myColor) ourPieces.add(boardState[i][a]); 
+				if (!(this.isPieceOurs(boardState[i][a]))) theirPieces.add(boardState[i][a]); 
 			}
 		}
 	}
 
-	//Board State Checks
-
+	public void findOurPieces(){ // Creates an array of our pieces
+	Piece[][] boardState = currentBoard.getBoardArray(); 
+	for(int i=0;i<8;i++){
+			for(int a=0;a<8;a++){ 
+				if (this.isPieceOurs(boardState[i][a])) ourPieces.add(boardState[i][a]); 
+			}
+		}
+	}
+	
 	public boolean inCheck(){
 		boolean b = false;
 		
