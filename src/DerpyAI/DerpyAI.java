@@ -4,18 +4,31 @@ import java.util.ArrayList;
 import sharedfiles.*;
 
 public class DerpyAI {
-	private Boolean myColor; 
+	private Boolean myColor; //black is false, white is true. 
 	private ArrayList<Board> boardStore; //The current, and all previous boards
 	private ArrayList<Piece> takenPieces; //The pieces we took
+	private ArrayList<Piece> ourPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
 
-	public DerpyAI(Boolean b){
+	public DerpyAI(Boolean b, Board c){
 		myColor = b; 
 		boardStore = new ArrayList<Board>();
-		takenPieces = new ArrayList<Piece>();}
-
-	public void initialize(){
-
+		takenPieces = new ArrayList<Piece>();
+		ourPieces = new ArrayList<Piece>();
+		currentBoard = c; 
+	}
+	
+	public ArrayList<Piece> getOurPieces(){
+		return ourPieces; 
+	}
+	
+	public void FindOurPieces(){ // Creates an array of our pieces
+	Piece[][] boardState = currentBoard.getBoardArray(); 
+	for(int i=0;i<8;i++){
+			for(int a=0;a<8;a++){ 
+				if (boardState[i][a].getColor() == myColor) ourPieces.add(boardState[i][a]); 
+			}
+		}
 	}
 
 	//Board State Checks
@@ -82,6 +95,6 @@ public class DerpyAI {
 		return b;
 	}
 
-
 }
+
 
