@@ -1,5 +1,6 @@
 package DerpyAI;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import sharedfiles.*;
 
@@ -102,6 +103,11 @@ public class DerpyAI {
 	//makes a move to get out of check
 	public Board getOutOfCheck(Board b){
 		return b;
+	}
+	
+	public boolean pieceCanMoveToPosition(Piece piece, Point position) {
+		
+		return false;
 	}
 	
 	//uses provided board to make a move, returns a board with the move made
