@@ -11,7 +11,8 @@ public class DerpyAI {
 	public ArrayList<Piece> ourPieces; //Our Array of Pieces
 	public ArrayList<Piece> theirPieces; //Our Array of Pieces
 	private Board currentBoard; //currentBoard is the current chess board
-	
+	public ArrayList<Point> ourPiecesPoints; //array of the locations of our pieces
+	public ArrayList<Point> theirPiecesPoints; //array of the locations of their pieces
 	private ArrayList<Move> allMoves;
 
 	//constructor
@@ -22,7 +23,8 @@ public class DerpyAI {
 		ourPieces = new ArrayList<Piece>();
 		ourPieces = new ArrayList<Piece>();
 		currentBoard = c; 
-		
+		theirPiecesPoints = new ArrayList<Point>();
+		ourPiecesPonts = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
 	}
 
@@ -36,12 +38,32 @@ public class DerpyAI {
 			}
 		}
 	}
-
+	
+	public void findTheirPiecesPoints(){ // Creates an array of their pieces' locations
+		Piece[][] boardState = currentBoard.getBoardArray(); 
+		for(int i=0;i<8;i++){
+				for(int a=0;a<8;a++){
+					Point currentPoint=new Point (i,a);
+					if (!(this.isPieceOurs(boardState[i][a]))) theirPiecesPoints.add(currentPoint); 
+				}
+			}
+		}
+	
 	public void findOurPieces(){ // Creates an array of our pieces
 		Piece[][] boardState = currentBoard.getBoardArray(); 
 		for(int i=0; i < 8; i++){
 			for(int a=0; a < 8; a++){ 
 				if (this.isPieceOurs(boardState[i][a])) ourPieces.add(boardState[i][a]); 
+			}
+		}
+	}
+	
+	public void findOurPiecesPoints(){ // Creates an array of our pieces' locations
+		Piece[][] boardState = currentBoard.getBoardArray(); 
+		for(int i=0; i < 8; i++){
+			for(int a=0; a < 8; a++){ 
+				Point currentPoint=new Point(i,a);
+				if (this.isPieceOurs(boardState[i][a])) ourPiecesPoints.add(currentPoint); 
 			}
 		}
 	}
@@ -95,6 +117,8 @@ public class DerpyAI {
 
 	//Returns if the king is in check
 	public boolean inCheck() {
+		
+		
 		boolean b = false;
 		
 		return b;
