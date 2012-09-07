@@ -107,6 +107,13 @@ public class DerpyAI {
 	
 	public boolean pieceCanMoveToPosition(Piece piece, Point position) {
 		
+		int xPos = (int)position.getX();
+		int yPos = (int)position.getY();
+		
+		//We need to get the Piece object at that position
+		
+		
+		
 		return false;
 	}
 	
