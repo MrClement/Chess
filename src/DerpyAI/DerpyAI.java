@@ -24,7 +24,7 @@ public class DerpyAI {
 		ourPieces = new ArrayList<Piece>();
 		currentBoard = c; 
 		theirPiecesPoints = new ArrayList<Point>();
-		ourPiecesPonts = new ArrayList<Point>();
+		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
 	}
 
