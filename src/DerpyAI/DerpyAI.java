@@ -9,7 +9,7 @@ public class DerpyAI {
 	private ArrayList<Board> boardStore; //The current, and all previous boards
 	private ArrayList<Piece> takenPieces; //The pieces we took
 	public ArrayList<Piece> ourPieces; //Our Array of Pieces
-	public ArrayList<Piece> theirPieces; //Our Array of Pieces
+	public ArrayList<Piece> theirPieces; //Our Array of their Pieces
 	private Board currentBoard; //currentBoard is the current chess board
 	public ArrayList<Point> ourPiecesPoints; //array of the locations of our pieces
 	public ArrayList<Point> theirPiecesPoints; //array of the locations of their pieces
@@ -76,7 +76,7 @@ public class DerpyAI {
 		else return false;
 	}
 	
-	//returns an arraylist of our pieces that are threatened by enemy an enemy piece
+	//returns an arraylist of our pieces that are threatened by an enemy piece
 	public ArrayList<Piece> enemyThreats(Board b){
 		ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
 		for(int i = 0; i < 8; i++){
