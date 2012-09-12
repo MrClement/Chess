@@ -1,6 +1,7 @@
 package sharedfiles;
 
 
+
 public class Board {
 	
 	private Piece[][] arr;

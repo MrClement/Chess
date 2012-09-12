@@ -1,5 +1,5 @@
 package DerpyAI;
 
-public class DerpyQueen {
+public class DerpyQueen extends Queen {
 
 }
