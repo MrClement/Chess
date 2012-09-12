@@ -142,6 +142,15 @@ public class DerpyAI {
 	}
 	
 	//uses provided board to make a move, returns a board with the move made
+	
+	public Board movePiece(Piece p, Point mL){
+		Board theBoard = currentBoard; 
+		//Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
+		//p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location. 
+		//theBoard = theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method. 
+		return theBoard; 
+	}
+	
 	public Board makeMove(Board b){
 		
 		boardStore.add(b);
