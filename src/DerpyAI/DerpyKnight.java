@@ -1,5 +1,6 @@
 package DerpyAI;
+import sharedfiles.*;
 
-public class DerpyKnight {
+public class DerpyKnight extends Knight{
 
 }

@@ -1,5 +1,5 @@
 package DerpyAI;
-
-public class DerpyBishop {
+import sharedfiles.*;
+public class DerpyBishop extends Bishop {
 
 }

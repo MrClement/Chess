@@ -1,5 +1,7 @@
 package DerpyAI;
+import sharedfiles.*;
 
-public class DerpyRook {
+
+public class DerpyRook extends Rook {
 
 }
