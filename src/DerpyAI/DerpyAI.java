@@ -136,6 +136,12 @@ public class DerpyAI {
 		
 		//We need to get the Piece object at that position
 		
+		//Iterate through each Piece to figure out whether there's a piece at that position, or is it blank?
+		
+		Piece targetPiece = null;
+		for(Piece p : ourPieces) {
+			Point piecePosition = p.getLocation();
+		}
 		
 		
 		
