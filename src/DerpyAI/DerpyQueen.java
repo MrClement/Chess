@@ -1,19 +1,12 @@
 package DerpyAI;
-import java.awt.Point;
+import java.awt.Point; 
 
-import sharedfiles.*; 
-public class DerpyQueen extends Queen {
-	
-	private Point currentLocation;
-	
-	public DerpyQueen(boolean b, Point p){
-		super(b);
+public class DerpyQueen extends DerpyPiece {
+
+	public DerpyQueen(boolean b, Point p) {
+		super(b,"Q");
 		currentLocation = p; 
-		}
-
-		public Point getLocation(){
-			return currentLocation; 
-		}
+	}
 
 
 }

@@ -139,8 +139,9 @@ public class DerpyAI {
 	}
 	
 	public boolean pieceIsProtected(Piece p){
+		DerpyPiece d = (DerpyPiece)p;
 		for(Piece a:ourPieces){
-			if(this.pieceCanMoveToPosition(a, p.getCurrentLocation())){
+			if(this.pieceCanMoveToPosition(a, d.getLocation())){
 				return true;
 			}
 		}
@@ -149,8 +150,9 @@ public class DerpyAI {
 	
 	//asks if a piece is threatened
 	public boolean pieceIsThreatened(Piece p) {
+		DerpyPiece d = (DerpyPiece)p;
 		for(Piece a:theirPieces) {
-			if(this.pieceCanMoveToPosition(a, p.getCurrentLocation())){
+			if(this.pieceCanMoveToPosition(a, d.getLocation())){
 				if(this.pieceIsMoreValuable(a,p)){
 					return true;
 				}
@@ -190,7 +192,8 @@ public class DerpyAI {
 		
 		Piece targetPiece = null;
 		for(Piece p : ourPieces) {
-			Point piecePosition = p.getLocation();
+			DerpyPiece d = (DerpyPiece)p;
+			Point piecePosition = d.getLocation();
 		}
 		
 		
@@ -232,7 +235,7 @@ public class DerpyAI {
 	
 	public void concedeGame() {
 		System.out.println("DerpyAI has lost the game.");
-		System.exit(0); //Exit with Terminated status 0
+		System.exit(0); //Exit with terminated status 0
 	}
 
 }

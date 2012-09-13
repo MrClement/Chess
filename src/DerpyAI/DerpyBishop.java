@@ -1,18 +1,12 @@
 package DerpyAI;
-import sharedfiles.*;
 import java.awt.Point; 
 
-public class DerpyBishop extends Bishop {
-	
-	private Point currentLocation; 
-	
+public class DerpyBishop extends DerpyPiece {
+
 	public DerpyBishop(boolean b, Point p) {
-		super(b);
+		super(b,"B");
 		currentLocation = p; 
 	}
 
-	public Point getLocation(){
-		return currentLocation; 
-	}
 
 }
