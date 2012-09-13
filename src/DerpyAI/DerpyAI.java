@@ -108,11 +108,61 @@ public class DerpyAI {
 
 		return theirThreatenedPieces;
 	}
-
+	//checks if p is more valuable than a
+	public boolean pieceIsMoreValuable(Piece a, Piece p){
+		if(p instanceof DerpyKing){
+			return true;
+		}
+		if(p instanceof DerpyQueen){
+			return true;
+		}
+		if(p instanceof DerpyRook){
+			if(a instanceof DerpyQueen){
+				return false;
+			}
+			else{
+				return true;
+			}
+			
+		}
+		if(p instanceof DerpyBishop || p instanceof DerpyKnight){
+			if(a instanceof DerpyRook || a instanceof DerpyQueen){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean pieceIsProtected(Piece p){
+		for(Piece a:ourPieces){
+			if(this.pieceCanMoveToPosition(a, p.getCurrentLocation())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//asks if a piece is threatened
 	public boolean pieceIsThreatened(Piece p) {
-		boolean b = false; 
-		return b; 
+		for(Piece a:theirPieces) {
+			if(this.pieceCanMoveToPosition(a, p.getCurrentLocation())){
+				if(this.pieceIsMoreValuable(a,p)){
+					return true;
+				}
+				else if(this.pieceIsProtected(p)){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+		}
+		return false; 
 	}
 
 	//Returns if the king is in check
