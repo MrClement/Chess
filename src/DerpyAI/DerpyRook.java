@@ -1,11 +1,20 @@
 package DerpyAI;
-import sharedfiles.*;
+import java.awt.Point;
 
+import sharedfiles.*;
 
 public class DerpyRook extends Rook {
 	
-	public DerpyRook(boolean b){
+	private Point currentLocation;
+	
+	public DerpyRook(boolean b, Point p){
 		super(b);
-	}
+		currentLocation = p; 
+		}
+
+		public Point getLocation(){
+			return currentLocation; 
+		}
+
 
 }
