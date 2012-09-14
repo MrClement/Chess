@@ -13,8 +13,12 @@ public class DerpyPiece extends Piece {
 		super(b, id);
 	}
 
-	public void changeLocation(Point p) {
-		if ((int)(p.getX()-currentLocation.getX())<=xMoveConstraint && (int)(p.getY()-currentLocation.getY())<=yMoveConstraint) currentLocation = p; 
+	public boolean changeLocation(Point p) {
+		if ((int)(p.getX()-currentLocation.getX())<=xMoveConstraint && (int)(p.getY()-currentLocation.getY())<=yMoveConstraint){
+			currentLocation = p; 
+			return true; 
+		}
+		else return false; 
 	}
 	
 	public Point getLocation(){
