@@ -6,6 +6,8 @@ public class DerpyBishop extends DerpyPiece {
 	public DerpyBishop(boolean b, Point p) {
 		super(b,"B");
 		currentLocation = p; 
+		xMoveConstraint = 8; 
+		yMoveConstraint = 8; 
 	}
 
 

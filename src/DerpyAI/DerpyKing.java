@@ -6,6 +6,8 @@ public class DerpyKing extends DerpyPiece {
 	public DerpyKing(boolean b, Point p) {
 		super(b,"K");
 		currentLocation = p; 
+		xMoveConstraint = 1;
+		yMoveConstraint = 1;
 	}
 
 
