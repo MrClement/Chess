@@ -10,6 +10,10 @@ public class DerpyPiece extends Piece {
 	public DerpyPiece(boolean b, String id) {
 		super(b, id);
 	}
+
+	public void setLocation(Point p) {
+		currentLocation = p; 
+	}
 	
 	public Point getLocation(){
 		return currentLocation; 
