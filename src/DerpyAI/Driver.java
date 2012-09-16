@@ -1,4 +1,5 @@
 package DerpyAI;
+import java.awt.Point;
 
 import java.util.ArrayList;
 
@@ -8,13 +9,12 @@ import sharedfiles.Piece;
 public class Driver {
 
 	public static void main(String[] args) {
-			DerpyAI testAI = new DerpyAI(false, new Board()); 
-			testAI.findOurPieces(); 
-			ArrayList<Piece> a = testAI.ourPieces; 
-			for (int i = 0; i < a.size(); i++){
-				System.out.print(a.get(i) + " "); 
-			}
-
+	DerpyPawn b = new DerpyPawn(false, new Point(0,0));
+	System.out.println(b.changeLocation(new Point(0,2)));
+	System.out.println(b.changeLocation(new Point(0,4)));
+	System.out.println(b.getLocation());
+	System.out.println(b.changeLocation(new Point(0,3)));
+	System.out.println(b.getLocation());
 	}
 
 }
