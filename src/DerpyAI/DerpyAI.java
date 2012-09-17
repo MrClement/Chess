@@ -170,7 +170,6 @@ public class DerpyAI {
 	//Returns if the king is in check
 	public boolean inCheck() {
 		
-		
 		boolean b = false;
 		
 		return b;

@@ -9,6 +9,7 @@ public class DerpyKnight extends DerpyPiece {
 		xMoveConstraint = 2;
 		yMoveConstraint = 2;
 	}
+	
 
 
 }

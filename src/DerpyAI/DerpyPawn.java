@@ -17,6 +17,10 @@ public class DerpyPawn extends DerpyPiece {
 		yMoveConstraint = 1; 
 		moved = true; 
 	}
+	//allows a pawn to take a piece (since piece-taking is diagonal)
+	public void allowToTake(){
+		xMoveConstraint=1;
+	}
 	
 	public boolean changeLocation(Point p){
 		if (moved == false) {
