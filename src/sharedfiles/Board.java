@@ -4,7 +4,7 @@ package sharedfiles;
 
 public class Board {
 	
-	private Piece[][] arr;
+	protected Piece[][] arr;
 	public Board(){
 		arr=new Piece[8][8];
 		for(int i=0;i<8;i++){

@@ -7,10 +7,10 @@ import sharedfiles.*;
 public class DerpyAI {
 	private Boolean myColor; //black is false, white is true. 
 	private ArrayList<Board> boardStore; //The current, and all previous boards
-	private ArrayList<Piece> takenPieces; //The pieces we took
-	public ArrayList<Piece> ourPieces; //Our Array of Pieces
-	public ArrayList<Piece> theirPieces; //Our Array of their Pieces
-	private Board currentBoard; //currentBoard is the current chess board
+	private ArrayList<DerpyPiece> takenPieces; //The pieces we took
+	public ArrayList<DerpyPiece> ourPieces; //Our Array of Pieces
+	public ArrayList<DerpyPiece> theirPieces; //Our Array of their Pieces
+	private DerpyBoard currentBoard; //currentBoard is the current chess board
 	public ArrayList<Point> ourPiecesPoints; //array of the locations of our pieces
 	public ArrayList<Point> theirPiecesPoints; //array of the locations of their pieces
 	private ArrayList<Move> allMoves;
@@ -19,10 +19,10 @@ public class DerpyAI {
 	public DerpyAI(Boolean b, Board c){
 		myColor = b; 
 		boardStore = new ArrayList<Board>();
-		takenPieces = new ArrayList<Piece>();
-		ourPieces = new ArrayList<Piece>();
-		ourPieces = new ArrayList<Piece>();
-		currentBoard = c; 
+		takenPieces = new ArrayList<DerpyPiece>();
+		ourPieces = new ArrayList<DerpyPiece>();
+		ourPieces = new ArrayList<DerpyPiece>();
+		currentBoard = (DerpyBoard)c; 
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
@@ -31,7 +31,7 @@ public class DerpyAI {
 	///////////////////////////Board State Checks//////////////////////////////////////////
 
 	public void findTheirPieces(){ // Creates an array of their pieces
-	Piece[][] boardState = currentBoard.getBoardArray(); 
+	DerpyPiece[][] boardState = currentBoard.getBoardArray(); 
 	for(int i=0;i<8;i++){
 			for(int a=0;a<8;a++){ 
 				if (!(this.isPieceOurs(boardState[i][a]))) theirPieces.add(boardState[i][a]); 
@@ -40,7 +40,7 @@ public class DerpyAI {
 	}
 	
 	public void findTheirPiecesPoints(){ // Creates an array of their pieces' locations
-		Piece[][] boardState = currentBoard.getBoardArray(); 
+		DerpyPiece[][] boardState = currentBoard.getBoardArray(); 
 		for(int i=0;i<8;i++){
 				for(int a=0;a<8;a++){
 					Point currentPoint=new Point (i,a);
@@ -50,7 +50,7 @@ public class DerpyAI {
 		}
 	
 	public void findOurPieces(){ // Creates an array of our pieces
-		Piece[][] boardState = currentBoard.getBoardArray(); 
+		DerpyPiece[][] boardState = currentBoard.getBoardArray(); 
 		for(int i=0; i < 8; i++){
 			for(int a=0; a < 8; a++){ 
 				if (this.isPieceOurs(boardState[i][a])) ourPieces.add(boardState[i][a]); 
@@ -59,7 +59,7 @@ public class DerpyAI {
 	}
 	
 	public void findOurPiecesPoints(){ // Creates an array of our pieces' locations
-		Piece[][] boardState = currentBoard.getBoardArray(); 
+		DerpyPiece[][] boardState = currentBoard.getBoardArray(); 
 		for(int i=0; i < 8; i++){
 			for(int a=0; a < 8; a++){ 
 				Point currentPoint=new Point(i,a);
@@ -69,16 +69,16 @@ public class DerpyAI {
 	}
 
 	//checks if a piece is ours
-	public boolean isPieceOurs(Piece p) {
-		if (this.myColor == p.getColor() && !(p instanceof Blank)){
+	public boolean isPieceOurs(DerpyPiece p) {
+		if (this.myColor == p.getColor() && !(p instanceof DerpyBlank)){
 			return true;
 		}
 		else return false;
 	}
 	
 	//returns an arraylist of our pieces that are threatened by an enemy piece
-	public ArrayList<Piece> enemyThreats(Board b){
-		ArrayList<Piece> ourThreatenedPieces = new ArrayList<Piece>();
+	public ArrayList<DerpyPiece> enemyThreats(DerpyBoard b){
+		ArrayList<DerpyPiece> ourThreatenedPieces = new ArrayList<DerpyPiece>();
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j <= 8; j++){
 				if(this.isPieceOurs(b.getBoardArray()[i][j])){
@@ -94,8 +94,8 @@ public class DerpyAI {
 	}
 
 	//returns an arraylist of enemy pieces that we threaten
-	public ArrayList<Piece> ourThreats(Board b){
-		ArrayList<Piece> theirThreatenedPieces = new ArrayList<Piece>();
+	public ArrayList<DerpyPiece> ourThreats(DerpyBoard b){
+		ArrayList<DerpyPiece> theirThreatenedPieces = new ArrayList<DerpyPiece>();
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j <= 8; j++){
 				if(!(this.isPieceOurs(b.getBoardArray()[i][j]))){
@@ -109,7 +109,7 @@ public class DerpyAI {
 		return theirThreatenedPieces;
 	}
 	//checks if p is more valuable than a
-	public boolean pieceIsMoreValuable(Piece a, Piece p){
+	public boolean pieceIsMoreValuable(DerpyPiece a, DerpyPiece p){
 		if(p instanceof DerpyKing){
 			return true;
 		}
@@ -138,7 +138,7 @@ public class DerpyAI {
 		}
 	}
 	
-	public boolean pieceIsProtected(Piece p){
+	public boolean pieceIsProtected(DerpyPiece p){
 		DerpyPiece d = (DerpyPiece)p;
 		for(Piece a:ourPieces){
 			if(this.pieceCanMoveToPosition(a, d.getLocation())){
@@ -149,9 +149,9 @@ public class DerpyAI {
 	}
 	
 	//asks if a piece is threatened
-	public boolean pieceIsThreatened(Piece p) {
+	public boolean pieceIsThreatened(DerpyPiece p) {
 		DerpyPiece d = (DerpyPiece)p;
-		for(Piece a:theirPieces) {
+		for(DerpyPiece a : theirPieces) {
 			if(this.pieceCanMoveToPosition(a, d.getLocation())){
 				if(this.pieceIsMoreValuable(a,p)){
 					return true;
@@ -180,7 +180,7 @@ public class DerpyAI {
 	} 
 	
 	//returns an arraylist of points a piece can move to
-	public ArrayList<Point> movablePoints(Piece p){
+	public ArrayList<Point> movablePoints(DerpyPiece p){
 		ArrayList<Point> listOfPoints=new ArrayList();
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
@@ -193,8 +193,20 @@ public class DerpyAI {
 		return listOfPoints;
 	}
 	
+	//returns an arraylist of pieces threatening this piece p
+	public ArrayList<DerpyPiece> threateningPieces(DerpyPiece p){
+		ArrayList<DerpyPiece> threats = new ArrayList<DerpyPiece>();
+		for(DerpyPiece a: theirPieces ){
+			if(this.pieceCanMoveToPosition(a, p.getLocation())){
+				threats.add(a);
+			}
+		}
+		return threats;
+	}
+	
 	//makes a move to get out of check
-	public Board getOutOfCheck(Board b){
+	public DerpyBoard getOutOfCheck(Board b){
+		//tries to move the king out of check
 		for(int i=0;i<ourPieces.size();i++){
 			if(ourPieces.get(i) instanceof DerpyKing){
 				ArrayList<Point> listOfPoints=this.movablePoints(ourPieces.get(i));
@@ -205,8 +217,18 @@ public class DerpyAI {
 				}
 			}
 		}
+		//tries to take the threatening piece
+		for(int i=0;i<ourPieces.size();i++){
+			if(ourPieces.get(i) instanceof DerpyKing){
+				DerpyPiece ourKing=ourPieces.get(i);
+				if(this.threateningPieces(ourKing).size()>1) {
+					
+				}
+				
+			}
+		}
 		
-		//NOTE: still doesn't know how to get out of check by blocking or taking the checking piece
+		//NOTE: still doesn't know how to get out of check by blocking the checking piece
 		
 		this.concedeGame();
 		return currentBoard;
@@ -234,8 +256,8 @@ public class DerpyAI {
 	
 	//uses provided board to make a move, returns a board with the move made
 	
-	public Board movePiece(Piece p, Point mL){
-		Board theBoard = currentBoard; 
+	public DerpyBoard movePiece(DerpyPiece p, Point mL){
+		DerpyBoard theBoard = currentBoard; 
 		//Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
 		//p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location. 
 		//theBoard = theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method. 
@@ -243,11 +265,11 @@ public class DerpyAI {
 		return theBoard; 
 	}
 	
-	public Board makeMove(Board b){
+	public DerpyBoard makeMove(Board b){
 		
 		boardStore.add(b);
 		
-		Board boardWithPieceMoved = null;
+		DerpyBoard boardWithPieceMoved = null;
 		
 		if (this.inCheck()){
 			//We're in check, call getOutOfCheck to get us a board where we're not in check
