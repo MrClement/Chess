@@ -192,9 +192,19 @@ public class DerpyAI {
 		}
 		return listOfPoints;
 	}
+	//returns an arraylist of pieces threatening this piece p if it is theirs
+		public ArrayList<DerpyPiece> threateningPiecesToThem(DerpyPiece p){
+			ArrayList<DerpyPiece> threats = new ArrayList<DerpyPiece>();
+			for(DerpyPiece a: ourPieces ){
+				if(this.pieceCanMoveToPosition(a, p.getLocation())){
+					threats.add(a);
+				}
+			}
+			return threats;
+		}
 	
-	//returns an arraylist of pieces threatening this piece p
-	public ArrayList<DerpyPiece> threateningPieces(DerpyPiece p){
+	//returns an arraylist of pieces threatening this piece p if it is ours
+	public ArrayList<DerpyPiece> threateningPiecesToUs(DerpyPiece p){
 		ArrayList<DerpyPiece> threats = new ArrayList<DerpyPiece>();
 		for(DerpyPiece a: theirPieces ){
 			if(this.pieceCanMoveToPosition(a, p.getLocation())){
@@ -221,8 +231,12 @@ public class DerpyAI {
 		for(int i=0;i<ourPieces.size();i++){
 			if(ourPieces.get(i) instanceof DerpyKing){
 				DerpyPiece ourKing=ourPieces.get(i);
-				if(this.threateningPieces(ourKing).size()>1) {
-					
+				if(this.threateningPiecesToUs(ourKing).size()==1){
+					DerpyPiece threat=this.threateningPiecesToUs(ourKing).get(0);
+					if(this.threateningPiecesToThem(threat).size()>=1){
+						DerpyPiece taker=this.threateningPiecesToThem(threat).get(0);
+						return this.movePiece(taker, threat.getLocation());
+					}
 				}
 				
 			}
