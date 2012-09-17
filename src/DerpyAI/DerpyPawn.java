@@ -22,6 +22,10 @@ public class DerpyPawn extends DerpyPiece {
 		xMoveConstraint=1;
 	}
 	
+	public void disallowToTake(){
+		xMoveConstraint=0; 
+	}
+	
 	public boolean changeLocation(Point p){
 		if (moved == false) {
 			if ((int)(p.getX()-currentLocation.getX())<=xMoveConstraint && (int)(p.getY()-currentLocation.getY())<=yMoveConstraint) {
