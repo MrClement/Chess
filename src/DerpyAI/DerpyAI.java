@@ -21,7 +21,6 @@ public class DerpyAI {
 		boardStore = new ArrayList<Board>();
 		takenPieces = new ArrayList<Piece>();
 		ourPieces = new ArrayList<Piece>();
-		ourPieces = new ArrayList<Piece>();
 		currentBoard = c; 
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
@@ -194,7 +193,7 @@ public class DerpyAI {
 	}
 	
 	//makes a move to get out of check
-	public Board getOutOfCheck(Board b){
+	public DerpyBoard getOutOfCheck(Board b){
 		for(int i=0;i<ourPieces.size();i++){
 			if(ourPieces.get(i) instanceof DerpyKing){
 				ArrayList<Point> listOfPoints=this.movablePoints(ourPieces.get(i));
@@ -234,11 +233,11 @@ public class DerpyAI {
 	
 	//uses provided board to make a move, returns a board with the move made
 	
-	public Board movePiece(Piece p, Point mL){
-		Board theBoard = currentBoard; 
-		//Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
-		//p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location. 
-		//theBoard = theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method. 
+	public Board movePiece(DerpyPiece p, Point mL){
+		DerpyBoard theBoard = (DerpyBoard)currentBoard; 
+		Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
+		p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location. 
+		theBoard = theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method. 
 		
 		return theBoard; 
 	}
