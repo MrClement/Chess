@@ -169,15 +169,47 @@ public class DerpyAI {
 
 	//Returns if the king is in check
 	public boolean inCheck() {
-		
-		boolean b = false;
-		
-		return b;
+		for(int i=0;i<=ourPieces.size();i++){
+			if(ourPieces.get(i) instanceof DerpyKing){
+				if(this.pieceIsThreatened(ourPieces.get(i))){
+					return true;
+				}
+			}
+		}
+		return false;
 	} 
+	
+	//returns an arraylist of points a piece can move to
+	public ArrayList<Point> movablePoints(Piece p){
+		ArrayList<Point> listOfPoints=new ArrayList();
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				Point moveTo=new Point(i,j);
+				if(this.pieceCanMoveToPosition(p, moveTo)){
+					listOfPoints.add(moveTo);
+				}
+			}
+		}
+		return listOfPoints;
+	}
 	
 	//makes a move to get out of check
 	public Board getOutOfCheck(Board b){
-		return b;
+		for(int i=0;i<ourPieces.size();i++){
+			if(ourPieces.get(i) instanceof DerpyKing){
+				ArrayList<Point> listOfPoints=this.movablePoints(ourPieces.get(i));
+				for(int j=0;j<listOfPoints.size();j++){
+					if(this.pieceCanMoveToPosition(ourPieces.get(i), listOfPoints.get(j))){
+						return this.movePiece(ourPieces.get(i), listOfPoints.get(j));
+					}
+				}
+			}
+		}
+		
+		//NOTE: still doesn't know how to get out of check by blocking or taking the checking piece
+		
+		this.concedeGame();
+		return currentBoard;
 	}
 	
 	public boolean pieceCanMoveToPosition(Piece piece, Point position) {
