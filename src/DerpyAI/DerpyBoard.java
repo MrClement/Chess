@@ -1,6 +1,7 @@
 package DerpyAI;
 
 import sharedfiles.Board;
+import sharedfiles.Piece;
 
 public class DerpyBoard extends Board {
 
@@ -9,4 +10,7 @@ public class DerpyBoard extends Board {
 		return null;
 	}
 
+	public DerpyPiece[][] getBoardArray(){
+		return (DerpyPiece[][]) arr; 
+	}
 }
