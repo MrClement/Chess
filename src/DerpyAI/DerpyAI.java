@@ -2,6 +2,8 @@ package DerpyAI;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
+
 import sharedfiles.*;
 
 public class DerpyAI {
@@ -290,7 +292,26 @@ public class DerpyAI {
 			boardWithPieceMoved = this.getOutOfCheck(b);
 		}
 		else {
-
+			DerpyPiece randomPiece = null;
+			Point randomLocation = null;
+			for(;;) {
+				//ourPieces is the array containing the array of all of our pieces
+				Random r = new Random();
+				//We're just going to temporarily randomly select a piece and move it forward, if we can
+				int randomIndex = r.nextInt(ourPieces.size()-1)+1;
+				randomPiece = ourPieces.get(randomIndex);
+				
+				randomLocation = new Point(r.nextInt(7)+1,r.nextInt(7)+1);
+				if(this.pieceCanMoveToPosition(randomPiece, randomLocation)) {
+					break;
+				}
+				
+			}
+			randomPiece.changeLocation(randomLocation);
+			boardWithPieceMoved = new DerpyBoard((DerpyBoard)b); //Copy the b board
+			
+			//boardWithPieceMoved.arr[1][1] = "WX";
+			
 
 		}
 		boardStore.add(boardWithPieceMoved);
