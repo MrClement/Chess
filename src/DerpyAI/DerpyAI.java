@@ -108,16 +108,22 @@ public class DerpyAI {
 
 		return theirThreatenedPieces;
 	}
-	//checks if p is more valuable than a
-	public boolean pieceIsMoreValuable(DerpyPiece a, DerpyPiece p){
-		if(p instanceof DerpyKing){
+	//checks if the defender is more valuable than attacker, and returns true if the defender
+	// is worth more. If this method returns true, we should make the move. 
+	public boolean makeTrade(DerpyPiece attacker, DerpyPiece defender){
+		if(defender instanceof DerpyKing){
 			return true;
 		}
-		if(p instanceof DerpyQueen){
-			return true;
+		if(defender instanceof DerpyQueen){
+			if (attacker instanceof DerpyKing){
+				return false;
+				}
+			else{ 
+				return true;
+			}
 		}
-		if(p instanceof DerpyRook){
-			if(a instanceof DerpyQueen){
+		if(defender instanceof DerpyRook){
+			if(attacker instanceof DerpyQueen || attacker instanceof DerpyKing){
 				return false;
 			}
 			else{
@@ -125,17 +131,23 @@ public class DerpyAI {
 			}
 			
 		}
-		if(p instanceof DerpyBishop || p instanceof DerpyKnight){
-			if(a instanceof DerpyRook || a instanceof DerpyQueen){
+		if(defender instanceof DerpyBishop || defender instanceof DerpyKnight){
+			if(attacker instanceof DerpyRook || attacker instanceof DerpyQueen || attacker instanceof DerpyKing){
 				return false;
 			}
 			else{
 				return true;
 			}
 		}
+		
+		if(defender instanceof DerpyPawn)
+			if(attacker instanceof DerpyRook || attacker instanceof DerpyQueen || attacker instanceof DerpyKing || attacker instanceof DerpyBishop || attacker instanceof DerpyKnight){
+				return false; 
+				}
 		else{
-			return false;
+			return true;
 		}
+		return false; 
 	}
 	
 	public boolean pieceIsProtected(DerpyPiece p){
@@ -153,7 +165,7 @@ public class DerpyAI {
 		DerpyPiece d = (DerpyPiece)p;
 		for(DerpyPiece a : theirPieces) {
 			if(this.pieceCanMoveToPosition(a, d.getLocation())){
-				if(this.pieceIsMoreValuable(a,p)){
+				if(this.makeTrade(a,p)){
 					return true;
 				}
 				else if(this.pieceIsProtected(p)){
