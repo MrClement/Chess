@@ -338,8 +338,22 @@ public class DerpyAI {
 				
 			}
 		}
-		
-		//NOTE: still doesn't know how to get out of check by blocking the checking piece
+		for(int i=0; i<ourPieces.size();i++){
+			if(ourPieces.get(i) instanceof DerpyKing){
+				DerpyPiece ourKing=ourPieces.get(i);
+				ArrayList<DerpyPiece> threats=threateningPiecesToUs(ourKing);
+				if(threats.size()==0){
+					ArrayList<Point> betweenSpaces=this.findBlockablePoints(ourKing, threats.get(0));
+					for(Point p:betweenSpaces){
+						for(DerpyPiece c:ourPieces){
+							if(this.pieceCanMoveToPosition(c, p)){
+								return this.movePiece(c,p);
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		this.concedeGame();
 		return currentBoard;
