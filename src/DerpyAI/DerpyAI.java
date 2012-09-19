@@ -226,6 +226,89 @@ public class DerpyAI {
 		return threats;
 	}
 	
+	//returns an arraylist of points that can be occupied to block theirs from capturing ours
+		public ArrayList<Point> findBlockablePoints(DerpyPiece ours, DerpyPiece theirs){
+			ArrayList<Point> points=new ArrayList<Point>();
+			if((theirs instanceof DerpyKnight || theirs instanceof DerpyPawn) || theirs instanceof DerpyKing){
+				return points;
+			}
+			if(theirs.getLocation().distance(ours.getLocation())<1.5){
+				return points;
+			}
+			if(theirs instanceof DerpyRook || theirs instanceof DerpyQueen){
+				if(theirs.getLocation().getX()==ours.getLocation().getX()){
+					if(theirs.getLocation().getY()>ours.getLocation().getY()){
+						for(double i=theirs.getLocation().getY(); i>=ours.getLocation().getY(); i--){
+							Point ourPoint=new Point((int)i,((int)theirs.getLocation().getY()));
+							points.add(ourPoint);
+						}
+					}
+					if(theirs.getLocation().getY()<ours.getLocation().getY()){
+						for(double i=theirs.getLocation().getY(); i<=ours.getLocation().getY(); i++){
+							Point ourPoint=new Point((int)i,((int)theirs.getLocation().getY()));
+							points.add(ourPoint);
+						}
+					}
+				}
+				if(theirs.getLocation().getY()==ours.getLocation().getY()){
+					if(theirs.getLocation().getX()>ours.getLocation().getX()){
+						for(double i=theirs.getLocation().getX(); i>=ours.getLocation().getX();i--){
+							Point ourPoint=new Point((int)i, ((int)theirs.getLocation().getY()));
+							points.add(ourPoint);
+						}
+					}
+					if(theirs.getLocation().getX()<ours.getLocation().getX()){
+						for(double i=theirs.getLocation().getX(); i<=ours.getLocation().getX();i++){
+							Point ourPoint=new Point((int)i, ((int)theirs.getLocation().getY()));
+							points.add(ourPoint);
+						}
+					}
+				}
+				
+			}
+			
+			if(theirs instanceof DerpyBishop || theirs instanceof DerpyQueen){
+				if(theirs.getLocation().getX()>ours.getLocation().getX()){
+					if(theirs.getLocation().getY()<ours.getLocation().getX()){
+						for(double i=theirs.getLocation().getX();i>=ours.getLocation().getX(); i--){
+							for(double j=theirs.getLocation().getY(); j<=ours.getLocation().getY();j++){
+								Point ourPoint=new Point((int)i, (int)j);
+								points.add(ourPoint);
+							}
+						}
+					}
+					if(theirs.getLocation().getY()>ours.getLocation().getY()){
+						for(double i=theirs.getLocation().getX(); i>=ours.getLocation().getX(); i--){
+							for(double j=theirs.getLocation().getY(); j>=ours.getLocation().getY();j--){
+								Point ourPoint=new Point ((int)i, (int)j);
+								points.add(ourPoint);
+								
+							}
+						}
+					}
+				}
+				if(theirs.getLocation().getX()<ours.getLocation().getX()){
+					if(theirs.getLocation().getY()<ours.getLocation().getX()){
+						for(double i=theirs.getLocation().getX();i<=ours.getLocation().getX();i++){
+							for(double j=theirs.getLocation().getY();j<=ours.getLocation().getY();j++){
+								Point ourPoint=new Point((int)i, (int)j);
+								points.add(ourPoint);
+							}
+						}
+					}
+					if(theirs.getLocation().getY()>ours.getLocation().getX()){
+						for(double i=theirs.getLocation().getX();i<=ours.getLocation().getX();i++){
+							for(double j=theirs.getLocation().getY();j>=ours.getLocation().getY();j--){
+								Point ourPoint=new Point((int)i, (int)j);
+								points.add(ourPoint);
+							}
+						}
+					}
+				}
+			}
+			return points;
+		}
+	
 	//makes a move to get out of check
 	public DerpyBoard getOutOfCheck(Board b){
 		//tries to move the king out of check
