@@ -359,16 +359,23 @@ public class DerpyAI {
 		return currentBoard;
 	}
 	
-	public boolean pieceCanMoveToPosition(Piece piece, Point position) {
+	public boolean pieceCanMoveToPosition(DerpyPiece piece, Point position) {
 		
 		int xPos = (int)position.getX();
 		int yPos = (int)position.getY();
 		
+		if(piece instanceof DerpyKing){
+			if(piece.getLocation().distanceSq(position)==1 || piece.getLocation().distanceSq(position)==2){
+				DerpyBoard testBoard=this.movePiece(piece, position);
+				if(!(this.inCheck())){
+				return true;
+			}
+		}
 		//We need to get the Piece object at that position
 		
 		//Iterate through each Piece to figure out whether there's a piece at that position, or is it blank?
 		
-		Piece targetPiece = null;
+		DerpyPiece targetPiece = null;
 		for(Piece p : ourPieces) {
 			DerpyPiece d = (DerpyPiece)p;
 			Point piecePosition = d.getLocation();
