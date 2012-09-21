@@ -29,6 +29,8 @@ public class DerpyAI {
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
 	}
+	
+	
 
 	///////////////////////////Board State Checks//////////////////////////////////////////
 
@@ -390,9 +392,20 @@ public class DerpyAI {
 		return theBoard; 
 	}
 	
+	public void parseCurrentBoard() {
+		
+		//This method should not handle the following pieces of instance data
+			//currentBoard
+			//boardStore
+	
+		//This method takes the currentBoard and makes ourPieces, etc, be correct
+	}
+	
 	public DerpyBoard makeMove(Board b){
 		
 		boardStore.add(b);
+		currentBoard = (DerpyBoard) b;
+		parseCurrentBoard();
 		
 		DerpyBoard boardWithPieceMoved = null;
 		
