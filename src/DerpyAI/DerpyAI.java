@@ -154,7 +154,7 @@ public class DerpyAI {
 	
 	public boolean pieceIsProtected(DerpyPiece p){
 		DerpyPiece d = (DerpyPiece)p;
-		for(Piece a:ourPieces){
+		for(DerpyPiece a:ourPieces){
 			if(this.pieceCanMoveToPosition(a, d.getLocation())){
 				return true;
 			}
@@ -369,6 +369,7 @@ public class DerpyAI {
 				DerpyBoard testBoard=this.movePiece(piece, position);
 				if(!(this.inCheck())){
 				return true;
+				}
 			}
 		}
 		//We need to get the Piece object at that position
