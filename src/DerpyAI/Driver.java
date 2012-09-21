@@ -13,7 +13,9 @@ public class Driver {
 		System.out.println(b.getLocation());*/
 
 		DerpyBoard db = new DerpyBoard();
-		DerpyAI aiOne = new DerpyAI();
+		DerpyAI aiOne = new DerpyAI(true);
+		DerpyAI aiTwo = new DerpyAI(false);
+		
 		
 	}
 

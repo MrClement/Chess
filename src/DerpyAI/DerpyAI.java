@@ -17,19 +17,33 @@ public class DerpyAI {
 	public ArrayList<Point> theirPiecesPoints; //array of the locations of their pieces
 	private ArrayList<Move> allMoves;
 
-	//constructor
+/*	//constructor
 	public DerpyAI(Boolean b, Board c){
 		myColor = b; 
 		boardStore = new ArrayList<Board>();
 		takenPieces = new ArrayList<DerpyPiece>();
 		ourPieces = new ArrayList<DerpyPiece>();
-		ourPieces = new ArrayList<DerpyPiece>();
 		currentBoard = (DerpyBoard)c; 
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
-	}
+	}*/
 	
+	//A new constructor that doesn't take a board, just a color. This is because moves/board parsing
+	//will for now on be handled by makeMove/parseCurrentBoard, etc
+	
+	public DerpyAI(Boolean b) {
+		
+		myColor = b; 
+		boardStore = new ArrayList<Board>();
+		takenPieces = new ArrayList<DerpyPiece>();
+		ourPieces = new ArrayList<DerpyPiece>();
+		currentBoard = null;
+		theirPiecesPoints = new ArrayList<Point>();
+		ourPiecesPoints = new ArrayList<Point>();
+		allMoves = new ArrayList<Move>();
+		
+	}
 	
 
 	///////////////////////////Board State Checks//////////////////////////////////////////
@@ -483,17 +497,27 @@ public class DerpyAI {
 	
 	public void parseCurrentBoard() {
 		
-		//This method should not handle the following pieces of instance data
-			//currentBoard
-			//boardStore
+		//This method should not modify the following pieces of instance data
+			//1. currentBoard
+			//2. boardStore
+		
+		ourPieces = new ArrayList<DerpyPiece>();
+		findOurPieces();
+		
+		theirPiecesPoints = new ArrayList<Point>();
+		ourPiecesPoints = new ArrayList<Point>();
+		findTheirPiecesPoints();
+		findOurPiecesPoints();
 	
-		//This method takes the currentBoard and makes ourPieces, etc, be correct
+		//This method takes the currentBoard and makes instance data elements like ourPieces, etc, be correct
+		
+		
 	}
 	
 	public DerpyBoard makeMove(Board b){
 		
 		boardStore.add(b);
-		currentBoard = (DerpyBoard) b;
+		currentBoard = (DerpyBoard)b;
 		parseCurrentBoard();
 		
 		DerpyBoard boardWithPieceMoved = null;
