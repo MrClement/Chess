@@ -8,7 +8,7 @@ import sharedfiles.*;
 
 public class DerpyAI {
 	private Boolean myColor; //black is false, white is true. 
-	private ArrayList<Board> boardStore; //The current, and all previous boards
+	private ArrayList<DerpyBoard> boardStore; //The current, and all previous boards
 	private ArrayList<DerpyPiece> takenPieces; //The pieces we took
 	public ArrayList<DerpyPiece> ourPieces; //Our Array of Pieces
 	public ArrayList<DerpyPiece> theirPieces; //Our Array of their Pieces
@@ -35,7 +35,7 @@ public class DerpyAI {
 	public DerpyAI(Boolean b) {
 		
 		myColor = b; 
-		boardStore = new ArrayList<Board>();
+		boardStore = new ArrayList<DerpyBoard>();
 		takenPieces = new ArrayList<DerpyPiece>();
 		ourPieces = new ArrayList<DerpyPiece>();
 		currentBoard = null;
@@ -328,7 +328,7 @@ public class DerpyAI {
 		}
 	
 	//makes a move to get out of check
-	public DerpyBoard getOutOfCheck(Board b){
+	public DerpyBoard getOutOfCheck(DerpyBoard b){
 		//tries to move the king out of check
 		for(int i=0;i<ourPieces.size();i++){
 			if(ourPieces.get(i) instanceof DerpyKing){
@@ -514,7 +514,7 @@ public class DerpyAI {
 		
 	}
 	
-	public DerpyBoard makeMove(Board b){
+	public DerpyBoard makeMove(DerpyBoard b){
 		
 		boardStore.add(b);
 		currentBoard = (DerpyBoard)b;
@@ -543,7 +543,7 @@ public class DerpyAI {
 				
 			}
 			randomPiece.changeLocation(randomLocation);
-			boardWithPieceMoved = new DerpyBoard((DerpyBoard)b); //Copy the b board
+			boardWithPieceMoved = new DerpyBoard(b); //Copy the b board
 			
 			//boardWithPieceMoved.arr[1][1] = "WX";
 			

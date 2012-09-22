@@ -1,7 +1,5 @@
 package sharedfiles;
 
-
-
 public class Board {
 	
 	protected Piece[][] arr;
