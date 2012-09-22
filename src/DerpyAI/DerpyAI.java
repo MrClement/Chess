@@ -199,9 +199,9 @@ public class DerpyAI {
 
 	//Returns if the king is in check
 	public boolean inCheck() {
-		for(int i=0;i<=ourPieces.size();i++){
-			if(ourPieces.get(i) instanceof DerpyKing){
-				if(this.pieceIsThreatened(ourPieces.get(i))){
+		for(DerpyPiece x : ourPieces){
+			if(x instanceof DerpyKing){
+				if(this.pieceIsThreatened(x)){
 					return true;
 				}
 			}
@@ -211,7 +211,7 @@ public class DerpyAI {
 	
 	//returns an arraylist of points a piece can move to
 	public ArrayList<Point> movablePoints(DerpyPiece p){
-		ArrayList<Point> listOfPoints=new ArrayList();
+		ArrayList<Point> listOfPoints=new ArrayList<Point>();
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				Point moveTo=new Point(i,j);
@@ -503,6 +503,9 @@ public class DerpyAI {
 		
 		ourPieces = new ArrayList<DerpyPiece>();
 		findOurPieces();
+		
+		theirPieces = new ArrayList<DerpyPiece>();
+		findTheirPieces();
 		
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();

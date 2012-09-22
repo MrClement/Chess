@@ -14,10 +14,10 @@ public class Driver {
 
 		DerpyBoard db = new DerpyBoard();
 		DerpyAI aiOne = new DerpyAI(true);
-		DerpyAI aiTwo = new DerpyAI(false);
+		//DerpyAI aiTwo = new DerpyAI(false);
 		
 		db = aiOne.makeMove(db);
-		db = aiTwo.makeMove(db);
+		//db = aiTwo.makeMove(db);
 		db.printBoard();
 		
 	}
