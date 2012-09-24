@@ -1,7 +1,5 @@
 package DerpyAI;
 
-import sharedfiles.Board;
-
 public class Driver {
 
 	public static void main(String[] args) {

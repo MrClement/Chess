@@ -63,13 +63,28 @@ public class DerpyBoard {
 		
 			System.out.println();
 		}
-		
-		return ; 
 	}
 	
 	public static void main (String args[]){
 		DerpyBoard a = new DerpyBoard();
 		a.printBoard();
+	}
+
+	public void updateLocations() {
+		
+		DerpyPiece newArr[][] = new DerpyPiece[8][8];
+		
+		for(int i = 0; i < 8; i++) {
+			for(int a = 0; a < 8; a++) {
+				DerpyPiece piece = arr[i][a];
+				System.out.println("i: " + i + "...a: " + a);
+				Point location = piece.getLocation();
+				newArr[(int) location.getX()][(int) location.getY()] = piece;
+			}
+		}
+		
+		arr = newArr;
+		
 	}
 	
 }

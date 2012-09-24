@@ -6,7 +6,7 @@ public class DerpyBlank extends DerpyPiece{
 
 	public DerpyBlank(Point p) {
 		super(true,"WX");
-		currentLocation = p; 
+		currentLocation = p;
 		xMoveConstraint = 8;
 		yMoveConstraint = 8;
 	}
