@@ -46,6 +46,10 @@ public class Board {
 	public Piece[][] getBoardArray(){
 		return arr; 
 	}
+	
+	public void setBoardArray(Piece[][] pieces){
+		arr = pieces; 
+	}
 
 	public void printBoard(){ 
 		for(int y=0; y<8; y++){
