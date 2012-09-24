@@ -561,6 +561,37 @@ public class DerpyAI {
 				}
 			}
 		}
+		//for knights
+		if(piece instanceof DerpyKnight){
+			//destination has to be one of eight destinations around the knight that are valid
+			if(!(yPos==piece.getLocation().getY()+2 && xPos==piece.getLocation().getX()+1)){
+				if(!(yPos==piece.getLocation().getY()+2 && xPos==piece.getLocation().getX()-1)){
+					if(!(yPos==piece.getLocation().getY()+1 && xPos==piece.getLocation().getX()+2)){
+						if(!(yPos==piece.getLocation().getY()+1 && xPos==piece.getLocation().getX()-2)){
+							if(!(yPos==piece.getLocation().getY()-1 && xPos==piece.getLocation().getX()+2)){
+								if(!(yPos==piece.getLocation().getY()-1 && xPos==piece.getLocation().getX()-2)){
+									if(!(yPos==piece.getLocation().getY()-2 && xPos==piece.getLocation().getX()+1)){
+										if(!(yPos==piece.getLocation().getY()-2 && xPos==piece.getLocation().getX()-1)){
+											return false;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			DerpyBoard oldBoard=currentBoard;
+			DerpyBoard testBoard=this.movePiece(piece, position);
+			currentBoard=testBoard;
+			if(!(this.inCheck())){
+				currentBoard=oldBoard;
+				return true;
+			}
+			else{
+				currentBoard=oldBoard;
+			}
+		}
 		//We need to get the Piece object at that position
 		
 		//Iterate through each Piece to figure out whether there's a piece at that position, or is it blank?
