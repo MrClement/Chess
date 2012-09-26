@@ -612,9 +612,9 @@ public class DerpyAI {
 	public DerpyBoard movePiece(DerpyPiece p, Point mL){
 		DerpyBoard theBoard = currentBoard; 
 		Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
-		p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location. 
-		theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method. 
-		
+		p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location.
+		DerpyBlank Bl=new DerpyBlank(oL); //makes a new blank to occupy the original space when the piece leaves.
+		theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method.
 		return theBoard; 
 	}
 	
@@ -660,7 +660,7 @@ public class DerpyAI {
 			System.out.println("makeMove: Now out of check, in theory");
 			
 		}
-		else {
+		/*else {
 			DerpyPiece randomPiece = null;
 			Point randomLocation = null;
 			for(;;) {
@@ -681,6 +681,11 @@ public class DerpyAI {
 			randomPiece.changeLocation(randomLocation);
 
 		}
+		*/
+		Point destination= new Point(4,5);
+		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
+		currentBoard.getBoardArray()[4][5].changeLocation(destination);
+		
 
 		if(this.inCheck())concedeGame(); //If we're still in check even after all that, there's no way out of check. Concede to the other player.
 		
