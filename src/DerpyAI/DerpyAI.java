@@ -696,6 +696,13 @@ public class DerpyAI {
 		return boardWithPieceMoved;
 	}
 	
+	public boolean executeTheAStrat(){
+	if(myColor==true){
+	return true; 
+	}
+	else return false; 
+	}
+	
 	public void concedeGame() {
 		System.out.println("DerpyAI has lost the game.");
 		System.exit(0); //Exit with terminated status 0
