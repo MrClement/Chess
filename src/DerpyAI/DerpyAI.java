@@ -688,6 +688,8 @@ public class DerpyAI {
 		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
 		currentBoard.getBoardArray()[4][5].changeLocation(destination);
 		
+		DerpyBlank blank = new DerpyBlank(new Point(4,6));
+		currentBoard.getBoardArray()[4][6] = blank;
 
 		if(this.inCheck())concedeGame(); //If we're still in check even after all that, there's no way out of check. Concede to the other player.
 		
