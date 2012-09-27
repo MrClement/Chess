@@ -613,7 +613,9 @@ public class DerpyAI {
 		DerpyBoard theBoard = currentBoard; 
 		Point oL = p.getLocation(); //This will access the instance data in the piece class that contain its location. 
 		p.changeLocation(mL); //This will change the instance data above to the new location and erase the piece from its prior location.
-		DerpyBlank Bl=new DerpyBlank(oL); //makes a new blank to occupy the original space when the piece leaves.
+		Point tp = new Point(15,15);
+		DerpyBlank bl=new DerpyBlank(tp);//makes a new blank to occupy the original space when the piece leaves.
+		bl.changeLocation(oL);
 		theBoard.updateLocations(); //This will have the board update its array locations; could potentially just be a function of changeLocation() but for now I have it as a separate method.
 		return theBoard; 
 	}
