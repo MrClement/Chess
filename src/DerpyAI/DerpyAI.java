@@ -696,11 +696,33 @@ public class DerpyAI {
 		return boardWithPieceMoved;
 	}
 	
-	public boolean executeTheAStrat(){
-	if(myColor==true){
+	public boolean executeCzechDefense(){
+	if(myColor==false){
+	///code needed to do the following
+	//1.Nf6, 2.d6, 3.c6
+		
 	return true; 
 	}
 	else return false; 
+	}
+	
+	public boolean executeSicilianDefense(){
+		if(myColor==false){
+		//code needed to do the following
+		//verify that white's first move is e4 // else return false;
+		//c5
+			
+		return true; 
+		}
+		else return false; 
+	}
+	
+	public boolean executeRuyLopezOppening(){
+		if(myColor==false){
+		//e4, Nf3
+		return true; 
+		}
+		else return false; 
 	}
 	
 	public void concedeGame() {
