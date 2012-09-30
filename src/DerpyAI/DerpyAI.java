@@ -16,7 +16,7 @@ public class DerpyAI {
 	public ArrayList<Point> ourPiecesPoints; //array of the locations of our pieces
 	public ArrayList<Point> theirPiecesPoints; //array of the locations of their pieces
 	private ArrayList<Move> allMoves;
-
+	private int openingCounter; 
 /*	//constructor
 	public DerpyAI(Boolean b, Board c){
 		myColor = b; 
@@ -42,6 +42,7 @@ public class DerpyAI {
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
+		openingCounter = 0; 
 		
 	}
 	
@@ -696,31 +697,46 @@ public class DerpyAI {
 		return boardWithPieceMoved;
 	}
 	
-	public boolean executeCzechDefense(){
+	public boolean executeCzechDefense(){ //we need code to call this method again after white's moved once more
 	if(myColor==false){
-	///code needed to do the following
-	//1.Nf6, 2.d6, 3.c6
-		
-	return true; 
+	if (openingCounter==0){
+	Point destination = new Point(5,2);
+	this.movePiece(currentBoard.getBoardArray()[6][0],destination); return true;}
+	else if (openingCounter == 1){
+	Point destination = new Point(3,2);
+	this.movePiece(currentBoard.getBoardArray()[3][1],destination); return true;}
+	else if (openingCounter == 2){
+	Point destination = new Point(2,2);
+	this.movePiece(currentBoard.getBoardArray()[2][1],destination); return true;}
+	else return false; 
 	}
 	else return false; 
 	}
 	
 	public boolean executeSicilianDefense(){
 		if(myColor==false){
-		//code needed to do the following
-		//verify that white's first move is e4 // else return false;
-		//c5
-			
-		return true; 
+			if (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn){
+			this.movePiece(currentBoard.getBoardArray()[2][1], new Point(2,3)); 
+			return true;
+			}
+			else return false;
 		}
 		else return false; 
-	}
-	
+		}
+		
 	public boolean executeRuyLopezOppening(){
-		if(myColor==false){
+		openingCounter = 0; 
+		if(myColor==true){
 		//e4, Nf3
-		return true; 
+			if (openingCounter == 0){
+			this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,4)); 
+			return true; 
+			}
+			else if (openingCounter == 1){
+			this.movePiece(currentBoard.getBoardArray()[6][7], new Point(6,5)); 
+			return true;
+			}
+			else return false;
 		}
 		else return false; 
 	}
