@@ -711,6 +711,21 @@ public class DerpyAI {
 
 	}
 
+	public DerpyBoard savePiece(DerpyPiece p) {
+		ArrayList<Point> placesToMove = this.movablePoints(p);
+		for (Point d : placesToMove) {
+			DerpyBoard testBoard = this.movePiece(p, d);
+			DerpyBoard originalBoard = this.currentBoard;
+			currentBoard = testBoard;
+			if (!(this.pieceIsThreatened(p))) {
+				currentBoard = originalBoard;
+				return testBoard;
+			}
+		}
+		// if a piece cannot be saved
+		return currentBoard;
+	}
+
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		System.out.println("makeMove: Make move called with DerpyBoard " + b);
