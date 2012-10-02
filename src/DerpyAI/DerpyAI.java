@@ -726,6 +726,22 @@ public class DerpyAI {
 		return currentBoard;
 	}
 
+	// makes a move that advances our position or takes an enemy piece--for use
+	// during autonomous play when none of our pieces are threatened
+	public DerpyBoard moveForward() {
+		if (this.ourThreats(currentBoard).size() > 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this
+					.ourThreats(currentBoard);
+			for (DerpyPiece p : piecesWeCanTake) {
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+						.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),
+						p.getLocation());
+			}
+
+		}
+	}
+
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		System.out.println("makeMove: Make move called with DerpyBoard " + b);
