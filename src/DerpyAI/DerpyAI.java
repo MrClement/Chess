@@ -38,7 +38,7 @@ public class DerpyAI {
 		boardStore = new ArrayList<DerpyBoard>();
 		takenPieces = new ArrayList<DerpyPiece>();
 		ourPieces = new ArrayList<DerpyPiece>();
-		currentBoard = null;
+		currentBoard = new DerpyBoard();
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
@@ -49,6 +49,10 @@ public class DerpyAI {
 	// /////////////////////////Board State
 	// Checks//////////////////////////////////////////
 
+	public DerpyBoard getBoard(){
+		return currentBoard; 
+	}
+	
 	public void findTheirPieces() { // Creates an array of their pieces
 		DerpyPiece[][] boardState = currentBoard.getBoardArray();
 		for (int i = 0; i < 8; i++) {
@@ -682,10 +686,9 @@ public class DerpyAI {
 		// DerpyBlank bl=new DerpyBlank(tp);//makes a new blank to occupy the
 		// original space when the piece leaves.
 		// bl.changeLocation(oL);
-		theBoard.updateLocations(); // This will have the board update its array
-									// locations; could potentially just be a
-									// function of changeLocation() but for now
-									// I have it as a separate method.
+		parseCurrentBoard();
+		
+		
 		return theBoard;
 	}
 
@@ -728,18 +731,16 @@ public class DerpyAI {
 
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
-	public DerpyBoard moveForward() {
-		if (this.ourThreats(currentBoard).size() > 0) {
-			ArrayList<DerpyPiece> piecesWeCanTake = this
-					.ourThreats(currentBoard);
+	public DerpyBoard moveAutonomously() {
+		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
-				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-						.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0),
-						p.getLocation());
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),p.getLocation());
 			}
-
+			
 		}
+		return currentBoard; 
 	}
 
 	public DerpyBoard makeMove(DerpyBoard b) {
@@ -752,17 +753,22 @@ public class DerpyAI {
 
 		DerpyBoard boardWithPieceMoved = new DerpyBoard(b); // Copy the b board
 
-		boardStore.add(boardWithPieceMoved);
-		currentBoard = boardWithPieceMoved;
-
 		if (this.inCheck()) {
 			// We're in check, call getOutOfCheck to get us a board where we're
 			// not in check
 			System.out.println("makeMove: inCheck was true");
+			boardStore.add(boardWithPieceMoved);
 			boardWithPieceMoved = this.getOutOfCheck(b);
 			System.out.println("makeMove: Now out of check, in theory");
 
 		}
+		else {
+			
+		
+		boardStore.add(boardWithPieceMoved);
+		currentBoard = boardWithPieceMoved;
+		}
+		
 		/*
 		 * else { DerpyPiece randomPiece = null; Point randomLocation = null;
 		 * for(;;) { System.out.println("makeMove: Iteration of infinite loop");
@@ -829,7 +835,7 @@ public class DerpyAI {
 			return false;
 	}
 
-	public boolean executeRuyLopezOppening() {
+	public boolean executeRuyLopezOpening() {
 		openingCounter = 0;
 		if (myColor == true) {
 			// e4, Nf3

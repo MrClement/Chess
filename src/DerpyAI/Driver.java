@@ -11,12 +11,12 @@ public class Driver {
 		System.out.println(b.getLocation());*/
 
 		DerpyBoard db = new DerpyBoard();
-		DerpyAI aiOne = new DerpyAI(true);
+		DerpyAI aiOne = new DerpyAI(false);
 		//DerpyAI aiTwo = new DerpyAI(false);
 		
-		db = aiOne.makeMove(db);
+		aiOne.executeCzechDefense();
 		//db = aiTwo.makeMove(db);
-		db.printBoard();
+		aiOne.getBoard().printBoard();
 		
 	}
 
