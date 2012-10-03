@@ -49,10 +49,10 @@ public class DerpyAI {
 	// /////////////////////////Board State
 	// Checks//////////////////////////////////////////
 
-	public DerpyBoard getBoard(){
-		return currentBoard; 
+	public DerpyBoard getBoard() {
+		return currentBoard;
 	}
-	
+
 	public void findTheirPieces() { // Creates an array of their pieces
 		DerpyPiece[][] boardState = currentBoard.getBoardArray();
 		for (int i = 0; i < 8; i++) {
@@ -687,8 +687,7 @@ public class DerpyAI {
 		// original space when the piece leaves.
 		// bl.changeLocation(oL);
 		parseCurrentBoard();
-		
-		
+
 		return theBoard;
 	}
 
@@ -729,18 +728,82 @@ public class DerpyAI {
 		return currentBoard;
 	}
 
+	public DerpyPiece findValuablePiece(ArrayList<DerpyPiece> listOfPieces) {
+		Point genericPoint = new Point(0, 0);
+		DerpyPiece biggestValue = new DerpyPawn(true, genericPoint);
+		for (DerpyPiece p : listOfPieces) {
+			if (biggestValue instanceof DerpyPawn) {
+				if (!(p instanceof DerpyPawn)) {
+					biggestValue = p;
+				}
+			}
+			if (biggestValue instanceof DerpyKnight
+					|| biggestValue instanceof DerpyBishop) {
+				if (p instanceof DerpyQueen || p instanceof DerpyRook) {
+					biggestValue = p;
+				}
+			}
+			if (biggestValue instanceof DerpyRook) {
+				if (p instanceof DerpyQueen) {
+					biggestValue = p;
+				}
+			}
+		}
+		for (DerpyPiece p : listOfPieces) {
+			if (p.toString().charAt(0) == biggestValue.toString().charAt(0)) {
+				return p;
+			}
+		}
+		return biggestValue;
+	}
+
+	public DerpyPiece findEnemyKing() {
+		for (DerpyPiece p : theirPieces) {
+			if (p instanceof DerpyKing) {
+				return p;
+			}
+		}
+		return theirPieces.get(1);
+	}
+
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
-		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
-			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
+		if (this.ourThreats(currentBoard).size() > 0
+				&& this.enemyThreats(currentBoard).size() < 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this
+					.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
-				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0),p.getLocation());
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+						.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),
+						p.getLocation());
 			}
-			
+
+		} else if (this.enemyThreats(currentBoard).size() == 1) {
+			return this.savePiece(this.enemyThreats(currentBoard).get(0));
+		} else if (this.enemyThreats(currentBoard).size() > 1) {
+			DerpyPiece pieceToSave = this.findValuablePiece(this
+					.enemyThreats(currentBoard));
+			return this.savePiece(pieceToSave);
+		} else {
+			DerpyPiece enemyKing = this.findEnemyKing();
+			for (DerpyPiece p : ourPieces) {
+				for (Point d : this.movablePoints(p)) {
+					if (d.distance(enemyKing.getLocation()) < p.getLocation()
+							.distance(enemyKing.getLocation())) {
+						DerpyBoard testBoard = this.movePiece(p, d);
+						DerpyBoard oldBoard = currentBoard;
+						currentBoard = testBoard;
+						if (!(this.pieceIsThreatened(p))) {
+							currentBoard = oldBoard;
+							return testBoard;
+						}
+					}
+				}
+			}
 		}
-		return currentBoard; 
+		return currentBoard;
 	}
 
 	public DerpyBoard makeMove(DerpyBoard b) {
@@ -761,14 +824,12 @@ public class DerpyAI {
 			boardWithPieceMoved = this.getOutOfCheck(b);
 			System.out.println("makeMove: Now out of check, in theory");
 
+		} else {
+
+			boardStore.add(boardWithPieceMoved);
+			currentBoard = boardWithPieceMoved;
 		}
-		else {
-			
-		
-		boardStore.add(boardWithPieceMoved);
-		currentBoard = boardWithPieceMoved;
-		}
-		
+
 		/*
 		 * else { DerpyPiece randomPiece = null; Point randomLocation = null;
 		 * for(;;) { System.out.println("makeMove: Iteration of infinite loop");
