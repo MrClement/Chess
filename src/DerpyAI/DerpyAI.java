@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import sharedfiles.Piece;
 
 public class DerpyAI {
-	private Boolean myColor; // black is false, white is true. testchange
+	private Boolean myColor; // black is false, white is true.
 	private ArrayList<DerpyBoard> boardStore; // The current, and all previous
 												// boards
 	private ArrayList<DerpyPiece> takenPieces; // The pieces we took
@@ -181,6 +181,7 @@ public class DerpyAI {
 		return false;
 	}
 
+	// tells if a piece is protected
 	public boolean pieceIsProtected(DerpyPiece p) {
 		DerpyPiece d = (DerpyPiece) p;
 		for (DerpyPiece a : ourPieces) {
@@ -412,6 +413,7 @@ public class DerpyAI {
 		return currentBoard;
 	}
 
+	// asks if a piece can legally move to a position
 	public boolean pieceCanMoveToPosition(DerpyPiece piece, Point position) {
 
 		int xPos = (int) position.getX();
@@ -713,6 +715,7 @@ public class DerpyAI {
 
 	}
 
+	// returns a board that moves a piece out of being threatened
 	public DerpyBoard savePiece(DerpyPiece p) {
 		ArrayList<Point> placesToMove = this.movablePoints(p);
 		for (Point d : placesToMove) {
@@ -728,6 +731,7 @@ public class DerpyAI {
 		return currentBoard;
 	}
 
+	// returns the most valuable piece in an arraylist of pieces
 	public DerpyPiece findValuablePiece(ArrayList<DerpyPiece> listOfPieces) {
 		Point genericPoint = new Point(0, 0);
 		DerpyPiece biggestValue = new DerpyPawn(true, genericPoint);
@@ -757,6 +761,7 @@ public class DerpyAI {
 		return biggestValue;
 	}
 
+	// returns the enemy king
 	public DerpyPiece findEnemyKing() {
 		for (DerpyPiece p : theirPieces) {
 			if (p instanceof DerpyKing) {
@@ -806,6 +811,7 @@ public class DerpyAI {
 		return currentBoard;
 	}
 
+	// master move choice method. Decides what move to make, then makes it.
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		System.out.println("makeMove: Make move called with DerpyBoard " + b);
