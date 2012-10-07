@@ -679,15 +679,16 @@ public class DerpyAI {
 
 	public DerpyBoard movePiece(DerpyPiece p, Point mL) {
 		DerpyBoard theBoard = currentBoard;
-		Point oL = p.getLocation(); // This will access the instance data in the
-									// piece class that contain its location.
-		p.changeLocation(mL); // This will change the instance data above to the
-								// new location and erase the piece from its
-								// prior location.
-		// Point tp = new Point(15,15);
-		// DerpyBlank bl=new DerpyBlank(tp);//makes a new blank to occupy the
-		// original space when the piece leaves.
-		// bl.changeLocation(oL);
+		Point oL = p.getLocation(); // This will access the instance data in the piece class that contain its location.
+		
+		//Edit the _*PIECE*_ so it knows where it, itself it now
+		p.changeLocation(mL);
+		
+		//Edit the _*BOARD*_ so it knows where the pieces are now
+		theBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
+		theBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
+		
+
 		parseCurrentBoard();
 
 		return theBoard;
@@ -836,34 +837,16 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		/*
-		  else { DerpyPiece randomPiece = null; Point randomLocation = null;
-		  for(;;) { System.out.println("makeMove: Iteration of infinite loop");
-		  //ourPieces is the array containing the array of all of our pieces
-		  Random r = new Random(); //We're just going to temporarily randomly
-		  select a piece and move it forward, if we can int randomIndex =
-		  r.nextInt(ourPieces.size()-1)+1; randomPiece =
-		  ourPieces.get(randomIndex);
-		  
-		  randomLocation = new Point(r.nextInt(7)+1,r.nextInt(7)+1);
-		  if(this.pieceCanMoveToPosition(randomPiece, randomLocation)) {
-		  this.movePiece(randomPiece, randomLocation); break; }
-		  
-		  } randomPiece.changeLocation(randomLocation);
-		 
-		  }
-		 */
-		Point destination = new Point(4, 5);
+		Point destination = new Point(4,5);
 		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
-		currentBoard.getBoardArray()[4][5].changeLocation(destination);
 
-		DerpyBlank blank = new DerpyBlank(new Point(4, 6));
-		currentBoard.getBoardArray()[4][6] = blank;
+		DerpyBlank blank = new DerpyBlank(new Point(4,6));
+		this.movePiece(blank,new Point(4,6));
 
-		if (this.inCheck())
-			concedeGame(); // If we're still in check even after all that,
-							// there's no way out of check. Concede to the other
-							// player.
+		//If we're still in check even after all that,
+		//there's no way out of check. Concede to the other player.
+		if(this.inCheck())concedeGame(); 
+
 
 		return boardWithPieceMoved;
 	}
