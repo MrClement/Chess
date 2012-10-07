@@ -837,21 +837,21 @@ public class DerpyAI {
 		}
 
 		/*
-		 * else { DerpyPiece randomPiece = null; Point randomLocation = null;
-		 * for(;;) { System.out.println("makeMove: Iteration of infinite loop");
-		 * //ourPieces is the array containing the array of all of our pieces
-		 * Random r = new Random(); //We're just going to temporarily randomly
-		 * select a piece and move it forward, if we can int randomIndex =
-		 * r.nextInt(ourPieces.size()-1)+1; randomPiece =
-		 * ourPieces.get(randomIndex);
-		 * 
-		 * randomLocation = new Point(r.nextInt(7)+1,r.nextInt(7)+1);
-		 * if(this.pieceCanMoveToPosition(randomPiece, randomLocation)) {
-		 * this.movePiece(randomPiece, randomLocation); break; }
-		 * 
-		 * } randomPiece.changeLocation(randomLocation);
-		 * 
-		 * }
+		  else { DerpyPiece randomPiece = null; Point randomLocation = null;
+		  for(;;) { System.out.println("makeMove: Iteration of infinite loop");
+		  //ourPieces is the array containing the array of all of our pieces
+		  Random r = new Random(); //We're just going to temporarily randomly
+		  select a piece and move it forward, if we can int randomIndex =
+		  r.nextInt(ourPieces.size()-1)+1; randomPiece =
+		  ourPieces.get(randomIndex);
+		  
+		  randomLocation = new Point(r.nextInt(7)+1,r.nextInt(7)+1);
+		  if(this.pieceCanMoveToPosition(randomPiece, randomLocation)) {
+		  this.movePiece(randomPiece, randomLocation); break; }
+		  
+		  } randomPiece.changeLocation(randomLocation);
+		 
+		  }
 		 */
 		Point destination = new Point(4, 5);
 		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
