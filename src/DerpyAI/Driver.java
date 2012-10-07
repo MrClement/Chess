@@ -14,9 +14,13 @@ public class Driver {
 		DerpyAI aiOne = new DerpyAI(false);
 		//DerpyAI aiTwo = new DerpyAI(false);
 		
-		aiOne.executeCzechDefense();
-		//db = aiTwo.makeMove(db);
-		aiOne.getBoard().printBoard();
+		//October 7 2012: This needs to stay like this, folks! An AI is created, it's passed board, makes a move, returns the board, and prints it
+		//DO NOT MODIFY
+
+		//DO NOT MODIFY
+		//aiOne.executeCzechDefense();
+		db = aiOne.makeMove(db);
+		db.printBoard();
 		
 	}
 
