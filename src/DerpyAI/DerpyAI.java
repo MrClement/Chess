@@ -18,7 +18,6 @@ public class DerpyAI {
 	public ArrayList<Point> theirPiecesPoints; // array of the locations of
 												// their pieces
 	private ArrayList<Move> allMoves;
-	private int openingCounter;
 
 	/*
 	 * //constructor public DerpyAI(Boolean b, Board c){ myColor = b; boardStore
@@ -42,7 +41,6 @@ public class DerpyAI {
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
-		openingCounter = 0;
 
 	}
 
@@ -688,6 +686,8 @@ public class DerpyAI {
 		theBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
 		theBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
 		
+		Move m = new Move(myColor, p, oL, mL);
+		allMoves.add(m);
 
 		parseCurrentBoard();
 
@@ -855,15 +855,15 @@ public class DerpyAI {
 											// again after white's moved once
 											// more
 		if (myColor == false) {
-			if (openingCounter == 0) {
+			if (allMoves.size() == 0) {
 				Point destination = new Point(5, 2);
 				this.movePiece(currentBoard.getBoardArray()[6][0], destination);
 				return true;
-			} else if (openingCounter == 1) {
+			} else if (allMoves.size() == 1) {
 				Point destination = new Point(3, 2);
 				this.movePiece(currentBoard.getBoardArray()[3][1], destination);
 				return true;
-			} else if (openingCounter == 2) {
+			} else if (allMoves.size() == 2) {
 				Point destination = new Point(2, 2);
 				this.movePiece(currentBoard.getBoardArray()[2][1], destination);
 				return true;
@@ -886,14 +886,13 @@ public class DerpyAI {
 	}
 
 	public boolean executeRuyLopezOpening() {
-		openingCounter = 0;
 		if (myColor == true) {
 			// e4, Nf3
-			if (openingCounter == 0) {
+			if (allMoves.size() == 0) {
 				this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
 						4));
 				return true;
-			} else if (openingCounter == 1) {
+			} else if (allMoves.size() == 1) {
 				this.movePiece(currentBoard.getBoardArray()[6][7], new Point(6,
 						5));
 				return true;
