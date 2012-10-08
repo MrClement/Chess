@@ -1,5 +1,14 @@
 package sharedfiles;
 
+import sharedfiles.Bishop;
+import sharedfiles.Blank;
+import sharedfiles.King;
+import sharedfiles.Knight;
+import sharedfiles.Pawn;
+import sharedfiles.Piece;
+import sharedfiles.Queen;
+import sharedfiles.Rook;
+
 public class Board {
 	
 	protected Piece[][] arr;
