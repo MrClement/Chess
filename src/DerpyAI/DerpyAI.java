@@ -611,23 +611,21 @@ public class DerpyAI {
 
 	// uses provided board to make a move, returns a board with the move made
 
-	public DerpyBoard movePiece(DerpyPiece p, Point mL) {
-		DerpyBoard theBoard = currentBoard;
+	public void movePiece(DerpyPiece p, Point mL) {
+
 		Point oL = p.getLocation(); // This will access the instance data in the piece class that contain its location.
 
 		//Edit the _*PIECE*_ so it knows where it, itself it now
 		p.changeLocation(mL);
 
 		//Edit the _*BOARD*_ so it knows where the pieces are now
-		theBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
-		theBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
+		currentBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
+		currentBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
 
 		Move m = new Move(myColor, p, oL, mL);
 		allMoves.add(m);
 
 		parseCurrentBoard();
-
-		return theBoard;
 	}
 
 	public void parseCurrentBoard() {
