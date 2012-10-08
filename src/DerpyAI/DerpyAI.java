@@ -19,13 +19,6 @@ public class DerpyAI {
 	// their pieces
 	private ArrayList<Move> allMoves;
 
-	/*
-	 * //constructor public DerpyAI(Boolean b, Board c){ myColor = b; boardStore
-	 * = new ArrayList<Board>(); takenPieces = new ArrayList<DerpyPiece>();
-	 * ourPieces = new ArrayList<DerpyPiece>(); currentBoard = (DerpyBoard)c;
-	 * theirPiecesPoints = new ArrayList<Point>(); ourPiecesPoints = new
-	 * ArrayList<Point>(); allMoves = new ArrayList<Move>(); }
-	 */
 
 	// A new constructor that doesn't take a board, just a color. This is
 	// because moves/board parsing
