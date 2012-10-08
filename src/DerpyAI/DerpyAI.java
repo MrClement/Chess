@@ -100,7 +100,7 @@ public class DerpyAI {
 	public ArrayList<DerpyPiece> enemyThreats(DerpyBoard b) {
 		ArrayList<DerpyPiece> ourThreatenedPieces = new ArrayList<DerpyPiece>();
 		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j <= 8; j++) {
+			for (int j = 0; j < 8; j++) {
 				if (this.isPieceOurs(b.getBoardArray()[i][j])) {
 					if (this.pieceIsThreatened(b.getBoardArray()[i][j])) {
 						ourThreatenedPieces.add(b.getBoardArray()[i][j]);
@@ -117,7 +117,7 @@ public class DerpyAI {
 	public ArrayList<DerpyPiece> ourThreats(DerpyBoard b) {
 		ArrayList<DerpyPiece> theirThreatenedPieces = new ArrayList<DerpyPiece>();
 		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j <= 8; j++) {
+			for (int j = 0; j < 8; j++) {
 				if (!(this.isPieceOurs(b.getBoardArray()[i][j]))) {
 					if (this.pieceIsThreatened(b.getBoardArray()[i][j])) {
 						theirThreatenedPieces.add(b.getBoardArray()[i][j]);
@@ -611,21 +611,24 @@ public class DerpyAI {
 
 	// uses provided board to make a move, returns a board with the move made
 
-	public void movePiece(DerpyPiece p, Point mL) {
+	public DerpyBoard movePiece(DerpyPiece p, Point mL) {
 
+		DerpyBoard newBoard = new DerpyBoard(currentBoard);
+		
 		Point oL = p.getLocation(); // This will access the instance data in the piece class that contain its location.
 
 		//Edit the _*PIECE*_ so it knows where it, itself it now
 		p.changeLocation(mL);
 
 		//Edit the _*BOARD*_ so it knows where the pieces are now
-		currentBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
-		currentBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
+		newBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); //Put a blank piece in the old location
+		newBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p; 
 
 		Move m = new Move(myColor, p, oL, mL);
 		allMoves.add(m);
 
-		parseCurrentBoard();
+		//parseCurrentBoard();
+		return newBoard;
 	}
 
 	public void parseCurrentBoard() {
@@ -708,8 +711,7 @@ public class DerpyAI {
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
-		if (this.ourThreats(currentBoard).size() > 0
-				&& this.enemyThreats(currentBoard).size() < 0) {
+		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
 			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
 				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
@@ -766,18 +768,16 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		Point destination = new Point(4,5);
-		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
-
-		DerpyBlank blank = new DerpyBlank(new Point(4,6));
-		this.movePiece(blank,new Point(4,6));
+		DerpyBoard ba = this.moveAutonomously();
+		boardStore.add(ba);
 
 		//If we're still in check even after all that,
 		//there's no way out of check. Concede to the other player.
 		if(this.inCheck())concedeGame(); 
 
-
-		return boardWithPieceMoved;
+		currentBoard = ba;
+		parseCurrentBoard();
+		return ba;
 	}
 
 	public boolean executeCzechDefense() { // we need code to call this method
