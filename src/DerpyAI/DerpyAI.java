@@ -409,7 +409,7 @@ public class DerpyAI {
 		int xPos = (int) position.getX();
 		int yPos = (int) position.getY();
 		if (((DerpyPiece) currentBoard.getBoardArray()[(int) position.getY()][(int) position
-				.getX()]).getColor() == true) {
+				.getX()]).getColor() == myColor) {
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
 				if (piece.getLocation().distanceSq(position) == 1
