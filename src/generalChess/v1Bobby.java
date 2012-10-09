@@ -778,10 +778,10 @@ public class v1Bobby {
 		arr = getPieceArray();
 		move++;
 		int w, x, y, z;
-		w=null;
-		x=null;
-		y=null;
-		z=null;
+		w=0;
+		x=0;
+		y=0;
+		z=0;
 		if (color == true) {
 
 			switch (move) {
