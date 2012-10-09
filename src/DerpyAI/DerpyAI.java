@@ -408,8 +408,8 @@ public class DerpyAI {
 
 		int xPos = (int) position.getX();
 		int yPos = (int) position.getY();
-		if (((DerpyPiece) currentBoard.getBoardArray()[(int) position.getY()][(int) position
-				.getX()]).getColor() == myColor) {
+		if (!(((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
+				.getColor() == myColor)) {
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
 				if (piece.getLocation().distanceSq(position) == 1
@@ -556,7 +556,7 @@ public class DerpyAI {
 						|| piece.getLocation().getX() == xPos) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
-							piece, pieceAtDestination);
+							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
 						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
 								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
@@ -585,7 +585,7 @@ public class DerpyAI {
 								* (piece.getLocation().getX() - xPos)) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
-							piece, pieceAtDestination);
+							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
 						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
 								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
