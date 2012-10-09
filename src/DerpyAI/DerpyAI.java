@@ -249,11 +249,9 @@ public class DerpyAI {
 
 	// returns an arraylist of points that can be occupied to block theirs from
 	// capturing ours
-	public ArrayList<Point> findBlockablePoints(DerpyPiece ours,
-			DerpyPiece theirs) {
+	public ArrayList<Point> findBlockablePoints(DerpyPiece ours, DerpyPiece theirs) {
 		ArrayList<Point> points = new ArrayList<Point>();
-		if ((theirs instanceof DerpyKnight || theirs instanceof DerpyPawn)
-				|| theirs instanceof DerpyKing) {
+		if ((theirs instanceof DerpyKnight || theirs instanceof DerpyPawn || theirs instanceof DerpyKing)) {
 			return points;
 		}
 		if (theirs.getLocation().distance(ours.getLocation()) < 1.5) {
@@ -764,15 +762,11 @@ public class DerpyAI {
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
-		if (this.ourThreats(currentBoard).size() > 0
-				&& this.enemyThreats(currentBoard).size() < 0) {
-			ArrayList<DerpyPiece> piecesWeCanTake = this
-					.ourThreats(currentBoard);
+		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
-				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-						.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0),
-						p.getLocation());
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),p.getLocation());
 			}
 
 		} else if (this.enemyThreats(currentBoard).size() == 1) {
@@ -839,6 +833,13 @@ public class DerpyAI {
 		return ba;
 	}
 
+	public void concedeGame() {
+		System.out.println("DerpyAI has lost the game.");
+		System.exit(0); // Exit with terminated status 0
+	}
+
+////Extra, Currently Unused Code////	
+	
 	public boolean executeCzechDefense() { // we need code to call this method
 		// again after white's moved once
 		// more
@@ -860,7 +861,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-
+	
 	public boolean executeSicilianDefense() {
 		if (myColor == false) {
 			if (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn) {
@@ -872,7 +873,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-
+	
 	public boolean executeRuyLopezOpening() {
 		if (myColor == true) {
 			// e4, Nf3
@@ -889,10 +890,5 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-
-	public void concedeGame() {
-		System.out.println("DerpyAI has lost the game.");
-		System.exit(0); // Exit with terminated status 0
-	}
-
+	
 }
