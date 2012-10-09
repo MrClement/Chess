@@ -715,6 +715,9 @@ public class v1Bobby {
 
 	// makes a random move
 	public void randomMove() {
+		
+		
+		
 		if (pMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(pMoves().size());
@@ -724,7 +727,8 @@ public class v1Bobby {
 			Point st = new Point((Point) pMoves().get(m).get(1));
 			Point fn = new Point((Point) pMoves().get(m).get(2));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} else if (nMoves().size() != 0) {
+		} 
+		else if (nMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(nMoves().size());
 			while (nMoves().get(m).size() == 2) {
@@ -733,7 +737,8 @@ public class v1Bobby {
 			Point st = new Point((Point) nMoves().get(m).get(1));
 			Point fn = new Point((Point) nMoves().get(m).get(2));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} else if (bMoves().size() != 0) {
+		} 
+		else if (bMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(bMoves().size());
 			while (bMoves().get(m).size() == 2) {
@@ -742,7 +747,8 @@ public class v1Bobby {
 			Point st = new Point((Point) bMoves().get(m).get(1));
 			Point fn = new Point((Point) bMoves().get(m).get(2));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} else if (rMoves().size() != 0) {
+		} 
+		else if (rMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(rMoves().size());
 			while (rMoves().get(m).size() == 2) {
@@ -751,7 +757,8 @@ public class v1Bobby {
 			Point st = new Point((Point) rMoves().get(m).get(1));
 			Point fn = new Point((Point) rMoves().get(m).get(2));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} else if (qMoves().size() != 0) {
+		} 
+		else if (qMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(qMoves().size());
 			while (qMoves().get(m).size() == 2) {
@@ -760,7 +767,8 @@ public class v1Bobby {
 			Point st = new Point((Point) qMoves().get(m).get(1));
 			Point fn = new Point((Point) qMoves().get(m).get(2));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} else if (kMoves().size() != 0) {
+		} 
+		else if (kMoves().size() != 0) {
 			Random r = new Random();
 			int m = r.nextInt(kMoves().size());
 			while (kMoves().get(m).size() == 2) {
