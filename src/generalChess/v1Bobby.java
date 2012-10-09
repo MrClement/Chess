@@ -777,56 +777,62 @@ public class v1Bobby {
 		Piece[][] arr = new Piece[8][8];
 		arr = getPieceArray();
 		move++;
+		int w, x, y, z;
+		w=null;
+		x=null;
+		y=null;
+		z=null;
 		if (color == true) {
 
 			switch (move) {
 				case 1:
-					move(4, 6, 4, 4);
-					return b;
+					w=4;x=6;y=4;z=4;
 				case 2:
-					move(3, 7, 5, 5);
-					return b;
+					w=3;x=7;y=5;z=5;
+
 				case 3:
 
 					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-						move(5, 7, 2, 4);
-					return b;
+					w=5;x=7;y=2;z=4;
+
 				case 4:
 					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
 							&& arr[5][5].toString().charAt(1) == 'X'
 							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
+					w=5;x=2;y=5;z=6;
+
 					return b;
 				default:
 					randomMove();
-					return b;
-
 			}
 		} else {
 
 			switch (move) {
 				case 1:
-					move(4, 1, 4, 3);
-					return b;
+					w=4;x=1;y=4;z=3;
+
 				case 2:
-					move(3, 0, 5, 2);
-					return b;
+					w=3;x=0;y=5;z=2;
+
 				case 3:
 					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-						move(5, 0, 2, 3);
-					return b;
+					w=5;x=0;y=2;z=3;
+
 				case 4:
 					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
 							&& arr[5][5].toString().charAt(1) == 'X'
 							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
+					w=5;x=2;y=5;z=6;
+
 				default:
 					randomMove();
-					return b;
 			}
-
 		}
+		move(w, x, y, z);
+		
+		System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+"Piece: "+b[w][x].toString());
+		return b;
+
 
 	}
 
@@ -836,7 +842,6 @@ public class v1Bobby {
 		arr = getPieceArray();
 		move++;
 		if (color == true) {
-
 			switch (move) {
 				case 1:
 					move(4, 6, 4, 4);
@@ -887,4 +892,11 @@ public class v1Bobby {
 		}
 
 	}
+
+
+public static void main(String[] args)
+{
+	v1Bobby a=new v1Bobby(new Board(), true);
+	a.turn(new Board());
+}
 }
