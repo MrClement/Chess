@@ -713,6 +713,25 @@ public class v1Bobby {
 		return v;
 	}
 
+	//takes an array of possible returns the index of the highest ranking opponent piece that any specific piece
+	//has in its possible moves
+	//-1 if no possible pieces to take
+	public int takeIfPossible(ArrayList a)
+	{
+	int x= -1;
+	Piece[][] arr = new Piece[8][8];
+	arr = getPieceArray();
+	for(int i=0; i<a.size();i++)
+	{
+	
+	}
+	
+	
+	
+	return x;
+	}
+	
+	
 	// makes a random move
 	public void randomMove() {
 		
