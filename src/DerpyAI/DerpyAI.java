@@ -820,7 +820,22 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.moveAutonomously();
+		//DerpyBoard ba = this.moveAutonomously();
+		
+		
+		//Start test
+		//For testing move and board stuff 
+		Point destination = new Point(4,5);
+		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
+		currentBoard.getBoardArray()[4][5].changeLocation(destination);
+
+		DerpyBlank blank = new DerpyBlank(new Point(4,6));
+		currentBoard.getBoardArray()[4][6] = blank;
+		
+		DerpyBoard ba = currentBoard;
+		//End test
+		
+		
 		boardStore.add(ba);
 
 		// If we're still in check even after all that,
