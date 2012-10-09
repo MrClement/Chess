@@ -716,6 +716,16 @@ public class v1Bobby {
 	// makes a random move
 	public void randomMove() {
 		
+		Random x=new Random();
+		int number;
+		number=x.nextInt(101)+1;
+		//1-25 pawn
+		//26-45 knight
+		//46-65 bishop
+		//66-80 rook
+		//81-95 queen
+		//96-100 king
+		
 		
 		
 		if (pMoves().size() != 0) {
