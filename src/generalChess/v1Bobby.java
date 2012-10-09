@@ -899,4 +899,39 @@ public static void main(String[] args)
 	v1Bobby a=new v1Bobby(new Board(), true);
 	a.turn(new Board());
 }
+
+public ArrayList<ArrayList> allMoves(){
+	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+	for(int i=0;i<pMoves().size();i++){
+		a.add(pMoves().get(i));
+	}
+	for(int i=0;i<nMoves().size();i++){
+		a.add(nMoves().get(i));
+	}
+	for(int i=0;i<bMoves().size();i++){
+		a.add(bMoves().get(i));
+	}
+	for(int i=0;i<rMoves().size();i++){
+		a.add(rMoves().get(i));
+	}
+	for(int i=0;i<qMoves().size();i++){
+		a.add(qMoves().get(i));
+	}
+	for(int i=0;i<kMoves().size();i++){
+		a.add(kMoves().get(i));
+	}
+	return a;
+}
+public ArrayList<Point> isThreatened (int d, int e){
+	ArrayList<Point> a=new ArrayList<Point>();
+	v1Bobby c=new v1Bobby(b, !color);
+	for(int i=0;i<c.allMoves().size();i++){
+		for(int j=0;j<c.allMoves().get(i).size();j++){
+			if(((Point)c.allMoves().get(i).get(j)).equals(new Point(d, e))){
+				a.add((Point)c.allMoves().get(i).get(1));
+			}
+		}
+	}
+	return a;
+}
 }
