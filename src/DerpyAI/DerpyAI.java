@@ -772,7 +772,7 @@ public class DerpyAI {
 		System.out.println("Destination Size: " + destinationArray.size());
 		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
 		this.movePiece(randomPiece, randomDestination); //Moves Piece
-		randomPiece.changeLocation(randomDestination); //Moves Piece
+		//randomPiece.changeLocation(randomDestination); //Moves Piece
 		parseCurrentBoard(); 
 		boardStore.add(currentBoard);
 		return currentBoard; 
