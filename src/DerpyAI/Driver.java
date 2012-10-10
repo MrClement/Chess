@@ -10,7 +10,7 @@ public class Driver {
 		DerpyBoard db = new DerpyBoard();
 		DerpyAI aiOne = new DerpyAI(true);
 
-		db = aiOne.makeMove(db);
+		db = aiOne.randomMove();
 
 		db.printBoard();
 		

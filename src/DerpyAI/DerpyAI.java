@@ -2,6 +2,7 @@ package DerpyAI;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 import sharedfiles.Piece;
 
@@ -33,7 +34,7 @@ public class DerpyAI {
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
-
+		findOurPieces(); 
 	}
 
 	// /////////////////////////Board State
@@ -677,7 +678,7 @@ public class DerpyAI {
 		Move m = new Move(myColor, p, oL, mL);
 		allMoves.add(m);
 
-		// parseCurrentBoard();
+		parseCurrentBoard();
 		return newBoard;
 	}
 
@@ -759,6 +760,24 @@ public class DerpyAI {
 		return theirPieces.get(1);
 	}
 
+	
+	
+	public DerpyBoard randomMove(){
+	parseCurrentBoard();
+	Random r = new Random();
+	System.out.println("Pieces Size: " + ourPieces.size());
+	DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a random piece
+	System.out.println("Piece Type: " + randomPiece.toString()); 
+	ArrayList<Point> destinationArray = this.movablePoints(randomPiece); //creates an array of random points that piece can move to
+	System.out.println("Destination Size: " + destinationArray.size());
+	Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
+	this.movePiece(randomPiece, randomDestination); //Moves Piece
+	randomPiece.changeLocation(randomDestination); //Moves Piece
+	parseCurrentBoard(); 
+	boardStore.add(currentBoard);
+	return currentBoard; 
+	}
+	
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
