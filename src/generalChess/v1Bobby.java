@@ -721,9 +721,13 @@ public class v1Bobby {
 	int x= -1;
 	Piece[][] arr = new Piece[8][8];
 	arr = getPieceArray();
-	for(int i=0; i<a.size();i++)
+	for(int i=2; i<a.size();i++)
 	{
-	
+	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X')
+	{
+		
+	}
 	}
 	
 	
@@ -838,56 +842,62 @@ public class v1Bobby {
 		Piece[][] arr = new Piece[8][8];
 		arr = getPieceArray();
 		move++;
+		int w, x, y, z;
+		w=0;
+		x=0;
+		y=0;
+		z=0;
 		if (color == true) {
 
 			switch (move) {
 				case 1:
-					move(4, 6, 4, 4);
-					return b;
+					w=4;x=6;y=4;z=4;
 				case 2:
-					move(3, 7, 5, 5);
-					return b;
+					w=3;x=7;y=5;z=5;
+
 				case 3:
 
 					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-						move(5, 7, 2, 4);
-					return b;
+					w=5;x=7;y=2;z=4;
+
 				case 4:
 					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
 							&& arr[5][5].toString().charAt(1) == 'X'
 							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
+					w=5;x=2;y=5;z=6;
+
 					return b;
 				default:
 					randomMove();
-					return b;
-
 			}
 		} else {
 
 			switch (move) {
 				case 1:
-					move(4, 1, 4, 3);
-					return b;
+					w=4;x=1;y=4;z=3;
+
 				case 2:
-					move(3, 0, 5, 2);
-					return b;
+					w=3;x=0;y=5;z=2;
+
 				case 3:
 					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-						move(5, 0, 2, 3);
-					return b;
+					w=5;x=0;y=2;z=3;
+
 				case 4:
 					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
 							&& arr[5][5].toString().charAt(1) == 'X'
 							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
+					w=5;x=2;y=5;z=6;
+
 				default:
 					randomMove();
-					return b;
 			}
-
 		}
+		move(w, x, y, z);
+		
+		System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+"Piece: "+b[w][x].toString());
+		return b;
+
 
 	}
 
@@ -897,7 +907,6 @@ public class v1Bobby {
 		arr = getPieceArray();
 		move++;
 		if (color == true) {
-
 			switch (move) {
 				case 1:
 					move(4, 6, 4, 4);
@@ -948,4 +957,46 @@ public class v1Bobby {
 		}
 
 	}
+
+
+public static void main(String[] args)
+{
+	v1Bobby a=new v1Bobby(new Board(), true);
+	a.turn(new Board());
+}
+
+public ArrayList<ArrayList> allMoves(){
+	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+	for(int i=0;i<pMoves().size();i++){
+		a.add(pMoves().get(i));
+	}
+	for(int i=0;i<nMoves().size();i++){
+		a.add(nMoves().get(i));
+	}
+	for(int i=0;i<bMoves().size();i++){
+		a.add(bMoves().get(i));
+	}
+	for(int i=0;i<rMoves().size();i++){
+		a.add(rMoves().get(i));
+	}
+	for(int i=0;i<qMoves().size();i++){
+		a.add(qMoves().get(i));
+	}
+	for(int i=0;i<kMoves().size();i++){
+		a.add(kMoves().get(i));
+	}
+	return a;
+}
+public ArrayList<Point> isThreatened (int d, int e){
+	ArrayList<Point> a=new ArrayList<Point>();
+	v1Bobby c=new v1Bobby(b, !color);
+	for(int i=0;i<c.allMoves().size();i++){
+		for(int j=0;j<c.allMoves().get(i).size();j++){
+			if(((Point)c.allMoves().get(i).get(j)).equals(new Point(d, e))){
+				a.add((Point)c.allMoves().get(i).get(1));
+			}
+		}
+	}
+	return a;
+}
 }
