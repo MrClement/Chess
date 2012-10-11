@@ -2,6 +2,7 @@ package DerpyAI;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 import sharedfiles.Piece;
 
@@ -33,7 +34,7 @@ public class DerpyAI {
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
-
+		findOurPieces(); 
 	}
 
 	// /////////////////////////Board State
@@ -416,7 +417,7 @@ public class DerpyAI {
 					// piece
 					if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
 							&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
-									.getColor()) {
+							.getColor()) {
 						// makes sure moving doesn't put him in check
 						/*
 						 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -470,11 +471,11 @@ public class DerpyAI {
 					if ((piece.getLocation().getY() == yPos - 1 && piece
 							.getLocation().getX() == xPos - 1)
 							|| (piece.getLocation().getY() == yPos - 1 && piece
-									.getLocation().getX() == xPos + 1)) {
+							.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
 						if (!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)
 								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
-										.getColor()) {
+								.getColor()) {
 							// makes sure moving does not put the king in check
 							/*
 							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -526,11 +527,11 @@ public class DerpyAI {
 					if ((piece.getLocation().getY() == yPos + 1 && piece
 							.getLocation().getX() == xPos - 1)
 							|| (piece.getLocation().getY() == yPos + 1 && piece
-									.getLocation().getX() == xPos + 1)) {
+							.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
 						if (!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)
 								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
-										.getColor()) {
+								.getColor()) {
 							// makes sure moving does not put the king in check
 							/*
 							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -557,7 +558,7 @@ public class DerpyAI {
 							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
 						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
-								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
+						                                                .getX()][(int) d.getY()] instanceof DerpyBlank)) {
 							return false;
 						}
 					}
@@ -580,13 +581,13 @@ public class DerpyAI {
 				if (piece.getLocation().getY() - yPos == piece.getLocation()
 						.getX() - xPos
 						|| piece.getLocation().getY() - yPos == -1
-								* (piece.getLocation().getX() - xPos)) {
+						* (piece.getLocation().getX() - xPos)) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
 							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
 						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
-								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
+						                                                .getX()][(int) d.getY()] instanceof DerpyBlank)) {
 							return false;
 						}
 					}
@@ -664,7 +665,7 @@ public class DerpyAI {
 		DerpyBoard newBoard = new DerpyBoard(currentBoard);
 
 		Point oL = p.getLocation(); // This will access the instance data in the
-									// piece class that contain its location.
+		// piece class that contain its location.
 
 		// Edit the _*PIECE*_ so it knows where it, itself it now
 		p.changeLocation(mL);
@@ -677,7 +678,7 @@ public class DerpyAI {
 		Move m = new Move(myColor, p, oL, mL);
 		allMoves.add(m);
 
-		// parseCurrentBoard();
+		parseCurrentBoard();
 		return newBoard;
 	}
 
@@ -759,6 +760,23 @@ public class DerpyAI {
 		return theirPieces.get(1);
 	}
 
+
+
+	public DerpyBoard randomMove(){
+		parseCurrentBoard();
+		Random r = new Random();
+		System.out.println("Pieces Size: " + ourPieces.size());
+		DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a random piece
+		System.out.println("Piece Type: " + randomPiece.toString()); 
+		ArrayList<Point> destinationArray = this.movablePoints(randomPiece); //creates an array of random points that piece can move to
+		System.out.println("Destination Size: " + destinationArray.size());
+		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
+		this.movePiece(randomPiece, randomDestination); //Moves Piece
+		parseCurrentBoard(); 
+		boardStore.add(currentBoard);
+		return currentBoard; 
+	}
+
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
@@ -821,8 +839,8 @@ public class DerpyAI {
 		}
 
 		//DerpyBoard ba = this.moveAutonomously();
-		
-		
+
+
 		//Start test
 		//For testing move and board stuff 
 		Point destination = new Point(4,5);
@@ -831,11 +849,11 @@ public class DerpyAI {
 
 		DerpyBlank blank = new DerpyBlank(new Point(4,6));
 		currentBoard.getBoardArray()[4][6] = blank;
-		
+
 		DerpyBoard ba = currentBoard;
 		//End test
-		
-		
+
+
 		boardStore.add(ba);
 
 		// If we're still in check even after all that,
@@ -853,8 +871,8 @@ public class DerpyAI {
 		System.exit(0); // Exit with terminated status 0
 	}
 
-////Extra, Currently Unused Code////	
-	
+	////Extra, Currently Unused Code////	
+
 	public boolean executeCzechDefense() { // we need code to call this method
 		// again after white's moved once
 		// more
@@ -876,7 +894,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 	public boolean executeSicilianDefense() {
 		if (myColor == false) {
 			if (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn) {
@@ -888,7 +906,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 	public boolean executeRuyLopezOpening() {
 		if (myColor == true) {
 			// e4, Nf3
@@ -905,5 +923,5 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 }
