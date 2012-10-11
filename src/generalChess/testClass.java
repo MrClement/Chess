@@ -7,6 +7,5 @@ public class testClass {
 		Board b = new Board();
 		Bobby BoardLords = new Bobby(false, b);
 		BoardLords.printBoard();
-
 	}
 }
