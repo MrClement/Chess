@@ -721,9 +721,13 @@ public class v1Bobby {
 	int x= -1;
 	Piece[][] arr = new Piece[8][8];
 	arr = getPieceArray();
-	for(int i=0; i<a.size();i++)
+	for(int i=2; i<a.size();i++)
 	{
-	
+	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X')
+	{
+		
+	}
 	}
 	
 	
