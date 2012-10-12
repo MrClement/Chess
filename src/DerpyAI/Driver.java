@@ -10,13 +10,15 @@ public class Driver {
 		
 		//October 7 2012: This needs to stay like this, folks! An AI is created, it's passed board, makes a move, returns the board, and prints it
 		
+		
 		DerpyBoard db = new DerpyBoard();
 		DerpyAI aiOne = new DerpyAI(true);
-		ArrayList<Point> test = new ArrayList<Point>();
-		test.add(new Point(4,5));
-		test.add(new Point(5,6));
-		System.out.println("Array List 1: " + test);
-		System.out.println("Array List 2: " + aiOne.movablePoints(db.getBoardArray()[5][6]));
+		System.out.println(db.getBoardArray()[5][6].toString());
+		System.out.println(db.getBoardArray()[4][6].toString());
+		System.out.println(aiOne.pieceCanMoveToPosition(db.getBoardArray()[5][6],new Point(5,5)));
+		System.out.println(aiOne.pieceCanMoveToPosition(db.getBoardArray()[5][6],new Point(5,4)));
+		System.out.println(aiOne.pieceCanMoveToPosition(db.getBoardArray()[4][6],new Point(4,5)));
+		System.out.println("Array List 1: " + aiOne.movablePoints(db.getBoardArray()[5][6]));
 		db = aiOne.randomMove();
 
 		db.printBoard();
