@@ -764,6 +764,8 @@ public class DerpyAI {
 	
 	public DerpyBoard randomMove(){
 	parseCurrentBoard();
+	
+	//Finds the initial piece to move and the initial destination
 	Random r = new Random();
 	System.out.println("Pieces Size: " + ourPieces.size());
 	DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a random piece
@@ -771,8 +773,26 @@ public class DerpyAI {
 	ArrayList<Point> destinationArray = this.movablePoints(randomPiece); //creates an array of random points that piece can move to
 	System.out.println("Destination Size: " + destinationArray.size());
 	Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
-	this.movePiece(randomPiece, randomDestination); //Moves Piece
-	randomPiece.changeLocation(randomDestination); //Moves Piece
+	
+	//Determines where to move
+	boolean moveDetermined = false;
+	while (moveDetermined == false){ //this is here so the AI knows to test the new destination, if we have to make one, to see if it is also applicable to be moved to
+		if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank){ 
+			this.movePiece(randomPiece, randomDestination); //This moves the piece because the system 
+			randomPiece.changeLocation(randomDestination);  //has determined the destination to be a blank
+			moveDetermined = true; 
+		}
+		else if(this.makeTrade(randomPiece, currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()])){
+			this.movePiece(randomPiece, randomDestination); //This moves the piece only if the system
+			randomPiece.changeLocation(randomDestination);  //has found the destination to be more valuable than
+			moveDetermined = true; 						    //our attacking piece
+			
+		}
+		else { destinationArray.remove(randomDestination); // if we get here, it means the randomdestination isn't an option
+		randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to remove it as a possibility and 
+		moveDetermined = false;}												      // create a new random destination
+	}													  													 
+	
 	parseCurrentBoard(); 
 	boardStore.add(currentBoard);
 	return currentBoard; 
