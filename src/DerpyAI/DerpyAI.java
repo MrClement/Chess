@@ -774,14 +774,25 @@ public class DerpyAI {
 	System.out.println("Destination Size: " + destinationArray.size());
 	Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
 	
-	//Determines where to move
+	if (destinationArray.size()==0) randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a new random piece because the other piece can't move anywhere
+	
 	boolean moveDetermined = false;
+	
+	//Determines where to move	
 	while (moveDetermined == false){ //this is here so the AI knows to test the new destination, if we have to make one, to see if it is also applicable to be moved to
-		if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank){ 
+		
+		if (destinationArray.size()==1) { //if there's only one place it can move, the piece has to move there regardless of the checks below
+			this.movePiece(randomPiece, randomDestination); 
+			randomPiece.changeLocation(randomDestination);
+			moveDetermined = true; 
+		}
+	
+		else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank){ 
 			this.movePiece(randomPiece, randomDestination); //This moves the piece because the system 
 			randomPiece.changeLocation(randomDestination);  //has determined the destination to be a blank
 			moveDetermined = true; 
 		}
+		
 		else if(this.makeTrade(randomPiece, currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()])){
 			this.movePiece(randomPiece, randomDestination); //This moves the piece only if the system
 			randomPiece.changeLocation(randomDestination);  //has found the destination to be more valuable than
