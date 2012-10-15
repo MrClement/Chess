@@ -759,54 +759,53 @@ public class DerpyAI {
 		}
 		return theirPieces.get(1);
 	}
+	
+	public DerpyBoard randomMove() {
+		parseCurrentBoard();
 
-	
-	
-	public DerpyBoard randomMove(){
-	parseCurrentBoard();
-	
-	//Finds the initial piece to move and the initial destination
-	Random r = new Random();
-	System.out.println("Pieces Size: " + ourPieces.size());
-	DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a random piece
-	System.out.println("Piece Type: " + randomPiece.toString()); 
-	ArrayList<Point> destinationArray = this.movablePoints(randomPiece); //creates an array of random points that piece can move to
-	System.out.println("Destination Size: " + destinationArray.size());
-	Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); //chooses a random move from that array
-	
-	if (destinationArray.size()==0) randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); //chooses a new random piece because the other piece can't move anywhere
-	
-	boolean moveDetermined = false;
-	
-	//Determines where to move	
-	while (moveDetermined == false){ //this is here so the AI knows to test the new destination, if we have to make one, to see if it is also applicable to be moved to
-		
-		if (destinationArray.size()==1) { //if there's only one place it can move, the piece has to move there regardless of the checks below
-			this.movePiece(randomPiece, randomDestination); 
-			randomPiece.changeLocation(randomDestination);
-			moveDetermined = true; 
-		}
-	
-		else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank){ 
-			this.movePiece(randomPiece, randomDestination); //This moves the piece because the system 
-			randomPiece.changeLocation(randomDestination);  //has determined the destination to be a blank
-			moveDetermined = true; 
-		}
-		
-		else if(this.makeTrade(randomPiece, currentBoard.getBoardArray()[(int) randomDestination.getX()][(int)randomDestination.getY()])){
-			this.movePiece(randomPiece, randomDestination); //This moves the piece only if the system
-			randomPiece.changeLocation(randomDestination);  //has found the destination to be more valuable than
-			moveDetermined = true; 						    //our attacking piece
+		// Finds the initial piece to move and the initial destination
+		Random r = new Random();
+		System.out.println("Pieces Size: " + ourPieces.size());
+		DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); 
+		System.out.println("Piece Type: " + randomPiece.toString());
+		ArrayList<Point> destinationArray = this.movablePoints(randomPiece); 
+		System.out.println("Destination Size: " + destinationArray.size());
+		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
+
+		// Determines where to move
+		boolean moveDetermined = false;
+		while (moveDetermined == false) { 
 			
+			//checks to see if the destination is blank
+			if (currentBoard.getBoardArray()[(int)randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank) {
+				this.movePiece(randomPiece, randomDestination); 
+				randomPiece.changeLocation(randomDestination);
+				moveDetermined = true;
+			} 
+			
+			//tests to see if its destination is an advantageous trade for us
+			else if (this.makeTrade(randomPiece, currentBoard.getBoardArray()[(int)randomDestination.getX()][(int)randomDestination.getY()])) {
+				this.movePiece(randomPiece, randomDestination); 
+				randomPiece.changeLocation(randomDestination); 
+				moveDetermined = true;
+			} 
+		
+			else { //picks a new destination because the others aren't feasible
+				destinationArray.remove(randomDestination); // if we get here, it means the randomDestination isn't an option
+				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to remove it as a possibility and 
+				moveDetermined = false;											// create a new random destination
+			}												      							  													 
 		}
-		else { destinationArray.remove(randomDestination); // if we get here, it means the randomdestination isn't an option
-		randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to remove it as a possibility and 
-		moveDetermined = false;}												      // create a new random destination
-	}													  													 
-	
+		
 	parseCurrentBoard(); 
 	boardStore.add(currentBoard);
 	return currentBoard; 
+
+	//To clarify, this method isn't perfect. It tries to make moves in the following order:
+	//1.Move to a blank
+	//2.Take a piece to our advantage
+	//3.Otherwise, find a different destination that meets the above conditions. 
+	
 	}
 	
 	// makes a move that advances our position or takes an enemy piece--for use
