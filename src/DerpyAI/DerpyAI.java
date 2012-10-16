@@ -765,10 +765,19 @@ public class DerpyAI {
 
 		// Finds the initial piece to move and the initial destination
 		Random r = new Random();
+		boolean pieceCanMove = false; 
+		DerpyPiece randomPiece; 
+		ArrayList<Point> destinationArray;
+		
+		do {
 		System.out.println("Pieces Size: " + ourPieces.size());
-		DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); 
+		randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); 
 		System.out.println("Piece Type: " + randomPiece.toString());
-		ArrayList<Point> destinationArray = this.movablePoints(randomPiece); 
+		destinationArray = this.movablePoints(randomPiece); 
+		if (destinationArray.size()>0) pieceCanMove = true; 
+		else pieceCanMove = false;}
+		while (!pieceCanMove) ; 
+		
 		System.out.println("Destination Size: " + destinationArray.size());
 		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
 
