@@ -19,6 +19,7 @@ public class v1Bobby {
 	public Piece[][] b;
 	public int move;
 
+	
 	public v1Bobby(Board b, boolean c) {
 		this.color = c;
 		this.b = new Piece[8][8];
@@ -117,6 +118,49 @@ public class v1Bobby {
 		}
 	}
 
+	public void getBoard(String[] a){
+		for(int i=0;i<8;i++){
+			boolean col;
+			char typ;
+			int g=0;
+			for (int j=0;j<40;j+=5){
+				if(a[i].charAt(j)=='B'){col=false;}
+				else col=true;
+				typ=a[i].charAt(j+1);
+				switch (typ){
+				case 'P':
+					this.b[g][i] = new Pawn(col);
+					break;
+				case 'R':
+					this.b[g][i] = new Rook(col);
+					break;
+
+				case 'N':
+					this.b[g][i] = new Knight(col);
+					break;
+
+				case 'B':
+					this.b[g][i] = new Bishop(col);
+					break;
+
+				case 'K':
+					this.b[g][i] = new King(col);
+					break;
+
+				case 'Q':
+					this.b[g][i] = new Queen(col);
+					break;
+
+				case 'X':
+					this.b[g][i] = new Blank(true);
+					break;
+					
+				}
+				g++;
+			}
+		}
+	}
+	
 	public void move(int ax, int ay, int bx, int by) {
 		char t = this.b[ax][ay].toString().charAt(1);
 		boolean c = this.b[ax][ay].getColor();
@@ -152,8 +196,7 @@ public class v1Bobby {
 			System.out.println();
 		}
 
-		System.out.println();
-		System.out.println("---------------------------------------");
+		System.out.println(".");
 		System.out.println();
 
 	}
@@ -962,7 +1005,17 @@ public class v1Bobby {
 public static void main(String[] args)
 {
 	v1Bobby a=new v1Bobby(new Board(), true);
-	a.turn(new Board());
+	String[] b=new String[8];
+	b[0]="BR | BN | BB | BK | BK | BB | BN | BR | ";
+	b[1]="BP | BP | BP | BP | BP | BP | BP | BP | ";
+	b[2]="WX | WX | WX | WX | WX | WX | WX | WX | ";
+	b[3]="WX | WX | WX | WX | WX | WX | WX | WX | ";
+	b[4]="WX | WX | WX | WX | WX | WX | WX | WX | ";
+	b[5]="WX | WX | WX | WX | WX | WX | WX | WX | ";
+	b[6]="WP | WP | WP | WP | WP | WP | WP | WP | ";
+	b[7]="WR | WN | WB | WQ | WK | WB | WN | WR | ";
+	a.getBoard(b);
+	a.printBoard();
 }
 
 public ArrayList<ArrayList> allMoves(){
