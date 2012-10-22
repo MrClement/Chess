@@ -798,14 +798,26 @@ public class v1Bobby {
 			if((char)w.get(i).get(0) == 'K') currPieceValue=100;
 			
 			int currPieceBestToTake =0;
-			//cast that shit
-			if(b[w.get(i).get(takeIfPossible(w.get(i))).getX()][b[w.get(i).get(takeIfPossible(w.get(i))).getX()];
+			ArrayList currPiece= w.get(i);
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
+				currPieceBestToTake =1;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
+				currPieceBestToTake =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
+				currPieceBestToTake =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
+				currPieceBestToTake =5;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
+				currPieceBestToTake =9;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
+				currPieceBestToTake =100;
+			
 		//>= allows for higher value trades
 			if(currPieceBestToTake-currPieceValue >= bestpiece) bestpiece= i;
 		}
-		//first=w.get(bestpiece).get(1);
+		first=(Point) w.get(bestpiece).get(1);
 		v.add(first);
-		//second=w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+		second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
 		v.add(second);
 		return v;
 	}
