@@ -781,17 +781,27 @@ public class v1Bobby {
 		Point second = new Point(-1,-1);
 		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
 		w=allMoves();
+		int bestpiece=0;
 		for(int i = 0; i<w.size(); i++)
 		{	
 			//allMoves() contains all pieces, starts with lowest ranking and works its way up
 			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
-			//piece it can take with the piece itself (aka rook (5) taking a bishop (3) =-2, the highest difference is 
+			//piece it can take with the piece itself (aka rook (5) taking a bishop (3)  (3-5)=-2, the highest difference is 
 			//the best piece to take
 			//p=1 n=3 b=3 r=5 q=9 k=100
-			int currPieceValue;
-			if(w.get(i).get(0) == )
-			int currPieceBestToTake = takeIfPossible(w.get(i));
-		
+			int currPieceValue = 0;
+			if((char)w.get(i).get(0) == 'P') currPieceValue=1;
+			if((char)w.get(i).get(0) == 'N') currPieceValue=3;
+			if((char)w.get(i).get(0) == 'B') currPieceValue=3;
+			if((char)w.get(i).get(0) == 'R') currPieceValue=5;
+			if((char)w.get(i).get(0) == 'Q') currPieceValue=9;
+			if((char)w.get(i).get(0) == 'K') currPieceValue=100;
+			
+			int currPieceBestToTake =0;
+			//cast that shit
+			if(b[w.get(i).get(takeIfPossible(w.get(i))).getX()][b[w.get(i).get(takeIfPossible(w.get(i))).getX()];
+		//>= allows for higher value trades
+			if(currPieceBestToTake-currPieceValue >= bestpiece) bestpiece= i;
 		}
 		//first=w.get(bestpiece).get(1);
 		v.add(first);
