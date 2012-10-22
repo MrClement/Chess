@@ -334,7 +334,7 @@ public class DerpyAI {
 						}
 					}
 				}
-				if (theirs.getLocation().getY() > ours.getLocation().getX()) {
+				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
 					for (double i = theirs.getLocation().getX(); i <= ours
 							.getLocation().getX(); i++) {
 						for (double j = theirs.getLocation().getY(); j >= ours
@@ -498,7 +498,8 @@ public class DerpyAI {
 				if (piece.getColor()) {
 					// if the pawn wants to move up two spaces and is on its
 					// starting area
-					if (piece.getLocation().getY() == 6 && position.getY() == 4) {
+					if ((piece.getLocation().getY() == 6 && position.getY() == 4)
+							&& (piece.getLocation().getX() == xPos)) {
 						// can only move if not blocked by another piece
 						if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
 								&& (DerpyPiece) currentBoard.getBoardArray()[xPos][5] instanceof DerpyBlank) {
