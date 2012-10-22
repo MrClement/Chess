@@ -719,8 +719,6 @@ public class v1Bobby {
 	public int takeIfPossible(ArrayList a)
 	{
 	int x= -1;
-	Piece[][] arr = new Piece[8][8];
-	arr = getPieceArray();
 
 	for(int i=2; i<a.size();i++) {
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
@@ -773,6 +771,33 @@ public class v1Bobby {
 	
 	
 	return x;
+	}
+	
+	public ArrayList<Point> bestPieceToTake()
+	{
+		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
+		ArrayList<Point> v = new ArrayList<Point>();
+		Point first = new Point(-1,-1);
+		Point second = new Point(-1,-1);
+		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
+		w=allMoves();
+		for(int i = 0; i<w.size(); i++)
+		{	
+			//allMoves() contains all pieces, starts with lowest ranking and works its way up
+			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
+			//piece it can take with the piece itself (aka rook (5) taking a bishop (3) =-2, the highest difference is 
+			//the best piece to take
+			//p=1 n=3 b=3 r=5 q=9 k=100
+			int currPieceValue;
+			if(w.get(i).get(0) == )
+			int currPieceBestToTake = takeIfPossible(w.get(i));
+		
+		}
+		//first=w.get(bestpiece).get(1);
+		v.add(first);
+		//second=w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+		v.add(second);
+		return v;
 	}
 	
 	
