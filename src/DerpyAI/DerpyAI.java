@@ -34,7 +34,7 @@ public class DerpyAI {
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
-		findOurPieces(); 
+		findOurPieces();
 	}
 
 	// /////////////////////////Board State
@@ -250,7 +250,8 @@ public class DerpyAI {
 
 	// returns an arraylist of points that can be occupied to block theirs from
 	// capturing ours
-	public ArrayList<Point> findBlockablePoints(DerpyPiece ours, DerpyPiece theirs) {
+	public ArrayList<Point> findBlockablePoints(DerpyPiece ours,
+			DerpyPiece theirs) {
 		ArrayList<Point> points = new ArrayList<Point>();
 		if ((theirs instanceof DerpyKnight || theirs instanceof DerpyPawn || theirs instanceof DerpyKing)) {
 			return points;
@@ -407,8 +408,13 @@ public class DerpyAI {
 
 		int xPos = (int) position.getX();
 		int yPos = (int) position.getY();
+		boolean indicator = false;
+		if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
+			indicator = true;
+		}
 		if (!(((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
-				.getColor() == myColor)) {
+				.getColor() == myColor) || indicator) {
+
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
 				if (piece.getLocation().distanceSq(position) == 1
@@ -759,72 +765,92 @@ public class DerpyAI {
 		}
 		return theirPieces.get(1);
 	}
-	
+
 	public DerpyBoard randomMove() {
 		parseCurrentBoard();
 
 		// Finds the initial piece to move and the initial destination
 		Random r = new Random();
-		boolean pieceCanMove = false; 
-		DerpyPiece randomPiece; 
+		boolean pieceCanMove = false;
+		DerpyPiece randomPiece;
 		ArrayList<Point> destinationArray;
-		
+
 		do {
-		System.out.println("Pieces Size: " + ourPieces.size());
-		randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); 
-		System.out.println("Piece Type: " + randomPiece.toString());
-		destinationArray = this.movablePoints(randomPiece); 
-		if (destinationArray.size()>0) pieceCanMove = true; 
-		else pieceCanMove = false;}
-		while (!pieceCanMove) ; 
-		
+			System.out.println("Pieces Size: " + ourPieces.size());
+			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
+			System.out.println("Piece Type: " + randomPiece.toString());
+			destinationArray = this.movablePoints(randomPiece);
+			if (destinationArray.size() > 0)
+				pieceCanMove = true;
+			else
+				pieceCanMove = false;
+		} while (!pieceCanMove);
+
 		System.out.println("Destination Size: " + destinationArray.size());
-		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
+		Point randomDestination = destinationArray.get(r
+				.nextInt(destinationArray.size()));
 
 		// Determines where to move
 		boolean moveDetermined = false;
-		while (moveDetermined == false) { 
-			
-			//checks to see if the destination is blank
-			if (currentBoard.getBoardArray()[(int)randomDestination.getX()][(int)randomDestination.getY()] instanceof DerpyBlank) {
-				this.movePiece(randomPiece, randomDestination); 
+		while (moveDetermined == false) {
+
+			// checks to see if the destination is blank
+			if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination
+					.getY()] instanceof DerpyBlank) {
+				this.movePiece(randomPiece, randomDestination);
 				randomPiece.changeLocation(randomDestination);
 				moveDetermined = true;
-			} 
-			
-			//tests to see if its destination is an advantageous trade for us
-			else if (this.makeTrade(randomPiece, currentBoard.getBoardArray()[(int)randomDestination.getX()][(int)randomDestination.getY()])) {
-				this.movePiece(randomPiece, randomDestination); 
-				randomPiece.changeLocation(randomDestination); 
-				moveDetermined = true;
-			} 
-		
-			else { //picks a new destination because the others aren't feasible
-				destinationArray.remove(randomDestination); // if we get here, it means the randomDestination isn't an option
-				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to remove it as a possibility and 
-				moveDetermined = false;											// create a new random destination
-			}												      							  													 
-		}
-		
-	parseCurrentBoard(); 
-	boardStore.add(currentBoard);
-	return currentBoard; 
+			}
 
-	//To clarify, this method isn't perfect. It tries to make moves in the following order:
-	//1.Move to a blank
-	//2.Take a piece to our advantage
-	//3.Otherwise, find a different destination that meets the above conditions. 
-	
+			// tests to see if its destination is an advantageous trade for us
+			else if (this
+					.makeTrade(
+							randomPiece,
+							currentBoard.getBoardArray()[(int) randomDestination
+									.getX()][(int) randomDestination.getY()])) {
+				this.movePiece(randomPiece, randomDestination);
+				randomPiece.changeLocation(randomDestination);
+				moveDetermined = true;
+			}
+
+			else { // picks a new destination because the others aren't feasible
+				destinationArray.remove(randomDestination); // if we get here,
+															// it means the
+															// randomDestination
+															// isn't an option
+				randomDestination = destinationArray.get(r
+						.nextInt(destinationArray.size())); // so we need to
+															// remove it as a
+															// possibility and
+				moveDetermined = false; // create a new random destination
+			}
+		}
+
+		parseCurrentBoard();
+		boardStore.add(currentBoard);
+		return currentBoard;
+
+		// To clarify, this method isn't perfect. It tries to make moves in the
+		// following order:
+		// 1.Move to a blank
+		// 2.Take a piece to our advantage
+		// 3.Otherwise, find a different destination that meets the above
+		// conditions.
+
 	}
-	
+
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
-		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
-			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
+		if (this.ourThreats(currentBoard).size() > 0
+				&& this.enemyThreats(currentBoard).size() < 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this
+					.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
-				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0),p.getLocation());
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+						.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),
+						p.getLocation());
 			}
 
 		} else if (this.enemyThreats(currentBoard).size() == 1) {
@@ -878,22 +904,20 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		//DerpyBoard ba = this.moveAutonomously();
-		
-		
-		//Start test
-		//For testing move and board stuff 
-		Point destination = new Point(4,5);
+		// DerpyBoard ba = this.moveAutonomously();
+
+		// Start test
+		// For testing move and board stuff
+		Point destination = new Point(4, 5);
 		this.movePiece(currentBoard.getBoardArray()[4][6], destination);
 		currentBoard.getBoardArray()[4][5].changeLocation(destination);
 
-		DerpyBlank blank = new DerpyBlank(new Point(4,6));
+		DerpyBlank blank = new DerpyBlank(new Point(4, 6));
 		currentBoard.getBoardArray()[4][6] = blank;
-		
+
 		DerpyBoard ba = currentBoard;
-		//End test
-		
-		
+		// End test
+
 		boardStore.add(ba);
 
 		// If we're still in check even after all that,
@@ -911,8 +935,8 @@ public class DerpyAI {
 		System.exit(0); // Exit with terminated status 0
 	}
 
-////Extra, Currently Unused Code////	
-	
+	// //Extra, Currently Unused Code////
+
 	public boolean executeCzechDefense() { // we need code to call this method
 		// again after white's moved once
 		// more
@@ -934,7 +958,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 	public boolean executeSicilianDefense() {
 		if (myColor == false) {
 			if (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn) {
@@ -946,7 +970,7 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 	public boolean executeRuyLopezOpening() {
 		if (myColor == true) {
 			// e4, Nf3
@@ -963,5 +987,5 @@ public class DerpyAI {
 		} else
 			return false;
 	}
-	
+
 }
