@@ -788,39 +788,32 @@ public class DerpyAI {
 		} while (!pieceCanMove);
 
 		System.out.println("Destination Size: " + destinationArray.size());
-		Point randomDestination = destinationArray.get(r
-				.nextInt(destinationArray.size()));
+		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
 
 		// Determines where to move
 		boolean moveDetermined = false;
 		while (moveDetermined == false) {
 
-			// checks to see if the destination is blank
-			if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination
-					.getY()] instanceof DerpyBlank) {
-				this.movePiece(randomPiece, randomDestination);
+			// tests to see if its destination is an advantageous trade for us
+			if (this.makeTrade(randomPiece,currentBoard.getBoardArray()[(int)randomDestination.getX()][(int) randomDestination.getY()])) {
+				this.movePiece(randomPiece,randomDestination);
 				randomPiece.changeLocation(randomDestination);
 				moveDetermined = true;
 			}
 
-			// tests to see if its destination is an advantageous trade for us
-			else if (this
-					.makeTrade(
-							randomPiece,
-							currentBoard.getBoardArray()[(int) randomDestination
-									.getX()][(int) randomDestination.getY()])) {
-				this.movePiece(randomPiece, randomDestination);
-				randomPiece.changeLocation(randomDestination);
-				moveDetermined = true;
-			}
+			// checks to see if the destination is blank
+			else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
+			     this.movePiece(randomPiece, randomDestination);
+			     randomPiece.changeLocation(randomDestination);
+                 moveDetermined = true;
+			}    
 
 			else { // picks a new destination because the others aren't feasible
 				destinationArray.remove(randomDestination); // if we get here,
 															// it means the
 															// randomDestination
 															// isn't an option
-				randomDestination = destinationArray.get(r
-						.nextInt(destinationArray.size())); // so we need to
+				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to
 															// remove it as a
 															// possibility and
 				moveDetermined = false; // create a new random destination
@@ -829,15 +822,14 @@ public class DerpyAI {
 
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
+		currentBoard.printBoard();
 		return currentBoard;
-
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
-		// 1.Move to a blank
-		// 2.Take a piece to our advantage
+		// 1.Take a piece to our advantage
+		// 2.Move to a blank spot
 		// 3.Otherwise, find a different destination that meets the above
 		// conditions.
-
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
