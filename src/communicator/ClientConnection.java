@@ -11,28 +11,44 @@ public class ClientConnection implements Runnable {
 	Socket client;
 	BufferedReader in;
 	PrintStream out;
+	private String[] boardStrings;
 
-	public ClientConnection(Socket client) {
+	public ClientConnection(Socket client, String[] stuff) {
 		this.client = client;
+		setBoardStrings(stuff);
 
 	}
 
 	@Override
-	public void run() {
+	public synchronized void run() {
 		try {
 			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			out = new PrintStream(client.getOutputStream());
 			String line = "";
-			while ((line = in.readLine()) != null) {
-				System.out.println(line);
-				out.println(line + 1);
+			int i = 0;
+			while (true) {
+				line = in.readLine();
+				if (!line.equals(".")) {
+					boardStrings[i] = line;
+					i++;
+				}
+				i = 0;
+				wait();
 
 			}
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	public String[] getBoardStrings() {
+		return boardStrings;
+	}
+
+	public void setBoardStrings(String[] boardStrings) {
+		this.boardStrings = boardStrings;
 	}
 
 }
