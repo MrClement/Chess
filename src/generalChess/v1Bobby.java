@@ -239,8 +239,8 @@ public class v1Bobby {
 	public ArrayList<ArrayList> qMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
@@ -447,8 +447,8 @@ public class v1Bobby {
 	public ArrayList<ArrayList> rMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
@@ -592,8 +592,8 @@ public class v1Bobby {
 	public ArrayList<ArrayList> bMoves() {
 		ArrayList<ArrayList> m = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
@@ -1004,18 +1004,15 @@ public class v1Bobby {
 
 public static void main(String[] args)
 {
-	v1Bobby a=new v1Bobby(new Board(), true);
-	String[] b=new String[8];
-	b[0]="BR | BN | BB | BK | BK | BB | BN | BR | ";
-	b[1]="BP | BP | BP | BP | BP | BP | BP | BP | ";
-	b[2]="WX | WX | WX | WX | WX | WX | WX | WX | ";
-	b[3]="WX | WX | WX | WX | WX | WX | WX | WX | ";
-	b[4]="WX | WX | WX | WX | WX | WX | WX | WX | ";
-	b[5]="WX | WX | WX | WX | WX | WX | WX | WX | ";
-	b[6]="WP | WP | WP | WP | WP | WP | WP | WP | ";
-	b[7]="WR | WN | WB | WQ | WK | WB | WN | WR | ";
-	a.getBoard(b);
-	a.printBoard();
+	boolean col=true;
+	v1Bobby a=new v1Bobby(new Board(), false);
+	a.move(2, 1, 3, 7);
+	for(int b=0;b<a.isThreatened(3,7).size();b++){
+		System.out.println(a.isThreatened(3,7).get(b));
+	}
+	
+	
+	
 }
 
 public ArrayList<ArrayList> allMoves(){
@@ -1044,7 +1041,7 @@ public ArrayList<Point> isThreatened (int d, int e){
 	ArrayList<Point> a=new ArrayList<Point>();
 	v1Bobby c=new v1Bobby(b, !color);
 	for(int i=0;i<c.allMoves().size();i++){
-		for(int j=0;j<c.allMoves().get(i).size();j++){
+		for(int j=2;j<c.allMoves().get(i).size();j++){
 			if(((Point)c.allMoves().get(i).get(j)).equals(new Point(d, e))){
 				a.add((Point)c.allMoves().get(i).get(1));
 			}
@@ -1053,3 +1050,5 @@ public ArrayList<Point> isThreatened (int d, int e){
 	return a;
 }
 }
+
+
