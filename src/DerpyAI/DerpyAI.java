@@ -334,7 +334,7 @@ public class DerpyAI {
 						}
 					}
 				}
-				if (theirs.getLocation().getY() > ours.getLocation().getX()) {
+				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
 					for (double i = theirs.getLocation().getX(); i <= ours
 							.getLocation().getX(); i++) {
 						for (double j = theirs.getLocation().getY(); j >= ours
@@ -414,6 +414,7 @@ public class DerpyAI {
 		}
 		if (!(((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
 				.getColor() == myColor) || indicator) {
+
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
 				if (piece.getLocation().distanceSq(position) == 1
@@ -497,7 +498,8 @@ public class DerpyAI {
 				if (piece.getColor()) {
 					// if the pawn wants to move up two spaces and is on its
 					// starting area
-					if (piece.getLocation().getY() == 6 && position.getY() == 4) {
+					if ((piece.getLocation().getY() == 6 && position.getY() == 4)
+							&& (piece.getLocation().getX() == xPos)) {
 						// can only move if not blocked by another piece
 						if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
 								&& (DerpyPiece) currentBoard.getBoardArray()[xPos][5] instanceof DerpyBlank) {
@@ -770,76 +772,64 @@ public class DerpyAI {
 
 		// Finds the initial piece to move and the initial destination
 		Random r = new Random();
-		System.out.println("Pieces Size: " + ourPieces.size());
-		DerpyPiece randomPiece = ourPieces.get(r.nextInt(ourPieces.size())); // chooses
-																				// a
-																				// random
-																				// piece
-		System.out.println("Piece Type: " + randomPiece.toString());
-		ArrayList<Point> destinationArray = this.movablePoints(randomPiece); // creates
-																				// an
-																				// array
-																				// of
-																				// random
-																				// points
-																				// that
-																				// piece
-																				// can
-																				// move
-																				// to
+		boolean pieceCanMove = false;
+		DerpyPiece randomPiece;
+		ArrayList<Point> destinationArray;
+
+		do {
+			System.out.println("Pieces Size: " + ourPieces.size());
+			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
+			System.out.println("Piece Type: " + randomPiece.toString());
+			destinationArray = this.movablePoints(randomPiece);
+			if (destinationArray.size() > 0)
+				pieceCanMove = true;
+			else
+				pieceCanMove = false;
+		} while (!pieceCanMove);
+
 		System.out.println("Destination Size: " + destinationArray.size());
-		Point randomDestination = destinationArray.get(r
-				.nextInt(destinationArray.size())); // chooses a random move
-													// from that array
+		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
 
 		// Determines where to move
 		boolean moveDetermined = false;
-		while (moveDetermined == false) { // this is here so the AI knows to
-											// test the new destination, if we
-											// have to make one, to see if it is
-											// also applicable to be moved to
-			if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination
-					.getY()] instanceof DerpyBlank) {
-				this.movePiece(randomPiece, randomDestination); // This moves
-																// the piece
-																// because the
-																// system
-				randomPiece.changeLocation(randomDestination); // has determined
-																// the
-																// destination
-																// to be a blank
-				moveDetermined = true;
-			} else if (this
-					.makeTrade(
-							randomPiece,
-							currentBoard.getBoardArray()[(int) randomDestination
-									.getX()][(int) randomDestination.getY()])) {
-				this.movePiece(randomPiece, randomDestination); // This moves
-																// the piece
-																// only if the
-																// system
-				randomPiece.changeLocation(randomDestination); // has found the
-																// destination
-																// to be more
-																// valuable than
-				moveDetermined = true; // our attacking piece
+		while (moveDetermined == false) {
 
-			} else {
+			// tests to see if its destination is an advantageous trade for us
+			if (this.makeTrade(randomPiece,currentBoard.getBoardArray()[(int)randomDestination.getX()][(int) randomDestination.getY()])) {
+				this.movePiece(randomPiece,randomDestination);
+				randomPiece.changeLocation(randomDestination);
+				moveDetermined = true;
+			}
+
+			// checks to see if the destination is blank
+			else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
+			     this.movePiece(randomPiece, randomDestination);
+			     randomPiece.changeLocation(randomDestination);
+                 moveDetermined = true;
+			}    
+
+			else { // picks a new destination because the others aren't feasible
 				destinationArray.remove(randomDestination); // if we get here,
 															// it means the
-															// randomdestination
+															// randomDestination
 															// isn't an option
-				randomDestination = destinationArray.get(r
-						.nextInt(destinationArray.size())); // so we need to
+				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to
 															// remove it as a
 															// possibility and
-				moveDetermined = false;
-			} // create a new random destination
+				moveDetermined = false; // create a new random destination
+			}
 		}
 
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
+		currentBoard.printBoard();
 		return currentBoard;
+		// To clarify, this method isn't perfect. It tries to make moves in the
+		// following order:
+		// 1.Take a piece to our advantage
+		// 2.Move to a blank spot
+		// 3.Otherwise, find a different destination that meets the above
+		// conditions.
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
