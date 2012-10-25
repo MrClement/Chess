@@ -630,9 +630,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -656,9 +654,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -682,9 +678,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -708,9 +702,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 		}
