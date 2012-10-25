@@ -806,8 +806,7 @@ public class DerpyAI {
 			}
 
 			// checks to see if the destination is blank
-			else if (currentBoard.getBoardArray()[(int) randomDestination
-					.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
+			else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
 				this.movePiece(randomPiece, randomDestination);
 				randomPiece.changeLocation(randomDestination);
 				moveDetermined = true;
@@ -818,8 +817,7 @@ public class DerpyAI {
 															// it means the
 															// randomDestination
 															// isn't an option
-				randomDestination = destinationArray.get(r
-						.nextInt(destinationArray.size())); // so we need to
+				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so we need to
 				// remove it as a
 				// possibility and
 				moveDetermined = false; // create a new random destination
@@ -837,7 +835,58 @@ public class DerpyAI {
 		// 3.Otherwise, find a different destination that meets the above
 		// conditions.
 	}
+	
+	public DerpyBoard autonomousMove(){ 
+		//Picks a random piece of ours and moves it to take the most valuable enemy piece it can take
+		//If the random piece it picks can't take any pieces, the AI will just make a random move instead	
+		
+		//Sets up board
+		parseCurrentBoard();
+		
+		//Finds the initial piece to move and the initial destination
+		Random r = new Random();
+		boolean pieceCanMove = false;
+		DerpyPiece randomPiece;
+		ArrayList<Point> destinationArray;
 
+		do {
+		System.out.println("Pieces Size: " + ourPieces.size()); //For testing
+		randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
+		System.out.println("Piece Type: " + randomPiece.toString()); //For testing
+		destinationArray = this.movablePoints(randomPiece);
+		if (destinationArray.size() > 0)
+		pieceCanMove = true;
+		else
+			pieceCanMove = false;
+		} while (!pieceCanMove);
+
+		//Compiles an array of pieces that a piece can take
+		ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
+		for (int i=0; i<destinationArray.size();i++){
+		if (currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()] instanceof DerpyPiece){
+			piecesToTake.add(currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()]);
+			}
+		}
+		
+		//Finds the most valuable piece in that array
+		DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
+		
+		//Checks to see if there is a piece to be taken at all -- if no, then makes a random move
+		if (targetPiece == null) return this.randomMove();
+		
+		//Otherwise, takes the most valuable piece that was previously determined
+		else{
+		this.movePiece(randomPiece,targetPiece.getLocation());
+		randomPiece.changeLocation(targetPiece.getLocation());
+		
+		//Sets up the new board
+		parseCurrentBoard();
+		boardStore.add(currentBoard);
+		currentBoard.printBoard();
+		return currentBoard;
+		}
+	}
+	
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
