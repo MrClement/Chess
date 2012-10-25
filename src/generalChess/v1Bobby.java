@@ -19,6 +19,7 @@ public class v1Bobby {
 	public Piece[][] b;
 	public int move;
 
+	
 	public v1Bobby(Board b, boolean c) {
 		this.color = c;
 		this.b = new Piece[8][8];
@@ -117,6 +118,49 @@ public class v1Bobby {
 		}
 	}
 
+	public void getBoard(String[] a){
+		for(int i=0;i<8;i++){
+			boolean col;
+			char typ;
+			int g=0;
+			for (int j=0;j<40;j+=5){
+				if(a[i].charAt(j)=='B'){col=false;}
+				else col=true;
+				typ=a[i].charAt(j+1);
+				switch (typ){
+				case 'P':
+					this.b[g][i] = new Pawn(col);
+					break;
+				case 'R':
+					this.b[g][i] = new Rook(col);
+					break;
+
+				case 'N':
+					this.b[g][i] = new Knight(col);
+					break;
+
+				case 'B':
+					this.b[g][i] = new Bishop(col);
+					break;
+
+				case 'K':
+					this.b[g][i] = new King(col);
+					break;
+
+				case 'Q':
+					this.b[g][i] = new Queen(col);
+					break;
+
+				case 'X':
+					this.b[g][i] = new Blank(true);
+					break;
+					
+				}
+				g++;
+			}
+		}
+	}
+	
 	public void move(int ax, int ay, int bx, int by) {
 		char t = this.b[ax][ay].toString().charAt(1);
 		boolean c = this.b[ax][ay].getColor();
@@ -147,13 +191,14 @@ public class v1Bobby {
 	public void printBoard() {
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
-				System.out.print(b[y][x] + " | ");
+				if(b[y][x].toString().equals("WX")) System.out.print("   | ");
+				else System.out.print(b[y][x].toString() + " | ");
 			}
 			System.out.println();
+			System.out.println("---------------------------------------");
 		}
 
-		System.out.println();
-		System.out.println("---------------------------------------");
+		System.out.println(".");
 		System.out.println();
 
 	}
@@ -196,8 +241,8 @@ public class v1Bobby {
 	public ArrayList<ArrayList> qMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
@@ -232,9 +277,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -258,9 +301,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -284,9 +325,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -310,9 +349,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -330,9 +367,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -350,9 +385,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -370,9 +403,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -390,9 +421,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -404,11 +433,11 @@ public class v1Bobby {
 	public ArrayList<ArrayList> rMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
-				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'R') {
 					x = j;
 					y = k;
 					break;
@@ -434,9 +463,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -454,9 +481,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -474,9 +499,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -494,9 +517,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 		}
@@ -549,11 +570,11 @@ public class v1Bobby {
 	public ArrayList<ArrayList> bMoves() {
 		ArrayList<ArrayList> m = new ArrayList<ArrayList>();
 		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+		int x = 0;
+		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
-				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'B') {
 					x = j;
 					y = k;
 					break;
@@ -585,9 +606,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -611,9 +630,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -637,9 +654,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 
@@ -663,9 +678,7 @@ public class v1Bobby {
 					quit = -999;
 				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 					g.add(new Point(a, b));
-				if (this.b[a][b].getColor() != color)
-					quit = -999;
-				if (this.b[a][b].getColor() == color)
+				if (this.b[a][b].toString().charAt(1) != 'X')
 					quit = -999;
 			} while (quit != -999);
 		}
@@ -1048,8 +1061,16 @@ public class v1Bobby {
 
 public static void main(String[] args)
 {
-	v1Bobby a=new v1Bobby(new Board(), true);
-	a.turn(new Board());
+	boolean col=true;
+	v1Bobby a=new v1Bobby(new Board(), false);
+	a.move(2, 1, 3, 7);
+	a.printBoard();
+	for(int b=0;b<a.isThreatened(3,7).size();b++){
+		System.out.println(a.isThreatened(3,7).get(b));
+	}
+	
+	
+	
 }
 
 public ArrayList<ArrayList> allMoves(){
@@ -1078,7 +1099,7 @@ public ArrayList<Point> isThreatened (int d, int e){
 	ArrayList<Point> a=new ArrayList<Point>();
 	v1Bobby c=new v1Bobby(b, !color);
 	for(int i=0;i<c.allMoves().size();i++){
-		for(int j=0;j<c.allMoves().get(i).size();j++){
+		for(int j=2;j<c.allMoves().get(i).size();j++){
 			if(((Point)c.allMoves().get(i).get(j)).equals(new Point(d, e))){
 				a.add((Point)c.allMoves().get(i).get(1));
 			}
@@ -1087,3 +1108,5 @@ public ArrayList<Point> isThreatened (int d, int e){
 	return a;
 }
 }
+
+
