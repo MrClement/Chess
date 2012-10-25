@@ -1,20 +1,20 @@
 package DerpyAI;
-import java.util.ArrayList;
-import java.awt.Point; 
-
 
 public class Driver {
 
 	public static void main(String[] args) {
 
-		
-		//October 7 2012: This needs to stay like this, folks! An AI is created, it's passed board, makes a move, returns the board, and prints it
-		
+		// October 22, 2012 - Makes 20 random moves and prints the board each
+		// time. Pieces should be functional, at this point.
+
 		DerpyBoard db = new DerpyBoard();
 		DerpyAI aiOne = new DerpyAI(true);
-		db = aiOne.randomMove();
-		db.printBoard();
 		
+		DerpyAI aiTwo = new DerpyAI(false);
+		for (int i = 0; i < 20; i++) {
+			db = aiOne.makeMove(db);
+			db = aiTwo.makeMove(db);
+		}
 	}
 
 }

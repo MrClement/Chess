@@ -756,20 +756,107 @@ public class v1Bobby {
 	public int takeIfPossible(ArrayList a)
 	{
 	int x= -1;
-	Piece[][] arr = new Piece[8][8];
-	arr = getPieceArray();
-	for(int i=2; i<a.size();i++)
-	{
+
+	for(int i=2; i<a.size();i++) {
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X')
-	{
-		
+			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
+			x=i;
+			return x;}
 	}
 	}
-	
+	for(int i=2; i<a.size();i++) {
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
+				x=i;
+				return x;}
+		}
+		}
+	for(int i=2; i<a.size();i++) {
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
+				x=i;
+				return x;}
+		}
+		}
+	for(int i=2; i<a.size();i++) {
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
+				x=i;
+				return x;}
+		}
+		}
+	for(int i=2; i<a.size();i++) {
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
+				x=i;
+				return x;}
+		}
+		}
+	for(int i=2; i<a.size();i++) {
+		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
+			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
+				x=i;
+				return x;}
+		}
+		}
 	
 	
 	return x;
+	}
+	
+	public ArrayList<Point> bestPieceToTake()
+	{
+		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
+		ArrayList<Point> v = new ArrayList<Point>();
+		Point first = new Point(-1,-1);
+		Point second = new Point(-1,-1);
+		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
+		w=allMoves();
+		int bestpiece=0;
+		for(int i = 0; i<w.size(); i++)
+		{	
+			//allMoves() contains all pieces, starts with lowest ranking and works its way up
+			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
+			//piece it can take with the piece itself (aka rook (5) taking a bishop (3)  (3-5)=-2, the highest difference is 
+			//the best piece to take
+			//p=1 n=3 b=3 r=5 q=9 k=100
+			int currPieceValue = 0;
+			if((char)w.get(i).get(0) == 'P') currPieceValue=1;
+			if((char)w.get(i).get(0) == 'N') currPieceValue=3;
+			if((char)w.get(i).get(0) == 'B') currPieceValue=3;
+			if((char)w.get(i).get(0) == 'R') currPieceValue=5;
+			if((char)w.get(i).get(0) == 'Q') currPieceValue=9;
+			if((char)w.get(i).get(0) == 'K') currPieceValue=100;
+			
+			int currPieceBestToTake =0;
+			ArrayList currPiece= w.get(i);
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
+				currPieceBestToTake =1;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
+				currPieceBestToTake =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
+				currPieceBestToTake =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
+				currPieceBestToTake =5;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
+				currPieceBestToTake =9;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
+				currPieceBestToTake =100;
+			
+		//>= allows for higher value trades
+			if(currPieceBestToTake-currPieceValue >= bestpiece) bestpiece= i;
+		}
+		first=(Point) w.get(bestpiece).get(1);
+		v.add(first);
+		second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+		v.add(second);
+		return v;
 	}
 	
 	
