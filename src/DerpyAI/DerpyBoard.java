@@ -111,11 +111,6 @@ public class DerpyBoard {
 		}
 	}
 
-	public static void main (String args[]){
-		DerpyBoard a = new DerpyBoard();
-		a.printBoard();
-	}
-
 	public void updateLocations() {
 
 		DerpyPiece newArr[][] = new DerpyPiece[8][8];
