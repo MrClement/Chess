@@ -191,9 +191,11 @@ public class v1Bobby {
 	public void printBoard() {
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
-				System.out.print(b[y][x] + " | ");
+				if(b[y][x].toString().equals("WX")) System.out.print("   | ");
+				else System.out.print(b[y][x].toString() + " | ");
 			}
 			System.out.println();
+			System.out.println("---------------------------------------");
 		}
 
 		System.out.println(".");
@@ -451,7 +453,7 @@ public class v1Bobby {
 		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
-				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'R') {
 					x = j;
 					y = k;
 					break;
@@ -596,7 +598,7 @@ public class v1Bobby {
 		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
-				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'B') {
 					x = j;
 					y = k;
 					break;
@@ -1007,6 +1009,7 @@ public static void main(String[] args)
 	boolean col=true;
 	v1Bobby a=new v1Bobby(new Board(), false);
 	a.move(2, 1, 3, 7);
+	a.printBoard();
 	for(int b=0;b<a.isThreatened(3,7).size();b++){
 		System.out.println(a.isThreatened(3,7).get(b));
 	}
