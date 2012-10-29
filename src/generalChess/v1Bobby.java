@@ -248,185 +248,185 @@ public class v1Bobby {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
 					x = j;
 					y = k;
-					break;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks queen for diagonal down to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						int a = x;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int quit = 0;
+						do {
+							a = a + 1;
+							b = b + 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen for diagonal down to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							b = b + 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen for diagonal up to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							b = b - 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen for diagonal up to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							b = b - 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen north. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b - 1;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen south. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b + 1;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen to the west. quits if adds an opposite color piece
+						// or reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							if (a == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen to the east. quits if adds an opposite color piece
+						// or reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							if (a == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+					}
+					d.add(g);
 				}
 			}
 		}
-		g.add(b[x][y]);
-		g.add(new Point(x, y));
-		if (x == -1 || y == -1) {
-			return null;
-		} else {
-			// checks queen for diagonal down to the right. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			int a = x;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			int b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			int quit = 0;
-			do {
-				a = a + 1;
-				b = b + 1;
-				if (a == 7)
-					quit = -999;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen for diagonal down to the left. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				b = b + 1;
-				if (a == 0)
-					quit = -999;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen for diagonal up to the left. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				b = b - 1;
-				if (a == 0)
-					quit = -999;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen for diagonal up to the right. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a + 1;
-				b = b - 1;
-				if (a == 7)
-					quit = -999;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen north. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				b = b - 1;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen south. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				b = b + 1;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen to the west. quits if adds an opposite color piece
-			// or reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a + 1;
-				if (a == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen to the east. quits if adds an opposite color piece
-			// or reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				if (a == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-		}
-		d.add(g);
+		
 		return d;
 	}
 
@@ -440,88 +440,88 @@ public class v1Bobby {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'R') {
 					x = j;
 					y = k;
-					break;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks queen rook. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						int a = x;
+						int b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int quit = 0;
+						do {
+							b = b - 1;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook south. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b + 1;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook to the west. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							if (a == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook to the east. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							if (a == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+					}
+					d.add(g);
 				}
 			}
 		}
-		g.add(b[x][y]);
-		g.add(new Point(x, y));
-		if (x == -1 || y == -1) {
-			return null;
-		} else {
-			// checks queen rook. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			int a = x;
-			int b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			int quit = 0;
-			do {
-				b = b - 1;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks rook south. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				b = b + 1;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks rook to the west. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a + 1;
-				if (a == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks rook to the east. quits if adds an opposite color piece or
-			// reaches end of board or hits our piece
-			a = x;
-			b = y;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				if (a == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-		}
-		d.add(g);
+		
 		return d;
 	}
 
@@ -577,112 +577,112 @@ public class v1Bobby {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'B') {
 					x = j;
 					y = k;
-					break;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks bishop for diagonal down to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						int a = x;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int quit = 0;
+						do {
+							a = a + 1;
+							b = b + 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen for diagonal down to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							b = b + 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks bishop for diagonal up to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							b = b - 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks bishop for diagonal up to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							b = b - 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+					}
+					m.add(g);
 				}
 			}
 		}
-		g.add(b[x][y]);
-		g.add(new Point(x, y));
-		if (x == -1 || y == -1) {
-			return null;
-		} else {
-			// checks bishop for diagonal down to the right. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			int a = x;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			int b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			int quit = 0;
-			do {
-				a = a + 1;
-				b = b + 1;
-				if (a == 7)
-					quit = -999;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks queen for diagonal down to the left. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 7)
-				b = b - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				b = b + 1;
-				if (a == 0)
-					quit = -999;
-				if (b == 7)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks bishop for diagonal up to the left. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 0)
-				a = a + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a - 1;
-				b = b - 1;
-				if (a == 0)
-					quit = -999;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-
-			// checks bishop for diagonal up to the right. quits if adds an
-			// opposite color piece or reaches end of board or our piece
-			a = x;
-			if (a == 7)
-				a = a - 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			b = y;
-			if (b == 0)
-				b = b + 1; // if piece is already on edge of board, need to
-							// adjust for the do while loop to work
-			quit = 0;
-			do {
-				a = a + 1;
-				b = b - 1;
-				if (a == 7)
-					quit = -999;
-				if (b == 0)
-					quit = -999;
-				if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-					g.add(new Point(a, b));
-				if (this.b[a][b].toString().charAt(1) != 'X')
-					quit = -999;
-			} while (quit != -999);
-		}
-		m.add(g);
+		
 		return m;
 	}
 
