@@ -240,12 +240,12 @@ public class v1Bobby {
 	// possible queen moves
 	public ArrayList<ArrayList> qMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
-		ArrayList g = new ArrayList();
 		int x = 0;
 		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+					ArrayList g = new ArrayList();
 					x = j;
 					y = k;
 					g.add(b[x][y]);
@@ -432,12 +432,12 @@ public class v1Bobby {
 
 	public ArrayList<ArrayList> rMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
-		ArrayList g = new ArrayList();
 		int x = 0;
 		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'R') {
+					ArrayList g = new ArrayList();
 					x = j;
 					y = k;
 					g.add(b[x][y]);
@@ -569,12 +569,12 @@ public class v1Bobby {
 
 	public ArrayList<ArrayList> bMoves() {
 		ArrayList<ArrayList> m = new ArrayList<ArrayList>();
-		ArrayList g = new ArrayList();
 		int x = 0;
 		int y = 0;
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'B') {
+					ArrayList g = new ArrayList();
 					x = j;
 					y = k;
 					g.add(b[x][y]);
