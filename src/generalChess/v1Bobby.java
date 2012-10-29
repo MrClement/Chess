@@ -848,6 +848,7 @@ public class v1Bobby {
 		//66-80 rook
 		//81-95 queen
 		//96-100 king
+	
 		
 		
 		
@@ -865,7 +866,7 @@ public class v1Bobby {
 			Point fn = new Point((Point) pMoves().get(m).get(choose));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
-		if (nMoves().size() != 0 && (26<=number && number<=45)) {
+		else if (nMoves().size() != 0 && (26<=number && number<=45)) {
 			Random r = new Random();
 			int m = r.nextInt(nMoves().size());
 			while (nMoves().get(m).size() == 2) {
@@ -879,7 +880,7 @@ public class v1Bobby {
 			Point fn = new Point((Point) nMoves().get(m).get(choose));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
-		if (bMoves().size() != 0 && (46<=number && number<=66)) {
+		else if (bMoves().size() != 0 && (46<=number && number<=66)) {
 			//asdfadsf
 			Random r = new Random();
 			int m = r.nextInt(bMoves().size());
@@ -894,7 +895,7 @@ public class v1Bobby {
 			Point fn = new Point((Point) bMoves().get(m).get(choose));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
-		if (rMoves().size() != 0 && (67<=number && number<=80)) {
+		else if (rMoves().size() != 0 && (67<=number && number<=80)) {
 			Random r = new Random();
 			int m = r.nextInt(rMoves().size());
 			while (rMoves().get(m).size() == 2) {
@@ -908,7 +909,7 @@ public class v1Bobby {
 			Point fn = new Point((Point) rMoves().get(m).get(choose));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
-		if (qMoves().size() != 0 && (81<=number && number<=95)) {
+		else if (qMoves().size() != 0 && (81<=number && number<=95)) {
 			Random r = new Random();
 			int m = r.nextInt(qMoves().size());
 			while (qMoves().get(m).size() == 2) {
@@ -922,7 +923,7 @@ public class v1Bobby {
 			Point fn = new Point((Point) qMoves().get(m).get(choose));
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
-		if (kMoves().size() != 0 && (96<=number && number<=100)) {
+		else if (kMoves().size() != 0 && (96<=number && number<=100)) {
 			Random r = new Random();
 			int m = r.nextInt(kMoves().size());
 			while (kMoves().get(m).size() == 2) {
@@ -1059,7 +1060,38 @@ public class v1Bobby {
 
 	}
 
+	
+public Point randomKingMove() {
+	
+			Random r = new Random();
+			int m = r.nextInt(kMoves().size());
+			while (kMoves().get(m).size() == 2) {
+				m = r.nextInt(kMoves().size());
+			}
+			Point st = new Point((Point) kMoves().get(m).get(1));
+			Random q=new Random();
+			int choose=q.nextInt((kMoves().get(m).size()-2))+2;
+			Point fn = new Point((Point) kMoves().get(m).get(choose));
+			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
+			return fn;
+		
+	}
 
+public boolean checkmate(){
+	//replicate board state
+	v1Bobby a=new v1Bobby(b, color);
+	Point p;
+	//check random king moves 30x - if one of the moves takes the king out of threat, then returns false
+	for(int i=0;i<30;i++){
+		p=a.randomKingMove();
+		if(a.isThreatened(((int)((Point)kMoves().get(1).get(1)).getX()), ((int)((Point)kMoves().get(1).get(1)).getY())).size()==0){
+			return false;
+		}
+	}
+	return true;
+}
+	
+	
 public ArrayList<ArrayList> allMoves(){
 	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 	for(int i=0;i<pMoves().size();i++){
@@ -1082,15 +1114,16 @@ public ArrayList<ArrayList> allMoves(){
 	}
 	return a;
 }
+
 public ArrayList<Point> isThreatened (int d, int e){
 	ArrayList<Point> a=new ArrayList<Point>();
 	v1Bobby c=new v1Bobby(b, !color);
 	for(int i=0;i<c.allMoves().size();i++){
-		for(int j=2;j<c.allMoves().get(i).size();j++){
-			if(((Point)c.allMoves().get(i).get(j)).equals(new Point(d, e))){
-				a.add((Point)c.allMoves().get(i).get(1));
-			}
-		}
+		for(int k=1;k<c.allMoves().get(i).size();k++){
+			if(((Point)c.allMoves().get(i).get(k)).equals(new Point(d, e))){
+					a.add((Point)c.allMoves().get(i).get(1));
+		}}
+		
 	}
 	return a;
 }
