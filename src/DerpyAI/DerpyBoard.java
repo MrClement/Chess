@@ -80,7 +80,7 @@ public class DerpyBoard {
 				} else if (p instanceof DerpyPawn) {
 					db = new Pawn(pieceColor);
 				} else if (p instanceof DerpyQueen) {
-					db = new Pawn(pieceColor);
+					db = new Queen(pieceColor);
 				} else if (p instanceof DerpyRook) {
 					db = new Rook(pieceColor);
 				} else {
@@ -117,7 +117,7 @@ public class DerpyBoard {
 				} else if (p instanceof Pawn) {
 					db = new DerpyPawn(pieceColor, new Point(x, y));
 				} else if (p instanceof Queen) {
-					db = new DerpyPawn(pieceColor, new Point(x, y));
+					db = new DerpyQueen(pieceColor, new Point(x, y));
 				} else if (p instanceof Rook) {
 					db = new DerpyRook(pieceColor, new Point(x, y));
 				}
