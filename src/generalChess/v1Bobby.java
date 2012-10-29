@@ -939,6 +939,7 @@ public class v1Bobby {
 		}
 	}
 
+/*
 	public Piece[][] turn(Board c) {
 		getBoard(c);
 		Piece[][] arr = new Piece[8][8];
@@ -1061,6 +1062,8 @@ public class v1Bobby {
 	}
 
 	
+*/
+	
 public Point randomKingMove() {
 	
 			Random r = new Random();
@@ -1090,8 +1093,28 @@ public boolean checkmate(){
 	}
 	return true;
 }
-	
-	
+
+public boolean check(){
+	if(isThreatened((int)((Point)kMoves().get(1).get(1)).getX(),(int)((Point)kMoves().get(1).get(1)).getY() ).size()!=0)return true;
+	else return false;
+}
+
+public void getOutOfCheck(){
+	while(checkmate()==false){
+		for(int i=2;i<kMoves().get(1).size();i++){
+			int x;
+			int y;
+			x=(int)((Point)kMoves().get(1).get(i)).getX();
+			y=(int)((Point)kMoves().get(1).get(i)).getY();
+			
+			if(isThreatened(x, y).size()==0){
+				move((int)((Point)kMoves().get(1).get(1)).getX(),(int)((Point)kMoves().get(1).get(1)).getY(), x, y);
+			}
+
+		}
+	}
+}
+
 public ArrayList<ArrayList> allMoves(){
 	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 	for(int i=0;i<pMoves().size();i++){
@@ -1127,6 +1150,10 @@ public ArrayList<Point> isThreatened (int d, int e){
 	}
 	return a;
 }
+
+
+
+
 }
 
 
