@@ -778,6 +778,9 @@ public class DerpyAI {
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
 		// currentBoard.printBoard();
+		System.out.println("Random Move Made");
+		System.out.println(randomPiece.toString());
+		System.out.println(randomDestination);
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
@@ -826,6 +829,7 @@ public class DerpyAI {
 		if (bestPiece != null && bestTarget != null){
 			this.movePiece(bestPiece, bestTarget.getLocation());
 			bestPiece.changeLocation(bestTarget.getLocation());
+			System.out.println("Autonomous Move Made by " + bestPiece.toString() + " to " + bestTarget.getLocation().toString());
 		}
 		//Otherwise, makes a random move
 		else this.randomMove();
