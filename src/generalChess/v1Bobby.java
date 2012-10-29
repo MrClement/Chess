@@ -1059,20 +1059,6 @@ public class v1Bobby {
 	}
 
 
-public static void main(String[] args)
-{
-	boolean col=true;
-	v1Bobby a=new v1Bobby(new Board(), false);
-	a.move(2, 1, 3, 7);
-	a.printBoard();
-	for(int b=0;b<a.isThreatened(3,7).size();b++){
-		System.out.println(a.isThreatened(3,7).get(b));
-	}
-	
-	
-	
-}
-
 public ArrayList<ArrayList> allMoves(){
 	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 	for(int i=0;i<pMoves().size();i++){
