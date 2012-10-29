@@ -906,7 +906,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		// DerpyBoard ba = this.moveAutonomously();
+		DerpyBoard ba = this.moveAutonomously();
 
 		// Start test
 		// For testing move and board stuff
@@ -920,7 +920,7 @@ public class DerpyAI {
 		 * 
 		 * DerpyBoard ba = currentBoard;
 		 */// End test
-		DerpyBoard ba = this.randomMove();
+		//DerpyBoard ba = this.randomMove();
 		boardStore.add(ba);
 
 		// If we're still in check even after all that,

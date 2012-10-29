@@ -880,6 +880,7 @@ public class v1Bobby {
 			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
 		} 
 		if (bMoves().size() != 0 && (46<=number && number<=66)) {
+			//asdfadsf
 			Random r = new Random();
 			int m = r.nextInt(bMoves().size());
 			while (bMoves().get(m).size() == 2) {
