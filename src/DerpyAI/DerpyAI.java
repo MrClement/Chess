@@ -778,6 +778,9 @@ public class DerpyAI {
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
 		// currentBoard.printBoard();
+		System.out.println("Random Move Made");
+		System.out.println(randomPiece.toString());
+		System.out.println(randomDestination);
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
@@ -788,63 +791,54 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard autonomousMove() {
-		// Picks a random piece of ours and moves it to take the most valuable
-		// enemy piece it can take
-		// If the random piece it picks can't take any pieces, the AI will just
-		// make a random move instead
-
+		// Picks our piece that can take the most valuable enemy piece and moves it, otherwise makes a random move
+		
 		// Sets up board
 		parseCurrentBoard();
 
 		// Finds the initial piece to move and the initial destination
-		Random r = new Random();
-		boolean pieceCanMove = false;
-		DerpyPiece randomPiece;
+		DerpyPiece bestPiece = null; //Our piece to move
+		DerpyPiece bestTarget = null; //Enemy piece to take
+		
 		ArrayList<Point> destinationArray;
-
-		do {
-			System.out.println("Pieces Size: " + ourPieces.size()); // For
-																	// testing
-			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
-			System.out.println("Piece Type: " + randomPiece.toString()); // For
-																			// testing
-			destinationArray = this.movablePoints(randomPiece);
-			if (destinationArray.size() > 0)
-				pieceCanMove = true;
-			else
-				pieceCanMove = false;
-		} while (!pieceCanMove);
-
-		// Compiles an array of pieces that a piece can take
+		//Goes through each of our pieces
+		for (int f = 0; f<ourPieces.size();f++){
+		//Finds the possible destinations of that respective piece
+		destinationArray = this.movablePoints(ourPieces.get(f));
 		ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
-		for (int i = 0; i < destinationArray.size(); i++) {
-			if (currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
-				piecesToTake
-						.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray
-								.get(i).getY()]);
+			//Finds all possible pieces that piece can take
+			for (int i = 0; i < destinationArray.size(); i++) {
+				if (currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
+				piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
 			}
 		}
-
-		// Finds the most valuable piece in that array
-		DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
-
-		// Checks to see if there is a piece to be taken at all -- if no, then
-		// makes a random move
-		if (targetPiece == null)
-			return this.randomMove();
-
-		// Otherwise, takes the most valuable piece that was previously
-		// determined
-		else {
-			this.movePiece(randomPiece, targetPiece.getLocation());
-			randomPiece.changeLocation(targetPiece.getLocation());
-
-			// Sets up the new board
+		// Finds the most valuable piece in that array if that array is not empty
+		if (piecesToTake.size()!=0){
+			DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
+				//Checks to see if our best target is less valuable than the new target, if it is, replaces the best target with the new one
+				if (this.makeTrade(bestTarget, targetPiece) || bestTarget == null) {
+					bestTarget = targetPiece;
+					bestPiece = ourPieces.get(f);
+					}
+				}
+		
+		
+		}
+		
+		//If we have any pieces to take, takes the best one of them
+		if (bestPiece != null && bestTarget != null){
+			this.movePiece(bestPiece, bestTarget.getLocation());
+			bestPiece.changeLocation(bestTarget.getLocation());
+			System.out.println("Autonomous Move Made by " + bestPiece.toString() + " to " + bestTarget.getLocation().toString());
+		}
+		//Otherwise, makes a random move
+		else this.randomMove();
+		
+		// Sets up the new board
 			parseCurrentBoard();
 			boardStore.add(currentBoard);
 			currentBoard.printBoard();
-			return currentBoard;
-		}
+			return currentBoard;		
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
@@ -906,7 +900,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.moveAutonomously();
+		DerpyBoard ba = this.autonomousMove();
 
 		// Start test
 		// For testing move and board stuff
