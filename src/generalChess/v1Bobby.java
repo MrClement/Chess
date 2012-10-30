@@ -164,6 +164,7 @@ public class v1Bobby {
 	public void move(int ax, int ay, int bx, int by) {
 		char t = this.b[ax][ay].toString().charAt(1);
 		boolean c = this.b[ax][ay].getColor();
+		this.b[ax][ay] = new Blank(true);
 		switch (t) {
 			case 'P':
 				this.b[bx][by] = new Pawn(c);
@@ -185,7 +186,6 @@ public class v1Bobby {
 				break;
 		}
 
-		this.b[ax][ay] = new Blank(true);
 	}
 
 	public void printBoard() {
@@ -791,6 +791,7 @@ public class v1Bobby {
 		ArrayList<Point> v=new ArrayList<Point>();
 		int best=0;
 		ArrayList currPiece=allMoves().get(0);
+		int high=0;
 		for(int i=0;i<allMoves().size();i++){
 			
 			char c;
@@ -820,7 +821,8 @@ public class v1Bobby {
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
 				takeVal =100;
 			
-			if(takeVal-curVal>0){
+			if(takeVal-curVal>high){
+				high=takeVal-curVal;
 				best=i;
 			}
 		}
