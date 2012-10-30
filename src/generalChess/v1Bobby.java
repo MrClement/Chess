@@ -787,56 +787,49 @@ public class v1Bobby {
 	
 	public ArrayList<Point> bestPieceToTake()
 	{
-		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
-		ArrayList<Point> v = new ArrayList<Point>();
-		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
-		w=allMoves();
-		int bestpiece=0;
-		Point first, second;
-		first=new Point((Point) w.get(bestpiece).get(1));
-		second =new Point((Point) w.get(bestpiece).get(1));
-		for(int i = 0; i<w.size(); i++)
-		{	
 		
+		ArrayList<Point> v=new ArrayList<Point>();
+		int best=0;
+		ArrayList currPiece=allMoves().get(0);
+		for(int i=0;i<allMoves().size();i++){
 			
-			//allMoves() contains all pieces, starts with lowest ranking and works its way up
-			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
-			//piece it can take with the piece itself (aka rook (5) taking a bishop (3)  (3-5)=-2, the highest difference is 
-			//the best piece to take
-			//p=1 n=3 b=3 r=5 q=9 k=100
-			int currPieceValue = 0;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'P') currPieceValue=1;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'N') currPieceValue=3;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'B') currPieceValue=3;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'R') currPieceValue=5;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'Q') currPieceValue=9;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'K') currPieceValue=100;
+			char c;
+			if(color==true)c='W';else c='B';
 			
-			int currPieceBestToTake =0;
-			ArrayList currPiece= w.get(i);
+			//p=2 n=3 b=3 r=5 q=9 k=100
+			int curVal = 0;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P') curVal=2;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'N') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'B') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R') curVal=5;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'Q') curVal=9;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'K') curVal=100;
+			
+			int takeVal=0;
+			currPiece= allMoves().get(i);
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
-				currPieceBestToTake =1;
+				takeVal =2;
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
-				currPieceBestToTake =3;
+				takeVal =3;
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
-				currPieceBestToTake =3;
+				takeVal =3;
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
-				currPieceBestToTake =5;
+				takeVal =5;
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
-				currPieceBestToTake =9;
+				takeVal =9;
 			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
-				currPieceBestToTake =100;
+				takeVal =100;
 			
-		//>= allows for higher value trades
-			if(currPieceBestToTake-currPieceValue > 0) {
-				bestpiece= i;
-				first=(Point) w.get(bestpiece).get(1);
-				second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+			if(takeVal-curVal>0){
+				best=i;
 			}
 		}
-		v.add(first);
-		v.add(second);
+		
+		v.add((Point)allMoves().get(best).get(1));
+		v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
 		return v;
+		
+		
 	}
 	
 	// makes a random move
