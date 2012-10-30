@@ -923,11 +923,14 @@ public class DerpyAI {
 			for (DerpyPiece p : piecesWeCanTake) {
 				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
 						.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0),
-						p.getLocation());
+				if (piecesWeCanTakeWith.size() > 0) {
+					return this.movePiece(piecesWeCanTakeWith.get(0),
+							p.getLocation());
+				}
 			}
 
-		} else if (this.enemyThreats(currentBoard).size() == 1) {
+		}
+		if (this.enemyThreats(currentBoard).size() == 1) {
 			return this.savePiece(this.enemyThreats(currentBoard).get(0));
 		} else if (this.enemyThreats(currentBoard).size() > 1) {
 			DerpyPiece pieceToSave = this.findValuablePiece(this
