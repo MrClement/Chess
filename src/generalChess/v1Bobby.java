@@ -730,13 +730,13 @@ public class v1Bobby {
 	//-1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
-	int x= 1;
 
 	for(int i=2; i<a.size();i++) {
+		
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
-			x=i;
+			int x=i;
 			return x;}
 	}
 	}
@@ -744,7 +744,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -752,7 +752,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -760,7 +760,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -768,7 +768,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -776,19 +776,18 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
 	
-	
-	return x;
+	return 1;
 	}
 	
-	public ArrayList<Point> bestPieceToTake()
+	public ArrayList bestPieceToTake()
 	{
 		
-		ArrayList<Point> v=new ArrayList<Point>();
+		ArrayList v=new ArrayList();
 		int best=0;
 		ArrayList currPiece=allMoves().get(0);
 		int high=0;
@@ -824,13 +823,19 @@ public class v1Bobby {
 			if(takeVal-curVal>high){
 				high=takeVal-curVal;
 				best=i;
+				v.add((Point)allMoves().get(best).get(1));
+				v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
+			}
+			else{
+				v.add((Point)allMoves().get(best).get(1));
+				v.add((Point)allMoves().get(best).get(1));
+
 			}
 		}
 		
-		v.add((Point)allMoves().get(best).get(1));
-		v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
+		if (v.get(1).equals(v.get(0)))v.add(0, new Boolean(false));
+		else v.add(0, new Boolean(true));
 		return v;
-		
 		
 	}
 	
@@ -1156,6 +1161,25 @@ public class v1Bobby {
 
 	public void turn(Piece[][] b){
 		getBoard(b);
+		if(checkmate()==false){
+			if(check()==false){
+				if((Boolean)(bestPieceToTake().get(0)).equals(new Boolean(true))){
+					move((int)((Point)bestPieceToTake().get(1)).getX(), (int)((Point)bestPieceToTake().get(1)).getY(), (int)((Point)bestPieceToTake().get(0)).getX(), (int)((Point)bestPieceToTake().get(1)).getY());
+					printBoard();
+				}
+				else if((Boolean)(bestPieceToTake().get(0)).equals(new Boolean(false))){
+					randomMove();
+					printBoard();
+				}
+			}
+			else if(check()==true){
+				getOutOfCheck();
+			}
+		}
+		else{
+			System.out.print("Bobby dies...");
+			
+		}
 		
 		
 		
