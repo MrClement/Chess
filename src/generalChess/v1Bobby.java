@@ -206,34 +206,33 @@ public class v1Bobby {
 	// returns possible king moves
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
-		ArrayList g = new ArrayList();
-		int x = -1;
-		int y = -1;
+	
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'K') {
-					x = j;
-					y = k;
-					break;
-				}
-			}
-		}
-		g.add(b[x][y]);
-		g.add(new Point(x, y));
-		if (x == -1 || y == -1) {
-			return null;
-		} else {
-			for (int a = x - 1; a < x + 2; a++) {
-				for (int b = y - 1; b < y + 2; b++) {
-					if (a > -1 && a < 8 && b > -1 && b < 8) {
-						if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) {
-							g.add(new Point(a, b));
+					ArrayList g = new ArrayList();
+					int x = j;
+					int y = k;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						for (int a = x - 1; a < x + 2; a++) {
+							for (int b = y - 1; b < y + 2; b++) {
+								if (a > -1 && a < 8 && b > -1 && b < 8) {
+									if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) {
+										g.add(new Point(a, b));
+									}
+								}
+							}
 						}
 					}
+					d.add(g);
 				}
 			}
 		}
-		d.add(g);
+		
 		return d;
 	}
 
@@ -1112,10 +1111,10 @@ public boolean checkmate(){
 			int x1=(int)((Point)a.allMoves().get(i).get(1)).getX(); int y1=(int)((Point)a.allMoves().get(i).get(1)).getY();
 			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
 			if(a.check()==false){
-				move((int)((Point)allMoves().get(i).get(1)).getX(), (int)((Point)allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)allMoves().get(i).get(k)).getY());
+				move(x1, y1, x, y);
 				break;
 			}
-			else move(x, y, x1, y1);
+			else a.move(x, y, x1, y1);
 		}
 	}
 }

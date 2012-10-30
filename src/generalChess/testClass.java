@@ -11,6 +11,7 @@ public class testClass {
 			
 		}
 		a.getOutOfCheck();
+		a.printBoard();
 		}
 	
 }
