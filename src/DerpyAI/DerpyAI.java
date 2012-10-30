@@ -152,7 +152,8 @@ public class DerpyAI {
 
 		}
 		if (defender instanceof DerpyBishop || defender instanceof DerpyKnight) {
-			if (attacker instanceof DerpyRook || attacker instanceof DerpyQueen || attacker instanceof DerpyKing) {
+			if (attacker instanceof DerpyRook || attacker instanceof DerpyQueen
+					|| attacker instanceof DerpyKing) {
 				return false;
 			} else {
 				return true;
@@ -160,8 +161,10 @@ public class DerpyAI {
 		}
 
 		if (defender instanceof DerpyPawn)
-			if (attacker instanceof DerpyRook || attacker instanceof DerpyQueen || attacker instanceof DerpyKing
-					|| attacker instanceof DerpyBishop || attacker instanceof DerpyKnight) {
+			if (attacker instanceof DerpyRook || attacker instanceof DerpyQueen
+					|| attacker instanceof DerpyKing
+					|| attacker instanceof DerpyBishop
+					|| attacker instanceof DerpyKnight) {
 				return false;
 			} else {
 				return true;
@@ -247,7 +250,8 @@ public class DerpyAI {
 
 	// returns an arraylist of points that can be occupied to block theirs from
 	// capturing ours
-	public ArrayList<Point> findBlockablePoints(DerpyPiece ours, DerpyPiece theirs) {
+	public ArrayList<Point> findBlockablePoints(DerpyPiece ours,
+			DerpyPiece theirs) {
 		ArrayList<Point> points = new ArrayList<Point>();
 		if ((theirs instanceof DerpyKnight || theirs instanceof DerpyPawn || theirs instanceof DerpyKing)) {
 			return points;
@@ -258,28 +262,36 @@ public class DerpyAI {
 		if (theirs instanceof DerpyRook || theirs instanceof DerpyQueen) {
 			if (theirs.getLocation().getX() == ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getY(); i >= ours.getLocation().getY(); i--) {
-						Point ourPoint = new Point((int) i, ((int) theirs.getLocation().getY()));
+					for (double i = theirs.getLocation().getY(); i >= ours
+							.getLocation().getY(); i--) {
+						Point ourPoint = new Point((int) i, ((int) theirs
+								.getLocation().getY()));
 						points.add(ourPoint);
 					}
 				}
 				if (theirs.getLocation().getY() < ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getY(); i <= ours.getLocation().getY(); i++) {
-						Point ourPoint = new Point((int) i, ((int) theirs.getLocation().getY()));
+					for (double i = theirs.getLocation().getY(); i <= ours
+							.getLocation().getY(); i++) {
+						Point ourPoint = new Point((int) i, ((int) theirs
+								.getLocation().getY()));
 						points.add(ourPoint);
 					}
 				}
 			}
 			if (theirs.getLocation().getY() == ours.getLocation().getY()) {
 				if (theirs.getLocation().getX() > ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i >= ours.getLocation().getX(); i--) {
-						Point ourPoint = new Point((int) i, ((int) theirs.getLocation().getY()));
+					for (double i = theirs.getLocation().getX(); i >= ours
+							.getLocation().getX(); i--) {
+						Point ourPoint = new Point((int) i, ((int) theirs
+								.getLocation().getY()));
 						points.add(ourPoint);
 					}
 				}
 				if (theirs.getLocation().getX() < ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i <= ours.getLocation().getX(); i++) {
-						Point ourPoint = new Point((int) i, ((int) theirs.getLocation().getY()));
+					for (double i = theirs.getLocation().getX(); i <= ours
+							.getLocation().getX(); i++) {
+						Point ourPoint = new Point((int) i, ((int) theirs
+								.getLocation().getY()));
 						points.add(ourPoint);
 					}
 				}
@@ -290,16 +302,20 @@ public class DerpyAI {
 		if (theirs instanceof DerpyBishop || theirs instanceof DerpyQueen) {
 			if (theirs.getLocation().getX() > ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() < ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i >= ours.getLocation().getX(); i--) {
-						for (double j = theirs.getLocation().getY(); j <= ours.getLocation().getY(); j++) {
+					for (double i = theirs.getLocation().getX(); i >= ours
+							.getLocation().getX(); i--) {
+						for (double j = theirs.getLocation().getY(); j <= ours
+								.getLocation().getY(); j++) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
 						}
 					}
 				}
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i >= ours.getLocation().getX(); i--) {
-						for (double j = theirs.getLocation().getY(); j >= ours.getLocation().getY(); j--) {
+					for (double i = theirs.getLocation().getX(); i >= ours
+							.getLocation().getX(); i--) {
+						for (double j = theirs.getLocation().getY(); j >= ours
+								.getLocation().getY(); j--) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
 
@@ -309,16 +325,20 @@ public class DerpyAI {
 			}
 			if (theirs.getLocation().getX() < ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() < ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i <= ours.getLocation().getX(); i++) {
-						for (double j = theirs.getLocation().getY(); j <= ours.getLocation().getY(); j++) {
+					for (double i = theirs.getLocation().getX(); i <= ours
+							.getLocation().getX(); i++) {
+						for (double j = theirs.getLocation().getY(); j <= ours
+								.getLocation().getY(); j++) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
 						}
 					}
 				}
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i <= ours.getLocation().getX(); i++) {
-						for (double j = theirs.getLocation().getY(); j >= ours.getLocation().getY(); j--) {
+					for (double i = theirs.getLocation().getX(); i <= ours
+							.getLocation().getX(); i++) {
+						for (double j = theirs.getLocation().getY(); j >= ours
+								.getLocation().getY(); j--) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
 						}
@@ -334,10 +354,13 @@ public class DerpyAI {
 		// tries to move the king out of check
 		for (int i = 0; i < ourPieces.size(); i++) {
 			if (ourPieces.get(i) instanceof DerpyKing) {
-				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces.get(i));
+				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces
+						.get(i));
 				for (int j = 0; j < listOfPoints.size(); j++) {
-					if (this.pieceCanMoveToPosition(ourPieces.get(i), listOfPoints.get(j))) {
-						return this.movePiece(ourPieces.get(i), listOfPoints.get(j));
+					if (this.pieceCanMoveToPosition(ourPieces.get(i),
+							listOfPoints.get(j))) {
+						return this.movePiece(ourPieces.get(i),
+								listOfPoints.get(j));
 					}
 				}
 			}
@@ -347,9 +370,11 @@ public class DerpyAI {
 			if (ourPieces.get(i) instanceof DerpyKing) {
 				DerpyPiece ourKing = ourPieces.get(i);
 				if (this.threateningPiecesToUs(ourKing).size() == 1) {
-					DerpyPiece threat = this.threateningPiecesToUs(ourKing).get(0);
+					DerpyPiece threat = this.threateningPiecesToUs(ourKing)
+							.get(0);
 					if (this.threateningPiecesToThem(threat).size() >= 1) {
-						DerpyPiece taker = this.threateningPiecesToThem(threat).get(0);
+						DerpyPiece taker = this.threateningPiecesToThem(threat)
+								.get(0);
 						return this.movePiece(taker, threat.getLocation());
 					}
 				}
@@ -361,7 +386,8 @@ public class DerpyAI {
 				DerpyPiece ourKing = ourPieces.get(i);
 				ArrayList<DerpyPiece> threats = threateningPiecesToUs(ourKing);
 				if (threats.size() == 0) {
-					ArrayList<Point> betweenSpaces = this.findBlockablePoints(ourKing, threats.get(0));
+					ArrayList<Point> betweenSpaces = this.findBlockablePoints(
+							ourKing, threats.get(0));
 					for (Point p : betweenSpaces) {
 						for (DerpyPiece c : ourPieces) {
 							if (this.pieceCanMoveToPosition(c, p)) {
@@ -386,15 +412,18 @@ public class DerpyAI {
 		if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 			indicator = true;
 		}
-		if (!(((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos]).getColor() == myColor) || indicator) {
+		if (!(((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
+				.getColor() == myColor) || indicator) {
 
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
-				if (piece.getLocation().distanceSq(position) == 1 || piece.getLocation().distanceSq(position) == 2) {
+				if (piece.getLocation().distanceSq(position) == 1
+						|| piece.getLocation().distanceSq(position) == 2) {
 					// makes sure the destination is not occupied by a friendly
 					// piece
 					if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
-							&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos]).getColor()) {
+							&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
+									.getColor()) {
 						// makes sure moving doesn't put him in check
 						/*
 						 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -429,7 +458,8 @@ public class DerpyAI {
 						}
 					}
 					// if the pawn wants to move up one space
-					if (piece.getLocation().getY() - yPos == -1 && piece.getLocation().getX() == xPos) {
+					if (piece.getLocation().getY() - yPos == -1
+							&& piece.getLocation().getX() == xPos) {
 						// makes sure the space is not blocked
 						if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 							// makes sure moving does not put the king in check
@@ -444,11 +474,14 @@ public class DerpyAI {
 						}
 					}
 					// if the pawn wants to take diagonally
-					if ((piece.getLocation().getY() == yPos - 1 && piece.getLocation().getX() == xPos - 1)
-							|| (piece.getLocation().getY() == yPos - 1 && piece.getLocation().getX() == xPos + 1)) {
+					if ((piece.getLocation().getY() == yPos - 1 && piece
+							.getLocation().getX() == xPos - 1)
+							|| (piece.getLocation().getY() == yPos - 1 && piece
+									.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
 						if (!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)
-								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos]).getColor()) {
+								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
+										.getColor()) {
 							// makes sure moving does not put the king in check
 							/*
 							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -482,7 +515,8 @@ public class DerpyAI {
 						}
 					}
 					// if the pawn wants to move up one space
-					if (piece.getLocation().getY() - yPos == 1 && piece.getLocation().getX() == xPos) {
+					if (piece.getLocation().getY() - yPos == 1
+							&& piece.getLocation().getX() == xPos) {
 						// makes sure the space is not blocked
 						if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 							// makes sure moving does not put the king in check
@@ -497,11 +531,14 @@ public class DerpyAI {
 						}
 					}
 					// if the pawn wants to take diagonally
-					if ((piece.getLocation().getY() == yPos + 1 && piece.getLocation().getX() == xPos - 1)
-							|| (piece.getLocation().getY() == yPos + 1 && piece.getLocation().getX() == xPos + 1)) {
+					if ((piece.getLocation().getY() == yPos + 1 && piece
+							.getLocation().getX() == xPos - 1)
+							|| (piece.getLocation().getY() == yPos + 1 && piece
+									.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
 						if (!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)
-								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos]).getColor()) {
+								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
+										.getColor()) {
 							// makes sure moving does not put the king in check
 							/*
 							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -518,13 +555,17 @@ public class DerpyAI {
 			}
 			// if the piece is a rook or queen moving on a rank or file
 			if (piece instanceof DerpyRook || piece instanceof DerpyQueen) {
-				DerpyPiece pieceAtDestination = (DerpyPiece) currentBoard.getBoardArray()[xPos][yPos];
+				DerpyPiece pieceAtDestination = (DerpyPiece) currentBoard
+						.getBoardArray()[xPos][yPos];
 				// destination has to be on the same rank or file
-				if (piece.getLocation().getY() == yPos || piece.getLocation().getX() == xPos) {
+				if (piece.getLocation().getY() == yPos
+						|| piece.getLocation().getX() == xPos) {
 					// no pieces blocking
-					ArrayList<Point> betweenSpace = this.findBlockablePoints(pieceAtDestination, piece);
+					ArrayList<Point> betweenSpace = this.findBlockablePoints(
+							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
-						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d.getX()][(int) d.getY()] instanceof DerpyBlank)) {
+						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
+								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
 							return false;
 						}
 					}
@@ -541,14 +582,19 @@ public class DerpyAI {
 			}
 			// if the piece is a bishop or queen moving diagonally
 			if (piece instanceof DerpyBishop || piece instanceof DerpyQueen) {
-				DerpyPiece pieceAtDestination = (DerpyPiece) currentBoard.getBoardArray()[xPos][yPos];
+				DerpyPiece pieceAtDestination = (DerpyPiece) currentBoard
+						.getBoardArray()[xPos][yPos];
 				// destination has to be on the same diagonal
-				if (piece.getLocation().getY() - yPos == piece.getLocation().getX() - xPos
-						|| piece.getLocation().getY() - yPos == -1 * (piece.getLocation().getX() - xPos)) {
+				if (piece.getLocation().getY() - yPos == piece.getLocation()
+						.getX() - xPos
+						|| piece.getLocation().getY() - yPos == -1
+								* (piece.getLocation().getX() - xPos)) {
 					// no pieces blocking
-					ArrayList<Point> betweenSpace = this.findBlockablePoints(pieceAtDestination, piece);
+					ArrayList<Point> betweenSpace = this.findBlockablePoints(
+							pieceAtDestination, piece);
 					for (Point d : betweenSpace) {
-						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d.getX()][(int) d.getY()] instanceof DerpyBlank)) {
+						if (!((DerpyPiece) currentBoard.getBoardArray()[(int) d
+								.getX()][(int) d.getY()] instanceof DerpyBlank)) {
 							return false;
 						}
 					}
@@ -568,16 +614,24 @@ public class DerpyAI {
 				// destination has to be one of eight destinations around the
 				// knight
 				// that are valid
-				if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece.getLocation().getX() + 1)) {
-					if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece.getLocation().getX() - 1)) {
-						if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece.getLocation().getX() + 2)) {
-							if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece.getLocation().getX() - 2)) {
-								if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece.getLocation().getX() + 2)) {
-									if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece.getLocation().getX() - 2)) {
-										if (!(yPos == piece.getLocation().getY() - 2 && xPos == piece.getLocation()
-												.getX() + 1)) {
-											if (!(yPos == piece.getLocation().getY() - 2 && xPos == piece.getLocation()
-													.getX() - 1)) {
+				if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece
+						.getLocation().getX() + 1)) {
+					if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece
+							.getLocation().getX() - 1)) {
+						if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece
+								.getLocation().getX() + 2)) {
+							if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece
+									.getLocation().getX() - 2)) {
+								if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece
+										.getLocation().getX() + 2)) {
+									if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece
+											.getLocation().getX() - 2)) {
+										if (!(yPos == piece.getLocation()
+												.getY() - 2 && xPos == piece
+												.getLocation().getX() + 1)) {
+											if (!(yPos == piece.getLocation()
+													.getY() - 2 && xPos == piece
+													.getLocation().getX() - 1)) {
 												return false;
 											}
 										}
@@ -624,14 +678,15 @@ public class DerpyAI {
 		p.changeLocation(mL);
 
 		// Edit the _*BOARD*_ so it knows where the pieces are now
-		newBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(oL); // Put
-																							// a
-																							// blank
-																							// piece
-																							// in
-																							// the
-																							// old
-																							// location
+		newBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(
+				oL); // Put
+						// a
+						// blank
+						// piece
+						// in
+						// the
+						// old
+						// location
 		newBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p;
 
 		Move m = new Move(myColor, p, oL, mL);
@@ -689,7 +744,8 @@ public class DerpyAI {
 					biggestValue = p;
 				}
 			}
-			if (biggestValue instanceof DerpyKnight || biggestValue instanceof DerpyBishop) {
+			if (biggestValue instanceof DerpyKnight
+					|| biggestValue instanceof DerpyBishop) {
 				if (p instanceof DerpyQueen || p instanceof DerpyRook) {
 					biggestValue = p;
 				}
@@ -739,22 +795,26 @@ public class DerpyAI {
 		} while (!pieceCanMove);
 
 		System.out.println("Destination Size: " + destinationArray.size());
-		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
+		Point randomDestination = destinationArray.get(r
+				.nextInt(destinationArray.size()));
 
 		// Determines where to move
 		boolean moveDetermined = false;
 		while (moveDetermined == false) {
 
 			// tests to see if its destination is an advantageous trade for us
-			if (this.makeTrade(randomPiece,
-					currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination.getY()])) {
+			if (this.makeTrade(
+					randomPiece,
+					currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination
+							.getY()])) {
 				this.movePiece(randomPiece, randomDestination);
 				randomPiece.changeLocation(randomDestination);
 				moveDetermined = true;
 			}
 
 			// checks to see if the destination is blank
-			else if (currentBoard.getBoardArray()[(int) randomDestination.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
+			else if (currentBoard.getBoardArray()[(int) randomDestination
+					.getX()][(int) randomDestination.getY()] instanceof DerpyBlank) {
 				this.movePiece(randomPiece, randomDestination);
 				randomPiece.changeLocation(randomDestination);
 				moveDetermined = true;
@@ -765,10 +825,11 @@ public class DerpyAI {
 															// it means the
 															// randomDestination
 															// isn't an option
-				randomDestination = destinationArray.get(r.nextInt(destinationArray.size())); // so
-																								// we
-																								// need
-																								// to
+				randomDestination = destinationArray.get(r
+						.nextInt(destinationArray.size())); // so
+															// we
+															// need
+															// to
 				// remove it as a
 				// possibility and
 				moveDetermined = false; // create a new random destination
@@ -791,76 +852,93 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard autonomousMove() {
-		// Picks our piece that can take the most valuable enemy piece and moves it, otherwise makes a random move
-		
+		// Picks our piece that can take the most valuable enemy piece and moves
+		// it, otherwise makes a random move
+
 		// Sets up board
 		parseCurrentBoard();
 
 		// Finds the initial piece to move and the initial destination
-		DerpyPiece bestPiece = null; //Our piece to move
-		DerpyPiece bestTarget = null; //Enemy piece to take
-		
+		DerpyPiece bestPiece = null; // Our piece to move
+		DerpyPiece bestTarget = null; // Enemy piece to take
+
 		ArrayList<Point> destinationArray;
-		//Goes through each of our pieces
-		for (int f = 0; f<ourPieces.size();f++){
-		//Finds the possible destinations of that respective piece
-		destinationArray = this.movablePoints(ourPieces.get(f));
-		ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
-			//Finds all possible pieces that piece can take
+		// Goes through each of our pieces
+		for (int f = 0; f < ourPieces.size(); f++) {
+			// Finds the possible destinations of that respective piece
+			destinationArray = this.movablePoints(ourPieces.get(f));
+			ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
+			// Finds all possible pieces that piece can take
 			for (int i = 0; i < destinationArray.size(); i++) {
-				if (currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
-				piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+				if (currentBoard.getBoardArray()[(int) destinationArray.get(i)
+						.getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
+					piecesToTake
+							.add(currentBoard.getBoardArray()[(int) destinationArray
+									.get(i).getX()][(int) destinationArray.get(
+									i).getY()]);
+				}
 			}
-		}
-		// Finds the most valuable piece in that array if that array is not empty
-		if (piecesToTake.size()!=0){
-			DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
-				//Checks to see if our best target is less valuable than the new target, if it is, replaces the best target with the new one
-				if (this.makeTrade(bestTarget, targetPiece) || bestTarget == null) {
+			// Finds the most valuable piece in that array if that array is not
+			// empty
+			if (piecesToTake.size() != 0) {
+				DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
+				// Checks to see if our best target is less valuable than the
+				// new target, if it is, replaces the best target with the new
+				// one
+				if (this.makeTrade(bestTarget, targetPiece)
+						|| bestTarget == null) {
 					bestTarget = targetPiece;
 					bestPiece = ourPieces.get(f);
-					}
 				}
-		
-		
+			}
+
 		}
-		
-		//If we have any pieces to take, takes the best one of them
-		if (bestPiece != null && bestTarget != null){
+
+		// If we have any pieces to take, takes the best one of them
+		if (bestPiece != null && bestTarget != null) {
 			this.movePiece(bestPiece, bestTarget.getLocation());
 			bestPiece.changeLocation(bestTarget.getLocation());
-			System.out.println("Autonomous Move Made by " + bestPiece.toString() + " to " + bestTarget.getLocation().toString());
+			System.out.println("Autonomous Move Made by "
+					+ bestPiece.toString() + " to "
+					+ bestTarget.getLocation().toString());
 		}
-		//Otherwise, makes a random move
-		else this.randomMove();
-		
+		// Otherwise, makes a random move
+		else
+			this.randomMove();
+
 		// Sets up the new board
-			parseCurrentBoard();
-			boardStore.add(currentBoard);
-			currentBoard.printBoard();
-			return currentBoard;		
+		parseCurrentBoard();
+		boardStore.add(currentBoard);
+		currentBoard.printBoard();
+		return currentBoard;
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard moveAutonomously() {
-		if (this.ourThreats(currentBoard).size() > 0 && this.enemyThreats(currentBoard).size() < 0) {
-			ArrayList<DerpyPiece> piecesWeCanTake = this.ourThreats(currentBoard);
+		if (this.ourThreats(currentBoard).size() > 0
+				&& this.enemyThreats(currentBoard).size() == 0) {
+			ArrayList<DerpyPiece> piecesWeCanTake = this
+					.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
-				ArrayList<DerpyPiece> piecesWeCanTakeWith = this.threateningPiecesToThem(p);
-				return this.movePiece(piecesWeCanTakeWith.get(0), p.getLocation());
+				ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+						.threateningPiecesToThem(p);
+				return this.movePiece(piecesWeCanTakeWith.get(0),
+						p.getLocation());
 			}
 
 		} else if (this.enemyThreats(currentBoard).size() == 1) {
 			return this.savePiece(this.enemyThreats(currentBoard).get(0));
 		} else if (this.enemyThreats(currentBoard).size() > 1) {
-			DerpyPiece pieceToSave = this.findValuablePiece(this.enemyThreats(currentBoard));
+			DerpyPiece pieceToSave = this.findValuablePiece(this
+					.enemyThreats(currentBoard));
 			return this.savePiece(pieceToSave);
 		} else {
 			DerpyPiece enemyKing = this.findEnemyKing();
 			for (DerpyPiece p : ourPieces) {
 				for (Point d : this.movablePoints(p)) {
-					if (d.distance(enemyKing.getLocation()) < p.getLocation().distance(enemyKing.getLocation())) {
+					if (d.distance(enemyKing.getLocation()) < p.getLocation()
+							.distance(enemyKing.getLocation())) {
 						DerpyBoard testBoard = this.movePiece(p, d);
 						DerpyBoard oldBoard = currentBoard;
 						currentBoard = testBoard;
@@ -900,7 +978,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.autonomousMove();
+		DerpyBoard ba = this.moveAutonomously();
 
 		// Start test
 		// For testing move and board stuff
@@ -914,7 +992,7 @@ public class DerpyAI {
 		 * 
 		 * DerpyBoard ba = currentBoard;
 		 */// End test
-		//DerpyBoard ba = this.randomMove();
+			// DerpyBoard ba = this.randomMove();
 		boardStore.add(ba);
 
 		// If we're still in check even after all that,
@@ -959,7 +1037,8 @@ public class DerpyAI {
 	public boolean executeSicilianDefense() {
 		if (myColor == false) {
 			if (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn) {
-				this.movePiece(currentBoard.getBoardArray()[2][1], new Point(2, 3));
+				this.movePiece(currentBoard.getBoardArray()[2][1], new Point(2,
+						3));
 				return true;
 			} else
 				return false;
@@ -971,10 +1050,12 @@ public class DerpyAI {
 		if (myColor == true) {
 			// e4, Nf3
 			if (allMoves.size() == 0) {
-				this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4, 4));
+				this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
+						4));
 				return true;
 			} else if (allMoves.size() == 1) {
-				this.movePiece(currentBoard.getBoardArray()[6][7], new Point(6, 5));
+				this.movePiece(currentBoard.getBoardArray()[6][7], new Point(6,
+						5));
 				return true;
 			} else
 				return false;
