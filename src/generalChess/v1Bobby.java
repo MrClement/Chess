@@ -1096,30 +1096,31 @@ public boolean checkmate(){
 	return true;
 }
 
-public boolean check(){
-	if(isThreatened((int)((Point)kMoves().get(1).get(1)).getX(),(int)((Point)kMoves().get(1).get(1)).getY() ).size()!=0)return true;
+	public boolean check(){
+	if(isThreatened((int)((Point)kMoves().get(0).get(1)).getX(),(int)((Point)kMoves().get(0).get(1)).getY() ).size()!=0)return true;
 	else return false;
 }
 
-public void getOutOfCheck(){
+	public void getOutOfCheck(){
 	//replicate board state
 	v1Bobby a=new v1Bobby(b, color);
 	Point p;
 	int x, y;
 	for (int i=0;i<a.allMoves().size();i++){
 		for(int k=1;k<a.allMoves().get(i).size();k++){
-			x=i;y=k;
+			x=(int)((Point)a.allMoves().get(i).get(k)).getX();y=(int)((Point)a.allMoves().get(i).get(k)).getY();
+			int x1=(int)((Point)a.allMoves().get(i).get(1)).getX(); int y1=(int)((Point)a.allMoves().get(i).get(1)).getY();
 			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
 			if(a.check()==false){
 				move((int)((Point)allMoves().get(i).get(1)).getX(), (int)((Point)allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)allMoves().get(i).get(k)).getY());
 				break;
 			}
-			else a.move((int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY(), (int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY());
+			else move(x, y, x1, y1);
 		}
 	}
 }
 
-public ArrayList<ArrayList> allMoves(){
+	public ArrayList<ArrayList> allMoves(){
 	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 	for(int i=0;i<pMoves().size();i++){
 		a.add(pMoves().get(i));
@@ -1142,7 +1143,7 @@ public ArrayList<ArrayList> allMoves(){
 	return a;
 }
 
-public ArrayList<Point> isThreatened (int d, int e){
+	public ArrayList<Point> isThreatened (int d, int e){
 	ArrayList<Point> a=new ArrayList<Point>();
 	v1Bobby c=new v1Bobby(b, !color);
 	for(int i=0;i<c.allMoves().size();i++){
