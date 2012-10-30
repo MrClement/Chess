@@ -978,7 +978,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.autonomousMove();
+		DerpyBoard ba = this.moveAutonomously();
 
 		// Start test
 		// For testing move and board stuff
