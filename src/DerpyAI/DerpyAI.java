@@ -827,9 +827,10 @@ public class DerpyAI {
 		
 		//If we have any pieces to take, takes the best one of them
 		if (bestPiece != null && bestTarget != null){
+			Point oldPosition = bestPiece.getLocation();
 			this.movePiece(bestPiece, bestTarget.getLocation());
 			bestPiece.changeLocation(bestTarget.getLocation());
-			System.out.println("Autonomous Move Made by " + bestPiece.toString() + " to " + bestTarget.getLocation().toString());
+			System.out.println("Autonomous Move Made by " + bestPiece.toString() + " (" + oldPosition.getLocation().toString() + ") to " + bestTarget.getLocation().toString());
 		}
 		//Otherwise, makes a random move
 		else this.randomMove();
