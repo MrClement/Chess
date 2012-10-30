@@ -789,14 +789,11 @@ public class v1Bobby {
 	{
 		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
 		ArrayList<Point> v = new ArrayList<Point>();
-	
-		
 		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
 		w=allMoves();
 		int bestpiece=0;
 		Point first, second;
 		first=new Point((Point) w.get(bestpiece).get(1));
-		v.add(first);
 		second =new Point((Point) w.get(bestpiece).get(1));
 		for(int i = 0; i<w.size(); i++)
 		{	
@@ -831,11 +828,13 @@ public class v1Bobby {
 				currPieceBestToTake =100;
 			
 		//>= allows for higher value trades
-			if(currPieceBestToTake-currPieceValue >= bestpiece) {
+			if(currPieceBestToTake-currPieceValue > 0) {
 				bestpiece= i;
+				first=(Point) w.get(bestpiece).get(1);
 				second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
 			}
 		}
+		v.add(first);
 		v.add(second);
 		return v;
 	}
