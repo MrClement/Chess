@@ -789,13 +789,19 @@ public class v1Bobby {
 	{
 		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
 		ArrayList<Point> v = new ArrayList<Point>();
-		Point first = new Point(-1,-1);
-		Point second = new Point(-1,-1);
+	
+		
 		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
 		w=allMoves();
 		int bestpiece=0;
+		Point first, second;
+		first=new Point((Point) w.get(bestpiece).get(1));
+		v.add(first);
+		second =new Point((Point) w.get(bestpiece).get(1));
 		for(int i = 0; i<w.size(); i++)
 		{	
+		
+			
 			//allMoves() contains all pieces, starts with lowest ranking and works its way up
 			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
 			//piece it can take with the piece itself (aka rook (5) taking a bishop (3)  (3-5)=-2, the highest difference is 
@@ -825,15 +831,14 @@ public class v1Bobby {
 				currPieceBestToTake =100;
 			
 		//>= allows for higher value trades
-			if(currPieceBestToTake-currPieceValue >= bestpiece) bestpiece= i;
+			if(currPieceBestToTake-currPieceValue >= bestpiece) {
+				bestpiece= i;
+				second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+			}
 		}
-		first=(Point) w.get(bestpiece).get(1);
-		v.add(first);
-		second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
 		v.add(second);
 		return v;
 	}
-	
 	
 	// makes a random move
 	public void randomMove() {
@@ -1063,7 +1068,7 @@ public class v1Bobby {
 	
 */
 	
-public Point randomKingMove() {
+	public Point randomKingMove() {
 	
 			Random r = new Random();
 			int m = r.nextInt(kMoves().size());
@@ -1079,7 +1084,7 @@ public Point randomKingMove() {
 		
 	}
 
-public boolean checkmate(){
+	public boolean checkmate(){
 	//replicate board state
 	v1Bobby a=new v1Bobby(b, color);
 	Point p;
@@ -1155,6 +1160,12 @@ public boolean checkmate(){
 	return a;
 }
 
+	public void turn(Piece[][] b){
+		getBoard(b);
+		
+		
+		
+	}
 
 
 
