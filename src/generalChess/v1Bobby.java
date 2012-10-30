@@ -1084,11 +1084,13 @@ public boolean checkmate(){
 	//replicate board state
 	v1Bobby a=new v1Bobby(b, color);
 	Point p;
-	//check random king moves 30x - if one of the moves takes the king out of threat, then returns false
-	for(int i=0;i<30;i++){
-		p=a.randomKingMove();
-		if(a.isThreatened(((int)((Point)kMoves().get(1).get(1)).getX()), ((int)((Point)kMoves().get(1).get(1)).getY())).size()==0){
-			return false;
+	int x, y;
+	for (int i=0;i<a.allMoves().size();i++){
+		for(int k=1;k<a.allMoves().get(i).size();k++){
+			x=i;y=k;
+			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
+			if(a.check()==false)return false;
+			else a.move((int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY(), (int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY());
 		}
 	}
 	return true;
@@ -1100,17 +1102,19 @@ public boolean check(){
 }
 
 public void getOutOfCheck(){
-	while(checkmate()==false){
-		for(int i=2;i<kMoves().get(1).size();i++){
-			int x;
-			int y;
-			x=(int)((Point)kMoves().get(1).get(i)).getX();
-			y=(int)((Point)kMoves().get(1).get(i)).getY();
-			
-			if(isThreatened(x, y).size()==0){
-				move((int)((Point)kMoves().get(1).get(1)).getX(),(int)((Point)kMoves().get(1).get(1)).getY(), x, y);
+	//replicate board state
+	v1Bobby a=new v1Bobby(b, color);
+	Point p;
+	int x, y;
+	for (int i=0;i<a.allMoves().size();i++){
+		for(int k=1;k<a.allMoves().get(i).size();k++){
+			x=i;y=k;
+			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
+			if(a.check()==false){
+				move((int)((Point)allMoves().get(i).get(1)).getX(), (int)((Point)allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)allMoves().get(i).get(k)).getY());
+				break;
 			}
-
+			else a.move((int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY(), (int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY());
 		}
 	}
 }
