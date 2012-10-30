@@ -301,7 +301,7 @@ public class DerpyAI {
 
 		if (theirs instanceof DerpyBishop || theirs instanceof DerpyQueen) {
 			if (theirs.getLocation().getX() > ours.getLocation().getX()) {
-				if (theirs.getLocation().getY() < ours.getLocation().getX()) {
+				if (theirs.getLocation().getY() < ours.getLocation().getY()) {
 					for (double i = theirs.getLocation().getX(); i >= ours
 							.getLocation().getX(); i--) {
 						for (double j = theirs.getLocation().getY(); j <= ours
@@ -942,12 +942,14 @@ public class DerpyAI {
 				for (Point d : this.movablePoints(p)) {
 					if (d.distance(enemyKing.getLocation()) < p.getLocation()
 							.distance(enemyKing.getLocation())) {
-						DerpyBoard testBoard = this.movePiece(p, d);
-						DerpyBoard oldBoard = currentBoard;
-						currentBoard = testBoard;
-						if (!(this.pieceIsThreatened(p))) {
-							currentBoard = oldBoard;
-							return testBoard;
+						if (Math.random() <= 0.2) {
+							DerpyBoard testBoard = this.movePiece(p, d);
+							DerpyBoard oldBoard = currentBoard;
+							currentBoard = testBoard;
+							if (!(this.pieceIsThreatened(p))) {
+								currentBoard = oldBoard;
+								return testBoard;
+							}
 						}
 					}
 				}
