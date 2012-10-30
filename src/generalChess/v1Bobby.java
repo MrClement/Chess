@@ -730,7 +730,7 @@ public class v1Bobby {
 	//-1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
-	int x= -1;
+	int x= 1;
 
 	for(int i=2; i<a.size();i++) {
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
@@ -802,12 +802,12 @@ public class v1Bobby {
 			//the best piece to take
 			//p=1 n=3 b=3 r=5 q=9 k=100
 			int currPieceValue = 0;
-			if((char)w.get(i).get(0) == 'P') currPieceValue=1;
-			if((char)w.get(i).get(0) == 'N') currPieceValue=3;
-			if((char)w.get(i).get(0) == 'B') currPieceValue=3;
-			if((char)w.get(i).get(0) == 'R') currPieceValue=5;
-			if((char)w.get(i).get(0) == 'Q') currPieceValue=9;
-			if((char)w.get(i).get(0) == 'K') currPieceValue=100;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'P') currPieceValue=1;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'N') currPieceValue=3;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'B') currPieceValue=3;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'R') currPieceValue=5;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'Q') currPieceValue=9;
+			if((char)w.get(i).get(0).toString().charAt(1) == 'K') currPieceValue=100;
 			
 			int currPieceBestToTake =0;
 			ArrayList currPiece= w.get(i);
