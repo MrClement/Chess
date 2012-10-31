@@ -851,7 +851,7 @@ public class DerpyAI {
 		// conditions.
 	}
 
-	public DerpyBoard autonomousMove() {
+	public DerpyBoard samAI() {
 		// Picks our piece that can take the most valuable enemy piece and moves
 		// it, otherwise makes a random move
 
@@ -915,7 +915,7 @@ public class DerpyAI {
 
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
-	public DerpyBoard moveAutonomously() {
+	public DerpyBoard curtisAI() {
 		if (this.ourThreats(currentBoard).size() > 0
 				&& this.enemyThreats(currentBoard).size() == 0) {
 			ArrayList<DerpyPiece> piecesWeCanTake = this
@@ -983,7 +983,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.moveAutonomously();
+		DerpyBoard ba = this.samAI();
 
 		// Start test
 		// For testing move and board stuff

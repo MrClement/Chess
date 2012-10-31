@@ -11,4 +11,8 @@ public class DerpyBlank extends DerpyPiece{
 		yMoveConstraint = 8;
 	}
 	
+	public String toString(){
+		return "  ";
+	}
+	
 }
