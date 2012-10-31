@@ -354,13 +354,10 @@ public class DerpyAI {
 		// tries to move the king out of check
 		for (int i = 0; i < ourPieces.size(); i++) {
 			if (ourPieces.get(i) instanceof DerpyKing) {
-				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces
-						.get(i));
+				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces.get(i));
 				for (int j = 0; j < listOfPoints.size(); j++) {
-					if (this.pieceCanMoveToPosition(ourPieces.get(i),
-							listOfPoints.get(j))) {
-						return this.movePiece(ourPieces.get(i),
-								listOfPoints.get(j));
+					if (this.pieceCanMoveToPosition(ourPieces.get(i),listOfPoints.get(j))) {
+						return this.movePiece(ourPieces.get(i),listOfPoints.get(j));
 					}
 				}
 			}
@@ -861,7 +858,13 @@ public class DerpyAI {
 		// Finds the initial piece to move and the initial destination
 		DerpyPiece bestPiece = null; // Our piece to move
 		DerpyPiece bestTarget = null; // Enemy piece to take
-
+		
+		if (this.inCheck()) {
+			this.getOutOfCheck(currentBoard); 
+			parseCurrentBoard(); 
+			return currentBoard; 
+		}
+		else {
 		ArrayList<Point> destinationArray;
 		// Goes through each of our pieces
 		for (int f = 0; f < ourPieces.size(); f++) {
@@ -898,9 +901,10 @@ public class DerpyAI {
 		if (bestPiece != null && bestTarget != null) {
 			this.movePiece(bestPiece, bestTarget.getLocation());
 			bestPiece.changeLocation(bestTarget.getLocation());
-			System.out.println("Autonomous Move Made by "
+			System.out.println("Sam's Autonomous Move Made by "
 					+ bestPiece.toString() + " to "
 					+ bestTarget.getLocation().toString());
+			System.out.println(); 
 		}
 		// Otherwise, makes a random move
 		else
@@ -911,6 +915,7 @@ public class DerpyAI {
 		boardStore.add(currentBoard);
 		currentBoard.printBoard();
 		return currentBoard;
+		}
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
