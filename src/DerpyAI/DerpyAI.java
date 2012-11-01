@@ -354,10 +354,13 @@ public class DerpyAI {
 		// tries to move the king out of check
 		for (int i = 0; i < ourPieces.size(); i++) {
 			if (ourPieces.get(i) instanceof DerpyKing) {
-				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces.get(i));
+				ArrayList<Point> listOfPoints = this.movablePoints(ourPieces
+						.get(i));
 				for (int j = 0; j < listOfPoints.size(); j++) {
-					if (this.pieceCanMoveToPosition(ourPieces.get(i),listOfPoints.get(j))) {
-						return this.movePiece(ourPieces.get(i),listOfPoints.get(j));
+					if (this.pieceCanMoveToPosition(ourPieces.get(i),
+							listOfPoints.get(j))) {
+						return this.movePiece(ourPieces.get(i),
+								listOfPoints.get(j));
 					}
 				}
 			}
@@ -858,71 +861,76 @@ public class DerpyAI {
 		// Finds the initial piece to move and the initial destination
 		DerpyPiece bestPiece = null; // Our piece to move
 		DerpyPiece bestTarget = null; // Enemy piece to take
-		
+
 		if (this.inCheck()) {
-			this.getOutOfCheck(currentBoard); 
-			parseCurrentBoard(); 
-			return currentBoard; 
-		}
-		else {
-		ArrayList<Point> destinationArray;
-		// Goes through each of our pieces
-		for (int f = 0; f < ourPieces.size(); f++) {
-			// Finds the possible destinations of that respective piece
-			destinationArray = this.movablePoints(ourPieces.get(f));
-			ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
-			// Finds all possible pieces that piece can take
-			for (int i = 0; i < destinationArray.size(); i++) {
-				if (currentBoard.getBoardArray()[(int) destinationArray.get(i)
-						.getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
-					piecesToTake
-							.add(currentBoard.getBoardArray()[(int) destinationArray
-									.get(i).getX()][(int) destinationArray.get(
-									i).getY()]);
+			this.getOutOfCheck(currentBoard);
+			parseCurrentBoard();
+			return currentBoard;
+		} else {
+			ArrayList<Point> destinationArray;
+			// Goes through each of our pieces
+			for (int f = 0; f < ourPieces.size(); f++) {
+				// Finds the possible destinations of that respective piece
+				destinationArray = this.movablePoints(ourPieces.get(f));
+				ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
+				// Finds all possible pieces that piece can take
+				for (int i = 0; i < destinationArray.size(); i++) {
+					if (currentBoard.getBoardArray()[(int) destinationArray
+							.get(i).getX()][(int) destinationArray.get(i)
+							.getY()] instanceof DerpyPiece) {
+						piecesToTake
+								.add(currentBoard.getBoardArray()[(int) destinationArray
+										.get(i).getX()][(int) destinationArray
+										.get(i).getY()]);
+					}
 				}
-			}
-			// Finds the most valuable piece in that array if that array is not
-			// empty
-			if (piecesToTake.size() != 0) {
-				DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
-				// Checks to see if our best target is less valuable than the
-				// new target, if it is, replaces the best target with the new
-				// one
-				if (this.makeTrade(bestTarget, targetPiece)
-						|| bestTarget == null) {
-					bestTarget = targetPiece;
-					bestPiece = ourPieces.get(f);
+				// Finds the most valuable piece in that array if that array is
+				// not
+				// empty
+				if (piecesToTake.size() != 0) {
+					DerpyPiece targetPiece = this
+							.findValuablePiece(piecesToTake);
+					// Checks to see if our best target is less valuable than
+					// the
+					// new target, if it is, replaces the best target with the
+					// new
+					// one
+					if (this.makeTrade(bestTarget, targetPiece)
+							|| bestTarget == null) {
+						bestTarget = targetPiece;
+						bestPiece = ourPieces.get(f);
+					}
 				}
+
 			}
 
-		}
+			// If we have any pieces to take, takes the best one of them
+			if (bestPiece != null && bestTarget != null) {
+				this.movePiece(bestPiece, bestTarget.getLocation());
+				bestPiece.changeLocation(bestTarget.getLocation());
+				System.out.println("Sam's Autonomous Move Made by "
+						+ bestPiece.toString() + " to "
+						+ bestTarget.getLocation().toString());
+				System.out.println();
+			}
+			// Otherwise, makes a random move
+			else
+				this.randomMove();
 
-		// If we have any pieces to take, takes the best one of them
-		if (bestPiece != null && bestTarget != null) {
-			this.movePiece(bestPiece, bestTarget.getLocation());
-			bestPiece.changeLocation(bestTarget.getLocation());
-			System.out.println("Sam's Autonomous Move Made by "
-					+ bestPiece.toString() + " to "
-					+ bestTarget.getLocation().toString());
-			System.out.println(); 
-		}
-		// Otherwise, makes a random move
-		else
-			this.randomMove();
-
-		// Sets up the new board
-		parseCurrentBoard();
-		boardStore.add(currentBoard);
-		currentBoard.printBoard();
-		return currentBoard;
+			// Sets up the new board
+			parseCurrentBoard();
+			boardStore.add(currentBoard);
+			currentBoard.printBoard();
+			return currentBoard;
 		}
 	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
 	public DerpyBoard curtisAI() {
-		if (this.ourThreats(currentBoard).size() > 0
-				&& this.enemyThreats(currentBoard).size() == 0) {
+		// first tries to take an enemy piece, if it can (and its not
+		// threatened)
+		if (this.ourThreats(currentBoard).size() > 0) {
 			ArrayList<DerpyPiece> piecesWeCanTake = this
 					.ourThreats(currentBoard);
 			for (DerpyPiece p : piecesWeCanTake) {
@@ -935,13 +943,18 @@ public class DerpyAI {
 			}
 
 		}
+		// if that doesn't work, it makes sure its not threatened, if it is, it
+		// tries to save the piece
 		if (this.enemyThreats(currentBoard).size() == 1) {
 			return this.savePiece(this.enemyThreats(currentBoard).get(0));
 		} else if (this.enemyThreats(currentBoard).size() > 1) {
 			DerpyPiece pieceToSave = this.findValuablePiece(this
 					.enemyThreats(currentBoard));
 			return this.savePiece(pieceToSave);
-		} else {
+		}
+		// finally, if it has no pieces to save or to take, it move a piece
+		// closer to the enemy king.
+		else {
 			DerpyPiece enemyKing = this.findEnemyKing();
 			for (DerpyPiece p : ourPieces) {
 				for (Point d : this.movablePoints(p)) {
