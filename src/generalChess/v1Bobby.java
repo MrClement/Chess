@@ -42,6 +42,9 @@ public class v1Bobby {
 		return b;
 	}
 
+	public Piece[][] getB(){
+		return b;
+	}
 	public void getBoard(Board b) {
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
@@ -164,6 +167,7 @@ public class v1Bobby {
 	public void move(int ax, int ay, int bx, int by) {
 		char t = this.b[ax][ay].toString().charAt(1);
 		boolean c = this.b[ax][ay].getColor();
+		this.b[ax][ay] = new Blank(true);
 		switch (t) {
 			case 'P':
 				this.b[bx][by] = new Pawn(c);
@@ -185,7 +189,6 @@ public class v1Bobby {
 				break;
 		}
 
-		this.b[ax][ay] = new Blank(true);
 	}
 
 	public void printBoard() {
@@ -730,13 +733,13 @@ public class v1Bobby {
 	//-1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
-	int x= 1;
 
 	for(int i=2; i<a.size();i++) {
+		
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
-			x=i;
+			int x=i;
 			return x;}
 	}
 	}
@@ -744,7 +747,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -752,7 +755,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -760,7 +763,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -768,7 +771,7 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
@@ -776,171 +779,170 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
-				x=i;
+				int x=i;
 				return x;}
 		}
 		}
 	
-	
-	return x;
+	return 1;
 	}
 	
 	public ArrayList<Point> bestPieceToTake()
 	{
-		//searches all of our pieces and finds the highest ranking piece that one of our pieces can take
-		ArrayList<Point> v = new ArrayList<Point>();
-	
+		ArrayList<Point> a=new ArrayList<Point>();
+		int loc=0;
+		int locloc=1;
+		int bb=0;
 		
-		ArrayList<ArrayList> w = new ArrayList<ArrayList>();
-		w=allMoves();
-		int bestpiece=0;
-		Point first, second;
-		first=new Point((Point) w.get(bestpiece).get(1));
-		v.add(first);
-		second =new Point((Point) w.get(bestpiece).get(1));
-		for(int i = 0; i<w.size(); i++)
-		{	
+		for(int i=0;i<allMoves().size();i++){
+			int bestv=0;
+			int best=0;
+			char t=allMoves().get(i).get(0).toString().charAt(1);
+			int v;
+			switch (t) {
+			case 'P':
+				v=2;
+				break;
+			case 'R':
+				v=5;
+				break;
+
+			case 'N':
+				v=3;
+				break;
+
+			case 'B':
+				v=4;
+				break;
+
+			case 'K':
+				v=100;
+				break;
+
+			case 'Q':
+				v=6;
+				break;
+			default:
+				v=0;
+				break;
+			}
 		
+			for(int d=1;d<allMoves().get(i).size();d++){
+			char tt=b[(int)((Point)allMoves().get(i).get(d)).getX()][(int)((Point)allMoves().get(i).get(d)).getY()].toString().charAt(1);
+			int vv;
+			switch (tt) {
+			case 'P':
+				vv=2;
+				break;
+			case 'R':
+				vv=5;
+				break;
+
+			case 'N':
+				vv=3;
+				break;
+
+			case 'B':
+				vv=4;
+				break;
+
+			case 'K':
+				vv=100;
+				break;
+
+			case 'Q':
+				vv=6;
+				break;
+
+			default:
+				vv=0;
+				break;
+			}
 			
-			//allMoves() contains all pieces, starts with lowest ranking and works its way up
-			//this for loop accesses each piece and finds the highest ranking piece it can take, it subtracts the value of the
-			//piece it can take with the piece itself (aka rook (5) taking a bishop (3)  (3-5)=-2, the highest difference is 
-			//the best piece to take
-			//p=1 n=3 b=3 r=5 q=9 k=100
-			int currPieceValue = 0;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'P') currPieceValue=1;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'N') currPieceValue=3;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'B') currPieceValue=3;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'R') currPieceValue=5;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'Q') currPieceValue=9;
-			if((char)w.get(i).get(0).toString().charAt(1) == 'K') currPieceValue=100;
-			
-			int currPieceBestToTake =0;
-			ArrayList currPiece= w.get(i);
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
-				currPieceBestToTake =1;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
-				currPieceBestToTake =3;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
-				currPieceBestToTake =3;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
-				currPieceBestToTake =5;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
-				currPieceBestToTake =9;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
-				currPieceBestToTake =100;
-			
-		//>= allows for higher value trades
-			if(currPieceBestToTake-currPieceValue >= bestpiece) {
-				bestpiece= i;
-				second=(Point) w.get(bestpiece).get(takeIfPossible(w.get(bestpiece)));
+			if(vv-v>bestv){
+				bestv=vv-v;
+				best=d;
+				
+				
+			}
+			if(best>bb){
+				bb=bestv;
+				loc=i;
+				locloc=best;
 			}
 		}
-		v.add(second);
+		}
+		
+		a.add(new Point((Point)allMoves().get(loc).get(1)));
+		a.add(new Point((Point)allMoves().get(loc).get(locloc)));
+		return a;
+		
+		
+		/*
+		ArrayList<Point> v=new ArrayList<Point>();
+
+		int best=0;
+		ArrayList currPiece=allMoves().get(0);
+		int high=0;
+		for(int i=0;i<allMoves().size();i++){
+			
+			char c;
+			if(color==true)c='W';else c='B';
+			
+			//p=2 n=3 b=3 r=5 q=9 k=100
+			int curVal = 0;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P') curVal=2;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'N') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'B') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R') curVal=5;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'Q') curVal=9;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'K') curVal=100;
+			
+			int takeVal=0;
+			currPiece= allMoves().get(i);
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
+				takeVal =2;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
+				takeVal =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
+				takeVal =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
+				takeVal =5;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
+				takeVal =9;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
+				takeVal =100;
+			
+			if(takeVal-curVal>high){
+				high=takeVal-curVal;
+				best=i;
+				v.add((Point)allMoves().get(best).get(1));
+				v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
+			}
+			else{
+				v.add((Point)allMoves().get(best).get(1));
+				v.add((Point)allMoves().get(best).get(1));
+
+			}
+		}
+		
 		return v;
+		*/
+		
 	}
 	
-	// makes a random move
 	public void randomMove() {
-		
-		Random x=new Random();
-		int number;
-		number=x.nextInt(101)+1;
-		//1-25 pawn
-		//26-45 knight
-		//46-65 bishop
-		//66-80 rook
-		//81-95 queen
-		//96-100 king
-	
+		Random r=new Random();
+		int c=r.nextInt(101)-1;
 		
 		
-		
-		if (pMoves().size() != 0 && (1<=number && number<=25)) {
-			Random r = new Random();
-			int m = r.nextInt(pMoves().size());
-			while (pMoves().get(m).size() == 2) {
-				m = r.nextInt(pMoves().size());
-			}
-			Point st = new Point((Point) pMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((pMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) pMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} 
-		else if (nMoves().size() != 0 && (26<=number && number<=45)) {
-			Random r = new Random();
-			int m = r.nextInt(nMoves().size());
-			while (nMoves().get(m).size() == 2) {
-				m = r.nextInt(nMoves().size());
-			}
-			Point st = new Point((Point) nMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((nMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) nMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} 
-		else if (bMoves().size() != 0 && (46<=number && number<=66)) {
-			//asdfadsf
-			Random r = new Random();
-			int m = r.nextInt(bMoves().size());
-			while (bMoves().get(m).size() == 2) {
-				m = r.nextInt(bMoves().size());
-			}
-			Point st = new Point((Point) bMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((bMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) bMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} 
-		else if (rMoves().size() != 0 && (67<=number && number<=80)) {
-			Random r = new Random();
-			int m = r.nextInt(rMoves().size());
-			while (rMoves().get(m).size() == 2) {
-				m = r.nextInt(rMoves().size());
-			}
-			Point st = new Point((Point) rMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((rMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) rMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} 
-		else if (qMoves().size() != 0 && (81<=number && number<=95)) {
-			Random r = new Random();
-			int m = r.nextInt(qMoves().size());
-			while (qMoves().get(m).size() == 2) {
-				m = r.nextInt(qMoves().size());
-			}
-			Point st = new Point((Point) qMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((qMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) qMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-		} 
-		else if (kMoves().size() != 0 && (96<=number && number<=100)) {
-			Random r = new Random();
-			int m = r.nextInt(kMoves().size());
-			while (kMoves().get(m).size() == 2) {
-				m = r.nextInt(kMoves().size());
-			}
-			Point st = new Point((Point) kMoves().get(m).get(1));
-			//this random searches through the array of the specific piece and pick the location 
-			//of a random possible move not including its current location or the piece itself
-			Random q=new Random();
-			int choose=q.nextInt((kMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) kMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
+		int a=r.nextInt(allMoves().size());
+		while(allMoves().get(a).size()<=2){
+			a=r.nextInt(allMoves().size());
 		}
+		int b=r.nextInt(allMoves().get(a).size()-2)+2;
+		move((int)((Point)allMoves().get(a).get(1)).getX(), (int)((Point)allMoves().get(a).get(1)).getY(), (int)((Point)allMoves().get(a).get(b)).getX(), (int)((Point)allMoves().get(a).get(b)).getY());
+		
 	}
 
 /*
@@ -1162,8 +1164,17 @@ public class v1Bobby {
 
 	public void turn(Piece[][] b){
 		getBoard(b);
+		if(checkmate()==true)System.out.print("Lose");
+		else if(check()==true)getOutOfCheck();
+		else if(!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))){
+			move((int)bestPieceToTake().get(0).getX(), (int)bestPieceToTake().get(0).getY(),(int)bestPieceToTake().get(1).getX(),(int)bestPieceToTake().get(1).getY());
+			System.out.println(bestPieceToTake().get(0)+") --> ("+bestPieceToTake().get(1));
+
+		}
+		else randomMove();
 		
 		
+
 		
 	}
 
