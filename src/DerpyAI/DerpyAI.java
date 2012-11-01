@@ -479,7 +479,7 @@ public class DerpyAI {
 							|| (piece.getLocation().getY() == yPos - 1 && piece
 									.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
-						if (!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)
+						if ((!((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank))
 								&& ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos])
 										.getColor()) {
 							// makes sure moving does not put the king in check
