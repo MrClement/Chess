@@ -54,10 +54,13 @@ public class CopyOfServer {
 				}
 				out.println(".");
 				for (int j = 0; j < 8; j++) {
-					line = in.readLine();
-					if (line.equals("."))
-						break;
-					stuff[j] = line;
+					if ((line = in.readLine()) == null)
+						j--;
+					else {
+						if (line.equals("."))
+							break;
+						stuff[j] = line;
+					}
 				}
 				for (int j = 0; j < 8; j++) {
 					out2.println(stuff[j]);
@@ -70,6 +73,8 @@ public class CopyOfServer {
 					stuff[j] = line;
 				}
 			}
+			System.out.println("done!");
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
