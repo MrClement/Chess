@@ -21,7 +21,7 @@ public class BobbyVsOcto {
 		b.printBoard();
 
 		System.out.println("BOBBY:");
-		b.setBoardArray(bobby.turn(b));
+		// b.setBoardArray(bobby.turn(b));
 		b.printBoard();
 		System.out.println();
 
@@ -34,7 +34,7 @@ public class BobbyVsOcto {
 			b.printBoard();
 			System.out.println();
 			System.out.println("BOBBY:");
-			b.setBoardArray(bobby.turn(b));
+			// b.setBoardArray(bobby.turn(b));
 			b.printBoard();
 
 			// float time = System.currentTimeMillis() - start;
