@@ -869,10 +869,6 @@ public class v1Bobby {
 				bestv=vv-v;
 				best=d;
 			}
-			else if(v>=vv&&test.isThreatened((int)((Point)allMoves().get(i).get(d)).getX(), (int)((Point)allMoves().get(i).get(d)).getY()).size()==0){
-				bestv=vv-v;
-				best=d;
-			}
 			if(best>bb){
 				bb=bestv;
 				loc=i;
