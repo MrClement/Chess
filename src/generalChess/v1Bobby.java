@@ -19,7 +19,6 @@ public class v1Bobby {
 	public Piece[][] b;
 	public int move;
 
-	
 	public v1Bobby(Board b, boolean c) {
 		this.color = c;
 		this.b = new Piece[8][8];
@@ -42,9 +41,10 @@ public class v1Bobby {
 		return b;
 	}
 
-	public Piece[][] getB(){
+	public Piece[][] getB() {
 		return b;
 	}
+
 	public void getBoard(Board b) {
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
@@ -121,49 +121,51 @@ public class v1Bobby {
 		}
 	}
 
-	public void getBoard(String[] a){
-		for(int i=0;i<8;i++){
+	public void getBoard(String[] a) {
+		for (int i = 0; i < 8; i++) {
 			boolean col;
 			char typ;
-			int g=0;
-			for (int j=0;j<40;j+=5){
-				if(a[i].charAt(j)=='B'){col=false;}
-				else col=true;
-				typ=a[i].charAt(j+1);
-				switch (typ){
-				case 'P':
-					this.b[g][i] = new Pawn(col);
-					break;
-				case 'R':
-					this.b[g][i] = new Rook(col);
-					break;
+			int g = 0;
+			for (int j = 0; j < 40; j += 5) {
+				if (a[i].charAt(j) == 'B') {
+					col = false;
+				} else
+					col = true;
+				typ = a[i].charAt(j + 1);
+				switch (typ) {
+					case 'P':
+						this.b[g][i] = new Pawn(col);
+						break;
+					case 'R':
+						this.b[g][i] = new Rook(col);
+						break;
 
-				case 'N':
-					this.b[g][i] = new Knight(col);
-					break;
+					case 'N':
+						this.b[g][i] = new Knight(col);
+						break;
 
-				case 'B':
-					this.b[g][i] = new Bishop(col);
-					break;
+					case 'B':
+						this.b[g][i] = new Bishop(col);
+						break;
 
-				case 'K':
-					this.b[g][i] = new King(col);
-					break;
+					case 'K':
+						this.b[g][i] = new King(col);
+						break;
 
-				case 'Q':
-					this.b[g][i] = new Queen(col);
-					break;
+					case 'Q':
+						this.b[g][i] = new Queen(col);
+						break;
 
-				case 'X':
-					this.b[g][i] = new Blank(true);
-					break;
-					
+					case 'X':
+						this.b[g][i] = new Blank(true);
+						break;
+
 				}
 				g++;
 			}
 		}
 	}
-	
+
 	public void move(int ax, int ay, int bx, int by) {
 		char t = this.b[ax][ay].toString().charAt(1);
 		boolean c = this.b[ax][ay].getColor();
@@ -194,8 +196,10 @@ public class v1Bobby {
 	public void printBoard() {
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
-				if(b[y][x].toString().equals("WX")) System.out.print("   | ");
-				else System.out.print(b[y][x].toString() + " | ");
+				if (b[y][x].toString().equals("WX"))
+					System.out.print("   | ");
+				else
+					System.out.print(b[y][x].toString() + " | ");
 			}
 			System.out.println();
 			System.out.println("---------------------------------------");
@@ -209,7 +213,7 @@ public class v1Bobby {
 	// returns possible king moves
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
-	
+
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'K') {
@@ -235,7 +239,7 @@ public class v1Bobby {
 				}
 			}
 		}
-		
+
 		return d;
 	}
 
@@ -255,15 +259,19 @@ public class v1Bobby {
 					if (x == -1 || y == -1) {
 						return null;
 					} else {
-						// checks queen for diagonal down to the right. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks queen for diagonal down to the right. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						int a = x;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						int b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						int quit = 0;
 						do {
@@ -279,15 +287,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen for diagonal down to the left. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks queen for diagonal down to the left. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -303,15 +315,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen for diagonal up to the left. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks queen for diagonal up to the left. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -327,15 +343,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen for diagonal up to the right. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks queen for diagonal up to the right. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -351,12 +371,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen north. quits if adds an opposite color piece or
+						// checks queen north. quits if adds an opposite color
+						// piece or
 						// reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -369,12 +391,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen south. quits if adds an opposite color piece or
+						// checks queen south. quits if adds an opposite color
+						// piece or
 						// reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -387,12 +411,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen to the west. quits if adds an opposite color piece
+						// checks queen to the west. quits if adds an opposite
+						// color piece
 						// or reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -405,12 +431,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen to the east. quits if adds an opposite color piece
+						// checks queen to the east. quits if adds an opposite
+						// color piece
 						// or reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -428,7 +456,7 @@ public class v1Bobby {
 				}
 			}
 		}
-		
+
 		return d;
 	}
 
@@ -447,12 +475,14 @@ public class v1Bobby {
 					if (x == -1 || y == -1) {
 						return null;
 					} else {
-						// checks queen rook. quits if adds an opposite color piece or
+						// checks queen rook. quits if adds an opposite color
+						// piece or
 						// reaches end of board or hits our piece
 						int a = x;
 						int b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						int quit = 0;
 						do {
@@ -465,12 +495,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks rook south. quits if adds an opposite color piece or
+						// checks rook south. quits if adds an opposite color
+						// piece or
 						// reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -483,12 +515,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks rook to the west. quits if adds an opposite color piece or
+						// checks rook to the west. quits if adds an opposite
+						// color piece or
 						// reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -501,12 +535,14 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks rook to the east. quits if adds an opposite color piece or
+						// checks rook to the east. quits if adds an opposite
+						// color piece or
 						// reaches end of board or hits our piece
 						a = x;
 						b = y;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -523,7 +559,7 @@ public class v1Bobby {
 				}
 			}
 		}
-		
+
 		return d;
 	}
 
@@ -584,15 +620,19 @@ public class v1Bobby {
 					if (x == -1 || y == -1) {
 						return null;
 					} else {
-						// checks bishop for diagonal down to the right. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks bishop for diagonal down to the right. quits
+						// if adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						int a = x;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						int b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						int quit = 0;
 						do {
@@ -608,15 +648,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks queen for diagonal down to the left. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks queen for diagonal down to the left. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
+							b = b - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -632,15 +676,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks bishop for diagonal up to the left. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks bishop for diagonal up to the left. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
+							a = a + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -656,15 +704,19 @@ public class v1Bobby {
 								quit = -999;
 						} while (quit != -999);
 
-						// checks bishop for diagonal up to the right. quits if adds an
-						// opposite color piece or reaches end of board or our piece
+						// checks bishop for diagonal up to the right. quits if
+						// adds an
+						// opposite color piece or reaches end of board or our
+						// piece
 						a = x;
 						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
+							a = a - 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						b = y;
 						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
+							b = b + 1; // if piece is already on edge of board,
+										// need to
 										// adjust for the do while loop to work
 						quit = 0;
 						do {
@@ -684,7 +736,7 @@ public class v1Bobby {
 				}
 			}
 		}
-		
+
 		return m;
 	}
 
@@ -728,457 +780,435 @@ public class v1Bobby {
 		return v;
 	}
 
-	//takes an array of possible returns the index of the highest ranking opponent piece that any specific piece
-	//has in its possible moves
-	//-1 if no possible pieces to take
-	public int takeIfPossible(ArrayList a)
-	{
+	// takes an array of possible returns the index of the highest ranking
+	// opponent piece that any specific piece
+	// has in its possible moves
+	// -1 if no possible pieces to take
+	public int takeIfPossible(ArrayList a) {
 
-	for(int i=2; i<a.size();i++) {
-		
-	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
-			int x=i;
-			return x;}
+		for (int i = 2; i < a.size(); i++) {
+
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'K') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+		for (int i = 2; i < a.size(); i++) {
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'Q') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+		for (int i = 2; i < a.size(); i++) {
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'R') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+		for (int i = 2; i < a.size(); i++) {
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'N') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+		for (int i = 2; i < a.size(); i++) {
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'B') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+		for (int i = 2; i < a.size(); i++) {
+			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
+					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
+				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'P') {
+					int x = i;
+					return x;
+				}
+			}
+		}
+
+		return 1;
 	}
-	}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
-				int x=i;
-				return x;}
-		}
-		}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
-				int x=i;
-				return x;}
-		}
-		}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
-				int x=i;
-				return x;}
-		}
-		}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
-				int x=i;
-				return x;}
-		}
-		}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
-				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
-			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
-				int x=i;
-				return x;}
-		}
-		}
-	
-	return 1;
-	}
-	
-	public ArrayList<Point> bestPieceToTake()
-	{
-		ArrayList<Point> a=new ArrayList<Point>();
-		int loc=0;
-		int locloc=1;
-		int bb=0;
-		
-		for(int i=0;i<allMoves().size();i++){
-			int bestv=0;
-			int best=0;
-			char t=allMoves().get(i).get(0).toString().charAt(1);
+
+	public ArrayList<Point> bestPieceToTake() {
+		ArrayList<Point> a = new ArrayList<Point>();
+		int loc = 0;
+		int locloc = 1;
+		int bb = 0;
+
+		for (int i = 0; i < allMoves().size(); i++) {
+			int bestv = 0;
+			int best = 0;
+			char t = allMoves().get(i).get(0).toString().charAt(1);
 			int v;
 			switch (t) {
-			case 'P':
-				v=2;
-				break;
-			case 'R':
-				v=5;
-				break;
+				case 'P':
+					v = 2;
+					break;
+				case 'R':
+					v = 5;
+					break;
 
-			case 'N':
-				v=3;
-				break;
+				case 'N':
+					v = 3;
+					break;
 
-			case 'B':
-				v=4;
-				break;
+				case 'B':
+					v = 4;
+					break;
 
-			case 'K':
-				v=100;
-				break;
+				case 'K':
+					v = 100;
+					break;
 
-			case 'Q':
-				v=6;
-				break;
-			default:
-				v=0;
-				break;
+				case 'Q':
+					v = 6;
+					break;
+				default:
+					v = 0;
+					break;
 			}
-		
-			for(int d=1;d<allMoves().get(i).size();d++){
-			char tt=b[(int)((Point)allMoves().get(i).get(d)).getX()][(int)((Point)allMoves().get(i).get(d)).getY()].toString().charAt(1);
-			int vv;
-			switch (tt) {
-			case 'P':
-				vv=2;
-				break;
-			case 'R':
-				vv=5;
-				break;
 
-			case 'N':
-				vv=3;
-				break;
+			for (int d = 1; d < allMoves().get(i).size(); d++) {
+				char tt = b[(int) ((Point) allMoves().get(i).get(d)).getX()][(int) ((Point) allMoves().get(i).get(d))
+						.getY()].toString().charAt(1);
+				int vv;
+				switch (tt) {
+					case 'P':
+						vv = 2;
+						break;
+					case 'R':
+						vv = 5;
+						break;
 
-			case 'B':
-				vv=4;
-				break;
+					case 'N':
+						vv = 3;
+						break;
 
-			case 'K':
-				vv=100;
-				break;
+					case 'B':
+						vv = 4;
+						break;
 
-			case 'Q':
-				vv=6;
-				break;
+					case 'K':
+						vv = 100;
+						break;
 
-			default:
-				vv=0;
-				break;
-			}
-			
-			if(vv-v>bestv){
-				bestv=vv-v;
-				best=d;
-				
-				
-			}
-			if(best>bb){
-				bb=bestv;
-				loc=i;
-				locloc=best;
+					case 'Q':
+						vv = 6;
+						break;
+
+					default:
+						vv = 0;
+						break;
+				}
+
+				if (vv - v > bestv) {
+					bestv = vv - v;
+					best = d;
+
+				}
+				if (best > bb) {
+					bb = bestv;
+					loc = i;
+					locloc = best;
+				}
 			}
 		}
-		}
-		
-		a.add(new Point((Point)allMoves().get(loc).get(1)));
-		a.add(new Point((Point)allMoves().get(loc).get(locloc)));
+
+		a.add(new Point((Point) allMoves().get(loc).get(1)));
+		a.add(new Point((Point) allMoves().get(loc).get(locloc)));
 		return a;
-		
-		
+
 		/*
-		ArrayList<Point> v=new ArrayList<Point>();
+		 * ArrayList<Point> v=new ArrayList<Point>();
+		 * 
+		 * int best=0; ArrayList currPiece=allMoves().get(0); int high=0;
+		 * for(int i=0;i<allMoves().size();i++){
+		 * 
+		 * char c; if(color==true)c='W';else c='B';
+		 * 
+		 * //p=2 n=3 b=3 r=5 q=9 k=100 int curVal = 0;
+		 * if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P')
+		 * curVal=2; if((char)allMoves().get(i).get(0).toString().charAt(1) ==
+		 * 'N') curVal=3; if((char)allMoves().get(i).get(0).toString().charAt(1)
+		 * == 'B') curVal=3;
+		 * if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R')
+		 * curVal=5; if((char)allMoves().get(i).get(0).toString().charAt(1) ==
+		 * 'Q') curVal=9; if((char)allMoves().get(i).get(0).toString().charAt(1)
+		 * == 'K') curVal=100;
+		 * 
+		 * int takeVal=0; currPiece= allMoves().get(i);
+		 * if(b[(int)((Point)currPiece
+		 * .get(takeIfPossible(currPiece))).getX()][(int
+		 * )((Point)currPiece.get(takeIfPossible
+		 * (currPiece))).getY()].toString().charAt(1)=='P') takeVal =2;
+		 * if(b[(int
+		 * )((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int
+		 * )((Point
+		 * )currPiece.get(takeIfPossible(currPiece))).getY()].toString().
+		 * charAt(1)=='N') takeVal =3;
+		 * if(b[(int)((Point)currPiece.get(takeIfPossible
+		 * (currPiece))).getX()][(int
+		 * )((Point)currPiece.get(takeIfPossible(currPiece
+		 * ))).getY()].toString().charAt(1)=='B') takeVal =3;
+		 * if(b[(int)((Point)currPiece
+		 * .get(takeIfPossible(currPiece))).getX()][(int
+		 * )((Point)currPiece.get(takeIfPossible
+		 * (currPiece))).getY()].toString().charAt(1)=='R') takeVal =5;
+		 * if(b[(int
+		 * )((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int
+		 * )((Point
+		 * )currPiece.get(takeIfPossible(currPiece))).getY()].toString().
+		 * charAt(1)=='Q') takeVal =9;
+		 * if(b[(int)((Point)currPiece.get(takeIfPossible
+		 * (currPiece))).getX()][(int
+		 * )((Point)currPiece.get(takeIfPossible(currPiece
+		 * ))).getY()].toString().charAt(1)=='K') takeVal =100;
+		 * 
+		 * if(takeVal-curVal>high){ high=takeVal-curVal; best=i;
+		 * v.add((Point)allMoves().get(best).get(1));
+		 * v.add((Point)allMoves().get
+		 * (best).get(takeIfPossible(allMoves().get(best)))); } else{
+		 * v.add((Point)allMoves().get(best).get(1));
+		 * v.add((Point)allMoves().get(best).get(1));
+		 * 
+		 * } }
+		 * 
+		 * return v;
+		 */
 
-		int best=0;
-		ArrayList currPiece=allMoves().get(0);
-		int high=0;
-		for(int i=0;i<allMoves().size();i++){
-			
-			char c;
-			if(color==true)c='W';else c='B';
-			
-			//p=2 n=3 b=3 r=5 q=9 k=100
-			int curVal = 0;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P') curVal=2;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'N') curVal=3;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'B') curVal=3;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R') curVal=5;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'Q') curVal=9;
-			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'K') curVal=100;
-			
-			int takeVal=0;
-			currPiece= allMoves().get(i);
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
-				takeVal =2;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
-				takeVal =3;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
-				takeVal =3;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
-				takeVal =5;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
-				takeVal =9;
-			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
-				takeVal =100;
-			
-			if(takeVal-curVal>high){
-				high=takeVal-curVal;
-				best=i;
-				v.add((Point)allMoves().get(best).get(1));
-				v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
-			}
-			else{
-				v.add((Point)allMoves().get(best).get(1));
-				v.add((Point)allMoves().get(best).get(1));
-
-			}
-		}
-		
-		return v;
-		*/
-		
 	}
-	
+
 	public void randomMove() {
-		Random r=new Random();
-		int c=r.nextInt(101)-1;
-		
-		
-		int a=r.nextInt(allMoves().size());
-		while(allMoves().get(a).size()<=2){
-			a=r.nextInt(allMoves().size());
+		Random r = new Random();
+		int c = r.nextInt(101) - 1;
+
+		int a = r.nextInt(allMoves().size());
+		while (allMoves().get(a).size() <= 2) {
+			a = r.nextInt(allMoves().size());
 		}
-		int b=r.nextInt(allMoves().get(a).size()-2)+2;
-		move((int)((Point)allMoves().get(a).get(1)).getX(), (int)((Point)allMoves().get(a).get(1)).getY(), (int)((Point)allMoves().get(a).get(b)).getX(), (int)((Point)allMoves().get(a).get(b)).getY());
-		
-	}
-
-/*
-	public Piece[][] turn(Board c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		int w, x, y, z;
-		w=0;
-		x=0;
-		y=0;
-		z=0;
-		if (color == true) {
-
-			switch (move) {
-				case 1:
-					w=4;x=6;y=4;z=4;
-				case 2:
-					w=3;x=7;y=5;z=5;
-
-				case 3:
-
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-					w=5;x=7;y=2;z=4;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-					return b;
-				default:
-					randomMove();
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					w=4;x=1;y=4;z=3;
-
-				case 2:
-					w=3;x=0;y=5;z=2;
-
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-					w=5;x=0;y=2;z=3;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-				default:
-					randomMove();
-			}
-		}
-		move(w, x, y, z);
-		
-		System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+"Piece: "+b[w][x].toString());
-		return b;
-
+		int b = r.nextInt(allMoves().get(a).size() - 2) + 2;
+		move((int) ((Point) allMoves().get(a).get(1)).getX(), (int) ((Point) allMoves().get(a).get(1)).getY(),
+				(int) ((Point) allMoves().get(a).get(b)).getX(), (int) ((Point) allMoves().get(a).get(b)).getY());
 
 	}
 
-	public Piece[][] turn(Piece[][] c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		if (color == true) {
-			switch (move) {
-				case 1:
-					move(4, 6, 4, 4);
-					return b;
-				case 2:
-					move(3, 7, 5, 5);
-					return b;
-				case 3:
+	/*
+	 * public Piece[][] turn(Board c) { getBoard(c); Piece[][] arr = new
+	 * Piece[8][8]; arr = getPieceArray(); move++; int w, x, y, z; w=0; x=0;
+	 * y=0; z=0; if (color == true) {
+	 * 
+	 * switch (move) { case 1: w=4;x=6;y=4;z=4; case 2: w=3;x=7;y=5;z=5;
+	 * 
+	 * case 3:
+	 * 
+	 * if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() !=
+	 * color) w=5;x=7;y=2;z=4;
+	 * 
+	 * case 4: if (arr[5][3].toString().charAt(1) == 'X' &&
+	 * arr[5][4].toString().charAt(1) == 'X' && arr[5][5].toString().charAt(1)
+	 * == 'X' && (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor()
+	 * != color)) w=5;x=2;y=5;z=6;
+	 * 
+	 * return b; default: randomMove(); } } else {
+	 * 
+	 * switch (move) { case 1: w=4;x=1;y=4;z=3;
+	 * 
+	 * case 2: w=3;x=0;y=5;z=2;
+	 * 
+	 * case 3: if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor()
+	 * != color) w=5;x=0;y=2;z=3;
+	 * 
+	 * case 4: if (arr[5][3].toString().charAt(1) == 'X' &&
+	 * arr[5][4].toString().charAt(1) == 'X' && arr[5][5].toString().charAt(1)
+	 * == 'X' && (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor()
+	 * != color)) w=5;x=2;y=5;z=6;
+	 * 
+	 * default: randomMove(); } } move(w, x, y, z);
+	 * 
+	 * System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+
+	 * "Piece: "+b[w][x].toString()); return b;
+	 * 
+	 * 
+	 * }
+	 * 
+	 * public Piece[][] turn(Piece[][] c) { getBoard(c); Piece[][] arr = new
+	 * Piece[8][8]; arr = getPieceArray(); move++; if (color == true) { switch
+	 * (move) { case 1: move(4, 6, 4, 4); return b; case 2: move(3, 7, 5, 5);
+	 * return b; case 3:
+	 * 
+	 * if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() !=
+	 * color) move(5, 7, 2, 4); return b; case 4: if
+	 * (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1)
+	 * == 'X' && arr[5][5].toString().charAt(1) == 'X' &&
+	 * (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
+	 * move(5, 2, 5, 6); return b; default: randomMove(); return b;
+	 * 
+	 * } } else {
+	 * 
+	 * switch (move) { case 1: move(4, 1, 4, 3); return b; case 2: move(3, 0, 5,
+	 * 2); return b; case 3: if (arr[2][3].toString().charAt(1) == 'X' ||
+	 * arr[2][3].getColor() != color) move(5, 0, 2, 3); return b; case 4: if
+	 * (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1)
+	 * == 'X' && arr[5][5].toString().charAt(1) == 'X' &&
+	 * (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
+	 * move(5, 2, 5, 6); return b; default: randomMove(); return b; }
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-						move(5, 7, 2, 4);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					move(4, 1, 4, 3);
-					return b;
-				case 2:
-					move(3, 0, 5, 2);
-					return b;
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-						move(5, 0, 2, 3);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-			}
-
-		}
-
-	}
-
-	
-*/
-	
 	public Point randomKingMove() {
-	
-			Random r = new Random();
-			int m = r.nextInt(kMoves().size());
-			while (kMoves().get(m).size() == 2) {
-				m = r.nextInt(kMoves().size());
-			}
-			Point st = new Point((Point) kMoves().get(m).get(1));
-			Random q=new Random();
-			int choose=q.nextInt((kMoves().get(m).size()-2))+2;
-			Point fn = new Point((Point) kMoves().get(m).get(choose));
-			move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
-			return fn;
-		
+
+		Random r = new Random();
+		int m = r.nextInt(kMoves().size());
+		while (kMoves().get(m).size() == 2) {
+			m = r.nextInt(kMoves().size());
+		}
+		Point st = new Point((Point) kMoves().get(m).get(1));
+		Random q = new Random();
+		int choose = q.nextInt((kMoves().get(m).size() - 2)) + 2;
+		Point fn = new Point((Point) kMoves().get(m).get(choose));
+		move((int) st.getX(), (int) st.getY(), (int) fn.getX(), (int) fn.getY());
+		return fn;
+
 	}
 
-	public boolean checkmate(){
-	//replicate board state
-	v1Bobby a=new v1Bobby(b, color);
-	Point p;
-	int x, y;
-	for (int i=0;i<a.allMoves().size();i++){
-		for(int k=1;k<a.allMoves().get(i).size();k++){
-			x=i;y=k;
-			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
-			if(a.check()==false)return false;
+	public boolean checkmate() {
+		// replicate board state
+		v1Bobby a = new v1Bobby(b, color);
+		Point p;
+		int x, y;
+		for (int i = 0; i < a.allMoves().size(); i++) {
+			for (int k = 1; k < a.allMoves().get(i).size(); k++) {
+				x = i;
+				y = k;
+				a.move((int) ((Point) a.allMoves().get(i).get(1)).getX(),
+						(int) ((Point) a.allMoves().get(i).get(1)).getY(),
+						(int) ((Point) a.allMoves().get(i).get(k)).getX(),
+						(int) ((Point) a.allMoves().get(i).get(k)).getY());
+				if (a.check() == false)
+					return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean check() {
+		if (isThreatened((int) ((Point) kMoves().get(0).get(1)).getX(), (int) ((Point) kMoves().get(0).get(1)).getY())
+				.size() != 0)
+			return true;
+		else
+			return false;
+	}
+
+	public void getOutOfCheck() {
+		// replicate board state
+		v1Bobby a = new v1Bobby(b, color);
+		Point p;
+		int x, y;
+		for (int i = 0; i < a.allMoves().size(); i++) {
+			for (int k = 1; k < a.allMoves().get(i).size(); k++) {
+				x = (int) ((Point) a.allMoves().get(i).get(k)).getX();
+				y = (int) ((Point) a.allMoves().get(i).get(k)).getY();
+				int x1 = (int) ((Point) a.allMoves().get(i).get(1)).getX();
+				int y1 = (int) ((Point) a.allMoves().get(i).get(1)).getY();
+				a.move((int) ((Point) a.allMoves().get(i).get(1)).getX(),
+						(int) ((Point) a.allMoves().get(i).get(1)).getY(),
+						(int) ((Point) a.allMoves().get(i).get(k)).getX(),
+						(int) ((Point) a.allMoves().get(i).get(k)).getY());
+				if (a.check() == false) {
+					move(x1, y1, x, y);
+					break;
+				} else
+					a.move(x, y, x1, y1);
+			}
 		}
 	}
-	return true;
-}
 
-	public boolean check(){
-	if(isThreatened((int)((Point)kMoves().get(0).get(1)).getX(),(int)((Point)kMoves().get(0).get(1)).getY() ).size()!=0)return true;
-	else return false;
-}
-
-	public void getOutOfCheck(){
-	//replicate board state
-	v1Bobby a=new v1Bobby(b, color);
-	Point p;
-	int x, y;
-	for (int i=0;i<a.allMoves().size();i++){
-		for(int k=1;k<a.allMoves().get(i).size();k++){
-			x=(int)((Point)a.allMoves().get(i).get(k)).getX();y=(int)((Point)a.allMoves().get(i).get(k)).getY();
-			int x1=(int)((Point)a.allMoves().get(i).get(1)).getX(); int y1=(int)((Point)a.allMoves().get(i).get(1)).getY();
-			a.move((int)((Point)a.allMoves().get(i).get(1)).getX(), (int)((Point)a.allMoves().get(i).get(1)).getY(),(int)((Point)a.allMoves().get(i).get(k)).getX(), (int)((Point)a.allMoves().get(i).get(k)).getY());
-			if(a.check()==false){
-				move(x1, y1, x, y);
-				break;
-			}
-			else a.move(x, y, x1, y1);
+	public ArrayList<ArrayList> allMoves() {
+		ArrayList<ArrayList> a = new ArrayList<ArrayList>();
+		for (int i = 0; i < pMoves().size(); i++) {
+			a.add(pMoves().get(i));
 		}
+		for (int i = 0; i < nMoves().size(); i++) {
+			a.add(nMoves().get(i));
+		}
+		for (int i = 0; i < bMoves().size(); i++) {
+			a.add(bMoves().get(i));
+		}
+		for (int i = 0; i < rMoves().size(); i++) {
+			a.add(rMoves().get(i));
+		}
+		for (int i = 0; i < qMoves().size(); i++) {
+			a.add(qMoves().get(i));
+		}
+		for (int i = 0; i < kMoves().size(); i++) {
+			a.add(kMoves().get(i));
+		}
+		return a;
 	}
-}
 
-	public ArrayList<ArrayList> allMoves(){
-	ArrayList<ArrayList> a=new ArrayList<ArrayList>();
-	for(int i=0;i<pMoves().size();i++){
-		a.add(pMoves().get(i));
-	}
-	for(int i=0;i<nMoves().size();i++){
-		a.add(nMoves().get(i));
-	}
-	for(int i=0;i<bMoves().size();i++){
-		a.add(bMoves().get(i));
-	}
-	for(int i=0;i<rMoves().size();i++){
-		a.add(rMoves().get(i));
-	}
-	for(int i=0;i<qMoves().size();i++){
-		a.add(qMoves().get(i));
-	}
-	for(int i=0;i<kMoves().size();i++){
-		a.add(kMoves().get(i));
-	}
-	return a;
-}
+	public ArrayList<Point> isThreatened(int d, int e) {
+		ArrayList<Point> a = new ArrayList<Point>();
+		v1Bobby c = new v1Bobby(b, !color);
+		for (int i = 0; i < c.allMoves().size(); i++) {
+			for (int k = 1; k < c.allMoves().get(i).size(); k++) {
+				if (((Point) c.allMoves().get(i).get(k)).equals(new Point(d, e))) {
+					a.add((Point) c.allMoves().get(i).get(1));
+				}
+			}
 
-	public ArrayList<Point> isThreatened (int d, int e){
-	ArrayList<Point> a=new ArrayList<Point>();
-	v1Bobby c=new v1Bobby(b, !color);
-	for(int i=0;i<c.allMoves().size();i++){
-		for(int k=1;k<c.allMoves().get(i).size();k++){
-			if(((Point)c.allMoves().get(i).get(k)).equals(new Point(d, e))){
-					a.add((Point)c.allMoves().get(i).get(1));
-		}}
-		
+		}
+		return a;
 	}
-	return a;
-}
 
-	public void turn(Piece[][] b){
+	public void turn(Board b) {
 		getBoard(b);
-		if(checkmate()==true)System.out.print("Lose");
-		else if(check()==true)getOutOfCheck();
-		else if(!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))){
-			move((int)bestPieceToTake().get(0).getX(), (int)bestPieceToTake().get(0).getY(),(int)bestPieceToTake().get(1).getX(),(int)bestPieceToTake().get(1).getY());
-			System.out.println(bestPieceToTake().get(0)+") --> ("+bestPieceToTake().get(1));
+		if (checkmate() == true)
+			System.out.print("Lose");
+		else if (check() == true)
+			getOutOfCheck();
+		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
+			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
+					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
+			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
 
-		}
-		else randomMove();
-		
-		
+		} else
+			randomMove();
 
-		
 	}
 
+	public void turn(Piece[][] b) {
+		getBoard(b);
+		if (checkmate() == true)
+			System.out.print("Lose");
+		else if (check() == true)
+			getOutOfCheck();
+		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
+			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
+					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
+			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
 
+		} else
+			randomMove();
+
+	}
 
 }
-
-

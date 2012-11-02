@@ -73,9 +73,9 @@ public class Board {
 	public void buildBoard(String[] stringRep) {
 		String[] currentLine;
 		for (int i = 0; i < stringRep.length; i++) {
-			currentLine = stringRep[i].split(" | ");
-			for (int j = 0; j < currentLine.length; j++) {
-				arr[i][j] = makePiece(currentLine[j]);
+			currentLine = stringRep[i].split(" . ");
+			for (int j = 0; j < 8; j++) {
+				arr[j][i] = makePiece(currentLine[j]);
 			}
 		}
 	}
