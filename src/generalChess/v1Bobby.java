@@ -1166,7 +1166,7 @@ public class v1Bobby {
 	return a;
 }
 
-	public void turn(Board b) {
+	public Piece[][] turn(Board b) {
 		getBoard(b);
 		if (checkmate() == true)
 			System.out.print("Lose");
@@ -1179,10 +1179,10 @@ public class v1Bobby {
 
 		} else
 			randomMove();
-
+return this.b;
 	}
 
-	public void turn(Piece[][] b) {
+	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
 		if (checkmate() == true)
 			System.out.print("Lose");
@@ -1195,7 +1195,7 @@ public class v1Bobby {
 
 		} else
 			randomMove();
-
+return this.b;
 	}
 
 
