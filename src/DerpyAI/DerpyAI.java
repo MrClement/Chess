@@ -793,9 +793,9 @@ public class DerpyAI {
 		ArrayList<Point> destinationArray;
 
 		do {
-			System.out.println("Piece Array Size: " + ourPieces.size());
+			//System.out.println("Piece Array Size: " + ourPieces.size());
 			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
-			System.out.println("Piece Type: " + randomPiece.toString());
+			//System.out.println("Piece Type: " + randomPiece.toString());
 			destinationArray = this.movablePoints(randomPiece);
 			if (destinationArray.size() > 0)
 				pieceCanMove = true;
@@ -803,7 +803,7 @@ public class DerpyAI {
 				pieceCanMove = false;
 		} while (!pieceCanMove);
 
-		System.out.println("Destination Array Size: " + destinationArray.size());
+		//System.out.println("Destination Array Size: " + destinationArray.size());
 		Point randomDestination = destinationArray.get(r.nextInt(destinationArray.size()));
 
 		// Determines where to move
@@ -845,7 +845,7 @@ public class DerpyAI {
 
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
-		System.out.println("Random Move Made to (" + (int)randomDestination.getX()+","+(int)randomDestination.getY()+")");
+		System.out.println("Random Move Made by " + randomPiece.toString() + " to (" + (int)randomDestination.getX()+","+(int)randomDestination.getY()+")");
 		currentBoard.printBoard();
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
@@ -907,8 +907,7 @@ public class DerpyAI {
 			if (bestPiece != null && bestTarget != null) {
 				this.movePiece(bestPiece, bestTarget.getLocation());
 				bestPiece.changeLocation(bestTarget.getLocation());
-				System.out.println("Autonomous Move Made to "
-						+ (int)bestTarget.getLocation().getX() + (int)bestTarget.getLocation().getY());
+				System.out.println("Autonomous Move Made by " + bestPiece.toString() + " to (" + (int)bestTarget.getLocation().getX() + "," + (int)bestTarget.getLocation().getY() + ")");
 				System.out.println();
 				parseCurrentBoard();
 				boardStore.add(currentBoard);
@@ -995,7 +994,7 @@ public class DerpyAI {
 	// master move choice method. Decides what move to make, then makes it.
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		System.out.println("makeMove: Make move called with DerpyBoard " + b);
+		//System.out.println("makeMove: Make move called with DerpyBoard " + b);
 
 		boardStore.add(b);
 		currentBoard = (DerpyBoard) b;
@@ -1006,10 +1005,10 @@ public class DerpyAI {
 		if (this.inCheck()) {
 			// We're in check, call getOutOfCheck to get us a board where we're
 			// not in check
-			System.out.println("makeMove: inCheck was true");
+			//System.out.println("makeMove: inCheck was true");
 			boardStore.add(boardWithPieceMoved);
 			boardWithPieceMoved = this.getOutOfCheck(b);
-			System.out.println("makeMove: Now out of check, in theory");
+			//System.out.println("makeMove: Now out of check, in theory");
 
 		} else {
 
