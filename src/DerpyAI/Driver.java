@@ -9,9 +9,10 @@ public class Driver {
 
 		DerpyBoard db = new DerpyBoard();
 		DerpyAI aiOne = new DerpyAI(true);
-
-		for (int i = 0; i < 10; i++) {
+		DerpyAI aiTwo = new DerpyAI(false);
+		for (int i = 0; i < 20; i++) {
 			db = aiOne.makeMove(db);
+			db = aiTwo.makeMove(db);
 			System.out.println();
 		}
 	}
