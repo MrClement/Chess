@@ -884,7 +884,7 @@ public class DerpyAI {
 				ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
 				// Finds all possible pieces that piece can take
 				for (int i = 0; i < destinationArray.size(); i++) {
-					if (currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()] instanceof DerpyPiece) {
+					if (!(currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()] instanceof DerpyBlank)) {
 						piecesToTake.add(currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()]);
 					}
 				}
@@ -907,9 +907,12 @@ public class DerpyAI {
 			if (bestPiece != null && bestTarget != null) {
 				this.movePiece(bestPiece, bestTarget.getLocation());
 				bestPiece.changeLocation(bestTarget.getLocation());
-				System.out.println("Sam's Autonomous Move Made by "
-						+ bestPiece.toString() + " to "
-						+ bestTarget.getLocation().toString());
+				System.out.println("Autonomous Move Made to "
+						+ (int)bestTarget.getLocation().getX() + (int)bestTarget.getLocation().getY());
+				System.out.println();
+				parseCurrentBoard();
+				boardStore.add(currentBoard);
+				currentBoard.printBoard();
 				System.out.println();
 			}
 			
@@ -919,7 +922,6 @@ public class DerpyAI {
 			// Sets up the new board
 			parseCurrentBoard();
 			boardStore.add(currentBoard);
-			currentBoard.printBoard();
 			return currentBoard;
 		}
 	}
