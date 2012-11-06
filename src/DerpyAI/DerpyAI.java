@@ -857,36 +857,41 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard samAI() {
-		// Picks our piece that can take the most valuable enemy piece and moves
-		// it, otherwise makes a random move
+		// Picks our piece that can take the most valuable enemy piece and moves it
+		// Otherwise makes a random move
+		
 		// Sets up board
 		parseCurrentBoard();
 		
-		// Finds the initial piece to move and the initial destination
-		DerpyPiece bestPiece = null; // Our piece to move
-		DerpyPiece bestTarget = null; // Enemy piece to take
+		// If we're in check, get out of it
+		System.out.println("In check? " + this.inCheck());
 		if (this.inCheck()) {
+			System.out.println("FLY YOU FOOLS!");
 			this.getOutOfCheck(currentBoard);
 			parseCurrentBoard();
 			return currentBoard;
 		} 
 		
+		// Otherwise, find the initial piece to move and the initial destination
 		else {
-			ArrayList<Point> destinationArray;
+			DerpyPiece bestPiece = null; // Our piece to move
+			DerpyPiece bestTarget = null; // Enemy piece to take
+			
 			// Goes through each of our pieces
 			for (int f = 0; f < ourPieces.size(); f++) {
 				// Finds the possible destinations of that respective piece
-				destinationArray = this.movablePoints(ourPieces.get(f));
+				ArrayList<Point> destinationArray = this.movablePoints(ourPieces.get(f));
 				ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
 				// Finds all possible pieces that piece can take
 				for (int i = 0; i < destinationArray.size(); i++) {
-					if (currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyPiece) {
-						piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+					if (currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()] instanceof DerpyPiece) {
+						piecesToTake.add(currentBoard.getBoardArray()[(int)destinationArray.get(i).getX()][(int)destinationArray.get(i).getY()]);
 					}
 				}
 				
-				// Finds the most valuable piece in that array if that array is
-				// not empty
+				// Finds the most valuable piece in that array if that array is not empty, and compares it to
+				// The most valuable piece any of our other pieces so far can take - if it's worth more, this becomes
+				// The new best piece to take
 				if (piecesToTake.size() != 0) {
 					DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
 					// Checks to see if our best target is less valuable than
@@ -1010,7 +1015,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.randomMove();
+		DerpyBoard ba = this.samAI();
 
 		// Start test
 		// For testing move and board stuff
