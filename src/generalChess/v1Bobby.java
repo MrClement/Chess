@@ -262,14 +262,11 @@ public class v1Bobby {
 						// checks queen for diagonal down to the right. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						int a = x;
-						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						int b = y;
-						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						 
 						int quit = 0;
+						if (b!=7 && a!=7) //if the queen is on the last row or furthest right column of the board no need to check down and to the right
+						{
 						do {
 							a = a + 1;
 							b = b + 1;
@@ -282,18 +279,15 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks queen for diagonal down to the left. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
 						quit = 0;
+						if(b!=7 && a!=0) //if the queen is on the last row or leftmost column of the board no need to check down and to the left
+						{
 						do {
 							a = a - 1;
 							b = b + 1;
@@ -306,18 +300,16 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks queen for diagonal up to the left. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
+							
 						quit = 0;
+						if (b!=0 && a!=0)
+						{//if the queen is on the first row of the board or leftmost column no need to check up and to the left
 						do {
 							a = a - 1;
 							b = b - 1;
@@ -330,18 +322,16 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks queen for diagonal up to the right. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
 						quit = 0;
+						if(b!=0 && a!=7)
+							//if queen is on the highest row and rightmost column no need to look up and to the right
+						{
 						do {
 							a = a + 1;
 							b = b - 1;
@@ -354,7 +344,7 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks queen north. quits if adds an opposite color piece or
 						// reaches end of board or hits our piece
 						a = x;
@@ -591,14 +581,11 @@ public class v1Bobby {
 						// checks bishop for diagonal down to the right. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						int a = x;
-						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						int b = y;
-						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						 
 						int quit = 0;
+						if (b!=7 && a!=7) //if the bishop is on the last row or furthest right column of the board no need to check down and to the right
+						{
 						do {
 							a = a + 1;
 							b = b + 1;
@@ -611,18 +598,15 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks queen for diagonal down to the left. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 7)
-							b = b - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
 						quit = 0;
+						if(b!=7 && a!=0) //if the bishop is on the last row or leftmost column of the board no need to check down and to the left
+						{
 						do {
 							a = a - 1;
 							b = b + 1;
@@ -635,18 +619,16 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks bishop for diagonal up to the left. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 0)
-							a = a + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
+							
 						quit = 0;
+						if (b!=0 && a!=0)
+						{//if the bishop is on the first row of the board or leftmost column no need to check up and to the left
 						do {
 							a = a - 1;
 							b = b - 1;
@@ -659,18 +641,16 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
-
+						}
 						// checks bishop for diagonal up to the right. quits if adds an
 						// opposite color piece or reaches end of board or our piece
 						a = x;
-						if (a == 7)
-							a = a - 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
 						b = y;
-						if (b == 0)
-							b = b + 1; // if piece is already on edge of board, need to
-										// adjust for the do while loop to work
+						
 						quit = 0;
+						if(b!=0 && a!=7)
+							//if bishop is on the highest row and rightmost column no need to look up and to the right
+						{
 						do {
 							a = a + 1;
 							b = b - 1;
@@ -683,6 +663,7 @@ public class v1Bobby {
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
 						} while (quit != -999);
+						}
 					}
 					m.add(g);
 				}
