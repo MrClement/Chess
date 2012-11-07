@@ -846,7 +846,7 @@ public class DerpyAI {
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
 		System.out.println("Random Move Made by " + randomPiece.toString() + " to (" + (int)randomDestination.getX()+","+(int)randomDestination.getY()+")");
-		currentBoard.printBoard();
+		//currentBoard.printBoard();
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
@@ -911,7 +911,7 @@ public class DerpyAI {
 				System.out.println();
 				parseCurrentBoard();
 				boardStore.add(currentBoard);
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 			}
 			
@@ -1031,7 +1031,7 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.samAI();
+		DerpyBoard ba = this.prestonAI();
 
 		// Start test
 		// For testing move and board stuff
@@ -1047,10 +1047,11 @@ public class DerpyAI {
 		 */// End test
 			// DerpyBoard ba = this.randomMove();
 		boardStore.add(ba);
+		ba.printBoard();
 
 		// If we're still in check even after all that,
 		// there's no way out of check. Concede to the other player.
-		if (this.inCheck()) concedeGame();
+		if (this.inCheck())concedeGame();
 
 		currentBoard = ba;
 		parseCurrentBoard();
