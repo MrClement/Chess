@@ -1064,6 +1064,7 @@ public class DerpyAI {
 	}
 
 	// //Extra, Currently Unused Code////
+	/*
 
 	public boolean executeCzechDefense() { // we need code to call this method
 		// again after white's moved once
@@ -1115,5 +1116,6 @@ public class DerpyAI {
 		} else
 			return false;
 	}
+	*/
 
 }
