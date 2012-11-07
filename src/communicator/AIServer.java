@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 import sharedfiles.Board;
 import sharedfiles.Piece;
@@ -14,7 +13,6 @@ import sharedfiles.Piece;
 public class AIServer {
 
 	private static int port = 8080;
-	private static int maxConnections = 2;
 
 	public synchronized static void main(String[] args) {
 
@@ -26,7 +24,6 @@ public class AIServer {
 		PrintStream out;
 		BufferedReader in2;
 		PrintStream out2;
-		Scanner scan = new Scanner(System.in);
 
 		String[] stuff = new String[8];
 		try {
@@ -53,7 +50,6 @@ public class AIServer {
 
 			}
 			for (int i = 0; i < 25; i++) {
-				scan.nextLine();
 				String line = "";
 				System.out.println();
 				System.out.println("Client 1 move");
@@ -74,7 +70,6 @@ public class AIServer {
 				}
 				b.buildBoard(stuff);
 				b.printBoard();
-				scan.nextLine();
 				System.out.println();
 				System.out.println("Client 2 move");
 				for (int j = 0; j < 8; j++) {

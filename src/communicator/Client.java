@@ -22,10 +22,9 @@ public class Client {
 
 		Socket myClient;
 		try {
-			myClient = new Socket(hostname, 8080);
+			myClient = new Socket(hostname, port);
 			in = new BufferedReader(new InputStreamReader(myClient.getInputStream()));
 			out = new PrintStream(myClient.getOutputStream());
-			String line = "";
 			while (scan.hasNext()) {
 				out.println(scan.nextLine());
 				System.out.println(in.readLine());

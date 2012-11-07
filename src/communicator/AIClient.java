@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class AIClient {
 
@@ -18,11 +17,9 @@ public class AIClient {
 		BufferedReader in;
 		PrintStream out;
 
-		Scanner scan = new Scanner(System.in);
-
 		Socket myClient;
 		try {
-			myClient = new Socket(hostname, 8080);
+			myClient = new Socket(hostname, port);
 			in = new BufferedReader(new InputStreamReader(myClient.getInputStream()));
 			out = new PrintStream(myClient.getOutputStream());
 			String line = "";
