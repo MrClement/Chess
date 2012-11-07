@@ -924,6 +924,21 @@ public class DerpyAI {
 			return currentBoard;
 		}
 	}
+	
+	public DerpyBoard prestonAI() {
+		
+		parseCurrentBoard();
+		
+		//Logic here
+		
+		//randomMove if nothing can be done
+		this.randomMove();
+		//End logic
+		
+		parseCurrentBoard();
+		boardStore.add(currentBoard);
+		return currentBoard;
+	}
 
 	// makes a move that advances our position or takes an enemy piece--for use
 	// during autonomous play when none of our pieces are threatened
@@ -1035,8 +1050,7 @@ public class DerpyAI {
 
 		// If we're still in check even after all that,
 		// there's no way out of check. Concede to the other player.
-		if (this.inCheck())
-			concedeGame();
+		if (this.inCheck()) concedeGame();
 
 		currentBoard = ba;
 		parseCurrentBoard();
