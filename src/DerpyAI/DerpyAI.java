@@ -40,10 +40,6 @@ public class DerpyAI {
 	// /////////////////////////Board State
 	// Checks//////////////////////////////////////////
 
-	public DerpyBoard getBoard() {
-		return currentBoard;
-	}
-
 	public void findTheirPieces() { // Creates an array of their pieces
 		DerpyPiece[][] boardState = currentBoard.getBoardArray();
 		for (int i = 0; i < 8; i++) {
@@ -1035,19 +1031,6 @@ public class DerpyAI {
 		DerpyBoard ba = this.samAI();
 		//DerpyBoard ba = this.curtisAI();
 
-		// Start test
-		// For testing move and board stuff
-		/*
-		 * Point destination = new Point(4, 5);
-		 * this.movePiece(currentBoard.getBoardArray()[4][6], destination);
-		 * currentBoard.getBoardArray()[4][5].changeLocation(destination);
-		 * 
-		 * DerpyBlank blank = new DerpyBlank(new Point(4, 6));
-		 * currentBoard.getBoardArray()[4][6] = blank;
-		 * 
-		 * DerpyBoard ba = currentBoard;
-		 */// End test
-			// DerpyBoard ba = this.randomMove();
 		boardStore.add(ba);
 		ba.printBoard();
 
