@@ -785,6 +785,14 @@ public class DerpyAI {
 		DerpyPiece randomPiece;
 		ArrayList<Point> destinationArray;
 
+		if(ourPieces.size() <= 0)
+			{
+				System.out.println("randomMove wanted to be called, but we have no pieces left.");
+				System.out.println("Conceding and quitting.");
+				this.concedeGame();
+
+			}
+
 		do {
 			//System.out.println("Piece Array Size: " + ourPieces.size());
 			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
