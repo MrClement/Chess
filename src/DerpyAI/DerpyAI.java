@@ -868,9 +868,8 @@ public class DerpyAI {
 		System.out.println("In check? " + this.inCheck());
 		if (this.inCheck()) {
 			System.out.println("FLY YOU FOOLS!");
-			this.getOutOfCheck(currentBoard);
-			parseCurrentBoard();
-			return currentBoard;
+			return this.getOutOfCheck(currentBoard);
+
 		} 
 		
 		// Otherwise, find the initial piece to move and the initial destination
