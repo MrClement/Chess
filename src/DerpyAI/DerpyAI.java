@@ -8,16 +8,13 @@ import sharedfiles.Piece;
 
 public class DerpyAI {
 	private Boolean myColor; // black is false, white is true.
-	private ArrayList<DerpyBoard> boardStore; // The current, and all previous
-	// boards
+	private ArrayList<DerpyBoard> boardStore; // The current, and all previous boards
 	private ArrayList<DerpyPiece> takenPieces; // The pieces we took
 	public ArrayList<DerpyPiece> ourPieces; // Our Array of Pieces
 	public ArrayList<DerpyPiece> theirPieces; // Our Array of their Pieces
 	private DerpyBoard currentBoard; // currentBoard is the current chess board
-	public ArrayList<Point> ourPiecesPoints; // array of the locations of our
-	// pieces
-	public ArrayList<Point> theirPiecesPoints; // array of the locations of
-	// their pieces
+	public ArrayList<Point> ourPiecesPoints; // array of the locations of our pieces
+	public ArrayList<Point> theirPiecesPoints; // array of the locations of their pieces
 	private ArrayList<Move> allMoves;
 
 	// A new constructor that doesn't take a board, just a color. This is
