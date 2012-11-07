@@ -1031,7 +1031,9 @@ public class DerpyAI {
 			currentBoard = boardWithPieceMoved;
 		}
 
-		DerpyBoard ba = this.prestonAI();
+		//DerpyBoard ba = this.prestonAI();
+		DerpyBoard ba = this.samAI();
+		//DerpyBoard ba = this.curtisAI();
 
 		// Start test
 		// For testing move and board stuff
