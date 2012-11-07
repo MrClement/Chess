@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class CopyOfClient {
+public class AIClient {
 
 	private static String hostname = "localhost";
 	private static int port = 8080;

@@ -11,7 +11,7 @@ import java.util.Scanner;
 import sharedfiles.Board;
 import sharedfiles.Piece;
 
-public class CopyOfServer {
+public class AIServer {
 
 	private static int port = 8080;
 	private static int maxConnections = 2;
