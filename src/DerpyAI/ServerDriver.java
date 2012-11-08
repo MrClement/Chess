@@ -1,5 +1,6 @@
 package DerpyAI;
 
+import java.net.Socket;
 import java.util.Scanner;
 
 public class ServerDriver {
@@ -9,12 +10,14 @@ public class ServerDriver {
 	
 	public static void main(String[] args) {
 		
+		System.out.println("DerpyAI ServerDriver v1");
+		System.out.println("Configured to connect to " + hostname + " on port " + port);
 		System.out.print("Select white (w) or black (b): ");
 		Scanner s = new Scanner(System.in);
 		String c = s.nextLine();
 		char ch = c.charAt(0);
 		
-		DerpyAI ai;
+		DerpyAI ai = null;
 		switch(ch) {
 			case 'w':
 				ai = new DerpyAI(true);
@@ -28,7 +31,15 @@ public class ServerDriver {
 				break;
 		}
 		
-		
+		Socket myClient = null;
+		try {
+			System.out.println("Establishing socket connection...");
+			myClient = new Socket(hostname, port);
+		}
+		catch (Exception e) {
+			
+			
+		}
 		
 		
 	}
