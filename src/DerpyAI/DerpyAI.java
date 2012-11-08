@@ -755,7 +755,7 @@ public class DerpyAI {
 			}
 		}
 		for (DerpyPiece p : listOfPieces) {
-			if (p.toString().charAt(0) == biggestValue.toString().charAt(0)) {
+			if (p.toString().charAt(1) == biggestValue.toString().charAt(1)) {
 				return p;
 			}
 		}
