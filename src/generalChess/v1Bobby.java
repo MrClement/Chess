@@ -925,6 +925,9 @@ public class v1Bobby {
 		//q = 81-95
 		//k = 96-100
 		//chooses which piece will move
+		boolean isMoveMade=false;
+		while(isMoveMade==false)
+		{
 		int z=r.nextInt(100)+1;
 		
 		
@@ -942,7 +945,9 @@ public class v1Bobby {
 			a=r.nextInt(pMoves().size());
 		}
 		int b=r.nextInt(pMoves().get(a).size()-2)+2;
+		
 		move((int)((Point)pMoves().get(a).get(1)).getX(), (int)((Point)pMoves().get(a).get(1)).getY(), (int)((Point)pMoves().get(a).get(b)).getX(), (int)((Point)pMoves().get(a).get(b)).getY());
+		isMoveMade=true;
 		}
 		
 		
@@ -960,7 +965,14 @@ public class v1Bobby {
 					a=r.nextInt(nMoves().size());
 				}
 				int b=r.nextInt(nMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
 				move((int)((Point)nMoves().get(a).get(1)).getX(), (int)((Point)nMoves().get(a).get(1)).getY(), (int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
 				}
 				
 				//chooses a random bishop and moves it to a random legal location, first must check to makes sure there are bishops left that have legal moves to make
@@ -968,16 +980,26 @@ public class v1Bobby {
 				isThereBishopsThatCanMakeMoves=false;
 				for(int i = 0; i<bMoves().size();i++)
 				{
+					
 					if(bMoves().get(i).size()>2 && isThereBishopsThatCanMakeMoves==false) isThereBishopsThatCanMakeMoves=true;
+					
 				}
 				if(z>=46 && z<=65 && isThereBishopsThatCanMakeMoves==true)
 				{
+				
 				int a=r.nextInt(bMoves().size());
 				while(bMoves().get(a).size()<=2){
 					a=r.nextInt(bMoves().size());
 				}
 				int b=r.nextInt(bMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
 				move((int)((Point)bMoves().get(a).get(1)).getX(), (int)((Point)bMoves().get(a).get(1)).getY(), (int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
 				}
 				
 				
@@ -995,7 +1017,14 @@ public class v1Bobby {
 					a=r.nextInt(rMoves().size());
 				}
 				int b=r.nextInt(rMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
 				move((int)((Point)rMoves().get(a).get(1)).getX(), (int)((Point)rMoves().get(a).get(1)).getY(), (int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
 				}
 				
 				
@@ -1013,7 +1042,14 @@ public class v1Bobby {
 					a=r.nextInt(qMoves().size());
 				}
 				int b=r.nextInt(qMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
 				move((int)((Point)qMoves().get(a).get(1)).getX(), (int)((Point)qMoves().get(a).get(1)).getY(), (int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
 				}
 				
 				
@@ -1031,8 +1067,15 @@ public class v1Bobby {
 					a=r.nextInt(kMoves().size());
 				}
 				int b=r.nextInt(kMoves().get(a).size()-2)+2;
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
 				move((int)((Point)kMoves().get(a).get(1)).getX(), (int)((Point)kMoves().get(a).get(1)).getY(), (int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
+				isMoveMade=true;
 				}
+				}
+		}
 		
 	}
 
