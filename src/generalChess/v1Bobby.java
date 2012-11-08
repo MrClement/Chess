@@ -917,13 +917,122 @@ public class v1Bobby {
 	}
 	
 	public void randomMove() {
-		Random r=new Random();		
-		int a=r.nextInt(allMoves().size());
-		while(allMoves().get(a).size()<=2){
-			a=r.nextInt(allMoves().size());
+		Random r=new Random();
+		//p = 1-25
+		//n = 26-45
+		//b = 46-65
+		//r = 66-80
+		//q = 81-95
+		//k = 96-100
+		//chooses which piece will move
+		int z=r.nextInt(100)+1;
+		
+		
+		//chooses a random pawn and moves it to a random legal location, first must check to makes sure there are pawns left that have legal moves to make
+		boolean isTherePawnsThatCanMakeMoves;
+		isTherePawnsThatCanMakeMoves=false;
+		for(int i = 0; i<pMoves().size();i++)
+		{
+			if(pMoves().get(i).size()>2 && isTherePawnsThatCanMakeMoves==false) isTherePawnsThatCanMakeMoves=true;
 		}
-		int b=r.nextInt(allMoves().get(a).size()-2)+2;
-		move((int)((Point)allMoves().get(a).get(1)).getX(), (int)((Point)allMoves().get(a).get(1)).getY(), (int)((Point)allMoves().get(a).get(b)).getX(), (int)((Point)allMoves().get(a).get(b)).getY());
+		if(z>=1 && z<=25 && isTherePawnsThatCanMakeMoves==true)
+		{
+		int a=r.nextInt(pMoves().size());
+		while(pMoves().get(a).size()<=2){
+			a=r.nextInt(pMoves().size());
+		}
+		int b=r.nextInt(pMoves().get(a).size()-2)+2;
+		move((int)((Point)pMoves().get(a).get(1)).getX(), (int)((Point)pMoves().get(a).get(1)).getY(), (int)((Point)pMoves().get(a).get(b)).getX(), (int)((Point)pMoves().get(a).get(b)).getY());
+		}
+		
+		
+		//chooses a random knight and moves it to a random legal location, first must check to makes sure there are knights left that have legal moves to make
+				boolean isThereKnightsThatCanMakeMoves;
+				isThereKnightsThatCanMakeMoves=false;
+				for(int i = 0; i<nMoves().size();i++)
+				{
+					if(nMoves().get(i).size()>2 && isThereKnightsThatCanMakeMoves==false) isThereKnightsThatCanMakeMoves=true;
+				}
+				if(z>=26 && z<=45 && isThereKnightsThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(nMoves().size());
+				while(nMoves().get(a).size()<=2){
+					a=r.nextInt(nMoves().size());
+				}
+				int b=r.nextInt(nMoves().get(a).size()-2)+2;
+				move((int)((Point)nMoves().get(a).get(1)).getX(), (int)((Point)nMoves().get(a).get(1)).getY(), (int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
+				}
+				
+				//chooses a random bishop and moves it to a random legal location, first must check to makes sure there are bishops left that have legal moves to make
+				boolean isThereBishopsThatCanMakeMoves;
+				isThereBishopsThatCanMakeMoves=false;
+				for(int i = 0; i<bMoves().size();i++)
+				{
+					if(bMoves().get(i).size()>2 && isThereBishopsThatCanMakeMoves==false) isThereBishopsThatCanMakeMoves=true;
+				}
+				if(z>=46 && z<=65 && isThereBishopsThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(bMoves().size());
+				while(bMoves().get(a).size()<=2){
+					a=r.nextInt(bMoves().size());
+				}
+				int b=r.nextInt(bMoves().get(a).size()-2)+2;
+				move((int)((Point)bMoves().get(a).get(1)).getX(), (int)((Point)bMoves().get(a).get(1)).getY(), (int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
+				}
+				
+				
+				//chooses a random rook and moves it to a random legal location, first must check to makes sure there are rooks left that have legal moves to make
+				boolean isThereRooksThatCanMakeMoves;
+				isThereRooksThatCanMakeMoves=false;
+				for(int i = 0; i<rMoves().size();i++)
+				{
+					if(rMoves().get(i).size()>2 && isThereRooksThatCanMakeMoves==false) isThereRooksThatCanMakeMoves=true;
+				}
+				if(z>=66 && z<=80 && isThereRooksThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(rMoves().size());
+				while(rMoves().get(a).size()<=2){
+					a=r.nextInt(rMoves().size());
+				}
+				int b=r.nextInt(rMoves().get(a).size()-2)+2;
+				move((int)((Point)rMoves().get(a).get(1)).getX(), (int)((Point)rMoves().get(a).get(1)).getY(), (int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
+				}
+				
+				
+				//chooses a random queen and moves it to a random legal location, first must check to makes sure there are queens left that have legal moves to make
+				boolean isThereQueensThatCanMakeMoves;
+				isThereQueensThatCanMakeMoves=false;
+				for(int i = 0; i<qMoves().size();i++)
+				{
+					if(qMoves().get(i).size()>2 && isThereQueensThatCanMakeMoves==false) isThereQueensThatCanMakeMoves=true;
+				}
+				if(z>=81 && z<=95 && isThereQueensThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(qMoves().size());
+				while(qMoves().get(a).size()<=2){
+					a=r.nextInt(qMoves().size());
+				}
+				int b=r.nextInt(qMoves().get(a).size()-2)+2;
+				move((int)((Point)qMoves().get(a).get(1)).getX(), (int)((Point)qMoves().get(a).get(1)).getY(), (int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
+				}
+				
+				
+				//chooses a random king and moves it to a random legal location, first must check to makes sure there are kings left that have legal moves to make
+				boolean isThereKingsThatCanMakeMoves;
+				isThereKingsThatCanMakeMoves=false;
+				for(int i = 0; i<kMoves().size();i++)
+				{
+					if(kMoves().get(i).size()>2 && isThereKingsThatCanMakeMoves==false) isThereKingsThatCanMakeMoves=true;
+				}
+				if(z>=96 && z<=100 && isThereKingsThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(kMoves().size());
+				while(kMoves().get(a).size()<=2){
+					a=r.nextInt(kMoves().size());
+				}
+				int b=r.nextInt(kMoves().get(a).size()-2)+2;
+				move((int)((Point)kMoves().get(a).get(1)).getX(), (int)((Point)kMoves().get(a).get(1)).getY(), (int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
+				}
 		
 	}
 
