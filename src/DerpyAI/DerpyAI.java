@@ -183,10 +183,6 @@ public class DerpyAI {
 			if (this.pieceCanMoveToPosition(a, d.getLocation())) {
 				if (this.makeTrade(a, p)) {
 					return true;
-				} else if (this.pieceIsProtected(p)) {
-					return false;
-				} else {
-					return true;
 				}
 			}
 		}
@@ -867,7 +863,7 @@ public class DerpyAI {
 		// If we're in check, get out of it
 		System.out.println("In check? " + this.inCheck());
 		if (this.inCheck()) {
-			System.out.println("FLY YOU FOOLS!");
+			System.out.println("FLY, YOU FOOLS!");
 			return this.getOutOfCheck(currentBoard);
 
 		} 
