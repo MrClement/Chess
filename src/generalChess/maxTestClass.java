@@ -7,27 +7,25 @@ public class maxTestClass {
 	public static void main(String[] args) {
 		v1Bobby a=new v1Bobby(new Board(), true);
 
-		a.move(0,6,1,2);
-		a.move(1,6,2,3);
-		a.move(3,7,0,3);
+		//a.move(0,6,1,2);
+		//a.move(1,6,6,1);
+		
+		a.move(6,1,4,3);
+		//a.move(2,0,2,3);
+		a.move(7,7,3,3);
+		System.out.println(a.newBestPieceToTake());
+		System.out.println(a.pMoves());
 		a.printBoard();
 		System.out.println(a.numDefenders(1,2));
 		System.out.println(a.numDefenderValue(1,2));
 		a.randomMove();
 		a.printBoard();
 		a.randomMove();
-		a.printBoard();
-		a.randomMove();
-		a.printBoard();
-		a.randomMove();
-		a.printBoard();
-		a.printBoard();
-		a.randomMove();
-		a.printBoard();
-		System.out.println(a.kMovesDefending());
-		System.out.println(a.qMovesDefending());
-		System.out.println(a.pMovesDefending());
-		
+		v1Bobby x=new v1Bobby(a.getB(), false);
+		x.move(4,1,4,2);
+		x.printBoard();
+		System.out.println(a.takeIfPossible(a.allMoves().get(15)));
+		System.out.println(x.numDefenders(4, 2));
 	
 		
 		System.out.println(a.allMoves());
