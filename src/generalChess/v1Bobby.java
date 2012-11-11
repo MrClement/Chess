@@ -713,10 +713,11 @@ public class v1Bobby {
 
 	//takes an array of possible returns the index of the highest ranking opponent piece that any specific piece
 	//has in its possible moves
-	//-1 if no possible pieces to take
+	//1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
 		int x =1;
+		v1Bobby enemy=new v1Bobby(this.getB(), !color);
 	for(int i=2; i<a.size();i++) {
 		
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
@@ -730,44 +731,97 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
 				x=i;
-				return x;}
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
 				x=i;
-				return x;}
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
 				x=i;
-				return x;}
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
 				x=i;
-				return x;}
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
-				
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
 				x=i;
-				return x;}
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
-	
+	if(x!=1) return x;
 	return 1;
 	}
 	
@@ -991,43 +1045,35 @@ public class v1Bobby {
 						locEnemy = z;
 					}
 				}
-				System.out.println(enemy.allMoves().get(3));
-				System.out.println(enemy.numDefenders((int)((Point)enemy.allMoves().get(locEnemy).get(1)).getX(), (int)((Point)enemy.allMoves().get(locEnemy).get(1)).getY()));
 				if(enemy.numDefenders((int)((Point)enemy.allMoves().get(locEnemy).get(1)).getX(), (int)((Point)enemy.allMoves().get(locEnemy).get(1)).getY())<=numDefenders((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
 							(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()))){
-				System.out.println(lessThan);
 				lessThan=takeVal-curVal;
-				System.out.println(lessThan);
 				best2=i;
-				System.out.println(best2);
 				}
 			}
-			
-			//else{
-			//	v.add((Point)allMoves().get(best).get(1));
-				//v.add((Point)allMoves().get(best).get(1));
-
-			//}
-			
 		}
 
+		//by now has picked the best piece of a higher value, of equal value, and if no higher value or equal value available, of lower value
+		//first sees if higher value possible, then equal value, then lower value. if no pieces can be taken or a piece has too many defenders
+		//will return an array with two of the same location pieces
 		if(high>0){
 		v.add((Point)allMoves().get(best).get(1));
 		v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
-		System.out.println("LOLOLOL");
+		System.out.println("Just took a piece of a higher value sucka!");
 		}
 		
 		else if(high2==0)
 		{
 			v.add((Point)allMoves().get(best1).get(1));
 			v.add((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1))));
-			System.out.println("SAMEVAL");
+			System.out.println("Just took a piece!");
 		}
 		else
 		{
+	
 			v.add((Point)allMoves().get(best2).get(1));
 			v.add((Point)allMoves().get(best2).get(takeIfPossible(allMoves().get(best2))));
-			System.out.println("penis");
+
 		}
 		return v;
 	}

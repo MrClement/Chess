@@ -11,9 +11,10 @@ public class maxTestClass {
 		//a.move(1,6,6,1);
 		
 		a.move(6,1,4,3);
-		//a.move(2,0,2,3);
+		a.move(2,0,2,3);
 		a.move(7,7,3,3);
 		System.out.println(a.newBestPieceToTake());
+		System.out.println(a.allMoves().get(13).get(a.takeIfPossible(a.allMoves().get(13))));
 		System.out.println(a.pMoves());
 		a.printBoard();
 		System.out.println(a.numDefenders(1,2));
