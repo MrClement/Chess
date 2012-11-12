@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import sharedfiles.Board;
@@ -16,7 +17,7 @@ public class ServerDriver {
 	public static final int port = 8080;
 
 	@SuppressWarnings("resource")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.out.println("DerpyAI ServerDriver v1");
 		System.out.println("Configured to connect to " + hostname + " on port " + port);
@@ -58,23 +59,22 @@ public class ServerDriver {
 			e.printStackTrace();
 		}
 
-		String[] stuff = new String[8];
+		//String[] stuff = new String[8];
+		//ArrayList<String> stuff = new ArrayList<String>();
 
+		//white(true) loop
 		while (true) {
-			for (int j = 0; j < 8; j++) {
-				String line = null;
-				try {
-					line = in.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				if (line.equals("."))
-					break;
-				stuff[j] = line;
+			ArrayList<String> stuff = new ArrayList<String>();
+			String line = in.readLine();
+			while(line != null && !line.equals(".")) {
+				System.out.println("In the while(line != null && !line.equals( loop");
+				stuff.add(line);
+				line = in.readLine();
 			}
+			String[] stuffArr = stuff.toArray(new String[stuff.size()]);
 
 			Board board = new Board();
-			board.buildBoard(stuff);
+			board.buildBoard(stuffArr);
 			DerpyBoard input = new DerpyBoard(board);
 			input = ai.makeMove(input);
 
@@ -89,8 +89,8 @@ public class ServerDriver {
 
 			}
 			out.println(".");
-
 		}
+		//end while(true) loop
 
 	}
 
