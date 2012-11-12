@@ -60,37 +60,54 @@ public class ServerDriver {
 
 		String[] stuff = new String[8];
 
+		//white(true) loop
 		while (true) {
-			for (int j = 0; j < 8; j++) {
-				String line = null;
-				try {
-					line = in.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				if (line.equals("."))
-					break;
-				stuff[j] = line;
+			String line = null;
+			try {
+				line = in.readLine();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-
-			Board board = new Board();
-			board.buildBoard(stuff);
-			DerpyBoard input = new DerpyBoard(board);
-			input = ai.makeMove(input);
-
-			Board equiv = input.boardEquiv();
-			Piece[][] arr = equiv.getBoardArray();
-			for (int y = 0; y < 8; y++) {
-
-				for (int x = 0; x < 8; x++) {
-					out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
+			while(line != null && !line.equals(".")) {
+				
+				for (int j = 0; j < 8; j++) {
+					line = null;
+					try {
+						line = in.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if (line.equals("."))
+						break;
+					stuff[j] = line;
 				}
-				out.println();
 
+				Board board = new Board();
+				board.buildBoard(stuff);
+				DerpyBoard input = new DerpyBoard(board);
+				input = ai.makeMove(input);
+
+				Board equiv = input.boardEquiv();
+				Piece[][] arr = equiv.getBoardArray();
+				for (int y = 0; y < 8; y++) {
+
+					for (int x = 0; x < 8; x++) {
+						out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
+					}
+					out.println();
+
+				}
+				out.println(".");
 			}
-			out.println(".");
-
+			try {
+				line = in.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		//end while(true) loop
 
 	}
 
