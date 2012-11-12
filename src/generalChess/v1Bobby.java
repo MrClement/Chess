@@ -1016,7 +1016,7 @@ public class v1Bobby {
 				takeVal =100;
 			
 			if(takeVal-curVal>high){
-				System.out.println(i);
+				
 				high=takeVal-curVal;
 				best=i;
 				
@@ -1059,14 +1059,14 @@ public class v1Bobby {
 		if(high>0){
 		v.add((Point)allMoves().get(best).get(1));
 		v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
-		System.out.println("Just took a piece of a higher value sucka!");
+		
 		}
 		
 		else if(high2==0)
 		{
 			v.add((Point)allMoves().get(best1).get(1));
 			v.add((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1))));
-			System.out.println("Just took a piece!");
+			
 		}
 		else
 		{
