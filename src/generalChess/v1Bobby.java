@@ -1724,7 +1724,7 @@ return this.b;
 							b = b - 1;
 							if (b == 0)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1742,7 +1742,7 @@ return this.b;
 							b = b + 1;
 							if (b == 7)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1760,7 +1760,7 @@ return this.b;
 							a = a + 1;
 							if (a == 7)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1778,7 +1778,7 @@ return this.b;
 							a = a - 1;
 							if (a == 0)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1820,7 +1820,7 @@ return this.b;
 							b = b - 1;
 							if (b == 0)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if (!(g.contains(new Point(a,b))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1838,7 +1838,7 @@ return this.b;
 							b = b + 1;
 							if (b == 7)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if (!(g.contains(new Point(a,b))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1856,7 +1856,7 @@ return this.b;
 							a = a + 1;
 							if (a == 7)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;
@@ -1874,7 +1874,7 @@ return this.b;
 							a = a - 1;
 							if (a == 0)
 								quit = -999;
-							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
 								g.add(new Point(a, b));
 							if (this.b[a][b].toString().charAt(1) != 'X')
 								quit = -999;

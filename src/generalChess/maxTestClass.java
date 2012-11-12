@@ -19,7 +19,7 @@ public class maxTestClass {
 		a.printBoard();
 		System.out.println(a.numDefenders(0,7));
 		System.out.println(a.numDefenderValue(0,7));
-		System.out.println(a.rMoves());
+		System.out.println(a.bMovesDefending());
 		a.randomMove();
 		a.printBoard();
 		a.randomMove();
