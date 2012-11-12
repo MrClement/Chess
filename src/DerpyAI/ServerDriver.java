@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import sharedfiles.Board;
@@ -58,7 +59,8 @@ public class ServerDriver {
 			e.printStackTrace();
 		}
 
-		String[] stuff = new String[8];
+		//String[] stuff = new String[8];
+		ArrayList<String> stuff = new ArrayList<String>();
 
 		//white(true) loop
 		while (true) {
@@ -71,20 +73,11 @@ public class ServerDriver {
 			}
 			while(line != null && !line.equals(".")) {
 				
-				for (int j = 0; j < 8; j++) {
-					line = null;
-					try {
-						line = in.readLine();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					if (line.equals("."))
-						break;
-					stuff[j] = line;
-				}
+				stuff.add(line);
+				String[] stuffArr = stuff.toArray(new String[stuff.size()]);
 
 				Board board = new Board();
-				board.buildBoard(stuff);
+				board.buildBoard(stuffArr);
 				DerpyBoard input = new DerpyBoard(board);
 				input = ai.makeMove(input);
 
