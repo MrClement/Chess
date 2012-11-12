@@ -9,16 +9,17 @@ public class maxTestClass {
 
 		a.move(2,7,5,2);
 		a.move(1,6,6,1);
+		a.randomMove();
 		
 		a.move(6,1,4,3);
 		a.move(2,0,2,3);
-		a.move(7,7,3,3);
+		a.move(7,7,3,4);
 		System.out.println(a.newBestPieceToTake());
 		System.out.println(a.allMoves().get(13).get(a.takeIfPossible(a.allMoves().get(13))));
 		
 		a.printBoard();
-		System.out.println(a.numDefenders(0,7));
-		System.out.println(a.numDefenderValue(0,7));
+		System.out.println(a.numDefenders(1,4));
+		System.out.println(a.numDefenderValue(1,4));
 		System.out.println(a.bMovesDefending());
 		a.randomMove();
 		a.printBoard();

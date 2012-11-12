@@ -18,7 +18,7 @@ public class v1Bobby {
 	public boolean color;
 	public Piece[][] b;
 	public int move;
-
+	public int numTurns = 0;
 	
 	public v1Bobby(Board b, boolean c) {
 		this.color = c;
@@ -1134,7 +1134,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'R')
 					{
 						//rook is 5
-				System.out.println("why");
+				
 				a+=5;
 					}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
@@ -1328,130 +1328,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 		
 	}
 
-/*
-	public Piece[][] turn(Board c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		int w, x, y, z;
-		w=0;
-		x=0;
-		y=0;
-		z=0;
-		if (color == true) {
-
-			switch (move) {
-				case 1:
-					w=4;x=6;y=4;z=4;
-				case 2:
-					w=3;x=7;y=5;z=5;
-
-				case 3:
-
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-					w=5;x=7;y=2;z=4;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-					return b;
-				default:
-					randomMove();
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					w=4;x=1;y=4;z=3;
-
-				case 2:
-					w=3;x=0;y=5;z=2;
-
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-					w=5;x=0;y=2;z=3;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-				default:
-					randomMove();
-			}
-		}
-		move(w, x, y, z);
-		
-		System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+"Piece: "+b[w][x].toString());
-		return b;
-
-
-	}
-
-	public Piece[][] turn(Piece[][] c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		if (color == true) {
-			switch (move) {
-				case 1:
-					move(4, 6, 4, 4);
-					return b;
-				case 2:
-					move(3, 7, 5, 5);
-					return b;
-				case 3:
-
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-						move(5, 7, 2, 4);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					move(4, 1, 4, 3);
-					return b;
-				case 2:
-					move(3, 0, 5, 2);
-					return b;
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-						move(5, 0, 2, 3);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-			}
-
-		}
-
-	}
-
 	
-*/
 	
 	public Point randomKingMove() {
 	
@@ -1546,33 +1423,87 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 
 	public Piece[][] turn(Board b) {
 		getBoard(b);
+		
+		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
+		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
+		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
+		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
+		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
+		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
+		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
+		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
+		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
+		if(this.numTurns==5 && this.color==true) 
+			{
+			move(4,7,6,7);
+			move(7,7,5,7);
+			}
+		if(this.numTurns==5 && this.color==false) move(6,1,6,2);
+			{
+			move(4,0,6,0);
+			move(7,0,5,0);
+			}
+
+			
+		if(numTurns>5)
+		{
 		if (checkmate() == true)
 			System.out.print("Lose");
 		else if (check() == true)
 			getOutOfCheck();
-		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
-			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
-					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
-			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
+		else if (!(newBestPieceToTake().get(0).equals(newBestPieceToTake().get(1)))) {
+			move((int) newBestPieceToTake().get(0).getX(), (int) newBestPieceToTake().get(0).getY(), (int) newBestPieceToTake()
+					.get(1).getX(), (int) newBestPieceToTake().get(1).getY());
+			System.out.println(newBestPieceToTake().get(0) + ") --> (" + newBestPieceToTake().get(1));
 
 		} else
 			randomMove();
+		this.numTurns ++;
+		}
 return this.b;
 	}
 
 	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
+		
+		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
+		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
+		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
+		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
+		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
+		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
+		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
+		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
+		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
+		if(this.numTurns==5 && this.color==true) 
+			{
+			move(4,7,6,7);
+			move(7,7,5,7);
+			}
+		if(this.numTurns==5 && this.color==false) move(6,1,6,2);
+			{
+			move(4,0,6,0);
+			move(7,0,5,0);
+			}
+
+			
+		if(numTurns>5)
+		{
 		if (checkmate() == true)
 			System.out.print("Lose");
 		else if (check() == true)
 			getOutOfCheck();
-		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
-			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
-					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
-			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
+		else if (!(newBestPieceToTake().get(0).equals(newBestPieceToTake().get(1)))) {
+			move((int) newBestPieceToTake().get(0).getX(), (int) newBestPieceToTake().get(0).getY(), (int) newBestPieceToTake()
+					.get(1).getX(), (int) newBestPieceToTake().get(1).getY());
+			System.out.println(newBestPieceToTake().get(0) + ") --> (" + newBestPieceToTake().get(1));
 
 		} else
 			randomMove();
+		this.numTurns ++;
+		}
 return this.b;
 	}
 
