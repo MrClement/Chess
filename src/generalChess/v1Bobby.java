@@ -212,7 +212,8 @@ public class v1Bobby {
 
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
-	
+		//king can't move into check
+		v1Bobby enemy=new v1Bobby(this.getB(), !color);
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'K') {
@@ -227,7 +228,7 @@ public class v1Bobby {
 						for (int a = x - 1; a < x + 2; a++) {
 							for (int b = y - 1; b < y + 2; b++) {
 								if (a > -1 && a < 8 && b > -1 && b < 8) {
-									if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) {
+									if ((this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) && (enemy.numDefenders(x, y)==0)) {
 										g.add(new Point(a, b));
 									}
 								}
@@ -1078,16 +1079,19 @@ public class v1Bobby {
 		return v;
 	}
 	
+	//return numDefenders, 0 if no piece is defending that location, there may be a piece on that location
  	public int numDefenders(int x, int y)
 	{
 		//num defenders takes in the coordinates of a piece and returns the number of pieces on its team that are defending it.
 		//numDefenders starts at -1 because the piece that will be moving to that square doesnt count as a defende
-		int a=-1;
-		
+		int a=0;
+		if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)!='X') a= a-1;
 		for (int i = 0; i < allMovesDefending().size(); i++) {
 			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
 			if(((Point)allMovesDefending().get(i).get(j)).getX() == x && ((Point)allMovesDefending().get(i).get(j)).getY() == y)
 				a++;
+			//if there is a piece at the location then it will add to the array so we have to check for that
+				
 			}
 			}
 		
@@ -1099,8 +1103,14 @@ public class v1Bobby {
 		//num defender value takes in the coordinates of a piece and returns the added number of the value of the pieces on its team that are defending it.
 		//useful for seeing if a trade should take place aka if you have a rook that wants to take a pawn, and that square is defended by
 		//your other rook, and attacked by their knight, you wouldn't want to trade
-int a=-1;
-		
+int a=0;
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='K') a= a-2;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='Q') a= a-9;
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='R') a= a-5;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='B') a= a-3;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='N') a= a-3;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= a-1;		
+
 		for (int i = 0; i < allMovesDefending().size(); i++) {
 			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
 			if(((Point)allMovesDefending().get(i).get(j)).getX() == x && ((Point)allMovesDefending().get(i).get(j)).getY() == y)
@@ -1110,37 +1120,43 @@ int a=-1;
 				&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'K')
 				{
 					//king is given a value of 2 here because it is not that valuable in defending a piece cuz it cant move into check
+					
 					a+=2;
 				}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'Q')
 					{
 						//queen is 9
+			
 						a+=9;
 					}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'R')
 					{
 						//rook is 5
-						a+=5;
+				System.out.println("why");
+				a+=5;
 					}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'B')
 					{
 						//bishop is 3
-						a+=3;
+			
+				a+=3;
 					}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'N')
 					{
 						//knight is 3
-						a+=3;
+			
+				a+=3;
 					}
 			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
 					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'P')
 					{
 						//pawn is 1
-						a+=1;
+
+				a+=1;
 					}
 			}
 			}
