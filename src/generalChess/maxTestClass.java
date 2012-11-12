@@ -1,19 +1,29 @@
 package generalChess;
 
 import sharedfiles.Board;
+import sharedfiles.Piece;
 
 import java.awt.Point;
+import java.util.ArrayList;
 public class maxTestClass {
 	public static void main(String[] args) {
 		v1Bobby a=new v1Bobby(new Board(), true);
 
-		a.move(2,7,5,2);
-		a.move(1,6,6,1);
-		a.randomMove();
+		a.move(2,7,5,3);
+		a.move(3,0,4,2);
+	
+		//a.move(6,1,4,3);
+		//a.move(2,0,2,3);
+		//a.move(7,7,3,4);
+		a.printBoard();
+		ArrayList<Point> bob=a.newBestPieceToTake();
 		
-		a.move(6,1,4,3);
-		a.move(2,0,2,3);
-		a.move(7,7,3,4);
+		a.move((int)bob.get(0).getX(),(int)bob.get(0).getY(),(int)bob.get(1).getX(),(int)bob.get(1).getY())	;
+		a.printBoard();
+		a.move((int) a.newBestPieceToTake().get(0).getX(), (int) a.newBestPieceToTake().get(0).getY(), (int) a.newBestPieceToTake()
+					.get(1).getX(), (int) a.newBestPieceToTake().get(1).getY());
+
+			a.printBoard();
 		System.out.println(a.newBestPieceToTake());
 		System.out.println(a.allMoves().get(13).get(a.takeIfPossible(a.allMoves().get(13))));
 		

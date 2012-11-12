@@ -1022,7 +1022,6 @@ public class v1Bobby {
 				
 			}
 			if(takeVal-curVal==0 && takeIfPossible(allMoves().get(i))>1){
-				System.out.println(i);
 			//if there is no piece to take of a higher value, it checks the best piece to take of the same value which the one with less defenders
 				//so it wont get eaten next turn
 			if(numDefenders((int)(((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best)))).getX()),
@@ -1036,7 +1035,7 @@ public class v1Bobby {
 			
 			}
 			
-			if(takeIfPossible(allMoves().get(i))>1 && takeVal-curVal>lessThan ){
+			if(takeIfPossible(allMoves().get(i))>1 && takeVal-curVal>lessThan){
 				int locEnemy = -1;
 				for(int z = 0; z<enemy.allMoves().size(); z++)
 				{
@@ -1439,7 +1438,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			move(4,7,6,7);
 			move(7,7,5,7);
 			}
-		if(this.numTurns==5 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==5 && this.color==false)
 			{
 			move(4,0,6,0);
 			move(7,0,5,0);
@@ -1448,20 +1447,23 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			
 		if(numTurns>5)
 		{
-		if (checkmate() == true)
-			System.out.print("Lose");
-		else if (check() == true)
-			getOutOfCheck();
-		else if (!(newBestPieceToTake().get(0).equals(newBestPieceToTake().get(1)))) {
-			move((int) newBestPieceToTake().get(0).getX(), (int) newBestPieceToTake().get(0).getY(), (int) newBestPieceToTake()
-					.get(1).getX(), (int) newBestPieceToTake().get(1).getY());
-			System.out.println(newBestPieceToTake().get(0) + ") --> (" + newBestPieceToTake().get(1));
-
-		} else
-			randomMove();
-		
+			
+			Piece[][] check=this.getB();
+			if (checkmate() == true)
+				System.out.print("Lose");
+			else if (check() == true)
+				getOutOfCheck();
+			else {
+				ArrayList<Point> bestMove=newBestPieceToTake();
+				
+				move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
+			} 
+			
+			if(check==this.getB()) randomMove();
+			
 		}
 		this.numTurns ++;
+		System.out.println("numTurns= "+ this.numTurns);
 		return this.b;
 	}
 
@@ -1483,7 +1485,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			move(4,7,6,7);
 			move(7,7,5,7);
 			}
-		if(this.numTurns==5 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==5 && this.color==false)
 			{
 			move(4,0,6,0);
 			move(7,0,5,0);
@@ -1492,20 +1494,22 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			
 		if(numTurns>5)
 		{
+		Piece[][] check=this.getB();
 		if (checkmate() == true)
 			System.out.print("Lose");
 		else if (check() == true)
 			getOutOfCheck();
-		else if (!(newBestPieceToTake().get(0).equals(newBestPieceToTake().get(1)))) {
-			move((int) newBestPieceToTake().get(0).getX(), (int) newBestPieceToTake().get(0).getY(), (int) newBestPieceToTake()
-					.get(1).getX(), (int) newBestPieceToTake().get(1).getY());
-			System.out.println(newBestPieceToTake().get(0) + ") --> (" + newBestPieceToTake().get(1));
-
-		} else
-			randomMove();
+		else {
+			ArrayList<Point> bestMove=newBestPieceToTake();
+			
+			move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
+		} 
+		
+		if(check==this.getB()) randomMove();
 		
 		}
 		this.numTurns ++;
+		System.out.println("numTurns= "+ this.numTurns);
 		return this.b;
 	}
 
