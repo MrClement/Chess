@@ -1036,7 +1036,8 @@ public class v1Bobby {
 			}
 			
 			if(takeIfPossible(allMoves().get(i))>1 && takeVal-curVal>lessThan){
-				int locEnemy = -1;
+				
+				/*int locEnemy = -1;
 				for(int z = 0; z<enemy.allMoves().size(); z++)
 				{
 					if(((Point)enemy.allMoves().get(z).get(1)).getX()==(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX())
@@ -1045,8 +1046,19 @@ public class v1Bobby {
 						locEnemy = z;
 					}
 				}
+			
+				
 				if(enemy.numDefenders((int)((Point)enemy.allMoves().get(locEnemy).get(1)).getX(), (int)((Point)enemy.allMoves().get(locEnemy).get(1)).getY())<numDefenders((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
 							(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()))){
+				lessThan=takeVal-curVal;
+				best2=i;
+				}
+				*/
+				
+				Point pointOfContention=new Point((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
+						(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()));
+				
+				if(enemy.numDefenders((int)pointOfContention.getX(),(int)pointOfContention.getY())<numDefenders((int)pointOfContention.getX(),(int)pointOfContention.getY())){
 				lessThan=takeVal-curVal;
 				best2=i;
 				}
