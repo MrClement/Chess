@@ -1459,9 +1459,10 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 
 		} else
 			randomMove();
-		this.numTurns ++;
+		
 		}
-return this.b;
+		this.numTurns ++;
+		return this.b;
 	}
 
 	public Piece[][] turn(Piece[][] b) {
@@ -1502,9 +1503,10 @@ return this.b;
 
 		} else
 			randomMove();
-		this.numTurns ++;
+		
 		}
-return this.b;
+		this.numTurns ++;
+		return this.b;
 	}
 
 
