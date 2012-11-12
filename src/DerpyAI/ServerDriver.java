@@ -17,7 +17,7 @@ public class ServerDriver {
 	public static final int port = 8080;
 
 	@SuppressWarnings("resource")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.out.println("DerpyAI ServerDriver v1");
 		System.out.println("Configured to connect to " + hostname + " on port " + port);
@@ -60,45 +60,35 @@ public class ServerDriver {
 		}
 
 		//String[] stuff = new String[8];
-		ArrayList<String> stuff = new ArrayList<String>();
+		//ArrayList<String> stuff = new ArrayList<String>();
 
 		//white(true) loop
 		while (true) {
-			String line = null;
-			try {
-				line = in.readLine();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			ArrayList<String> stuff = new ArrayList<String>();
+			String line = in.readLine();
 			while(line != null && !line.equals(".")) {
-				
+				System.out.println("In the while(line != null && !line.equals( loop");
 				stuff.add(line);
-				String[] stuffArr = stuff.toArray(new String[stuff.size()]);
-
-				Board board = new Board();
-				board.buildBoard(stuffArr);
-				DerpyBoard input = new DerpyBoard(board);
-				input = ai.makeMove(input);
-
-				Board equiv = input.boardEquiv();
-				Piece[][] arr = equiv.getBoardArray();
-				for (int y = 0; y < 8; y++) {
-
-					for (int x = 0; x < 8; x++) {
-						out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
-					}
-					out.println();
-
-				}
-				out.println(".");
-			}
-			try {
 				line = in.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			String[] stuffArr = stuff.toArray(new String[stuff.size()]);
+
+			Board board = new Board();
+			board.buildBoard(stuffArr);
+			DerpyBoard input = new DerpyBoard(board);
+			input = ai.makeMove(input);
+
+			Board equiv = input.boardEquiv();
+			Piece[][] arr = equiv.getBoardArray();
+			for (int y = 0; y < 8; y++) {
+
+				for (int x = 0; x < 8; x++) {
+					out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
+				}
+				out.println();
+
+			}
+			out.println(".");
 		}
 		//end while(true) loop
 
