@@ -1504,7 +1504,6 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				{
 					if(this.allMoves().get(i).get(1).toString().charAt(1) == 'K') kingpiece=i;
 				}
-				
 				move(((int)((Point)this.allMoves().get(kingpiece).get(1)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(1)).getY())
 						,((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()));
 				//getOutOfCheck();
