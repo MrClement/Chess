@@ -1498,7 +1498,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				newBestPieceToTake();
 			} 
 			
-			if(currNumTurns!=numTurns) randomMove();
+			if(currNumTurns==numTurns) randomMove();
 			
 		}
 		
@@ -1562,7 +1562,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				newBestPieceToTake();
 			} 
 			
-			if(currNumTurns!=numTurns) randomMove();
+			if(currNumTurns==numTurns) randomMove();
 			
 		}
 		
