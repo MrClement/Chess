@@ -789,15 +789,19 @@ public class DerpyAI {
 		boolean pieceCanMove = false;
 		DerpyPiece randomPiece;
 		ArrayList<Point> destinationArray;
-
+		
 		if (ourPieces.size() <= 0) {
-			System.out
-					.println("randomMove wanted to be called, but we have no pieces left.");
+			System.out.println("randomMove wanted to be called, but we have no pieces left.");
 			System.out.println("Conceding and quitting.");
 			this.concedeGame();
 
 		}
-
+		
+		// If we aren't in check, we shouldn't move our king
+		for (int i = 0; i < ourPieces.size(); i++){
+			if (ourPieces.get(i) instanceof DerpyKing) ourPieces.remove(i); 
+		}
+		
 		do {
 			// System.out.println("Piece Array Size: " + ourPieces.size());
 			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
@@ -887,7 +891,12 @@ public class DerpyAI {
 		else {
 			DerpyPiece bestPiece = null; // Our piece to move
 			DerpyPiece bestTarget = null; // Enemy piece to take
-
+			
+			// If we aren't in check, we shouldn't move our king
+			for (int i = 0; i < ourPieces.size(); i++){
+				if (ourPieces.get(i) instanceof DerpyKing) ourPieces.remove(i); 
+			}
+			
 			// Goes through each of our pieces
 			for (int f = 0; f < ourPieces.size(); f++) {
 				// Finds the possible destinations of that respective piece
