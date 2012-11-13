@@ -3,6 +3,7 @@ package DerpyAI;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import sharedfiles.Piece;
 
@@ -19,6 +20,7 @@ public class DerpyAI {
 	public ArrayList<Point> theirPiecesPoints; // array of the locations of
 												// their pieces
 	private ArrayList<Move> allMoves;
+	private Scanner sc;
 
 	// A new constructor that doesn't take a board, just a color. This is
 	// because moves/board parsing
@@ -1049,8 +1051,17 @@ public class DerpyAI {
 	// master move choice method. Decides what move to make, then makes it.
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		// System.out.println("makeMove: Make move called with DerpyBoard " +
-		// b);
+		if(wereInCheckmate()) {
+			System.out.println("DerpyAI has won....press enter to continue.");
+			sc = new Scanner(System.in);
+		       while(!sc.nextLine().equals(""));
+		}
+		
+		if(theyreInCheckmate()) {
+			System.out.println("DerpyAI has lost....press enter to continue.");
+			sc = new Scanner(System.in);
+		       while(!sc.nextLine().equals(""));
+		}
 
 		boardStore.add(b);
 		currentBoard = (DerpyBoard) b;
@@ -1090,6 +1101,8 @@ public class DerpyAI {
 	}
 	
 	public boolean wereInCheckmate() {
+		
+		
 		
 		return false;
 	}
