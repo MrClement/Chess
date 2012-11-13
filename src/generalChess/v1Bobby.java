@@ -1451,7 +1451,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 	return a;
 }
 
-	public Piece[][] turn(Board b) {
+	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
 		int currNumTurns=numTurns;
 		
@@ -1507,70 +1507,6 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				move(((int)((Point)this.allMoves().get(kingpiece).get(1)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(1)).getY())
 						,((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()));
 				//getOutOfCheck();
-				this.numTurns++;
-				if (checkmate() == true) System.out.print("Lose");
-			}
-			else {
-				newBestPieceToTake();
-			} 
-			
-			if(currNumTurns==numTurns) randomMove();
-			
-		}
-		
-		System.out.println("numTurns= "+ this.numTurns);
-		return this.b;
-	}
-
-	public Piece[][] turn(Piece[][] b) {
-		getBoard(b);
-		int currNumTurns=numTurns;
-		
-		if(numTurns<=6)
-		{
-		if(this.numTurns==0 && this.color==true){
-			move(4,6,4,4);}
-		if(this.numTurns==0 && this.color==false) {
-			 move(4,1,4,3);}
-		if(this.numTurns==1 && this.color==true){
-			 move(3,6,3,5);}
-		if(this.numTurns==1 && this.color==false) {
-			 move(3,1,3,2);}
-		if(this.numTurns==2 && this.color==true){
-			 move(6,7,5,5);}
-		if(this.numTurns==2 && this.color==false) {
-			 move(6,0,5,2);}
-		if(this.numTurns==3 && this.color==true) {
-			 move(6,6,6,5);}
-		if(this.numTurns==3 && this.color==false) {
-			 move(6,1,6,2);}
-		if(this.numTurns==4 && this.color==true) {
-			 move(5,7,6,6);
-			 System.out.println("44444444white")	 ;	 
-		}
-		if(this.numTurns==4 && this.color==false) {
-			 move(5,0,6,1);
-		System.out.println("44444444")	 ;
-		}
-		if(this.numTurns==5 && this.color==true) {
-			System.out.println("555555");
-			move(4,7,6,7);
-			move(7,7,5,7);}
-		if(this.numTurns==5 && this.color==false){
-			move(4,0,6,0);
-			move(7,0,5,0);}
-		
-		this.numTurns++;
-		}
-			
-		if(numTurns>=7)
-		{
-			
-			if (checkmate() == true)
-				System.out.print("Lose");
-			else if (check() == true)
-			{
-				getOutOfCheck();
 				this.numTurns++;
 				if (checkmate() == true) System.out.print("Lose");
 			}
