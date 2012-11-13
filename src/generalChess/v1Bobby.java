@@ -717,112 +717,121 @@ public class v1Bobby {
 	//1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
-		int x =1;
+		int king =1;
+		int queen =1;
+		int rook =1;
+		int bishop =1;
+		int knight =1;
+		int pawn =1;
+		
 		v1Bobby enemy=new v1Bobby(this.getB(), !color);
 	for(int i=2; i<a.size();i++) {
 		
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
-			x=i;
-			return x;}
+			king=i;
+			return king;}
 	}
-	}
-	for(int i=2; i<a.size();i++) {
-		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
+	
+	
+	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
 				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
 				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
-				if(x==1)
+				if(queen==1)
 				{
-				x=i;
+				queen=i;
 				}
 				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
-						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+						enemy.numDefenders((int)((Point)a.get(queen)).getX(),(int)((Point)a.get(queen)).getY()))
 				{
-				x=i;
+				queen=i;
 				}
 			}			
 		}
-		}
-	if(x!=1) return x;
-	for(int i=2; i<a.size();i++) {
+	
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
 				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
 				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
-				if(x==1)
+				if(rook==1)
 				{
-				x=i;
+					rook=i;
 				}
 				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
-						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+						enemy.numDefenders((int)((Point)a.get(rook)).getX(),(int)((Point)a.get(rook)).getY()))
 				{
-				x=i;
+				rook=i;
 				}
 			}			
+		
 		}
-		}
-	if(x!=1) return x;
-	for(int i=2; i<a.size();i++) {
+	
+	
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
 				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
 				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
-				if(x==1)
+				if(knight==1)
 				{
-				x=i;
+				knight=i;
 				}
 				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
-						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+						enemy.numDefenders((int)((Point)a.get(knight)).getX(),(int)((Point)a.get(knight)).getY()))
 				{
-				x=i;
+				knight=i;
 				}
 			}			
+		
 		}
-		}
-	if(x!=1) return x;
-	for(int i=2; i<a.size();i++) {
+	
+	
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
 				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
 				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
-				if(x==1)
+				if(bishop==1)
 				{
-				x=i;
+				bishop=i;
 				}
 				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
-						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+						enemy.numDefenders((int)((Point)a.get(bishop)).getX(),(int)((Point)a.get(bishop)).getY()))
 				{
-				x=i;
+				bishop=i;
 				}
 			}			
+		
 		}
-		}
-	if(x!=1) return x;
-	for(int i=2; i<a.size();i++) {
+	
+	
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
 				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
 				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
-				if(x==1)
+				if(pawn==1)
 				{
-				x=i;
+				pawn=i;
 				}
 				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
-						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+						enemy.numDefenders((int)((Point)a.get(pawn)).getX(),(int)((Point)a.get(pawn)).getY()))
 				{
-				x=i;
+				pawn=i;
 				}
 			}			
 		}
-		}
-	if(x!=1) return x;
+	}
+
+	if(queen!=1) return queen;
+	if(rook!=1) return rook;
+	if(knight!=1) return knight;
+	if(bishop!=1) return bishop;
+	if(pawn!=1) return pawn;
 	return 1;
 	}
 	
@@ -1490,7 +1499,15 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				System.out.print("Lose");
 			else if (check() == true)
 			{
-				getOutOfCheck();
+				int kingpiece= -1;
+				for(int i=0; i<this.allMoves().size(); i++)
+				{
+					if(this.allMoves().get(i).get(1).toString().charAt(1) == 'K') kingpiece=i;
+				}
+				
+				move(((int)((Point)this.allMoves().get(kingpiece).get(1)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(1)).getY())
+						,((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()),((int)((Point)this.allMoves().get(kingpiece).get(2)).getX()));
+				//getOutOfCheck();
 				this.numTurns++;
 				if (checkmate() == true) System.out.print("Lose");
 			}
