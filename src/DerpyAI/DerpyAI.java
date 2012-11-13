@@ -1019,9 +1019,21 @@ public class DerpyAI {
 	
 	public boolean wereInCheckmate() {
 		
+		DerpyKing targetKing = null;
+		
+		for(DerpyPiece p : ourPieces) {
+			if(p instanceof DerpyKing) {
+				targetKing = (DerpyKing)p;
+				break;
+			}
+		} 
+		
+		//targetKing is now our king
+		boolean foundAPlaceToMove = false;
 		
 		
-		return false;
+		
+		return foundAPlaceToMove;
 	}
 	
 	public boolean theyreInCheckmate() {
