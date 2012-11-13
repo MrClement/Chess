@@ -39,9 +39,6 @@ public class DerpyAI {
 		findOurPieces();
 	}
 
-	// /////////////////////////Board State
-	// Checks//////////////////////////////////////////
-
 	public void findTheirPieces() { // Creates an array of their pieces
 		DerpyPiece[][] boardState = currentBoard.getBoardArray();
 		for (int i = 0; i < 8; i++) {
@@ -437,23 +434,18 @@ public class DerpyAI {
 					// if the pawn wants to move up two spaces and is on its
 					// starting area
 					if (piece.getLocation().getY() == 1 && position.getY() == 3) {
-						if (piece.getLocation().getX() == xPos) {
-							// can only move if not blocked by another piece
-							if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
-									&& (DerpyPiece) currentBoard
-											.getBoardArray()[xPos][2] instanceof DerpyBlank) {
-								// makes sure moving doesn't put the king in
-								// check
-								/*
-								 * DerpyBoard oldBoard = currentBoard;
-								 * DerpyBoard testBoard = this.movePiece(piece,
-								 * position); currentBoard = testBoard; if
-								 * (!(this.inCheck())) { currentBoard =
-								 * oldBoard; return true; } else { currentBoard
-								 * = oldBoard; }
-								 */
-								return true;
-							}
+						// can only move if not blocked by another piece
+						if ((DerpyPiece) currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
+								&& (DerpyPiece) currentBoard.getBoardArray()[xPos][2] instanceof DerpyBlank) {
+							// makes sure moving doesn't put the king in check
+							/*
+							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+							 * testBoard = this.movePiece(piece, position);
+							 * currentBoard = testBoard; if (!(this.inCheck()))
+							 * { currentBoard = oldBoard; return true; } else {
+							 * currentBoard = oldBoard; }
+							 */
+							return true;
 						}
 					}
 					// if the pawn wants to move up one space
@@ -933,8 +925,7 @@ public class DerpyAI {
 				// take - if it's worth more, this becomes
 				// The new best piece to take
 				if (piecesToTake.size() != 0) {
-					DerpyPiece targetPiece = this
-							.findValuablePiece(piecesToTake);
+					DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
 					// Checks to see if our best target is less valuable than
 					// the new target, if it is, replaces the best target with
 					// the new one
@@ -974,18 +965,16 @@ public class DerpyAI {
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		if (wereInCheckmate()) {
+		if(wereInCheckmate()) {
 			System.out.println("DerpyAI has won....press enter to continue.");
 			sc = new Scanner(System.in);
-			while (!sc.nextLine().equals(""))
-				;
+		       while(!sc.nextLine().equals(""));
 		}
-
-		if (theyreInCheckmate()) {
+		
+		if(theyreInCheckmate()) {
 			System.out.println("DerpyAI has lost....press enter to continue.");
 			sc = new Scanner(System.in);
-			while (!sc.nextLine().equals(""))
-				;
+		       while(!sc.nextLine().equals(""));
 		}
 
 		boardStore.add(b);
@@ -1024,7 +1013,7 @@ public class DerpyAI {
 		parseCurrentBoard();
 		return ba;
 	}
-
+	
 	public boolean wereInCheckmate() {
 
 		DerpyKing targetKing = null;
@@ -1044,9 +1033,10 @@ public class DerpyAI {
 		return foundAPlaceToMove;
 
 	}
-
+	
 	public boolean theyreInCheckmate() {
-
+		
+		
 		return false;
 	}
 
@@ -1055,89 +1045,90 @@ public class DerpyAI {
 		System.exit(0); // Exit with terminated status 0
 	}
 
-	// Extra, Currently Unused Code////
-	// public DerpyBoard prestonAI() {
-	//
-	// parseCurrentBoard();
-	//
-	//
-	//
-	// // randomMove if nothing can be done
-	// this.randomMove();
-	// // End logic
-	//
-	// parseCurrentBoard();
-	// boardStore.add(currentBoard);
-	// return currentBoard;
-	// }
-	// makes a move that advances our position or takes an enemy piece--for use
-	// during autonomous play when none of our pieces are threatened
-	// public DerpyBoard curtisAI() {
-	// // first tries to take an enemy piece, if it can (and its not
-	// // threatened)
-	// if (this.ourThreats(currentBoard).size() > 0) {
-	// ArrayList<DerpyPiece> piecesWeCanTake = this
-	// .ourThreats(currentBoard);
-	// for (DerpyPiece p : piecesWeCanTake) {
-	// ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-	// .threateningPiecesToThem(p);
-	// if (piecesWeCanTakeWith.size() > 0) {
-	// if (p.getLocation().distance(
-	// this.findEnemyKing().getLocation()) <= 4) {
-	// if (Math.random() <= 0.5) {
-	// return this.movePiece(piecesWeCanTakeWith.get(0),
-	// p.getLocation());
-	// }
-	// }
-	// }
-	// }
-	// for (DerpyPiece p : piecesWeCanTake) {
-	// ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-	// .threateningPiecesToThem(p);
-	// if (piecesWeCanTakeWith.size() > 0) {
-	// if (Math.random() <= 0.5) {
-	// return this.movePiece(piecesWeCanTakeWith.get(0),
-	// p.getLocation());
-	// }
-	// }
-	// }
-	//
-	// }
-	// // if that doesn't work, it makes sure its not threatened, if it is, it
-	// // tries to save the piece
-	// if (this.enemyThreats(currentBoard).size() == 1) {
-	// return this.savePiece(this.enemyThreats(currentBoard).get(0));
-	// } else if (this.enemyThreats(currentBoard).size() > 1) {
-	// DerpyPiece pieceToSave = this.findValuablePiece(this
-	// .enemyThreats(currentBoard));
-	// return this.savePiece(pieceToSave);
-	// }
-	// // finally, if it has no pieces to save or to take, it move a piece
-	// // closer to the enemy king.
-	// else {
-	// DerpyPiece enemyKing = this.findEnemyKing();
-	// for (DerpyPiece p : ourPieces) {
-	// for (Point d : this.movablePoints(p)) {
-	// if (d.distance(enemyKing.getLocation()) < p.getLocation()
-	// .distance(enemyKing.getLocation())) {
-	// if (Math.random() <= 0.2) {
-	// DerpyBoard testBoard = this.movePiece(p, d);
-	// DerpyBoard oldBoard = currentBoard;
-	// currentBoard = testBoard;
-	// if (!(this.pieceIsThreatened(p))) {
-	// currentBoard = oldBoard;
-	// return testBoard;
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
-	// return currentBoard;
-	// }
 
-	// master move choice method. Decides what move to make, then makes it.
+//Extra, Currently Unused Code////
+//public DerpyBoard prestonAI() {
+//
+//				parseCurrentBoard();
+//
+//	
+//
+//				// randomMove if nothing can be done
+//				this.randomMove();
+//				// End logic
+//
+//				parseCurrentBoard();
+//				boardStore.add(currentBoard);
+//				return currentBoard;
+//			}
+// makes a move that advances our position or takes an enemy piece--for use
+// during autonomous play when none of our pieces are threatened
+//		public DerpyBoard curtisAI() {
+//			// first tries to take an enemy piece, if it can (and its not
+//			// threatened)
+//			if (this.ourThreats(currentBoard).size() > 0) {
+//				ArrayList<DerpyPiece> piecesWeCanTake = this
+//						.ourThreats(currentBoard);
+//				for (DerpyPiece p : piecesWeCanTake) {
+//					ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+//							.threateningPiecesToThem(p);
+//					if (piecesWeCanTakeWith.size() > 0) {
+//						if (p.getLocation().distance(
+//								this.findEnemyKing().getLocation()) <= 4) {
+//							if (Math.random() <= 0.5) {
+//								return this.movePiece(piecesWeCanTakeWith.get(0),
+//										p.getLocation());
+//							}
+//						}
+//					}
+//				}
+//				for (DerpyPiece p : piecesWeCanTake) {
+//					ArrayList<DerpyPiece> piecesWeCanTakeWith = this
+//							.threateningPiecesToThem(p);
+//					if (piecesWeCanTakeWith.size() > 0) {
+//						if (Math.random() <= 0.5) {
+//							return this.movePiece(piecesWeCanTakeWith.get(0),
+//									p.getLocation());
+//						}
+//					}
+//				}
+	//
+//			}
+//			// if that doesn't work, it makes sure its not threatened, if it is, it
+//			// tries to save the piece
+//			if (this.enemyThreats(currentBoard).size() == 1) {
+//				return this.savePiece(this.enemyThreats(currentBoard).get(0));
+//			} else if (this.enemyThreats(currentBoard).size() > 1) {
+//				DerpyPiece pieceToSave = this.findValuablePiece(this
+//						.enemyThreats(currentBoard));
+//				return this.savePiece(pieceToSave);
+//			}
+//			// finally, if it has no pieces to save or to take, it move a piece
+//			// closer to the enemy king.
+//			else {
+//				DerpyPiece enemyKing = this.findEnemyKing();
+//				for (DerpyPiece p : ourPieces) {
+//					for (Point d : this.movablePoints(p)) {
+//						if (d.distance(enemyKing.getLocation()) < p.getLocation()
+//								.distance(enemyKing.getLocation())) {
+//							if (Math.random() <= 0.2) {
+//								DerpyBoard testBoard = this.movePiece(p, d);
+//								DerpyBoard oldBoard = currentBoard;
+//								currentBoard = testBoard;
+//								if (!(this.pieceIsThreatened(p))) {
+//									currentBoard = oldBoard;
+//									return testBoard;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			return currentBoard;
+//		}
 
+		// master move choice method. Decides what move to make, then makes it.
+	
 	/*
 	 * 
 	 * public boolean executeCzechDefense() { // we need code to call this
