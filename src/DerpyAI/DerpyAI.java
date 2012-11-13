@@ -922,8 +922,7 @@ public class DerpyAI {
 				// take - if it's worth more, this becomes
 				// The new best piece to take
 				if (piecesToTake.size() != 0) {
-					DerpyPiece targetPiece = this
-							.findValuablePiece(piecesToTake);
+					DerpyPiece targetPiece = this.findValuablePiece(piecesToTake);
 					// Checks to see if our best target is less valuable than
 					// the new target, if it is, replaces the best target with
 					// the new one
