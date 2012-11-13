@@ -18,7 +18,7 @@ public class v1Bobby {
 	public boolean color;
 	public Piece[][] b;
 	public int move;
-
+	public int numTurns = 0;
 	
 	public v1Bobby(Board b, boolean c) {
 		this.color = c;
@@ -210,10 +210,10 @@ public class v1Bobby {
 
 	}
 
-	// returns possible king moves
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
-	
+		//king can't move into check
+		v1Bobby enemy=new v1Bobby(this.getB(), !color);
 		for (int j = 0; j < 8; j++) {
 			for (int k = 0; k < 8; k++) {
 				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'K') {
@@ -228,7 +228,7 @@ public class v1Bobby {
 						for (int a = x - 1; a < x + 2; a++) {
 							for (int b = y - 1; b < y + 2; b++) {
 								if (a > -1 && a < 8 && b > -1 && b < 8) {
-									if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) {
+									if ((this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color) && (enemy.numDefenders(x, y)==0)) {
 										g.add(new Point(a, b));
 									}
 								}
@@ -243,7 +243,6 @@ public class v1Bobby {
 		return d;
 	}
 
-	// possible queen moves
 	public ArrayList<ArrayList> qMoves() {
 		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
 		int x = 0;
@@ -695,7 +694,7 @@ public class v1Bobby {
 					}
 
 					if (color == true) {
-						if (y == 6 && b[x][y - 2].toString().charAt(1) == 'X'&&b[x][y + 1].toString().charAt(1) == 'X')
+						if (y == 6 && b[x][y - 2].toString().charAt(1) == 'X'&&b[x][y - 1].toString().charAt(1) == 'X')
 							d.add(new Point(x, y - 2));
 						if (y - 1 > -1 && b[x][y - 1].toString().charAt(1) == 'X')
 							d.add(new Point(x, y - 1));
@@ -715,16 +714,17 @@ public class v1Bobby {
 
 	//takes an array of possible returns the index of the highest ranking opponent piece that any specific piece
 	//has in its possible moves
-	//-1 if no possible pieces to take
+	//1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a)
 	{
-
+		int x =1;
+		v1Bobby enemy=new v1Bobby(this.getB(), !color);
 	for(int i=2; i<a.size();i++) {
 		
 	if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 			b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='K') {
-			int x=i;
+			x=i;
 			return x;}
 	}
 	}
@@ -732,47 +732,102 @@ public class v1Bobby {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='Q') {
-				int x=i;
-				return x;}
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
+				x=i;
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='R') {
-				int x=i;
-				return x;}
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
+				x=i;
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='N') {
-				int x=i;
-				return x;}
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
+				x=i;
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='B') {
-				int x=i;
-				return x;}
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
+				x=i;
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
+	if(x!=1) return x;
 	for(int i=2; i<a.size();i++) {
 		if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].getColor()==!color &&
 				b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)!='X'){
 			if(b[(int)((Point)a.get(i)).getX()][(int)((Point)a.get(i)).getY()].toString().charAt(1)=='P') {
-				int x=i;
-				return x;}
+				//first finds an enemy piece to take, then checks to see if there are more than one enemy piece available
+				//if so, then it chooses the enemy piece with the least number of defenders for take if possible
+				if(x==1)
+				{
+				x=i;
+				}
+				else if (enemy.numDefenders((int)((Point)a.get(i)).getX(),(int)((Point)a.get(i)).getY()) <
+						enemy.numDefenders((int)((Point)a.get(x)).getX(),(int)((Point)a.get(x)).getY()))
+				{
+				x=i;
+				}
+			}			
 		}
 		}
-	
+	if(x!=1) return x;
 	return 1;
 	}
 	
 	public ArrayList<Point> bestPieceToTake()
+
 	{
 		ArrayList<Point> a=new ArrayList<Point>();
 		int loc=0;
@@ -916,141 +971,375 @@ public class v1Bobby {
 		
 	}
 	
+	public ArrayList<Point> newBestPieceToTake()
+	{
+		ArrayList<Point> v=new ArrayList<Point>();
+
+		int best=0;
+		int best1=0;
+		int best2=0;
+		int equals=0;
+		int lessThan=-999;
+		ArrayList currPiece=allMoves().get(0);
+		int high=0;
+		int high2=-1;
+		
+		v1Bobby enemy=new v1Bobby(this.getB(), !color);
+		
+		for(int i=0;i<allMoves().size();i++){
+			
+			char c;
+			if(color==true)c='W';else c='B';
+			
+			//p=2 n=3 b=3 r=5 q=9 k=100
+			int curVal = 0;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P') curVal=2;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'N') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'B') curVal=3;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R') curVal=5;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'Q') curVal=9;
+			if((char)allMoves().get(i).get(0).toString().charAt(1) == 'K') curVal=100;
+			
+			int takeVal=0;
+			currPiece= allMoves().get(i);
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='P')
+				takeVal =2;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='N')
+				takeVal =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='B')
+				takeVal =3;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='R')
+				takeVal =5;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='Q')
+				takeVal =9;
+			if(b[(int)((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int)((Point)currPiece.get(takeIfPossible(currPiece))).getY()].toString().charAt(1)=='K')
+				takeVal =100;
+			
+			if(takeVal-curVal>high){
+				
+				high=takeVal-curVal;
+				best=i;
+				
+			}
+			if(takeVal-curVal==0 && takeIfPossible(allMoves().get(i))>1){
+			//if there is no piece to take of a higher value, it checks the best piece to take of the same value which the one with less defenders
+				//so it wont get eaten next turn
+			if(numDefenders((int)(((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getX()),
+							(int)(((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getY()))<
+							numDefenders((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
+									(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY())))
+
+							high2=0;
+							best1=i;
+		
+			
+			}
+			
+			if(takeIfPossible(allMoves().get(i))>1 && takeVal-curVal>lessThan){
+				
+				/*int locEnemy = -1;
+				for(int z = 0; z<enemy.allMoves().size(); z++)
+				{
+					if(((Point)enemy.allMoves().get(z).get(1)).getX()==(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX())
+					&& ((Point)enemy.allMoves().get(z).get(1)).getY()==(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()))
+					{
+						locEnemy = z;
+					}
+				}
+			
+				
+				if(enemy.numDefenders((int)((Point)enemy.allMoves().get(locEnemy).get(1)).getX(), (int)((Point)enemy.allMoves().get(locEnemy).get(1)).getY())<numDefenders((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
+							(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()))){
+				lessThan=takeVal-curVal;
+				best2=i;
+				}
+				*/
+				
+				Point pointOfContention=new Point((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
+						(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY()));
+				
+				if(enemy.numDefenders((int)pointOfContention.getX(),(int)pointOfContention.getY())<numDefenders((int)pointOfContention.getX(),(int)pointOfContention.getY())){
+				lessThan=takeVal-curVal;
+				best2=i;
+				}
+			}
+		}
+
+		//by now has picked the best piece of a higher value, of equal value, and if no higher value or equal value available, of lower value
+		//first sees if higher value possible, then equal value, then lower value. if no pieces can be taken or a piece has too many defenders
+		//will return an array with two of the same location pieces
+		if(high>0){
+		v.add((Point)allMoves().get(best).get(1));
+		v.add((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
+		
+		}
+		
+		else if(high2==0)
+		{
+			v.add((Point)allMoves().get(best1).get(1));
+			v.add((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1))));
+			
+		}
+		else
+		{
+	
+			v.add((Point)allMoves().get(best2).get(1));
+			v.add((Point)allMoves().get(best2).get(takeIfPossible(allMoves().get(best2))));
+
+		}
+		return v;
+	}
+	
+	//return numDefenders, 0 if no piece is defending that location, there may be a piece on that location
+ 	public int numDefenders(int x, int y)
+	{
+		//num defenders takes in the coordinates of a piece and returns the number of pieces on its team that are defending it.
+		//numDefenders starts at -1 because the piece that will be moving to that square doesnt count as a defende
+		int a=0;
+		if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)!='X') a= a-1;
+		for (int i = 0; i < allMovesDefending().size(); i++) {
+			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
+			if(((Point)allMovesDefending().get(i).get(j)).getX() == x && ((Point)allMovesDefending().get(i).get(j)).getY() == y)
+				a++;
+			//if there is a piece at the location then it will add to the array so we have to check for that
+				
+			}
+			}
+		
+		return a;
+	}
+	
+	public int numDefenderValue(int x, int y)
+	{
+		//num defender value takes in the coordinates of a piece and returns the added number of the value of the pieces on its team that are defending it.
+		//useful for seeing if a trade should take place aka if you have a rook that wants to take a pawn, and that square is defended by
+		//your other rook, and attacked by their knight, you wouldn't want to trade
+int a=0;
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='K') a= a-2;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='Q') a= a-9;
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='R') a= a-5;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='B') a= a-3;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='N') a= a-3;		
+if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= a-1;		
+
+		for (int i = 0; i < allMovesDefending().size(); i++) {
+			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
+			if(((Point)allMovesDefending().get(i).get(j)).getX() == x && ((Point)allMovesDefending().get(i).get(j)).getY() == y)
+			{
+				//finds the current location of the piece that is "defending" the location at i,j
+				if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+				&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'K')
+				{
+					//king is given a value of 2 here because it is not that valuable in defending a piece cuz it cant move into check
+					
+					a+=2;
+				}
+			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'Q')
+					{
+						//queen is 9
+			
+						a+=9;
+					}
+			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'R')
+					{
+						//rook is 5
+				
+				a+=5;
+					}
+			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'B')
+					{
+						//bishop is 3
+			
+				a+=3;
+					}
+			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'N')
+					{
+						//knight is 3
+			
+				a+=3;
+					}
+			if(b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].getColor() == color 
+					&& b[(int)((Point)allMovesDefending().get(i).get(1)).getX()][(int)((Point)allMovesDefending().get(i).get(1)).getY()].toString().charAt(1) == 'P')
+					{
+						//pawn is 1
+
+				a+=1;
+					}
+			}
+			}
+			}
+		
+		return a;
+	}
+	
 	public void randomMove() {
-		Random r=new Random();		
-		int a=r.nextInt(allMoves().size());
-		while(allMoves().get(a).size()<=2){
-			a=r.nextInt(allMoves().size());
-		}
-		int b=r.nextInt(allMoves().get(a).size()-2)+2;
-		move((int)((Point)allMoves().get(a).get(1)).getX(), (int)((Point)allMoves().get(a).get(1)).getY(), (int)((Point)allMoves().get(a).get(b)).getX(), (int)((Point)allMoves().get(a).get(b)).getY());
+		Random r=new Random();
+		//p = 1-35
+		//n = 36-50
+		//b = 50-65
+		//r = 66-80
+		//q = 81-95
+		//k = 96-100
+		//chooses which piece will move
+		boolean isMoveMade=false;
+		while(isMoveMade==false)
+		{
+		int z=r.nextInt(100)+1;
 		
-	}
-
-/*
-	public Piece[][] turn(Board c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		int w, x, y, z;
-		w=0;
-		x=0;
-		y=0;
-		z=0;
-		if (color == true) {
-
-			switch (move) {
-				case 1:
-					w=4;x=6;y=4;z=4;
-				case 2:
-					w=3;x=7;y=5;z=5;
-
-				case 3:
-
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-					w=5;x=7;y=2;z=4;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-					return b;
-				default:
-					randomMove();
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					w=4;x=1;y=4;z=3;
-
-				case 2:
-					w=3;x=0;y=5;z=2;
-
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-					w=5;x=0;y=2;z=3;
-
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-					w=5;x=2;y=5;z=6;
-
-				default:
-					randomMove();
-			}
-		}
-		move(w, x, y, z);
 		
-		System.out.println("Origin: ("+w+", "+x+") Destination:"+y+", "+z+")"+"Piece: "+b[w][x].toString());
-		return b;
-
-
-	}
-
-	public Piece[][] turn(Piece[][] c) {
-		getBoard(c);
-		Piece[][] arr = new Piece[8][8];
-		arr = getPieceArray();
-		move++;
-		if (color == true) {
-			switch (move) {
-				case 1:
-					move(4, 6, 4, 4);
-					return b;
-				case 2:
-					move(3, 7, 5, 5);
-					return b;
-				case 3:
-
-					if (arr[2][4].toString().charAt(1) == 'X' || arr[2][4].getColor() != color)
-						move(5, 7, 2, 4);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-
-			}
-		} else {
-
-			switch (move) {
-				case 1:
-					move(4, 1, 4, 3);
-					return b;
-				case 2:
-					move(3, 0, 5, 2);
-					return b;
-				case 3:
-					if (arr[2][3].toString().charAt(1) == 'X' || arr[2][3].getColor() != color)
-						move(5, 0, 2, 3);
-					return b;
-				case 4:
-					if (arr[5][3].toString().charAt(1) == 'X' && arr[5][4].toString().charAt(1) == 'X'
-							&& arr[5][5].toString().charAt(1) == 'X'
-							&& (arr[5][6].toString().charAt(1) == 'X' || arr[5][6].getColor() != color))
-						move(5, 2, 5, 6);
-					return b;
-				default:
-					randomMove();
-					return b;
-			}
-
+		//chooses a random pawn and moves it to a random legal location, first must check to makes sure there are pawns left that have legal moves to make
+		boolean isTherePawnsThatCanMakeMoves;
+		isTherePawnsThatCanMakeMoves=false;
+		for(int i = 0; i<pMoves().size();i++)
+		{
+			if(pMoves().get(i).size()>2 && isTherePawnsThatCanMakeMoves==false) isTherePawnsThatCanMakeMoves=true;
 		}
-
+		if(z>=1 && z<=35 && isTherePawnsThatCanMakeMoves==true)
+		{
+		int a=r.nextInt(pMoves().size());
+		while(pMoves().get(a).size()<=2){
+			a=r.nextInt(pMoves().size());
+		}
+		int b=r.nextInt(pMoves().get(a).size()-2)+2;
+		
+		move((int)((Point)pMoves().get(a).get(1)).getX(), (int)((Point)pMoves().get(a).get(1)).getY(), (int)((Point)pMoves().get(a).get(b)).getX(), (int)((Point)pMoves().get(a).get(b)).getY());
+		isMoveMade=true;
+		}
+		
+		
+		//chooses a random knight and moves it to a random legal location, first must check to makes sure there are knights left that have legal moves to make
+				boolean isThereKnightsThatCanMakeMoves;
+				isThereKnightsThatCanMakeMoves=false;
+				for(int i = 0; i<nMoves().size();i++)
+				{
+					if(nMoves().get(i).size()>2 && isThereKnightsThatCanMakeMoves==false) isThereKnightsThatCanMakeMoves=true;
+				}
+				if(z>=36 && z<=50 && isThereKnightsThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(nMoves().size());
+				while(nMoves().get(a).size()<=2){
+					a=r.nextInt(nMoves().size());
+				}
+				int b=r.nextInt(nMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY())>1 )
+				{
+				move((int)((Point)nMoves().get(a).get(1)).getX(), (int)((Point)nMoves().get(a).get(1)).getY(), (int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
+				}
+				
+				//chooses a random bishop and moves it to a random legal location, first must check to makes sure there are bishops left that have legal moves to make
+				boolean isThereBishopsThatCanMakeMoves;
+				isThereBishopsThatCanMakeMoves=false;
+				for(int i = 0; i<bMoves().size();i++)
+				{
+					
+					if(bMoves().get(i).size()>2 && isThereBishopsThatCanMakeMoves==false) isThereBishopsThatCanMakeMoves=true;
+					
+				}
+				if(z>=51 && z<=65 && isThereBishopsThatCanMakeMoves==true)
+				{
+				
+				int a=r.nextInt(bMoves().size());
+				while(bMoves().get(a).size()<=2){
+					a=r.nextInt(bMoves().size());
+				}
+				int b=r.nextInt(bMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY())>1)
+				{
+				move((int)((Point)bMoves().get(a).get(1)).getX(), (int)((Point)bMoves().get(a).get(1)).getY(), (int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
+				}
+				
+				
+				//chooses a random rook and moves it to a random legal location, first must check to makes sure there are rooks left that have legal moves to make
+				boolean isThereRooksThatCanMakeMoves;
+				isThereRooksThatCanMakeMoves=false;
+				for(int i = 0; i<rMoves().size();i++)
+				{
+					if(rMoves().get(i).size()>2 && isThereRooksThatCanMakeMoves==false) isThereRooksThatCanMakeMoves=true;
+				}
+				if(z>=66 && z<=80 && isThereRooksThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(rMoves().size());
+				while(rMoves().get(a).size()<=2){
+					a=r.nextInt(rMoves().size());
+				}
+				int b=r.nextInt(rMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY())>1)
+				{
+				move((int)((Point)rMoves().get(a).get(1)).getX(), (int)((Point)rMoves().get(a).get(1)).getY(), (int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
+				}
+				
+				
+				//chooses a random queen and moves it to a random legal location, first must check to makes sure there are queens left that have legal moves to make
+				boolean isThereQueensThatCanMakeMoves;
+				isThereQueensThatCanMakeMoves=false;
+				for(int i = 0; i<qMoves().size();i++)
+				{
+					if(qMoves().get(i).size()>2 && isThereQueensThatCanMakeMoves==false) isThereQueensThatCanMakeMoves=true;
+				}
+				if(z>=81 && z<=95 && isThereQueensThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(qMoves().size());
+				while(qMoves().get(a).size()<=2){
+					a=r.nextInt(qMoves().size());
+				}
+				int b=r.nextInt(qMoves().get(a).size()-2)+2;
+				
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY())>1)
+				{
+				move((int)((Point)qMoves().get(a).get(1)).getX(), (int)((Point)qMoves().get(a).get(1)).getY(), (int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
+				}
+				
+				
+				//chooses a random king and moves it to a random legal location, first must check to makes sure there are kings left that have legal moves to make
+				boolean isThereKingsThatCanMakeMoves;
+				isThereKingsThatCanMakeMoves=false;
+				for(int i = 0; i<kMoves().size();i++)
+				{
+					if(kMoves().get(i).size()>2 && isThereKingsThatCanMakeMoves==false) isThereKingsThatCanMakeMoves=true;
+				}
+				if(z>=96 && z<=100 && isThereKingsThatCanMakeMoves==true)
+				{
+				int a=r.nextInt(kMoves().size());
+				while(kMoves().get(a).size()<=2){
+					a=r.nextInt(kMoves().size());
+				}
+				int b=r.nextInt(kMoves().get(a).size()-2)+2;
+				ArrayList<Point> makeSureNotThreatened;
+				makeSureNotThreatened=isThreatened((int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
+				if(makeSureNotThreatened.size()==0)
+				{
+				move((int)((Point)kMoves().get(a).get(1)).getX(), (int)((Point)kMoves().get(a).get(1)).getY(), (int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
+				isMoveMade=true;
+				}
+				}
+		}
+		
 	}
 
 	
-*/
 	
 	public Point randomKingMove() {
 	
@@ -1145,37 +1434,624 @@ public class v1Bobby {
 
 	public Piece[][] turn(Board b) {
 		getBoard(b);
-		if (checkmate() == true)
-			System.out.print("Lose");
-		else if (check() == true)
-			getOutOfCheck();
-		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
-			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
-					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
-			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
+		
+		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
+		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
+		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
+		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
+		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
+		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
+		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
+		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
+		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
+		if(this.numTurns==5 && this.color==true) 
+			{
+			move(4,7,6,7);
+			move(7,7,5,7);
+			}
+		if(this.numTurns==5 && this.color==false)
+			{
+			move(4,0,6,0);
+			move(7,0,5,0);
+			}
 
-		} else
-			randomMove();
-return this.b;
+			
+		if(numTurns>5)
+		{
+			
+			Piece[][] check=this.getB();
+			if (checkmate() == true)
+				System.out.print("Lose");
+			else if (check() == true)
+				getOutOfCheck();
+			else {
+				ArrayList<Point> bestMove=newBestPieceToTake();
+				
+				move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
+			} 
+			
+			if(check==this.getB()) randomMove();
+			
+		}
+		this.numTurns ++;
+		System.out.println("numTurns= "+ this.numTurns);
+		return this.b;
 	}
 
 	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
+		
+		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
+		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
+		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
+		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
+		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
+		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
+		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
+		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
+		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
+		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
+		if(this.numTurns==5 && this.color==true) 
+			{
+			move(4,7,6,7);
+			move(7,7,5,7);
+			}
+		if(this.numTurns==5 && this.color==false)
+			{
+			move(4,0,6,0);
+			move(7,0,5,0);
+			}
+
+			
+		if(numTurns>5)
+		{
+		Piece[][] check=this.getB();
 		if (checkmate() == true)
 			System.out.print("Lose");
 		else if (check() == true)
 			getOutOfCheck();
-		else if (!(bestPieceToTake().get(0).equals(bestPieceToTake().get(1)))) {
-			move((int) bestPieceToTake().get(0).getX(), (int) bestPieceToTake().get(0).getY(), (int) bestPieceToTake()
-					.get(1).getX(), (int) bestPieceToTake().get(1).getY());
-			System.out.println(bestPieceToTake().get(0) + ") --> (" + bestPieceToTake().get(1));
-
-		} else
-			randomMove();
-return this.b;
+		else {
+			ArrayList<Point> bestMove=newBestPieceToTake();
+			
+			move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
+		} 
+		
+		if(check==this.getB()) randomMove();
+		
+		}
+		this.numTurns ++;
+		System.out.println("numTurns= "+ this.numTurns);
+		return this.b;
 	}
 
 
+
+	
+	public ArrayList<ArrayList> kMovesDefending() {
+		ArrayList<ArrayList> d = new ArrayList();
+	
+		for (int j = 0; j < 8; j++) {
+			for (int k = 0; k < 8; k++) {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'K') {
+					ArrayList g = new ArrayList();
+					int x = j;
+					int y = k;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						for (int a = x - 1; a < x + 2; a++) {
+							for (int b = y - 1; b < y + 2; b++) {
+								if (a > -1 && a < 8 && b > -1 && b < 8) {
+									if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color) {
+										g.add(new Point(a, b));
+									}
+								}
+							}
+						}
+					}
+					d.add(g);
+				}
+			}
+		}
+		
+		return d;
+	}
+
+	public ArrayList<ArrayList> qMovesDefending() {
+		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
+		int x = 0;
+		int y = 0;
+		for (int j = 0; j < 8; j++) {
+			for (int k = 0; k < 8; k++) {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'Q') {
+					ArrayList g = new ArrayList();
+					x = j;
+					y = k;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks queen for diagonal down to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						int a = x;
+						int b = y;
+						 
+						int quit = 0;
+						if (b!=7 && a!=7) //if the queen is on the last row or furthest right column of the board no need to check down and to the right
+						{
+						do {
+							a = a + 1;
+							b = b + 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color )
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks queen for diagonal down to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+						quit = 0;
+						if(b!=7 && a!=0) //if the queen is on the last row or leftmost column of the board no need to check down and to the left
+						{
+						do {
+							a = a - 1;
+							b = b + 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks queen for diagonal up to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+							
+						quit = 0;
+						if (b!=0 && a!=0)
+						{//if the queen is on the first row of the board or leftmost column no need to check up and to the left
+						do {
+							a = a - 1;
+							b = b - 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks queen for diagonal up to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+						quit = 0;
+						if(b!=0 && a!=7)
+							//if queen is on the highest row and rightmost column no need to look up and to the right
+						{
+						do {
+							a = a + 1;
+							b = b - 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks queen north. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b - 1;
+							if (b == 0)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen south. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b + 1;
+							if (b == 7)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen to the west. quits if adds an opposite color piece
+						// or reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							if (a == 7)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks queen to the east. quits if adds an opposite color piece
+						// or reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							if (a == 0)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+					}
+					d.add(g);
+				}
+			}
+		}
+		
+		return d;
+	}
+
+	public ArrayList<ArrayList> rMovesDefending() {
+		ArrayList<ArrayList> d = new ArrayList<ArrayList>();
+		int x = 0;
+		int y = 0;
+		for (int j = 0; j < 8; j++) {
+			for (int k = 0; k < 8; k++) {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'R') {
+					ArrayList g = new ArrayList();
+					x = j;
+					y = k;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks queen rook. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						int a = x;
+						int b = y;
+						if (b == 0)
+							b = b + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						int quit = 0;
+						do {
+							b = b - 1;
+							if (b == 0)
+								quit = -999;
+							if (!(g.contains(new Point(a,b))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook south. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (b == 7)
+							b = b - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							b = b + 1;
+							if (b == 7)
+								quit = -999;
+							if (!(g.contains(new Point(a,b))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook to the west. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 7)
+							a = a - 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a + 1;
+							if (a == 7)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+
+						// checks rook to the east. quits if adds an opposite color piece or
+						// reaches end of board or hits our piece
+						a = x;
+						b = y;
+						if (a == 0)
+							a = a + 1; // if piece is already on edge of board, need to
+										// adjust for the do while loop to work
+						quit = 0;
+						do {
+							a = a - 1;
+							if (a == 0)
+								quit = -999;
+							if ((!(g.contains(new Point(a,b)))) && (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color))
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+					}
+					d.add(g);
+				}
+			}
+		}
+		
+		return d;
+	}
+
+	public ArrayList<ArrayList> nMovesDefending() {
+		ArrayList<ArrayList> v = new ArrayList<ArrayList>();
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
+				if (b[x][y].getColor() == color && b[x][y].toString().charAt(1) == 'N') {
+					ArrayList d = new ArrayList();
+					d.add(b[x][y]);
+					d.add(new Point(x, y));
+					if (x - 2 > -1 && y - 1 > -1)
+						d.add(new Point(x - 2, y - 1));
+					if (x - 1 > -1 && y - 2 > -1)
+						d.add(new Point(x - 1, y - 2));
+
+					if (x - 2 > -1 && y + 1 < 8)
+						d.add(new Point(x - 2, y + 1));
+					if (x - 1 > -1 && y + 2 < 8)
+						d.add(new Point(x - 1, y + 2));
+
+					if (x + 2 < 8 && y + 1 < 8)
+						d.add(new Point(x + 2, y + 1));
+					if (x + 1 < 8 && y + 2 < 8)
+						d.add(new Point(x + 1, y + 2));
+
+					if (x + 1 < 8 && y - 2 > -1)
+						d.add(new Point(x + 1, y - 2));
+					if (x + 2 < 8 && y - 1 > -1)
+						d.add(new Point(x + 2, y - 1));
+					v.add(d);
+				}
+			}
+		}
+		return v;
+	}
+
+	public ArrayList<ArrayList> bMovesDefending() {
+		ArrayList<ArrayList> m = new ArrayList<ArrayList>();
+		int x = 0;
+		int y = 0;
+		for (int j = 0; j < 8; j++) {
+			for (int k = 0; k < 8; k++) {
+				if (b[j][k].getColor() == color && b[j][k].toString().charAt(1) == 'B') {
+					ArrayList g = new ArrayList();
+					x = j;
+					y = k;
+					g.add(b[x][y]);
+					g.add(new Point(x, y));
+					if (x == -1 || y == -1) {
+						return null;
+					} else {
+						// checks bishop for diagonal down to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						int a = x;
+						int b = y;
+						 
+						int quit = 0;
+						if (b!=7 && a!=7) //if the bishop is on the last row or furthest right column of the board no need to check down and to the right
+						{
+						do {
+							a = a + 1;
+							b = b + 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks queen for diagonal down to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+						quit = 0;
+						if(b!=7 && a!=0) //if the bishop is on the last row or leftmost column of the board no need to check down and to the left
+						{
+						do {
+							a = a - 1;
+							b = b + 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 7)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks bishop for diagonal up to the left. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+							
+						quit = 0;
+						if (b!=0 && a!=0)
+						{//if the bishop is on the first row of the board or leftmost column no need to check up and to the left
+						do {
+							a = a - 1;
+							b = b - 1;
+							if (a == 0)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+						// checks bishop for diagonal up to the right. quits if adds an
+						// opposite color piece or reaches end of board or our piece
+						a = x;
+						b = y;
+						
+						quit = 0;
+						if(b!=0 && a!=7)
+							//if bishop is on the highest row and rightmost column no need to look up and to the right
+						{
+						do {
+							a = a + 1;
+							b = b - 1;
+							if (a == 7)
+								quit = -999;
+							if (b == 0)
+								quit = -999;
+							if (this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color || this.b[a][b].getColor() == color)
+								g.add(new Point(a, b));
+							if (this.b[a][b].toString().charAt(1) != 'X')
+								quit = -999;
+						} while (quit != -999);
+						}
+					}
+					m.add(g);
+				}
+			}
+		}
+		
+		return m;
+	}
+
+	public ArrayList<ArrayList> pMovesDefending() {
+		ArrayList<ArrayList> v = new ArrayList<ArrayList>();
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
+				if (b[x][y].getColor() == color && b[x][y].toString().charAt(1) == 'P') {
+					ArrayList d = new ArrayList();
+					d.add(b[x][y]);
+					d.add(new Point(x, y));
+					if (color == false) {
+						if (y == 1 && b[x][y + 2].toString().charAt(1) == 'X'&&b[x][y + 1].toString().charAt(1) == 'X')
+							d.add(new Point(x, y + 2));
+						if (y + 1 < 8 && b[x][y + 1].toString().charAt(1) == 'X')
+							d.add(new Point(x, y + 1));
+						if (x + 1 < 8 && y + 1 < 8 && this.b[x+1][y+1].toString().charAt(1) != 'X')
+							d.add(new Point(x + 1, y + 1));
+						if (x - 1 > -1 && y + 1 < 8  && this.b[x-1][y+1].toString().charAt(1) != 'X')
+							d.add(new Point(x - 1, y + 1));
+					}
+
+					if (color == true) {
+						
+						if (y == 6 && b[x][y - 2].toString().charAt(1) == 'X'&&b[x][y - 1].toString().charAt(1) == 'X')
+							d.add(new Point(x, y - 2));
+						if (y - 1 > -1 && b[x][y - 1].toString().charAt(1) == 'X')
+							d.add(new Point(x, y - 1));
+						if (x + 1 < 8 && y - 1 > -1  && this.b[x+1][y-1].toString().charAt(1) != 'X')
+						{
+							
+							d.add(new Point(x + 1, y - 1) );
+						}
+						if (x - 1 > -1 && y - 1 > -1  && this.b[x-1][y-1].toString().charAt(1) != 'X')
+							d.add(new Point(x - 1, y - 1));
+					}
+					v.add(d);
+				}
+			}
+		}
+		return v;
+	}
+
+	
+	public ArrayList<ArrayList> allMovesDefending(){
+		ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+		for(int i=0;i<pMovesDefending().size();i++){
+			a.add(pMovesDefending().get(i));
+		}
+		for(int i=0;i<nMovesDefending().size();i++){
+			a.add(nMovesDefending().get(i));
+		}
+		for(int i=0;i<bMovesDefending().size();i++){
+			a.add(bMovesDefending().get(i));
+		}
+		for(int i=0;i<rMovesDefending().size();i++){
+			a.add(rMovesDefending().get(i));
+		}
+		for(int i=0;i<qMovesDefending().size();i++){
+			a.add(qMovesDefending().get(i));
+		}
+		for(int i=0;i<kMovesDefending().size();i++){
+			a.add(kMovesDefending().get(i));
+		}
+		return a;
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 
