@@ -1045,8 +1045,30 @@ public class DerpyAI {
 	
 	public boolean theyreInCheckmate() {
 		
+		DerpyKing targetKing = null;
 		
-		return false;
+		for(DerpyPiece p : theirPieces) {
+			if(p instanceof DerpyKing) {
+				targetKing = (DerpyKing)p;
+				break;
+			}
+		} 
+		
+		//targetKing is now their king
+		boolean foundAPlaceToMove = false;
+		
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				Point pos = new Point(i,j);
+				if(this.pieceCanMoveToPosition(targetKing, pos))
+				{
+					foundAPlaceToMove = true;
+					break;
+				}
+			}
+		}
+		
+		return foundAPlaceToMove;
 	}
 
 	public void concedeGame() {
