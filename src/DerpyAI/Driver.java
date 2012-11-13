@@ -12,8 +12,10 @@ public class Driver {
 		DerpyAI aiTwo = new DerpyAI(false);
 		for (int i = 0; i < 20; i++) {
 			db = aiOne.makeMove(db);
+			db.printBoard();
 			System.out.println();
 			db = aiTwo.makeMove(db);
+			db.printBoard();
 			System.out.println();
 		}
 	}
