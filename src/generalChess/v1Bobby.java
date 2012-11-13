@@ -971,7 +971,7 @@ public class v1Bobby {
 		
 	}
 	
-	public ArrayList<Point> newBestPieceToTake()
+	public void newBestPieceToTake()
 	{
 		ArrayList<Point> v=new ArrayList<Point>();
 
@@ -1087,7 +1087,12 @@ public class v1Bobby {
 			v.add((Point)allMoves().get(best2).get(takeIfPossible(allMoves().get(best2))));
 
 		}
-		return v;
+		if(!(v.get(0).equals(v.get(1))))
+		{
+		this.numTurns ++;
+		System.out.println("yum! " + v.get(0) + " moves to " + v.get(1));
+		}
+		move((int)v.get(0).getX(),(int)v.get(0).getY(),(int)v.get(1).getX(),(int)v.get(1).getY());
 	}
 	
 	//return numDefenders, 0 if no piece is defending that location, there may be a piece on that location
@@ -1205,7 +1210,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			a=r.nextInt(pMoves().size());
 		}
 		int b=r.nextInt(pMoves().get(a).size()-2)+2;
-		
+		System.out.println("random pawn move!: "+ pMoves().get(a).get(1) + " moves to " + pMoves().get(a).get(b));
 		move((int)((Point)pMoves().get(a).get(1)).getX(), (int)((Point)pMoves().get(a).get(1)).getY(), (int)((Point)pMoves().get(a).get(b)).getX(), (int)((Point)pMoves().get(a).get(b)).getY());
 		isMoveMade=true;
 		}
@@ -1230,6 +1235,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				makeSureNotThreatened=isThreatened((int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
 				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY())>1 )
 				{
+				System.out.println("random knight move!: "+ nMoves().get(a).get(1) + " moves to " + nMoves().get(a).get(b));
 				move((int)((Point)nMoves().get(a).get(1)).getX(), (int)((Point)nMoves().get(a).get(1)).getY(), (int)((Point)nMoves().get(a).get(b)).getX(), (int)((Point)nMoves().get(a).get(b)).getY());
 				isMoveMade=true;
 				}
@@ -1257,6 +1263,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				makeSureNotThreatened=isThreatened((int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
 				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY())>1)
 				{
+				System.out.println("random bishop move!: "+ bMoves().get(a).get(1) + " moves to " + bMoves().get(a).get(b));
 				move((int)((Point)bMoves().get(a).get(1)).getX(), (int)((Point)bMoves().get(a).get(1)).getY(), (int)((Point)bMoves().get(a).get(b)).getX(), (int)((Point)bMoves().get(a).get(b)).getY());
 				isMoveMade=true;
 				}
@@ -1282,6 +1289,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				makeSureNotThreatened=isThreatened((int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
 				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY())>1)
 				{
+				System.out.println("random rook move!: "+ rMoves().get(a).get(1) + " moves to " + rMoves().get(a).get(b));
 				move((int)((Point)rMoves().get(a).get(1)).getX(), (int)((Point)rMoves().get(a).get(1)).getY(), (int)((Point)rMoves().get(a).get(b)).getX(), (int)((Point)rMoves().get(a).get(b)).getY());
 				isMoveMade=true;
 				}
@@ -1307,6 +1315,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				makeSureNotThreatened=isThreatened((int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
 				if(makeSureNotThreatened.size()==0 || numDefenders((int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY())>1)
 				{
+				System.out.println("random queen move!: "+ qMoves().get(a).get(1) + " moves to " + qMoves().get(a).get(b));
 				move((int)((Point)qMoves().get(a).get(1)).getX(), (int)((Point)qMoves().get(a).get(1)).getY(), (int)((Point)qMoves().get(a).get(b)).getX(), (int)((Point)qMoves().get(a).get(b)).getY());
 				isMoveMade=true;
 				}
@@ -1331,6 +1340,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				makeSureNotThreatened=isThreatened((int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
 				if(makeSureNotThreatened.size()==0)
 				{
+				System.out.println("random king move!: " + kMoves().get(a).get(1) + " moves to " + kMoves().get(a).get(b));
 				move((int)((Point)kMoves().get(a).get(1)).getX(), (int)((Point)kMoves().get(a).get(1)).getY(), (int)((Point)kMoves().get(a).get(b)).getX(), (int)((Point)kMoves().get(a).get(b)).getY());
 				isMoveMade=true;
 				}
@@ -1434,71 +1444,104 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 
 	public Piece[][] turn(Board b) {
 		getBoard(b);
+		int currNumTurns=numTurns;
 		
-		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
-		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
-		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
-		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
-		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
-		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
-		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
-		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
-		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
-		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
-		if(this.numTurns==5 && this.color==true) 
-			{
+		if(numTurns<6)
+		{
+		if(this.numTurns==0 && this.color==true){
+			move(4,6,4,4);}
+		if(this.numTurns==0 && this.color==false) {
+			 move(4,1,4,3);}
+		if(this.numTurns==1 && this.color==true){
+			 move(3,6,3,5);}
+		if(this.numTurns==1 && this.color==false) {
+			 move(3,1,3,2);}
+		if(this.numTurns==2 && this.color==true){
+			 move(6,7,5,5);}
+		if(this.numTurns==2 && this.color==false) {
+			 move(6,0,5,2);}
+		if(this.numTurns==3 && this.color==true) {
+			 move(6,6,6,5);}
+		if(this.numTurns==3 && this.color==false) {
+			 move(6,1,6,2);}
+		if(this.numTurns==4 && this.color==true) {
+			 move(5,7,6,6);}
+		if(this.numTurns==4 && this.color==false) {
+			 move(5,0,6,1);}
+		if(this.numTurns==5 && this.color==true) {
 			move(4,7,6,7);
-			move(7,7,5,7);
-			}
-		if(this.numTurns==5 && this.color==false)
-			{
+			move(7,7,5,7);}
+		if(this.numTurns==5 && this.color==false){
 			move(4,0,6,0);
-			move(7,0,5,0);
-			}
-
+			move(7,0,5,0);}
+		}
 			
 		if(numTurns>5)
 		{
 			
-			Piece[][] check=this.getB();
 			if (checkmate() == true)
 				System.out.print("Lose");
 			else if (check() == true)
+			{
 				getOutOfCheck();
+				this.numTurns++;
+				if (checkmate() == true) System.out.print("Lose");
+			}
 			else {
-				ArrayList<Point> bestMove=newBestPieceToTake();
-				
-				move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
+				newBestPieceToTake();
 			} 
 			
-			if(check==this.getB()) randomMove();
+			if(currNumTurns!=numTurns) randomMove();
 			
 		}
-		this.numTurns ++;
+		
 		System.out.println("numTurns= "+ this.numTurns);
 		return this.b;
 	}
 
 	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
+		int currNumTurns=numTurns;
 		
-		if(this.numTurns==0 && this.color==true) move(4,6,4,4);
-		if(this.numTurns==0 && this.color==false) move(4,1,4,3);
-		if(this.numTurns==1 && this.color==true) move(3,6,3,5);
-		if(this.numTurns==1 && this.color==false) move(3,1,3,2);
-		if(this.numTurns==2 && this.color==true) move(6,7,5,5);
-		if(this.numTurns==2 && this.color==false) move(6,0,5,2);
-		if(this.numTurns==3 && this.color==true) move(6,6,6,5);
-		if(this.numTurns==3 && this.color==false) move(6,1,6,2);
-		if(this.numTurns==4 && this.color==true) move(5,7,6,6);
-		if(this.numTurns==4 && this.color==false) move(5,0,6,1);
+		if(this.numTurns==0 && this.color==true){
+			 numTurns++;
+			move(4,6,4,4);}
+		if(this.numTurns==0 && this.color==false) {
+			 numTurns++;
+			 move(4,1,4,3);}
+		if(this.numTurns==1 && this.color==true){
+			 numTurns++;
+			 move(3,6,3,5);}
+		if(this.numTurns==1 && this.color==false) {
+			 numTurns++;
+			 move(3,1,3,2);}
+		if(this.numTurns==2 && this.color==true){
+			 numTurns++;
+			 move(6,7,5,5);}
+		if(this.numTurns==2 && this.color==false) {
+			 numTurns++;
+			 move(6,0,5,2);}
+		if(this.numTurns==3 && this.color==true) {
+			 numTurns++;
+			 move(6,6,6,5);}
+		if(this.numTurns==3 && this.color==false) {
+			 numTurns++;
+			 move(6,1,6,2);}
+		if(this.numTurns==4 && this.color==true) {
+			 numTurns++;
+			 move(5,7,6,6);}
+		if(this.numTurns==4 && this.color==false) {
+			 numTurns++;
+			 move(5,0,6,1);}
 		if(this.numTurns==5 && this.color==true) 
 			{
+			numTurns++;
 			move(4,7,6,7);
 			move(7,7,5,7);
 			}
 		if(this.numTurns==5 && this.color==false)
 			{
+			numTurns++;
 			move(4,0,6,0);
 			move(7,0,5,0);
 			}
@@ -1506,25 +1549,26 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 			
 		if(numTurns>5)
 		{
-		Piece[][] check=this.getB();
-		if (checkmate() == true)
-			System.out.print("Lose");
-		else if (check() == true)
-			getOutOfCheck();
-		else {
-			ArrayList<Point> bestMove=newBestPieceToTake();
 			
-			move((int)bestMove.get(0).getX(),(int)bestMove.get(0).getY(),(int)bestMove.get(1).getX(),(int)bestMove.get(1).getY());
-		} 
-		
-		if(check==this.getB()) randomMove();
-		
+			if (checkmate() == true)
+				System.out.print("Lose");
+			else if (check() == true)
+			{
+				getOutOfCheck();
+				this.numTurns++;
+				if (checkmate() == true) System.out.print("Lose");
+			}
+			else {
+				newBestPieceToTake();
+			} 
+			
+			if(currNumTurns!=numTurns) randomMove();
+			
 		}
-		this.numTurns ++;
+		
 		System.out.println("numTurns= "+ this.numTurns);
 		return this.b;
 	}
-
 
 
 	
