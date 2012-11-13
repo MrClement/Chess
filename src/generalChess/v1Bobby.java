@@ -1446,7 +1446,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 		getBoard(b);
 		int currNumTurns=numTurns;
 		
-		if(numTurns<6)
+		if(numTurns<=6)
 		{
 		if(this.numTurns==0 && this.color==true){
 			move(4,6,4,4);}
@@ -1465,18 +1465,25 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 		if(this.numTurns==3 && this.color==false) {
 			 move(6,1,6,2);}
 		if(this.numTurns==4 && this.color==true) {
-			 move(5,7,6,6);}
+			 move(5,7,6,6);
+			 System.out.println("44444444white")	 ;	 
+		}
 		if(this.numTurns==4 && this.color==false) {
-			 move(5,0,6,1);}
+			 move(5,0,6,1);
+		System.out.println("44444444")	 ;
+		}
 		if(this.numTurns==5 && this.color==true) {
+			System.out.println("555555");
 			move(4,7,6,7);
 			move(7,7,5,7);}
 		if(this.numTurns==5 && this.color==false){
 			move(4,0,6,0);
 			move(7,0,5,0);}
+		
+		this.numTurns++;
 		}
 			
-		if(numTurns>5)
+		if(numTurns>=7)
 		{
 			
 			if (checkmate() == true)
@@ -1503,51 +1510,44 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 		getBoard(b);
 		int currNumTurns=numTurns;
 		
+		if(numTurns<=6)
+		{
 		if(this.numTurns==0 && this.color==true){
-			 numTurns++;
 			move(4,6,4,4);}
 		if(this.numTurns==0 && this.color==false) {
-			 numTurns++;
 			 move(4,1,4,3);}
 		if(this.numTurns==1 && this.color==true){
-			 numTurns++;
 			 move(3,6,3,5);}
 		if(this.numTurns==1 && this.color==false) {
-			 numTurns++;
 			 move(3,1,3,2);}
 		if(this.numTurns==2 && this.color==true){
-			 numTurns++;
 			 move(6,7,5,5);}
 		if(this.numTurns==2 && this.color==false) {
-			 numTurns++;
 			 move(6,0,5,2);}
 		if(this.numTurns==3 && this.color==true) {
-			 numTurns++;
 			 move(6,6,6,5);}
 		if(this.numTurns==3 && this.color==false) {
-			 numTurns++;
 			 move(6,1,6,2);}
 		if(this.numTurns==4 && this.color==true) {
-			 numTurns++;
-			 move(5,7,6,6);}
+			 move(5,7,6,6);
+			 System.out.println("44444444white")	 ;	 
+		}
 		if(this.numTurns==4 && this.color==false) {
-			 numTurns++;
-			 move(5,0,6,1);}
-		if(this.numTurns==5 && this.color==true) 
-			{
-			numTurns++;
+			 move(5,0,6,1);
+		System.out.println("44444444")	 ;
+		}
+		if(this.numTurns==5 && this.color==true) {
+			System.out.println("555555");
 			move(4,7,6,7);
-			move(7,7,5,7);
-			}
-		if(this.numTurns==5 && this.color==false)
-			{
-			numTurns++;
+			move(7,7,5,7);}
+		if(this.numTurns==5 && this.color==false){
 			move(4,0,6,0);
-			move(7,0,5,0);
-			}
-
+			move(7,0,5,0);}
+		
+		this.numTurns++;
+		}
 			
-		if(numTurns>5)
+		if(numTurns>=7)
 		{
 			
 			if (checkmate() == true)
