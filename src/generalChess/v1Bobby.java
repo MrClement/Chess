@@ -1178,9 +1178,9 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 	
 	public void randomMove() {
 		Random r=new Random();
-		//p = 1-25
-		//n = 26-45
-		//b = 46-65
+		//p = 1-35
+		//n = 36-50
+		//b = 50-65
 		//r = 66-80
 		//q = 81-95
 		//k = 96-100
@@ -1198,7 +1198,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 		{
 			if(pMoves().get(i).size()>2 && isTherePawnsThatCanMakeMoves==false) isTherePawnsThatCanMakeMoves=true;
 		}
-		if(z>=1 && z<=25 && isTherePawnsThatCanMakeMoves==true)
+		if(z>=1 && z<=35 && isTherePawnsThatCanMakeMoves==true)
 		{
 		int a=r.nextInt(pMoves().size());
 		while(pMoves().get(a).size()<=2){
@@ -1218,7 +1218,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 				{
 					if(nMoves().get(i).size()>2 && isThereKnightsThatCanMakeMoves==false) isThereKnightsThatCanMakeMoves=true;
 				}
-				if(z>=26 && z<=45 && isThereKnightsThatCanMakeMoves==true)
+				if(z>=36 && z<=50 && isThereKnightsThatCanMakeMoves==true)
 				{
 				int a=r.nextInt(nMoves().size());
 				while(nMoves().get(a).size()<=2){
@@ -1244,7 +1244,7 @@ if(this.b[x][y].getColor()==color && this.b[x][y].toString().charAt(1)=='P') a= 
 					if(bMoves().get(i).size()>2 && isThereBishopsThatCanMakeMoves==false) isThereBishopsThatCanMakeMoves=true;
 					
 				}
-				if(z>=46 && z<=65 && isThereBishopsThatCanMakeMoves==true)
+				if(z>=51 && z<=65 && isThereBishopsThatCanMakeMoves==true)
 				{
 				
 				int a=r.nextInt(bMoves().size());
