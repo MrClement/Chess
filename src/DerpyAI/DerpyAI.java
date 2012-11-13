@@ -1088,6 +1088,17 @@ public class DerpyAI {
 		parseCurrentBoard();
 		return ba;
 	}
+	
+	public boolean wereInCheckmate() {
+		
+		return false;
+	}
+	
+	public boolean theyreInCheckmate() {
+		
+		
+		return false;
+	}
 
 	public void concedeGame() {
 		System.out.println("DerpyAI has lost the game.");
