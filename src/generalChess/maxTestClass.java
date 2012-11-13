@@ -19,7 +19,7 @@ public class maxTestClass {
 		a.move(2,7,5,3);
 		a.move(3,0,4,2);
 	
-		//a.move(6,1,4,3);
+		a.move(0,6,3,3);
 		//a.move(2,0,2,3);
 		//a.move(7,7,3,4);
 		a.printBoard();
@@ -27,7 +27,7 @@ public class maxTestClass {
 		a.printBoard();
 		
 		a.printBoard();
-		System.out.println(a.allMoves().get(13).get(a.takeIfPossible(a.allMoves().get(13))));
+		System.out.println(a.takeIfPossible(a.allMoves().get(0)));
 		
 		a.printBoard();
 		System.out.println(a.numDefenders(1,4));
