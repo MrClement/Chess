@@ -1024,8 +1024,8 @@ public class v1Bobby {
 			if(takeVal-curVal==0 && takeIfPossible(allMoves().get(i))>1){
 			//if there is no piece to take of a higher value, it checks the best piece to take of the same value which the one with less defenders
 				//so it wont get eaten next turn
-			if(numDefenders((int)(((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best)))).getX()),
-							(int)(((Point)allMoves().get(best).get(takeIfPossible(allMoves().get(best)))).getY()))<
+			if(numDefenders((int)(((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getX()),
+							(int)(((Point)allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getY()))<
 							numDefenders((int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
 									(int)(((Point)allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY())))
 
