@@ -13,14 +13,17 @@ public class maxTestClass {
 		Point w = new Point(3,4);
 		Point y = new Point(3,4);
 		
-		System.out.println(w==y);
-		System.out.println(w.equals(y));
+
 		
 		a.move(2,7,5,3);
 		a.move(3,0,4,2);
 	
 		a.move(0,6,3,3);
-		//a.move(2,0,2,3);
+		a.move(4,7,4,3);
+		a.printBoard();
+		System.out.println(a.allMoves().get(11).size());
+		a.stopCheck();
+		
 		//a.move(7,7,3,4);
 		a.printBoard();
 		a.newBestPieceToTake();

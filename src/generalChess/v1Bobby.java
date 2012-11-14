@@ -1505,23 +1505,8 @@ public class v1Bobby {
 	}
 
 	public boolean checkmate() {
-		// replicate board state
-		v1Bobby a = new v1Bobby(b, color);
-		Point p;
-		int x, y;
-		for (int i = 0; i < a.allMoves().size(); i++) {
-			for (int k = 1; k < a.allMoves().get(i).size(); k++) {
-				x = i;
-				y = k;
-				a.move((int) ((Point) a.allMoves().get(i).get(1)).getX(),
-						(int) ((Point) a.allMoves().get(i).get(1)).getY(),
-						(int) ((Point) a.allMoves().get(i).get(k)).getX(),
-						(int) ((Point) a.allMoves().get(i).get(k)).getY());
-				if (a.check() == false)
-					return false;
-			}
-		}
-		return true;
+		if(this.kMoves().get(0).size()==2 && check()==true && stopCheck()==false) return true;
+		else return false;
 	}
 
 	public boolean check() {
@@ -1531,7 +1516,65 @@ public class v1Bobby {
 		else
 			return false;
 	}
-
+	
+	public boolean stopCheck(){
+		int currTurns= numTurns;
+		if(takeIfPossible(kMoves().get(0))!=1)
+		{
+			move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
+					((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()));
+			numTurns++;
+		}
+			
+		else if(this.kMoves().get(0).size()>=3){
+			move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
+					((int) ((Point) kMoves().get(0).get(2)).getX()), ((int) ((Point) kMoves().get(0).get(2)).getX()));
+			numTurns++;
+		}
+		
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+		
+		Point enemyCoord=new Point(-1,-1);
+		Point kingCoord=new Point((int)((Point)kMoves().get(0).get(1)).getX(),(int)((Point)kMoves().get(0).get(1)).getY());
+		//finds loc of enemy attacking king
+		for (int i = 0; i < enemy.allMoves().size(); i++) {
+			for (int j = 2; j < enemy.allMoves().get(i).size(); j++) {
+				if(((Point)enemy.allMoves().get(i).get(j)).equals((Point)this.kMoves().get(0).get(1)))
+				{
+					enemyCoord.setLocation(((Point)enemy.allMoves().get(i).get(1)).getX(), ((Point)enemy.allMoves().get(i).get(1)).getY());
+				}
+			}
+		}
+		
+		//sees if another one of our pieces can take it if king can't/can't move
+			System.out.println(allMoves().get(11).size());
+			for (int r = 0; r < allMoves().size(); r++) {
+			for (int c = 2; c < allMoves().get(r).size(); c++) {		
+				System.out.println(r + " , " + c + "  "+ allMoves().get(c).size());
+				if(((Point)allMoves().get(r).get(c)).equals(enemyCoord)) 
+				{
+					move((int)((Point)allMoves().get(r).get(1)).getX(),(int)((Point)allMoves().get(r).get(1)).getY(),
+						(int)((Point)allMoves().get(r).get(c)).getX(),(int)((Point)allMoves().get(r).get(c)).getY());
+				numTurns++;
+				}
+			}
+		}
+		
+			
+		if(currTurns==numTurns)
+		{
+			getOutOfCheck();
+		}
+		
+			
+		
+		//false means no move was made to save the king and we're in check
+				if(currTurns==numTurns) return false;
+				else return true;
+	
+	
+	}
+	
 	public void getOutOfCheck() {
 		// replicate board state
 		v1Bobby a = new v1Bobby(b, color);
@@ -1549,6 +1592,7 @@ public class v1Bobby {
 						(int) ((Point) a.allMoves().get(i).get(k)).getY());
 				if (a.check() == false) {
 					move(x1, y1, x, y);
+					numTurns++;
 					break;
 				} else
 					a.move(x, y, x1, y1);
@@ -1624,14 +1668,11 @@ public class v1Bobby {
 			}
 			if (this.numTurns == 4 && this.color == true) {
 				move(5, 7, 6, 6);
-				System.out.println("44444444white");
 			}
 			if (this.numTurns == 4 && this.color == false) {
 				move(5, 0, 6, 1);
-				System.out.println("44444444");
 			}
 			if (this.numTurns == 5 && this.color == true) {
-				System.out.println("555555");
 				move(4, 7, 6, 7);
 				move(7, 7, 5, 7);
 			}
@@ -1648,20 +1689,27 @@ public class v1Bobby {
 			if (checkmate() == true)
 				System.out.print("Lose");
 			else if (check() == true) {
-				int kingpiece = -1;
-				for (int i = 0; i < this.allMoves().size(); i++) {
-					if (this.allMoves().get(i).get(1).toString().charAt(1) == 'K')
-						kingpiece = i;
-				}
-				move(((int) ((Point) this.allMoves().get(kingpiece).get(1)).getX()), ((int) ((Point) this.allMoves()
-						.get(kingpiece).get(1)).getY()),
-						((int) ((Point) this.allMoves().get(kingpiece).get(2)).getX()), ((int) ((Point) this.allMoves()
-								.get(kingpiece).get(2)).getX()));
-				// getOutOfCheck();
+				
+				//if in check king will take the piece or a piece if it can, otherwise it will just move away
+			if(takeIfPossible(kMoves().get(0))!=1)
+			{
+				move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
+						((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()));
 				this.numTurns++;
-				if (checkmate() == true)
-					System.out.print("Lose");
-			} else {
+			}
+				
+			else if(kMoves().size()>=3)
+			{
+				move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
+						((int) ((Point) kMoves().get(0).get(2)).getX()), ((int) ((Point) kMoves().get(0).get(2)).getX()));
+				this.numTurns++;	
+			}
+			else stopCheck();
+				
+			if (checkmate() == true) System.out.print("Lose");
+			} 
+			
+			else {
 				long start;
 				start = System.currentTimeMillis();
 
