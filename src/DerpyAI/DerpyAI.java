@@ -183,11 +183,11 @@ public class DerpyAI {
 
 	// asks if a piece is threatened
 	public boolean pieceIsThreatened(DerpyPiece p) {
-		for (DerpyPiece a : (p.getColor() ? theirPieces : ourPieces) ) {
+		for (DerpyPiece a : (myColor ? theirPieces : ourPieces) ) {
 			if (this.pieceCanMoveToPosition(a, p.getLocation())) {
-				if (this.makeTrade(a, p)) {
+				//if (this.makeTrade(a, p)) {
 					return true;
-				}
+				//}
 			}
 		}
 		return false;
