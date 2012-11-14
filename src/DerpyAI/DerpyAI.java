@@ -1013,16 +1013,16 @@ public class DerpyAI {
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		if(wereInCheckmate()) {
-			System.out.println("DerpyAI has won....press enter to continue.");
+			System.out.println("DerpyAI has lost....press enter to continue.");
 			sc = new Scanner(System.in);
 		       while(!sc.nextLine().equals(""));
 		}
 		
-//		if(theyreInCheckmate()) {
-//			System.out.println("DerpyAI has lost....press enter to continue.");
-//			sc = new Scanner(System.in);
-//		       while(!sc.nextLine().equals(""));
-//		}
+		if(theyreInCheckmate()) {
+			System.out.println("DerpyAI has won....press enter to continue.");
+			sc = new Scanner(System.in);
+		       while(!sc.nextLine().equals(""));
+		}
 
 		boardStore.add(b);
 		currentBoard = b;
@@ -1086,7 +1086,7 @@ public class DerpyAI {
 			}
 		}
 		
-		return foundAPlaceToMove;
+		return !foundAPlaceToMove;
 
 	}
 	
@@ -1115,7 +1115,7 @@ public class DerpyAI {
 			}
 		}
 		
-		return foundAPlaceToMove;
+		return !foundAPlaceToMove;
 	}
 
 	public void concedeGame() {
