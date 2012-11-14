@@ -1094,7 +1094,8 @@ public class DerpyAI {
 		
 		DerpyKing targetKing = null;
 		
-		for(DerpyPiece p : theirPieces) {
+		for(int i = 0; i < theirPieces.size(); i++) {
+			DerpyPiece p = theirPieces.get(i);
 			if(p instanceof DerpyKing) {
 				targetKing = (DerpyKing)p;
 				break;
