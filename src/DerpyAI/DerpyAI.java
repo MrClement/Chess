@@ -1116,6 +1116,8 @@ public class DerpyAI {
 			}
 		} 
 		
+		if(!theyreinCheck())return false;
+		
 		//targetKing is now their king
 		boolean foundAPlaceToMove = false;
 		
