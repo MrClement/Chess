@@ -783,7 +783,7 @@ public class DerpyAI {
 
 	public DerpyBoard randomMove() {
 		parseCurrentBoard();
-
+		Point oldDest; 
 		// Finds the initial piece to move and the initial destination
 		Random r = new Random();
 		boolean pieceCanMove = false;
@@ -807,6 +807,7 @@ public class DerpyAI {
 		do {
 			// System.out.println("Piece Array Size: " + ourPieces.size());
 			randomPiece = ourPieces.get(r.nextInt(ourPieces.size()));
+			oldDest = randomPiece.getLocation();
 			// System.out.println("Piece Type: " + randomPiece.toString());
 			destinationArray = this.movablePoints(randomPiece);
 			if (destinationArray.size() > 0)
@@ -861,7 +862,8 @@ public class DerpyAI {
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
 		System.out.println("Random Move Made by " + randomPiece.toString()
-				+ " to (" + (int) randomDestination.getX() + ","
+				+ " from (" + (int) oldDest.getX() + ","
+				+ (int)oldDest.getY() + ") " + "to (" + (int) randomDestination.getX() + ","
 				+ (int) randomDestination.getY() + ")");
 		// currentBoard.printBoard();
 		return currentBoard;
@@ -982,12 +984,13 @@ public class DerpyAI {
 
 			//If we have any pieces to take, takes the best one of them
 			if (bestPiece != null && bestTarget != null) {
-				this.movePiece(bestPiece, bestTarget.getLocation());
-				bestPiece.changeLocation(bestTarget.getLocation());
-				System.out.println("Autonomous Move Made by "
-						+ bestPiece.toString() + " to ("
+				System.out.println("Autonomous Move Made by "+ bestPiece.toString() + 
+						" from (" + (int) bestPiece.getLocation().getX() + ","
+						+ (int) bestPiece.getLocation().getY() + ")" +" to ("
 						+ (int) bestTarget.getLocation().getX() + ","
 						+ (int) bestTarget.getLocation().getY() + ")");
+				this.movePiece(bestPiece, bestTarget.getLocation());
+				bestPiece.changeLocation(bestTarget.getLocation());
 				System.out.println();
 				parseCurrentBoard();
 				boardStore.add(currentBoard);
