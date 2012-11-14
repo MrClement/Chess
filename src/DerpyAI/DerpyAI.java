@@ -33,11 +33,13 @@ public class DerpyAI {
 		boardStore = new ArrayList<DerpyBoard>();
 		takenPieces = new ArrayList<DerpyPiece>();
 		ourPieces = new ArrayList<DerpyPiece>();
+		theirPieces = new ArrayList<DerpyPiece>();
 		currentBoard = new DerpyBoard();
 		theirPiecesPoints = new ArrayList<Point>();
 		ourPiecesPoints = new ArrayList<Point>();
 		allMoves = new ArrayList<Move>();
 		findOurPieces();
+		findTheirPieces();
 	}
 
 	public void findTheirPieces() { // Creates an array of their pieces
