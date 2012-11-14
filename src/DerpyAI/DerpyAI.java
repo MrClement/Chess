@@ -882,7 +882,7 @@ public class DerpyAI {
 		}
 			if (numTurns == 1) {
 			currentBoard.getBoardArray()[4][6].changeLocation(new Point (4,4));
-			movePiece(currentBoard.getBoardArray()[4][6], new Point (4,4));
+			this.movePiece(currentBoard.getBoardArray()[4][6], new Point (4,4));
 			numTurns++;
 			parseCurrentBoard(); 
 			currentBoard.printBoard();
@@ -892,7 +892,7 @@ public class DerpyAI {
 			
 			else if (numTurns == 2) {
 			currentBoard.getBoardArray()[5][7].changeLocation(new Point (2,4));
-			movePiece(currentBoard.getBoardArray()[5][7], new Point (2,4));
+			this.movePiece(currentBoard.getBoardArray()[5][7], new Point (2,4));
 			numTurns++;
 			parseCurrentBoard(); 
 			currentBoard.printBoard();
@@ -902,7 +902,7 @@ public class DerpyAI {
 			
 			else if (numTurns == 3) {
 			currentBoard.getBoardArray()[6][7].changeLocation(new Point (5,5));
-			movePiece(currentBoard.getBoardArray()[6][7], new Point (5,5));
+			this.movePiece(currentBoard.getBoardArray()[6][7], new Point (5,5));
 			numTurns++;
 			parseCurrentBoard(); 
 			currentBoard.printBoard();
@@ -912,7 +912,7 @@ public class DerpyAI {
 			
 			else if (numTurns == 4) {
 			currentBoard.getBoardArray()[4][7].changeLocation(new Point (6,7));
-			movePiece(currentBoard.getBoardArray()[4][7], new Point (6,7));
+			this.movePiece(currentBoard.getBoardArray()[4][7], new Point (6,7));
 			currentBoard.getBoardArray()[7][7].changeLocation(new Point (5,7));
 			movePiece(currentBoard.getBoardArray()[7][7], new Point (5,7));
 			numTurns++;
