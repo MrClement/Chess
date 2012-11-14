@@ -412,7 +412,7 @@ public class DerpyAI {
 			}
 		}
 
-		this.concedeGame();
+		//this.concedeGame();
 		return currentBoard;
 	}
 
