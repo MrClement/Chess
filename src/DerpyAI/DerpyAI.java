@@ -207,6 +207,13 @@ public class DerpyAI {
 		return false;
 	}
 	
+	public boolean weHaveOurKingStill() {
+		for (DerpyPiece x : ourPieces) {
+			if (x instanceof DerpyKing)return true;
+		}
+		return false;
+	}
+	
 	public boolean theyreinCheck() {
 		for (DerpyPiece x : theirPieces) {
 			if (x instanceof DerpyKing) {
@@ -1026,7 +1033,7 @@ public class DerpyAI {
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		if(wereInCheckmate()) {
+		if(wereInCheckmate() || !weHaveOurKingStill()) {
 			System.out.println("DerpyAI has lost....press enter to continue.");
 			sc = new Scanner(System.in);
 		       while(!sc.nextLine().equals(""));
