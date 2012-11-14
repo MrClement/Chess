@@ -200,8 +200,10 @@ public class DerpyAI {
 				if (this.pieceIsThreatened(x)) {
 					return true;
 				}
+				else return false;
 			}
 		}
+		System.out.println("THIS SHOULD NEVER RUN");
 		return false;
 	}
 	
