@@ -203,7 +203,7 @@ public class DerpyAI {
 				else return false;
 			}
 		}
-		System.out.println("THIS SHOULD NEVER RUN");
+		//System.out.println("THIS SHOULD NEVER RUN");
 		return false;
 	}
 	
@@ -1048,22 +1048,6 @@ public class DerpyAI {
 		boardStore.add(b);
 		currentBoard = b;
 		parseCurrentBoard();
-
-		DerpyBoard boardWithPieceMoved = new DerpyBoard(b); // Copy the b board
-
-		if (this.inCheck()) {
-			// We're in check, call getOutOfCheck to get us a board where we're
-			// not in check
-			// System.out.println("makeMove: inCheck was true");
-			boardStore.add(boardWithPieceMoved);
-			boardWithPieceMoved = this.getOutOfCheck(b);
-			// System.out.println("makeMove: Now out of check, in theory");
-
-		} else {
-
-			boardStore.add(boardWithPieceMoved);
-			currentBoard = boardWithPieceMoved;
-		}
 
 		// DerpyBoard ba = this.prestonAI();
 		DerpyBoard ba = this.samAI();
