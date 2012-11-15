@@ -1544,7 +1544,7 @@ public class v1Bobby {
 			counter=0;
 			
 			if (z >= 1 && z <= 35) {
-				while(isTherePawnsThatCanMakeMoves == false){
+				while(pMoves().size()>counter && isTherePawnsThatCanMakeMoves == false){
 					if (pMoves().get(counter).size() > 2) isTherePawnsThatCanMakeMoves = true;
 					counter++;
 				}
@@ -1570,7 +1570,7 @@ public class v1Bobby {
 			counter=0;
 
 			if (z >= 36 && z <= 50) {
-					while(isThereKnightsThatCanMakeMoves == false){
+					while(nMoves().size()>counter && isThereKnightsThatCanMakeMoves == false){
 						if (nMoves().get(counter).size() > 2) isThereKnightsThatCanMakeMoves = true;
 						counter++;
 					}
@@ -1605,7 +1605,7 @@ public class v1Bobby {
 			
 			counter=0;
 			if (z >= 51 && z <= 65) {
-				while(isThereBishopsThatCanMakeMoves == false){
+				while(bMoves().size()>counter && isThereBishopsThatCanMakeMoves == false){
 					if (bMoves().get(counter).size() > 2) isThereBishopsThatCanMakeMoves = true;
 					counter++;
 				}
@@ -1642,7 +1642,7 @@ public class v1Bobby {
 			
 			if (z >= 66 && z <= 80) {
 				
-				while(isThereRooksThatCanMakeMoves == false){
+				while(rMoves().size()>counter && isThereRooksThatCanMakeMoves == false){
 					if (rMoves().get(counter).size() > 2) isThereRooksThatCanMakeMoves = true;
 					counter++;
 				}
@@ -1680,7 +1680,7 @@ public class v1Bobby {
 			
 			if (z >= 81 && z <= 95) {
 				
-				while(isThereQueensThatCanMakeMoves == false){
+				while(qMoves().size()>counter && isThereQueensThatCanMakeMoves == false){
 					if (qMoves().get(counter).size() > 2) isThereQueensThatCanMakeMoves = true;
 					counter++;
 				}

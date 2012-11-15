@@ -17,8 +17,11 @@ public class maxTestClass {
 		
 		a.move(2,7,5,3);
 		a.move(3,0,4,2);
-		a.move(7,0,7,5);
+		a.move(7,0,3,7);
 		a.move(0,6,3,3);
+		
+		System.out.println(a.qMoves());
+		System.out.println(a.qMoves().size());
 		//a.move(4,7,4,3);
 		v1Bobby enemy = new v1Bobby(a.getB(), false);
 		System.out.println(enemy.numDefenders(6,4));
