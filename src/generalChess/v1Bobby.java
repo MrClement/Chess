@@ -1177,7 +1177,7 @@ public class v1Bobby {
 			
 			//we dont need to move our guy onto an enemy piece
 			boolean dontLook= false;
-			if(b[(int)p4.getX()][(int)p4.getY()].getColor()==!color){
+			if(b[(int)p4.getX()][(int)p4.getY()].toString().charAt(1)!= 'X'){
 				dontLook=true;
 			}
 			if(dontLook==false)
@@ -1374,16 +1374,22 @@ public class v1Bobby {
 		if(this.b[a][b].toString().charAt(1) != 'X'){
 			dontLook=true;
 		}
+		if(dontLook==true)
+		{
+			if(numDefenders(a,b)!=0) causeCheck=true;
+		}
 		if(dontLook==false)
 		{	
 		move(x,y,a,b);
 		enemy.getBoard(this.b);
 		int bob= enemy.numDefenders(a,b);
-		if(bob!=0 && bob>numDefenders(a,b) && (this.b[a][b].toString().charAt(1) == 'Q' || this.b[a][b].toString().charAt(1) != 'R')) causeCheck=true;
+		if(bob!=0 && (bob>numDefenders(a,b) || this.b[a][b].toString().charAt(1) == 'Q' || this.b[a][b].toString().charAt(1) == 'R')) causeCheck=true;
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
 		enemy.getBoard(this.b);
+		
+		
 		
 		return causeCheck;
 	}
@@ -1630,8 +1636,9 @@ public class v1Bobby {
 	}
 
 	public boolean check() {
-		if (isThreatened((int) ((Point) kMoves().get(0).get(1)).getX(), (int) ((Point) kMoves().get(0).get(1)).getY())
-				.size() != 0)
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+		if (enemy.numDefenders((int) ((Point) kMoves().get(0).get(1)).getX(), (int) ((Point) kMoves().get(0).get(1)).getY())
+				 != 0)
 			return true;
 		else
 			return false;
