@@ -1311,7 +1311,7 @@ public class v1Bobby {
 		
 		
 		if ((v.get(0).equals(v.get(1)))) return;
-		if (!(v.get(0).equals(v.get(1))))
+		else
 				{
 		Point needsToMove = new Point((int)v.get(1).getX(),(int)v.get(1).getY());
 		int gottaMoveIndex= -1;
