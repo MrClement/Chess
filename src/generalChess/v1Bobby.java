@@ -1363,7 +1363,7 @@ public class v1Bobby {
 		return a;
 	}
 
-	public boolean willThisMoveCauseCheck(int x, int y, int a, int b)
+	public boolean willThisMoveCauseCheckOrEaten(int x, int y, int a, int b)
 	{
 		boolean causeCheck=false;
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
@@ -1379,6 +1379,7 @@ public class v1Bobby {
 		{	
 		move(x,y,a,b);
 		enemy.getBoard(this.b);
+		if(enemy.numDefenders(a,b)!=0 || enemy.numDefenderValue(a,b)<numDefenderValue(a,b)) causeCheck=true;
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
@@ -1419,7 +1420,7 @@ public class v1Bobby {
 				}
 				int b = r.nextInt(pMoves().get(a).size() - 2) + 2;
 				
-				if(willThisMoveCauseCheck((int) ((Point) pMoves().get(a).get(1)).getX(), (int) ((Point) pMoves().get(a).get(1)).getY(),
+				if(willThisMoveCauseCheckOrEaten((int) ((Point) pMoves().get(a).get(1)).getX(), (int) ((Point) pMoves().get(a).get(1)).getY(),
 						(int) ((Point) pMoves().get(a).get(b)).getX(), (int) ((Point) pMoves().get(a).get(b)).getY())==false)
 				{
 				System.out.println("random pawn move!: " + pMoves().get(a).get(1) + " moves to "
@@ -1450,13 +1451,9 @@ public class v1Bobby {
 				}
 				int b = r.nextInt(nMoves().get(a).size() - 2) + 2;
 
-				ArrayList<Point> makeSureNotThreatened;
-				makeSureNotThreatened = isThreatened((int) ((Point) nMoves().get(a).get(b)).getX(),
-						(int) ((Point) nMoves().get(a).get(b)).getY());
-				if (makeSureNotThreatened.size() == 0
-						|| numDefenders((int) ((Point) nMoves().get(a).get(b)).getX(), (int) ((Point) nMoves().get(a)
-								.get(b)).getY()) > 1) {
-					if(willThisMoveCauseCheck((int) ((Point) nMoves().get(a).get(1)).getX(), (int) ((Point) nMoves().get(a).get(1)).getY(),
+				
+				
+					if(willThisMoveCauseCheckOrEaten((int) ((Point) nMoves().get(a).get(1)).getX(), (int) ((Point) nMoves().get(a).get(1)).getY(),
 							(int) ((Point) nMoves().get(a).get(b)).getX(),
 							(int) ((Point) nMoves().get(a).get(b)).getY())==false)
 					{
@@ -1467,7 +1464,7 @@ public class v1Bobby {
 							(int) ((Point) nMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 				}
-				}
+				
 			}
 				}
 
@@ -1490,13 +1487,8 @@ public class v1Bobby {
 				}
 				int b = r.nextInt(bMoves().get(a).size() - 2) + 2;
 
-				ArrayList<Point> makeSureNotThreatened;
-				makeSureNotThreatened = isThreatened((int) ((Point) bMoves().get(a).get(b)).getX(),
-						(int) ((Point) bMoves().get(a).get(b)).getY());
-				if (makeSureNotThreatened.size() == 0
-						|| numDefenders((int) ((Point) bMoves().get(a).get(b)).getX(), (int) ((Point) bMoves().get(a)
-								.get(b)).getY()) > 1) {
-					if(willThisMoveCauseCheck((int) ((Point) bMoves().get(a).get(1)).getX(), (int) ((Point) bMoves().get(a).get(1)).getY(),
+				
+					if(willThisMoveCauseCheckOrEaten((int) ((Point) bMoves().get(a).get(1)).getX(), (int) ((Point) bMoves().get(a).get(1)).getY(),
 							(int) ((Point) bMoves().get(a).get(b)).getX(),
 							(int) ((Point) bMoves().get(a).get(b)).getY())==false)
 					{
@@ -1507,7 +1499,7 @@ public class v1Bobby {
 							(int) ((Point) bMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 					}
-					}
+					
 				}
 			}
 
@@ -1533,13 +1525,8 @@ public class v1Bobby {
 				}
 				int b = r.nextInt(rMoves().get(a).size() - 2) + 2;
 
-				ArrayList<Point> makeSureNotThreatened;
-				makeSureNotThreatened = isThreatened((int) ((Point) rMoves().get(a).get(b)).getX(),
-						(int) ((Point) rMoves().get(a).get(b)).getY());
-				if (makeSureNotThreatened.size() == 0
-						|| numDefenders((int) ((Point) rMoves().get(a).get(b)).getX(), (int) ((Point) rMoves().get(a)
-								.get(b)).getY()) > 1) {
-					if(willThisMoveCauseCheck((int) ((Point) rMoves().get(a).get(1)).getX(), (int) ((Point) rMoves().get(a).get(1)).getY(),
+				
+					if(willThisMoveCauseCheckOrEaten((int) ((Point) rMoves().get(a).get(1)).getX(), (int) ((Point) rMoves().get(a).get(1)).getY(),
 							(int) ((Point) rMoves().get(a).get(b)).getX(),
 							(int) ((Point) rMoves().get(a).get(b)).getY())==false)
 					{
@@ -1550,7 +1537,7 @@ public class v1Bobby {
 							(int) ((Point) rMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 					}
-					}
+					
 				}
 			}
 
@@ -1576,13 +1563,8 @@ public class v1Bobby {
 				}
 				int b = r.nextInt(qMoves().get(a).size() - 2) + 2;
 
-				ArrayList<Point> makeSureNotThreatened;
-				makeSureNotThreatened = isThreatened((int) ((Point) qMoves().get(a).get(b)).getX(),
-						(int) ((Point) qMoves().get(a).get(b)).getY());
-				if (makeSureNotThreatened.size() == 0
-						|| numDefenders((int) ((Point) qMoves().get(a).get(b)).getX(), (int) ((Point) qMoves().get(a)
-								.get(b)).getY()) > 1) {
-					if(willThisMoveCauseCheck((int) ((Point) qMoves().get(a).get(1)).getX(), (int) ((Point) qMoves().get(a).get(1)).getY(),
+				
+					if(willThisMoveCauseCheckOrEaten((int) ((Point) qMoves().get(a).get(1)).getX(), (int) ((Point) qMoves().get(a).get(1)).getY(),
 							(int) ((Point) qMoves().get(a).get(b)).getX(),
 							(int) ((Point) qMoves().get(a).get(b)).getY())==false)
 					{
@@ -1593,7 +1575,7 @@ public class v1Bobby {
 							(int) ((Point) qMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 					}
-					}
+					
 				}
 			}
 
@@ -1609,10 +1591,7 @@ public class v1Bobby {
 					a = r.nextInt(kMoves().size());
 				}
 				int b = r.nextInt(kMoves().get(a).size() - 2) + 2;
-				ArrayList<Point> makeSureNotThreatened;
-				makeSureNotThreatened = isThreatened((int) ((Point) kMoves().get(a).get(b)).getX(),
-						(int) ((Point) kMoves().get(a).get(b)).getY());
-				if (makeSureNotThreatened.size() == 0) {
+				
 					System.out.println("random king move!: " + kMoves().get(a).get(1) + " moves to "
 							+ kMoves().get(a).get(b));
 					move((int) ((Point) kMoves().get(a).get(1)).getX(), (int) ((Point) kMoves().get(a).get(1)).getY(),
@@ -1620,7 +1599,7 @@ public class v1Bobby {
 							(int) ((Point) kMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 				}
-				}
+				
 			}
 		}
 
