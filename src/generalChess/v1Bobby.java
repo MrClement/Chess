@@ -1077,46 +1077,41 @@ public class v1Bobby {
 
 			if(takeIfPossible(allMoves().get(i))>1)
 			{
-			char c;
-			if (color == true)
-				c = 'W';
-			else
-				c = 'B';
-
+			
+			char charcurVal=(char) allMoves().get(i).get(0).toString().charAt(1);
+			
 			// p=2 n=3 b=3 r=5 q=9 k=100
 			int curVal = 0;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'P')
+			if ( charcurVal== 'P')
 				curVal = 2;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
+			else if (charcurVal == 'N')
 				curVal = 3;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
+			else if (charcurVal == 'B')
 				curVal = 3;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
+			else if (charcurVal == 'R')
 				curVal = 5;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
+			else if (charcurVal == 'Q')
 				curVal = 9;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
+			else if (charcurVal == 'K')
 				curVal = 100;
 
 			int takeVal = 0;
 			currPiece = allMoves().get(i);
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'P')
+			
+			char chartakeVal = b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1);
+			
+			if ( chartakeVal == 'P')
 				takeVal = 2;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'N')
+			else if (chartakeVal == 'N')
 				takeVal = 3;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'B')
+			else if (chartakeVal == 'B')
 				takeVal = 3;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'R')
+			else if (chartakeVal == 'R')
 				takeVal = 5;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'Q')
+			else if (chartakeVal == 'Q')
 				takeVal = 9;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'K')
+			else if (chartakeVal == 'K')
 				takeVal = 100;
 
 			if (takeVal - curVal > high) {
@@ -1201,46 +1196,41 @@ public class v1Bobby {
 
 			if(takeIfPossible(allMoves().get(i))>1)
 			{
-			char c;
-			if (color == true)
-				c = 'W';
-			else
-				c = 'B';
-
+			
+			char charcurVal=(char) allMoves().get(i).get(0).toString().charAt(1);
+			
 			// p=2 n=3 b=3 r=5 q=9 k=100
 			int curVal = 0;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'P')
+			if ( charcurVal== 'P')
 				curVal = 2;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
+			else if (charcurVal == 'N')
 				curVal = 3;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
+			else if (charcurVal == 'B')
 				curVal = 3;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
+			else if (charcurVal == 'R')
 				curVal = 5;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
+			else if (charcurVal == 'Q')
 				curVal = 9;
-			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
+			else if (charcurVal == 'K')
 				curVal = 100;
 
 			int takeVal = 0;
 			currPiece = allMoves().get(i);
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'P')
+			
+			char chartakeVal = b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1);
+			
+			if ( chartakeVal == 'P')
 				takeVal = 2;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'N')
+			else if (chartakeVal == 'N')
 				takeVal = 3;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'B')
+			else if (chartakeVal == 'B')
 				takeVal = 3;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'R')
+			else if (chartakeVal == 'R')
 				takeVal = 5;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'Q')
+			else if (chartakeVal == 'Q')
 				takeVal = 9;
-			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
-					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'K')
+			else if (chartakeVal == 'K')
 				takeVal = 100;
 
 			if (takeVal - curVal > high) {
