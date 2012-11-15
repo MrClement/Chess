@@ -1776,10 +1776,10 @@ public class v1Bobby {
 		}
 		
 		//sees if another one of our pieces can take it if king can't/can't move
-			System.out.println(allMoves().get(11).size());
+
 			for (int r = 0; r < allMoves().size(); r++) {
 			for (int c = 2; c < allMoves().get(r).size(); c++) {		
-				System.out.println(r + " , " + c + "  "+ allMoves().get(c).size());
+				
 				if(((Point)allMoves().get(r).get(c)).equals(enemyCoord)) 
 				{
 					move((int)((Point)allMoves().get(r).get(1)).getX(),(int)((Point)allMoves().get(r).get(1)).getY(),
