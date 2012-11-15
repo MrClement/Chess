@@ -1379,7 +1379,7 @@ public class v1Bobby {
 		move(x,y,a,b);
 		enemy.getBoard(this.b);
 		int bob= enemy.numDefenders(a,b);
-		if(bob!=0 ||  bob>numDefenders(a,b)) causeCheck=true;
+		if(bob!=0 && bob>numDefenders(a,b) && (this.b[a][b].toString().charAt(1) == 'Q' || this.b[a][b].toString().charAt(1) != 'R')) causeCheck=true;
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
