@@ -906,159 +906,6 @@ public class v1Bobby {
 		return 1;
 	}
 
-	public ArrayList<Point> bestPieceToTake()
-
-	{
-		ArrayList<Point> a = new ArrayList<Point>();
-		int loc = 0;
-		int locloc = 1;
-		int bb = 0;
-
-		for (int i = 0; i < allMoves().size(); i++) {
-			int bestv = 0;
-			int best = 0;
-			char t = allMoves().get(i).get(0).toString().charAt(1);
-			int v;
-			switch (t) {
-				case 'P':
-					v = 2;
-					break;
-				case 'R':
-					v = 5;
-					break;
-
-				case 'N':
-					v = 3;
-					break;
-
-				case 'B':
-					v = 4;
-					break;
-
-				case 'K':
-					v = 100;
-					break;
-
-				case 'Q':
-					v = 6;
-					break;
-				default:
-					v = 0;
-					break;
-			}
-
-			for (int d = 1; d < allMoves().get(i).size(); d++) {
-				char tt = b[(int) ((Point) allMoves().get(i).get(d)).getX()][(int) ((Point) allMoves().get(i).get(d))
-						.getY()].toString().charAt(1);
-				int vv;
-				switch (tt) {
-					case 'P':
-						vv = 2;
-						break;
-					case 'R':
-						vv = 5;
-						break;
-
-					case 'N':
-						vv = 3;
-						break;
-
-					case 'B':
-						vv = 4;
-						break;
-
-					case 'K':
-						vv = 100;
-						break;
-
-					case 'Q':
-						vv = 6;
-						break;
-
-					default:
-						vv = 0;
-						break;
-				}
-
-				v1Bobby test = new v1Bobby(b, color);
-				test.set((int) ((Point) allMoves().get(i).get(d)).getX(),
-						(int) ((Point) allMoves().get(i).get(d)).getY(), (Piece) allMoves().get(i).get(0));
-				if (vv - v >= bestv) {
-					bestv = vv - v;
-					best = d;
-				}
-				if (best > bb) {
-					bb = bestv;
-					loc = i;
-					locloc = best;
-				}
-			}
-		}
-
-		a.add(new Point((Point) allMoves().get(loc).get(1)));
-		a.add(new Point((Point) allMoves().get(loc).get(locloc)));
-		return a;
-
-		/*
-		 * ArrayList<Point> v=new ArrayList<Point>();
-		 * 
-		 * int best=0; ArrayList currPiece=allMoves().get(0); int high=0;
-		 * for(int i=0;i<allMoves().size();i++){
-		 * 
-		 * char c; if(color==true)c='W';else c='B';
-		 * 
-		 * //p=2 n=3 b=3 r=5 q=9 k=100 int curVal = 0;
-		 * if((char)allMoves().get(i).get(0).toString().charAt(1) == 'P')
-		 * curVal=2; if((char)allMoves().get(i).get(0).toString().charAt(1) ==
-		 * 'N') curVal=3; if((char)allMoves().get(i).get(0).toString().charAt(1)
-		 * == 'B') curVal=3;
-		 * if((char)allMoves().get(i).get(0).toString().charAt(1) == 'R')
-		 * curVal=5; if((char)allMoves().get(i).get(0).toString().charAt(1) ==
-		 * 'Q') curVal=9; if((char)allMoves().get(i).get(0).toString().charAt(1)
-		 * == 'K') curVal=100;
-		 * 
-		 * int takeVal=0; currPiece= allMoves().get(i);
-		 * if(b[(int)((Point)currPiece
-		 * .get(takeIfPossible(currPiece))).getX()][(int
-		 * )((Point)currPiece.get(takeIfPossible
-		 * (currPiece))).getY()].toString().charAt(1)=='P') takeVal =2;
-		 * if(b[(int
-		 * )((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int
-		 * )((Point
-		 * )currPiece.get(takeIfPossible(currPiece))).getY()].toString().
-		 * charAt(1)=='N') takeVal =3;
-		 * if(b[(int)((Point)currPiece.get(takeIfPossible
-		 * (currPiece))).getX()][(int
-		 * )((Point)currPiece.get(takeIfPossible(currPiece
-		 * ))).getY()].toString().charAt(1)=='B') takeVal =3;
-		 * if(b[(int)((Point)currPiece
-		 * .get(takeIfPossible(currPiece))).getX()][(int
-		 * )((Point)currPiece.get(takeIfPossible
-		 * (currPiece))).getY()].toString().charAt(1)=='R') takeVal =5;
-		 * if(b[(int
-		 * )((Point)currPiece.get(takeIfPossible(currPiece))).getX()][(int
-		 * )((Point
-		 * )currPiece.get(takeIfPossible(currPiece))).getY()].toString().
-		 * charAt(1)=='Q') takeVal =9;
-		 * if(b[(int)((Point)currPiece.get(takeIfPossible
-		 * (currPiece))).getX()][(int
-		 * )((Point)currPiece.get(takeIfPossible(currPiece
-		 * ))).getY()].toString().charAt(1)=='K') takeVal =100;
-		 * 
-		 * if(takeVal-curVal>high){ high=takeVal-curVal; best=i;
-		 * v.add((Point)allMoves().get(best).get(1));
-		 * v.add((Point)allMoves().get
-		 * (best).get(takeIfPossible(allMoves().get(best)))); } else{
-		 * v.add((Point)allMoves().get(best).get(1));
-		 * v.add((Point)allMoves().get(best).get(1));
-		 * 
-		 * } }
-		 * 
-		 * return v;
-		 */
-
-	}
-
 	public void newBestPieceToTake() {
 		ArrayList<Point> v = new ArrayList<Point>();
 
@@ -1516,6 +1363,29 @@ public class v1Bobby {
 		return a;
 	}
 
+	public boolean willThisMoveCauseCheck(int x, int y, int a, int b)
+	{
+		boolean causeCheck=false;
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+		
+		Point oldLocation= new Point(x,y);
+		Point p4=new Point(a,b);
+		boolean possibleMove=false;
+		boolean dontLook= false;
+		if(this.b[a][b].toString().charAt(1) != 'X'){
+			dontLook=true;
+		}
+		if(dontLook==false)
+		{	
+		move(x,y,a,b);
+		enemy.getBoard(this.b);
+		if(check()==true) causeCheck=true;
+		move(a,b,x,y);
+		}
+		enemy.getBoard(this.b);
+		
+		return causeCheck;
+	}
 	public void randomMove() {
 		Random r = new Random();
 		// p = 1-35
@@ -1548,11 +1418,16 @@ public class v1Bobby {
 					a = r.nextInt(pMoves().size());
 				}
 				int b = r.nextInt(pMoves().get(a).size() - 2) + 2;
+				
+				if(willThisMoveCauseCheck((int) ((Point) pMoves().get(a).get(1)).getX(), (int) ((Point) pMoves().get(a).get(1)).getY(),
+						(int) ((Point) pMoves().get(a).get(b)).getX(), (int) ((Point) pMoves().get(a).get(b)).getY())==false)
+				{
 				System.out.println("random pawn move!: " + pMoves().get(a).get(1) + " moves to "
 						+ pMoves().get(a).get(b));
 				move((int) ((Point) pMoves().get(a).get(1)).getX(), (int) ((Point) pMoves().get(a).get(1)).getY(),
 						(int) ((Point) pMoves().get(a).get(b)).getX(), (int) ((Point) pMoves().get(a).get(b)).getY());
 				isMoveMade = true;
+				}
 				}
 			}
 
@@ -1581,12 +1456,17 @@ public class v1Bobby {
 				if (makeSureNotThreatened.size() == 0
 						|| numDefenders((int) ((Point) nMoves().get(a).get(b)).getX(), (int) ((Point) nMoves().get(a)
 								.get(b)).getY()) > 1) {
+					if(willThisMoveCauseCheck((int) ((Point) nMoves().get(a).get(1)).getX(), (int) ((Point) nMoves().get(a).get(1)).getY(),
+							(int) ((Point) nMoves().get(a).get(b)).getX(),
+							(int) ((Point) nMoves().get(a).get(b)).getY())==false)
+					{
 					System.out.println("random knight move!: " + nMoves().get(a).get(1) + " moves to "
 							+ nMoves().get(a).get(b));
 					move((int) ((Point) nMoves().get(a).get(1)).getX(), (int) ((Point) nMoves().get(a).get(1)).getY(),
 							(int) ((Point) nMoves().get(a).get(b)).getX(),
 							(int) ((Point) nMoves().get(a).get(b)).getY());
 					isMoveMade = true;
+				}
 				}
 			}
 				}
@@ -1616,13 +1496,18 @@ public class v1Bobby {
 				if (makeSureNotThreatened.size() == 0
 						|| numDefenders((int) ((Point) bMoves().get(a).get(b)).getX(), (int) ((Point) bMoves().get(a)
 								.get(b)).getY()) > 1) {
+					if(willThisMoveCauseCheck((int) ((Point) bMoves().get(a).get(1)).getX(), (int) ((Point) bMoves().get(a).get(1)).getY(),
+							(int) ((Point) bMoves().get(a).get(b)).getX(),
+							(int) ((Point) bMoves().get(a).get(b)).getY())==false)
+					{
 					System.out.println("random bishop move!: " + bMoves().get(a).get(1) + " moves to "
 							+ bMoves().get(a).get(b));
 					move((int) ((Point) bMoves().get(a).get(1)).getX(), (int) ((Point) bMoves().get(a).get(1)).getY(),
 							(int) ((Point) bMoves().get(a).get(b)).getX(),
 							(int) ((Point) bMoves().get(a).get(b)).getY());
 					isMoveMade = true;
-				}
+					}
+					}
 				}
 			}
 
@@ -1654,13 +1539,18 @@ public class v1Bobby {
 				if (makeSureNotThreatened.size() == 0
 						|| numDefenders((int) ((Point) rMoves().get(a).get(b)).getX(), (int) ((Point) rMoves().get(a)
 								.get(b)).getY()) > 1) {
+					if(willThisMoveCauseCheck((int) ((Point) rMoves().get(a).get(1)).getX(), (int) ((Point) rMoves().get(a).get(1)).getY(),
+							(int) ((Point) rMoves().get(a).get(b)).getX(),
+							(int) ((Point) rMoves().get(a).get(b)).getY())==false)
+					{
 					System.out.println("random rook move!: " + rMoves().get(a).get(1) + " moves to "
 							+ rMoves().get(a).get(b));
 					move((int) ((Point) rMoves().get(a).get(1)).getX(), (int) ((Point) rMoves().get(a).get(1)).getY(),
 							(int) ((Point) rMoves().get(a).get(b)).getX(),
 							(int) ((Point) rMoves().get(a).get(b)).getY());
 					isMoveMade = true;
-				}
+					}
+					}
 				}
 			}
 
@@ -1692,13 +1582,18 @@ public class v1Bobby {
 				if (makeSureNotThreatened.size() == 0
 						|| numDefenders((int) ((Point) qMoves().get(a).get(b)).getX(), (int) ((Point) qMoves().get(a)
 								.get(b)).getY()) > 1) {
+					if(willThisMoveCauseCheck((int) ((Point) qMoves().get(a).get(1)).getX(), (int) ((Point) qMoves().get(a).get(1)).getY(),
+							(int) ((Point) qMoves().get(a).get(b)).getX(),
+							(int) ((Point) qMoves().get(a).get(b)).getY())==false)
+					{
 					System.out.println("random queen move!: " + qMoves().get(a).get(1) + " moves to "
 							+ qMoves().get(a).get(b));
 					move((int) ((Point) qMoves().get(a).get(1)).getX(), (int) ((Point) qMoves().get(a).get(1)).getY(),
 							(int) ((Point) qMoves().get(a).get(b)).getX(),
 							(int) ((Point) qMoves().get(a).get(b)).getY());
 					isMoveMade = true;
-				}
+					}
+					}
 				}
 			}
 
