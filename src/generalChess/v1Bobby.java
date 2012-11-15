@@ -1378,7 +1378,8 @@ public class v1Bobby {
 		{	
 		move(x,y,a,b);
 		enemy.getBoard(this.b);
-		if(enemy.numDefenders(a,b)!=0 || (enemy.numDefenderValue(a,b)!=0 && enemy.numDefenderValue(a,b)<numDefenderValue(a,b))) causeCheck=true;
+		int bob= enemy.numDefenders(a,b);
+		if(bob!=0 ||  bob>numDefenders(a,b)) causeCheck=true;
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
@@ -1754,11 +1755,13 @@ public class v1Bobby {
 	public ArrayList<Point> isThreatened(int d, int e) {
 		ArrayList<Point> a = new ArrayList<Point>();
 		v1Bobby c = new v1Bobby(b, !color);
+		int k;
 		for (int i = 0; i < c.allMoves().size(); i++) {
-			for (int k = 1; k < c.allMoves().get(i).size(); k++) {
-				if (((Point) c.allMoves().get(i).get(k)).equals(new Point(d, e))) {
+			
+			k= takeIfPossible(c.allMoves().get(i));	
+			if (k!=1 && ((Point) c.allMoves().get(i).get(k)).equals(new Point(d, e))) {
 					a.add((Point) c.allMoves().get(i).get(1));
-				}
+				
 			}
 
 		}
