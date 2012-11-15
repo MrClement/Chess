@@ -1367,7 +1367,6 @@ public class v1Bobby {
 	{
 		boolean causeCheck=false;
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
-		
 		Point oldLocation= new Point(x,y);
 		Point p4=new Point(a,b);
 		boolean possibleMove=false;
@@ -1379,7 +1378,7 @@ public class v1Bobby {
 		{	
 		move(x,y,a,b);
 		enemy.getBoard(this.b);
-		if(enemy.numDefenders(a,b)!=0 || enemy.numDefenderValue(a,b)<numDefenderValue(a,b)) causeCheck=true;
+		if(enemy.numDefenders(a,b)!=0 || (enemy.numDefenderValue(a,b)!=0 && enemy.numDefenderValue(a,b)<numDefenderValue(a,b))) causeCheck=true;
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
@@ -1388,6 +1387,9 @@ public class v1Bobby {
 		return causeCheck;
 	}
 	public void randomMove() {
+		
+		//MAKE ARRAY OF PIECES THAT CAN MOVE RIGHT OFF THE BAT, THEN SEARCH THROUGH THOSE
+		
 		Random r = new Random();
 		// p = 1-35
 		// n = 36-50
