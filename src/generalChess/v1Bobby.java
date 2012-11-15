@@ -1364,6 +1364,7 @@ public class v1Bobby {
 			
 			move((int)((Point)allMoves().get(fakePieceIsHere).get(1)).getX(),(int)((Point)allMoves().get(fakePieceIsHere).get(1)).getY(),(int)oldLocation.getX(),(int)oldLocation.getY());
 			}
+			enemy.getBoard(b);
 			//enemy.allMoves().add(temp);
 			if(canIMoveOutOfDanger==false)counter++;
 		}
@@ -1771,48 +1772,56 @@ public class v1Bobby {
 		if(takeIfPossible(kMoves().get(0))!=1)
 		{
 			move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
-					((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()));
+					((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getY()));
 			System.out.println("don't check me or i'll eat ya!");
 			numTurns++;
 		}
 			
 		else if(this.kMoves().get(0).size()>=3){
 			move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
-					((int) ((Point) kMoves().get(0).get(2)).getX()), ((int) ((Point) kMoves().get(0).get(2)).getX()));
+					((int) ((Point) kMoves().get(0).get(2)).getX()), ((int) ((Point) kMoves().get(0).get(2)).getY()));
+			System.out.println("King on the run!");
 			numTurns++;
 		}
 		
+		else
+		{
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
-		
+		System.out.println("here");
 		Point enemyCoord=new Point(-1,-1);
 		Point kingCoord=new Point((int)((Point)kMoves().get(0).get(1)).getX(),(int)((Point)kMoves().get(0).get(1)).getY());
 		//finds loc of enemy attacking king
 		for (int i = 0; i < enemy.allMoves().size(); i++) {
-			for (int j = 2; j < enemy.allMoves().get(i).size(); j++) {
-				if(((Point)enemy.allMoves().get(i).get(j)).equals((Point)this.kMoves().get(0).get(1)))
+				if(((Point)enemy.allMoves().get(i).get(takeIfPossible(enemy.allMoves().get(i)))).equals((Point)this.kMoves().get(0).get(1)))
 				{
+					System.out.println("here1");
 					enemyCoord.setLocation(((Point)enemy.allMoves().get(i).get(1)).getX(), ((Point)enemy.allMoves().get(i).get(1)).getY());
 				}
-			}
 		}
 		
 		//sees if another one of our pieces can take it if king can't/can't move
-
+			int quit=-999;
 			for (int r = 0; r < allMoves().size(); r++) {
 			for (int c = 2; c < allMoves().get(r).size(); c++) {		
 				
-				if(((Point)allMoves().get(r).get(c)).equals(enemyCoord)) 
+				while(quit==-999)
 				{
-					move((int)((Point)allMoves().get(r).get(1)).getX(),(int)((Point)allMoves().get(r).get(1)).getY(),
+					if(((Point)allMoves().get(r).get(c)).equals(enemyCoord)) 
+				{
+						System.out.println("here3");
+						move((int)((Point)allMoves().get(r).get(1)).getX(),(int)((Point)allMoves().get(r).get(1)).getY(),
 						(int)((Point)allMoves().get(r).get(c)).getX(),(int)((Point)allMoves().get(r).get(c)).getY());
 				numTurns++;
+				quit=0;
+				}
 				}
 			}
 		}
-		
+		}
 			
 		if(currTurns==numTurns)
 		{
+			System.out.println("her4e");
 			getOutOfCheck();
 		}
 		
@@ -1948,6 +1957,8 @@ public class v1Bobby {
 				System.out.println(time);
 				}
 			if (currNumTurns == numTurns) bestPieceGetOutOfDanger();
+			//then write random so if it moves it doesn't endanger other pieces, also write pawn so it
+			//only moves into danger if its defended
 			if (currNumTurns == numTurns){
 				randomMove();
 				this.numTurns++;
