@@ -1057,6 +1057,8 @@ public class v1Bobby {
 
 		for (int i = 0; i < allMoves().size(); i++) {
 
+			if(takeIfPossible(allMoves().get(i))!=1)
+			{
 			char c;
 			if (color == true)
 				c = 'W';
@@ -1115,36 +1117,13 @@ public class v1Bobby {
 						(int) (((Point) allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getY())) < numDefenders(
 						(int) (((Point) allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
 						(int) (((Point) allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY())))
-
-					high2 = 0;
+				{
+				high2 = 0;
 				best1 = i;
-
+				}
 			}
 
 			if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
-
-				/*
-				 * int locEnemy = -1; for(int z = 0; z<enemy.allMoves().size();
-				 * z++) {
-				 * if(((Point)enemy.allMoves().get(z).get(1)).getX()==(((Point
-				 * )allMoves
-				 * ().get(i).get(takeIfPossible(allMoves().get(i)))).getX()) &&
-				 * (
-				 * (Point)enemy.allMoves().get(z).get(1)).getY()==(((Point)allMoves
-				 * ().get(i).get(takeIfPossible(allMoves().get(i)))).getY())) {
-				 * locEnemy = z; } }
-				 * 
-				 * 
-				 * if(enemy.numDefenders((int)((Point)enemy.allMoves().get(locEnemy
-				 * ).get(1)).getX(),
-				 * (int)((Point)enemy.allMoves().get(locEnemy).
-				 * get(1)).getY())<numDefenders
-				 * ((int)(((Point)allMoves().get(i).get
-				 * (takeIfPossible(allMoves().get(i)))).getX()),
-				 * (int)(((Point)allMoves
-				 * ().get(i).get(takeIfPossible(allMoves().get(i)))).getY()))){
-				 * lessThan=takeVal-curVal; best2=i; }
-				 */
 
 				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
 						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
@@ -1157,7 +1136,7 @@ public class v1Bobby {
 				}
 			}
 		}
-
+		}
 		// by now has picked the best piece of a higher value, of equal value,
 		// and if no higher value or equal value available, of lower value
 		// first sees if higher value possible, then equal value, then lower
@@ -1919,21 +1898,7 @@ public class v1Bobby {
 				System.out.print("Lose");
 			else if (check() == true) {
 				
-				//if in check king will take the piece or a piece if it can, otherwise it will just move away
-			if(takeIfPossible(kMoves().get(0))!=1)
-			{
-				move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
-						((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()));
-				this.numTurns++;
-			}
-				
-			else if(kMoves().size()>=3)
-			{
-				move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
-						((int) ((Point) kMoves().get(0).get(2)).getX()), ((int) ((Point) kMoves().get(0).get(2)).getX()));
-				this.numTurns++;	
-			}
-			else stopCheck();
+			 stopCheck();
 				
 			if (checkmate() == true) System.out.print("Lose");
 			} 
@@ -1950,8 +1915,10 @@ public class v1Bobby {
 			if (currNumTurns == numTurns)
 				bestPieceGetOutOfDanger();
 			if (currNumTurns == numTurns)
+			{
 				randomMove();
-
+				this.numTurns++;
+			}
 		}
 
 		System.out.println("numTurns= " + this.numTurns);

@@ -28,7 +28,7 @@ public class maxTestClass {
 		
 		//a.move(7,7,3,4);
 		a.printBoard();
-		/*a.newBestPieceToTake();
+		a.newBestPieceToTake();
 		a.printBoard();
 		
 		a.printBoard();
@@ -49,7 +49,6 @@ public class maxTestClass {
 	
 		
 		System.out.println(a.allMoves());
-		*/
 		}
 	
 }
