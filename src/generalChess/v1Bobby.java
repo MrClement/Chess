@@ -234,7 +234,7 @@ public class v1Bobby {
 							for (int b = y - 1; b < y + 2; b++) {
 								if (a > -1 && a < 8 && b > -1 && b < 8) {
 									if ((this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
-											&& (enemy.numDefenders(x, y) == 0)) {
+											&& (enemy.numDefenders(a, b) == 0)) {
 										g.add(new Point(a, b));
 									}
 								}
@@ -1185,6 +1185,235 @@ public class v1Bobby {
 		}
 		move((int) v.get(0).getX(), (int) v.get(0).getY(), (int) v.get(1).getX(), (int) v.get(1).getY());
 	}
+	public ArrayList<Point> newBestPieceToTakeCoords() {
+		ArrayList<Point> v = new ArrayList<Point>();
+
+		int best = 0;
+		int best1 = 0;
+		int best2 = 0;
+		int equals = 0;
+		int lessThan = -999;
+		ArrayList currPiece = allMoves().get(0);
+		int high = 0;
+		int high2 = -1;
+
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+
+		for (int i = 0; i < allMoves().size(); i++) {
+
+			char c;
+			if (color == true)
+				c = 'W';
+			else
+				c = 'B';
+
+			// p=2 n=3 b=3 r=5 q=9 k=100
+			int curVal = 0;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'P')
+				curVal = 2;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
+				curVal = 3;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
+				curVal = 3;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
+				curVal = 5;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
+				curVal = 9;
+			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
+				curVal = 100;
+
+			int takeVal = 0;
+			currPiece = allMoves().get(i);
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'P')
+				takeVal = 2;
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'N')
+				takeVal = 3;
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'B')
+				takeVal = 3;
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'R')
+				takeVal = 5;
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'Q')
+				takeVal = 9;
+			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'K')
+				takeVal = 100;
+
+			if (takeVal - curVal > high) {
+
+				high = takeVal - curVal;
+				best = i;
+
+			}
+			if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
+				// if there is no piece to take of a higher value, it checks the
+				// best piece to take of the same value which the one with less
+				// defenders
+				// so it wont get eaten next turn
+				if (numDefenders(
+						(int) (((Point) allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getX()),
+						(int) (((Point) allMoves().get(best1).get(takeIfPossible(allMoves().get(best1)))).getY())) < numDefenders(
+						(int) (((Point) allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getX()),
+						(int) (((Point) allMoves().get(i).get(takeIfPossible(allMoves().get(i)))).getY())))
+
+					high2 = 0;
+				best1 = i;
+
+			}
+
+			if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
+
+				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
+						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
+						takeIfPossible(allMoves().get(i)))).getY()));
+
+				if (enemy.numDefenders((int) pointOfContention.getX(), (int) pointOfContention.getY()) < numDefenders(
+						(int) pointOfContention.getX(), (int) pointOfContention.getY())) {
+					lessThan = takeVal - curVal;
+					best2 = i;
+				}
+			}
+		}
+
+		// by now has picked the best piece of a higher value, of equal value,
+		// and if no higher value or equal value available, of lower value
+		// first sees if higher value possible, then equal value, then lower
+		// value. if no pieces can be taken or a piece has too many defenders
+		// will return an array with two of the same location pieces
+		if (high > 0) {
+			v.add((Point) allMoves().get(best).get(1));
+			v.add((Point) allMoves().get(best).get(takeIfPossible(allMoves().get(best))));
+
+		}
+
+		else if (high2 == 0) {
+			v.add((Point) allMoves().get(best1).get(1));
+			v.add((Point) allMoves().get(best1).get(takeIfPossible(allMoves().get(best1))));
+
+		} else {
+
+			v.add((Point) allMoves().get(best2).get(1));
+			v.add((Point) allMoves().get(best2).get(takeIfPossible(allMoves().get(best2))));
+
+		}
+		
+		return v;
+	}
+	
+	public void bestPieceGetOutOfDanger() {
+		ArrayList<Point> v = new ArrayList<Point>();
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+
+		v=enemy.newBestPieceToTakeCoords();
+		
+		
+		
+		if ((v.get(0).equals(v.get(1)))) return;
+		if (!(v.get(0).equals(v.get(1))))
+				{
+		Point needsToMove = new Point((int)v.get(1).getX(),(int)v.get(1).getY());
+		int gottaMoveIndex= -1;
+		for (int k = 0; k < allMoves().size(); k++) {
+			if (needsToMove.equals((Point) allMoves().get(k).get(1))){
+				gottaMoveIndex=k;
+			}
+			}
+		
+		//allMoves().get(gottaMoveIndex) is a piece that is in the most danger from the opponents and needs to move to safety
+		
+		
+		//piece will move to where there is no enemy defenders if that is possible
+		boolean canIMoveOutOfDanger = false;
+		int counter= 2;
+		while(canIMoveOutOfDanger == false && counter<=allMoves().get(gottaMoveIndex).size()-1)
+		{
+			
+			//move the piece to the location to see if then there would be any attackers on it, then move back
+			Point oldLocation= new Point((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY());
+			
+			Point p4=new Point((int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getY());
+			
+			//we dont need to move our guy onto an enemy piece
+			boolean dontLook= false;
+			if(b[(int)p4.getX()][(int)p4.getY()].getColor()==!color){
+				dontLook=true;
+			}
+			if(dontLook==false)
+			{	
+			move((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY(),
+			(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getY());
+			
+
+			
+			int fakePieceIsHere = -999;
+			for(int z =0; z<allMoves().size(); z++)
+			{
+				Point p3 =new Point((Point)allMoves().get(z).get(1));
+				
+				if(p3.equals(p4)) fakePieceIsHere = z;
+			}
+
+			enemy.getBoard(b);;
+			if(enemy.numDefenders((int)((Point)allMoves().get(fakePieceIsHere).get(1)).getX(),(int)((Point)allMoves().get(fakePieceIsHere).get(1)).getY())==0)
+				canIMoveOutOfDanger=true;
+			//find curr location of fake moved piece
+			
+			
+			
+			move((int)((Point)allMoves().get(fakePieceIsHere).get(1)).getX(),(int)((Point)allMoves().get(fakePieceIsHere).get(1)).getY(),(int)oldLocation.getX(),(int)oldLocation.getY());
+			}
+			//enemy.allMoves().add(temp);
+			if(canIMoveOutOfDanger==false)counter++;
+		}
+		
+		if(canIMoveOutOfDanger==true)
+		{
+			
+			Point p1=new Point((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY());
+			Point p2=new Point((int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getY());
+	
+			move((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY(),
+			(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(counter)).getY());
+			this.numTurns++;
+			System.out.println("running from " + p1 + "to " + p2);
+		}
+		else{
+		int bestPlaceIndex= 1;
+		for(int w=2; w<allMoves().get(gottaMoveIndex).size(); w++)
+		{
+			//if the place the in danger piece wants to move is better defended than attacked in pieces and value then it will move there
+			int currDefenders= numDefenders((int)((Point)allMoves().get(gottaMoveIndex).get(w)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(w)).getY()) -1;
+			int enemycurrDefenders= enemy.numDefenders((int)((Point)allMoves().get(gottaMoveIndex).get(w)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(w)).getY());
+			//NEED TO SUBTRACT PIECE VALUE THAT WILL BE MOVING THERE
+			int currDefendersValue= numDefenderValue((int)((Point)allMoves().get(gottaMoveIndex).get(w)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(w)).getY());
+			int enemycurrDefendersValue= enemy.numDefenderValue((int)((Point)allMoves().get(gottaMoveIndex).get(w)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(w)).getY());
+			
+			if(currDefenders>0 && currDefenders>=enemycurrDefenders && currDefendersValue<=enemycurrDefendersValue) bestPlaceIndex=w; 
+		}	
+		
+		Point p1=new Point((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY());
+		Point p2=new Point((int)((Point)allMoves().get(gottaMoveIndex).get(bestPlaceIndex)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(bestPlaceIndex)).getY());
+		if(!p1.equals(p2))
+		{
+		this.numTurns++;
+		System.out.println("running from " + p1 + "to " + p2);
+		move((int)((Point)allMoves().get(gottaMoveIndex).get(1)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(1)).getY(),
+				(int)((Point)allMoves().get(gottaMoveIndex).get(bestPlaceIndex)).getX(),(int)((Point)allMoves().get(gottaMoveIndex).get(bestPlaceIndex)).getY());
+		}
+		}
+				
+				
+				}
+		
+			
+			
+	}
+		
+	
 
 	// return numDefenders, 0 if no piece is defending that location, there may
 	// be a piece on that location
@@ -1718,7 +1947,8 @@ public class v1Bobby {
 				time = time / 1000F;
 				System.out.println(time);
 			}
-
+			if (currNumTurns == numTurns)
+				bestPieceGetOutOfDanger();
 			if (currNumTurns == numTurns)
 				randomMove();
 
