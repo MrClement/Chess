@@ -1515,17 +1515,21 @@ public class v1Bobby {
 		boolean isMoveMade = false;
 		while (isMoveMade == false) {
 			int z = r.nextInt(100) + 1;
-
+			int counter=0;
 			// chooses a random pawn and moves it to a random legal location,
 			// first must check to makes sure there are pawns left that have
 			// legal moves to make
 			boolean isTherePawnsThatCanMakeMoves;
 			isTherePawnsThatCanMakeMoves = false;
-			for (int i = 0; i < pMoves().size(); i++) {
-				if (pMoves().get(i).size() > 2 && isTherePawnsThatCanMakeMoves == false)
-					isTherePawnsThatCanMakeMoves = true;
-			}
-			if (z >= 1 && z <= 35 && isTherePawnsThatCanMakeMoves == true) {
+			
+			counter=0;
+			
+			if (z >= 1 && z <= 35) {
+				while(isTherePawnsThatCanMakeMoves == false){
+					if (pMoves().get(counter).size() > 2) isTherePawnsThatCanMakeMoves = true;
+					counter++;
+				}
+				if(isTherePawnsThatCanMakeMoves == true){
 				int a = r.nextInt(pMoves().size());
 				while (pMoves().get(a).size() <= 2) {
 					a = r.nextInt(pMoves().size());
@@ -1536,6 +1540,7 @@ public class v1Bobby {
 				move((int) ((Point) pMoves().get(a).get(1)).getX(), (int) ((Point) pMoves().get(a).get(1)).getY(),
 						(int) ((Point) pMoves().get(a).get(b)).getX(), (int) ((Point) pMoves().get(a).get(b)).getY());
 				isMoveMade = true;
+				}
 			}
 
 			// chooses a random knight and moves it to a random legal location,
@@ -1543,11 +1548,14 @@ public class v1Bobby {
 			// legal moves to make
 			boolean isThereKnightsThatCanMakeMoves;
 			isThereKnightsThatCanMakeMoves = false;
-			for (int i = 0; i < nMoves().size(); i++) {
-				if (nMoves().get(i).size() > 2 && isThereKnightsThatCanMakeMoves == false)
-					isThereKnightsThatCanMakeMoves = true;
-			}
-			if (z >= 36 && z <= 50 && isThereKnightsThatCanMakeMoves == true) {
+			counter=0;
+
+			if (z >= 36 && z <= 50) {
+					while(isThereKnightsThatCanMakeMoves == false){
+						if (nMoves().get(counter).size() > 2) isThereKnightsThatCanMakeMoves = true;
+						counter++;
+					}
+				if(isThereKnightsThatCanMakeMoves == true){
 				int a = r.nextInt(nMoves().size());
 				while (nMoves().get(a).size() <= 2) {
 					a = r.nextInt(nMoves().size());
@@ -1568,20 +1576,21 @@ public class v1Bobby {
 					isMoveMade = true;
 				}
 			}
+				}
 
 			// chooses a random bishop and moves it to a random legal location,
 			// first must check to makes sure there are bishops left that have
 			// legal moves to make
 			boolean isThereBishopsThatCanMakeMoves;
 			isThereBishopsThatCanMakeMoves = false;
-			for (int i = 0; i < bMoves().size(); i++) {
-
-				if (bMoves().get(i).size() > 2 && isThereBishopsThatCanMakeMoves == false)
-					isThereBishopsThatCanMakeMoves = true;
-
-			}
-			if (z >= 51 && z <= 65 && isThereBishopsThatCanMakeMoves == true) {
-
+			
+			counter=0;
+			if (z >= 51 && z <= 65) {
+				while(isThereBishopsThatCanMakeMoves == false){
+					if (bMoves().get(counter).size() > 2) isThereBishopsThatCanMakeMoves = true;
+					counter++;
+				}
+			if(isThereBishopsThatCanMakeMoves == true){
 				int a = r.nextInt(bMoves().size());
 				while (bMoves().get(a).size() <= 2) {
 					a = r.nextInt(bMoves().size());
@@ -1601,6 +1610,7 @@ public class v1Bobby {
 							(int) ((Point) bMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 				}
+				}
 			}
 
 			// chooses a random rook and moves it to a random legal location,
@@ -1608,11 +1618,17 @@ public class v1Bobby {
 			// legal moves to make
 			boolean isThereRooksThatCanMakeMoves;
 			isThereRooksThatCanMakeMoves = false;
-			for (int i = 0; i < rMoves().size(); i++) {
-				if (rMoves().get(i).size() > 2 && isThereRooksThatCanMakeMoves == false)
-					isThereRooksThatCanMakeMoves = true;
-			}
-			if (z >= 66 && z <= 80 && isThereRooksThatCanMakeMoves == true) {
+			
+			counter=0;
+			
+			if (z >= 66 && z <= 80) {
+				
+				while(isThereRooksThatCanMakeMoves == false){
+					if (rMoves().get(counter).size() > 2) isThereRooksThatCanMakeMoves = true;
+					counter++;
+				}
+			if(isThereRooksThatCanMakeMoves == true){
+				
 				int a = r.nextInt(rMoves().size());
 				while (rMoves().get(a).size() <= 2) {
 					a = r.nextInt(rMoves().size());
@@ -1632,6 +1648,7 @@ public class v1Bobby {
 							(int) ((Point) rMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 				}
+				}
 			}
 
 			// chooses a random queen and moves it to a random legal location,
@@ -1639,11 +1656,17 @@ public class v1Bobby {
 			// legal moves to make
 			boolean isThereQueensThatCanMakeMoves;
 			isThereQueensThatCanMakeMoves = false;
-			for (int i = 0; i < qMoves().size(); i++) {
-				if (qMoves().get(i).size() > 2 && isThereQueensThatCanMakeMoves == false)
-					isThereQueensThatCanMakeMoves = true;
-			}
-			if (z >= 81 && z <= 95 && isThereQueensThatCanMakeMoves == true) {
+			
+			counter=0;
+			
+			if (z >= 81 && z <= 95) {
+				
+				while(isThereQueensThatCanMakeMoves == false){
+					if (qMoves().get(counter).size() > 2) isThereQueensThatCanMakeMoves = true;
+					counter++;
+				}
+			if(isThereQueensThatCanMakeMoves == true){
+				
 				int a = r.nextInt(qMoves().size());
 				while (qMoves().get(a).size() <= 2) {
 					a = r.nextInt(qMoves().size());
@@ -1663,18 +1686,16 @@ public class v1Bobby {
 							(int) ((Point) qMoves().get(a).get(b)).getY());
 					isMoveMade = true;
 				}
+				}
 			}
 
 			// chooses a random king and moves it to a random legal location,
 			// first must check to makes sure there are kings left that have
 			// legal moves to make
-			boolean isThereKingsThatCanMakeMoves;
-			isThereKingsThatCanMakeMoves = false;
-			for (int i = 0; i < kMoves().size(); i++) {
-				if (kMoves().get(i).size() > 2 && isThereKingsThatCanMakeMoves == false)
-					isThereKingsThatCanMakeMoves = true;
-			}
-			if (z >= 96 && z <= 100 && isThereKingsThatCanMakeMoves == true) {
+		
+			if (z >= 96 && z <= 100) {
+				if(kMoves().size()>2)
+				{
 				int a = r.nextInt(kMoves().size());
 				while (kMoves().get(a).size() <= 2) {
 					a = r.nextInt(kMoves().size());
@@ -1690,6 +1711,7 @@ public class v1Bobby {
 							(int) ((Point) kMoves().get(a).get(b)).getX(),
 							(int) ((Point) kMoves().get(a).get(b)).getY());
 					isMoveMade = true;
+				}
 				}
 			}
 		}
