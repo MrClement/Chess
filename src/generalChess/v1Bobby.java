@@ -1087,15 +1087,15 @@ public class v1Bobby {
 			int curVal = 0;
 			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'P')
 				curVal = 2;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
 				curVal = 3;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
 				curVal = 3;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
 				curVal = 5;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
 				curVal = 9;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
 				curVal = 100;
 
 			int takeVal = 0;
@@ -1103,19 +1103,19 @@ public class v1Bobby {
 			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'P')
 				takeVal = 2;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'N')
 				takeVal = 3;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'B')
 				takeVal = 3;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'R')
 				takeVal = 5;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'Q')
 				takeVal = 9;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'K')
 				takeVal = 100;
 
@@ -1125,7 +1125,7 @@ public class v1Bobby {
 				best = i;
 
 			}
-			if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
+			else if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
 				// if there is no piece to take of a higher value, it checks the
 				// best piece to take of the same value which the one with less
 				// defenders
@@ -1141,7 +1141,7 @@ public class v1Bobby {
 				}
 			}
 
-			if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
+			else if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
 
 				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
 						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
@@ -1209,15 +1209,15 @@ public class v1Bobby {
 			int curVal = 0;
 			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'P')
 				curVal = 2;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'N')
 				curVal = 3;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'B')
 				curVal = 3;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'R')
 				curVal = 5;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'Q')
 				curVal = 9;
-			if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
+			else if ((char) allMoves().get(i).get(0).toString().charAt(1) == 'K')
 				curVal = 100;
 
 			int takeVal = 0;
@@ -1225,19 +1225,19 @@ public class v1Bobby {
 			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'P')
 				takeVal = 2;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'N')
 				takeVal = 3;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'B')
 				takeVal = 3;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'R')
 				takeVal = 5;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'Q')
 				takeVal = 9;
-			if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
+			else if (b[(int) ((Point) currPiece.get(takeIfPossible(currPiece))).getX()][(int) ((Point) currPiece
 					.get(takeIfPossible(currPiece))).getY()].toString().charAt(1) == 'K')
 				takeVal = 100;
 
@@ -1247,7 +1247,7 @@ public class v1Bobby {
 				best = i;
 
 			}
-			if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
+			else if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
 				// if there is no piece to take of a higher value, it checks the
 				// best piece to take of the same value which the one with less
 				// defenders
@@ -1263,7 +1263,7 @@ public class v1Bobby {
 
 			}
 
-			if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
+			else if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
 
 				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
 						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
