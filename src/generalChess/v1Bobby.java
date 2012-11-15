@@ -1075,7 +1075,7 @@ public class v1Bobby {
 
 		for (int i = 0; i < allMoves().size(); i++) {
 
-			if(takeIfPossible(allMoves().get(i))!=1)
+			if(takeIfPossible(allMoves().get(i))>1)
 			{
 			char c;
 			if (color == true)
@@ -1125,7 +1125,7 @@ public class v1Bobby {
 				best = i;
 
 			}
-			else if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
+			else if (takeVal - curVal == 0) {
 				// if there is no piece to take of a higher value, it checks the
 				// best piece to take of the same value which the one with less
 				// defenders
@@ -1141,7 +1141,7 @@ public class v1Bobby {
 				}
 			}
 
-			else if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
+			else if (takeVal - curVal > lessThan) {
 
 				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
 						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
@@ -1199,6 +1199,8 @@ public class v1Bobby {
 
 		for (int i = 0; i < allMoves().size(); i++) {
 
+			if(takeIfPossible(allMoves().get(i))>1)
+			{
 			char c;
 			if (color == true)
 				c = 'W';
@@ -1247,7 +1249,7 @@ public class v1Bobby {
 				best = i;
 
 			}
-			else if (takeVal - curVal == 0 && takeIfPossible(allMoves().get(i)) > 1) {
+			else if (takeVal - curVal == 0) {
 				// if there is no piece to take of a higher value, it checks the
 				// best piece to take of the same value which the one with less
 				// defenders
@@ -1263,7 +1265,7 @@ public class v1Bobby {
 
 			}
 
-			else if (takeIfPossible(allMoves().get(i)) > 1 && takeVal - curVal > lessThan) {
+			else if (takeVal - curVal > lessThan) {
 
 				Point pointOfContention = new Point((int) (((Point) allMoves().get(i).get(
 						takeIfPossible(allMoves().get(i)))).getX()), (int) (((Point) allMoves().get(i).get(
@@ -1275,6 +1277,7 @@ public class v1Bobby {
 					best2 = i;
 				}
 			}
+		}
 		}
 
 		// by now has picked the best piece of a higher value, of equal value,
