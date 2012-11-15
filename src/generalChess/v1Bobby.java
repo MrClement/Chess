@@ -235,7 +235,25 @@ public class v1Bobby {
 								if (a > -1 && a < 8 && b > -1 && b < 8) {
 									if ((this.b[a][b].toString().charAt(1) == 'X' || this.b[a][b].getColor() != color)
 											&& (enemy.numDefenders(a, b) == 0)) {
-										g.add(new Point(a, b));
+	
+											//checks to see if piece moved to a,b if it would still be under attack 
+											Point oldLocation= new Point(x,y);
+											Point p4=new Point(a,b);
+											boolean possibleMove=false;
+											boolean dontLook= false;
+											if(this.b[a][b].toString().charAt(1) != 'X'){
+												dontLook=true;
+											}
+											if(dontLook==false)
+											{	
+											move(x,y,a,b);
+											enemy.getBoard(this.b);
+											if(enemy.numDefenders(a,b)==0) possibleMove=true;
+											move(a,b,x,y);
+											}
+											enemy.getBoard(this.b);
+											
+										if(possibleMove==true) g.add(new Point(a, b));
 									}
 								}
 							}
@@ -1164,6 +1182,7 @@ public class v1Bobby {
 		}
 		move((int) v.get(0).getX(), (int) v.get(0).getY(), (int) v.get(1).getX(), (int) v.get(1).getY());
 	}
+	
 	public ArrayList<Point> newBestPieceToTakeCoords() {
 		ArrayList<Point> v = new ArrayList<Point>();
 
@@ -1336,7 +1355,7 @@ public class v1Bobby {
 				if(p3.equals(p4)) fakePieceIsHere = z;
 			}
 
-			enemy.getBoard(b);;
+			enemy.getBoard(b);
 			if(enemy.numDefenders((int)((Point)allMoves().get(fakePieceIsHere).get(1)).getX(),(int)((Point)allMoves().get(fakePieceIsHere).get(1)).getY())==0)
 				canIMoveOutOfDanger=true;
 			//find curr location of fake moved piece
@@ -1753,6 +1772,7 @@ public class v1Bobby {
 		{
 			move(((int) ((Point) kMoves().get(0).get(1)).getX()), ((int) ((Point) kMoves().get(0).get(1)).getY()),
 					((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()), ((int) ((Point) kMoves().get(0).get(takeIfPossible(kMoves().get(0)))).getX()));
+			System.out.println("don't check me or i'll eat ya!");
 			numTurns++;
 		}
 			
