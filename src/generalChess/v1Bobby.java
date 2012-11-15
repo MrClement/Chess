@@ -1849,7 +1849,7 @@ public class v1Bobby {
 		getBoard(b);
 		int currNumTurns = numTurns;
 
-		if (numTurns <= 6) {
+		if (numTurns < 6) {
 			if (this.numTurns == 0 && this.color == true) {
 				move(4, 6, 4, 4);
 			}
@@ -1892,17 +1892,10 @@ public class v1Bobby {
 			this.numTurns++;
 		}
 
-		if (numTurns >= 7) {
+		else {
 
-			if (checkmate() == true)
-				System.out.print("Lose");
-			else if (check() == true) {
-				
-			 stopCheck();
-				
 			if (checkmate() == true) System.out.print("Lose");
-			} 
-			
+			else if (check() == true) {stopCheck(); if (checkmate() == true) System.out.print("Lose");} 
 			else {
 				long start;
 				start = System.currentTimeMillis();
@@ -1911,11 +1904,9 @@ public class v1Bobby {
 				float time = System.currentTimeMillis() - start;
 				time = time / 1000F;
 				System.out.println(time);
-			}
-			if (currNumTurns == numTurns)
-				bestPieceGetOutOfDanger();
-			if (currNumTurns == numTurns)
-			{
+				}
+			if (currNumTurns == numTurns) bestPieceGetOutOfDanger();
+			if (currNumTurns == numTurns){
 				randomMove();
 				this.numTurns++;
 			}
