@@ -1884,6 +1884,7 @@ public class v1Bobby {
 			if (currNumTurns == numTurns) bestPieceGetOutOfDanger();
 			//then write random so if it moves it doesn't endanger other pieces, also write pawn so it
 			//only moves into danger if its defended
+			if(numTurns>20 && currNumTurns == numTurns) checkEnemy();
 			if (currNumTurns == numTurns){
 				randomMove();
 				this.numTurns++;
