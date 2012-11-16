@@ -456,7 +456,8 @@ public class DerpyAI {
 				if (!(piece.getColor())) {
 					// if the pawn wants to move up two spaces and is on its
 					// starting area
-					if (piece.getLocation().getY() == 1 && position.getY() == 3) {
+					if ((piece.getLocation().getY() == 1 && position.getY() == 3)
+							&& (piece.getLocation().getX() == xPos)) {
 						// can only move if not blocked by another piece
 						if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
 								&& currentBoard.getBoardArray()[xPos][2] instanceof DerpyBlank) {
@@ -1096,20 +1097,14 @@ public class DerpyAI {
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		/*
-		if (wereInCheckmate() || !weHaveOurKingStill()) {
-			System.out.println("DerpyAI has lost....press enter to continue.");
-			sc = new Scanner(System.in);
-			while (!sc.nextLine().equals(""))
-				;
-		}
-
-		if (theyreInCheckmate()) {
-			System.out.println("DerpyAI has won....press enter to continue.");
-			sc = new Scanner(System.in);
-			while (!sc.nextLine().equals(""))
-				;
-		}
-		*/
+		 * if (wereInCheckmate() || !weHaveOurKingStill()) {
+		 * System.out.println("DerpyAI has lost....press enter to continue.");
+		 * sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
+		 * 
+		 * if (theyreInCheckmate()) {
+		 * System.out.println("DerpyAI has won....press enter to continue."); sc
+		 * = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
+		 */
 
 		boardStore.add(b);
 		currentBoard = b;
