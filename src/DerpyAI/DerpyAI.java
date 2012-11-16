@@ -1077,7 +1077,7 @@ public class DerpyAI {
 					System.out.println();
 					parseCurrentBoard();
 					boardStore.add(currentBoard);
-					// currentBoard.printBoard();
+					currentBoard.printBoard();
 					System.out.println();
 				}
 
