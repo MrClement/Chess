@@ -1823,6 +1823,10 @@ public class v1Bobby {
 
 	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
+		int shouldITryCheck;
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+		Random r=new Random();
+		shouldITryCheck=r.nextInt(2);
 		int currNumTurns = numTurns;
 		if(check()==true && numTurns<3) numTurns+=3;
 		if (numTurns < 3 && check()==false) {
@@ -1884,7 +1888,7 @@ public class v1Bobby {
 			if (currNumTurns == numTurns) bestPieceGetOutOfDanger();
 			//then write random so if it moves it doesn't endanger other pieces, also write pawn so it
 			//only moves into danger if its defended
-			if(numTurns>20 && currNumTurns == numTurns) checkEnemy();
+			if(enemy.allMoves().size()==1 || (shouldITryCheck==1 && numTurns>20 && currNumTurns == numTurns)) checkEnemy();
 			if (currNumTurns == numTurns){
 				randomMove();
 				this.numTurns++;
