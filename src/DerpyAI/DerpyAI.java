@@ -884,7 +884,7 @@ public class DerpyAI {
 				+ "," + (int) oldDest.getY() + ") " + "to ("
 				+ (int) randomDestination.getX() + ","
 				+ (int) randomDestination.getY() + ")");
-		// currentBoard.printBoard();
+		currentBoard.printBoard();
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
