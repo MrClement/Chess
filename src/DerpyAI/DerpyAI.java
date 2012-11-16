@@ -882,7 +882,7 @@ public class DerpyAI {
 
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
-		System.out.println("Random Move Made by " + randomPiece.toString()
+		System.out.println("Turn " + numTurns + ": Random Move Made by " + randomPiece.toString()
 				+ " from (" + (int) oldDest.getX() + ","
 				+ (int)oldDest.getY() + ") " + "to (" + (int) randomDestination.getX() + ","
 				+ (int) randomDestination.getY() + ")");
@@ -896,11 +896,9 @@ public class DerpyAI {
 		// conditions.
 	}
 
-	public DerpyBoard samAI() {
+	public DerpyBoard samAI(String opening) {
 		
-		if (myColor == true){
-			
-		}
+		if (myColor == true && opening == "Normal" && numTurns <5){
 			if (numTurns == 1) {
 			//currentBoard.getBoardArray()[4][6].changeLocation(new Point (4,4));
 			this.movePiece(currentBoard.getBoardArray()[4][6], new Point (4,4));
@@ -931,7 +929,7 @@ public class DerpyAI {
 			return currentBoard;
 			}
 			
-			else if (numTurns == 4) {
+			else {
 			//currentBoard.getBoardArray()[4][7].changeLocation(new Point (6,7));
 			this.movePiece(currentBoard.getBoardArray()[4][7], new Point (6,7));
 			//currentBoard.getBoardArray()[7][7].changeLocation(new Point (5,7));
@@ -942,18 +940,58 @@ public class DerpyAI {
 			System.out.println();
 			return currentBoard;
 			}
+		}
+		
+		else if (myColor == true && opening == "Blitz" && numTurns <5){
+			if (numTurns == 1) {
+				this.movePiece(currentBoard.getBoardArray()[4][6], new Point (4,4));
+				numTurns++;
+				parseCurrentBoard(); 
+				currentBoard.printBoard();
+				System.out.println();
+				return currentBoard;
+				}
 			
-		else{
-		parseCurrentBoard();
-
+			else if (numTurns == 2) {
+				this.movePiece(currentBoard.getBoardArray()[5][7], new Point (2,4));
+				numTurns++;
+				parseCurrentBoard(); 
+				currentBoard.printBoard();
+				System.out.println();
+				return currentBoard;
+				}
+				
+			else if (numTurns == 3) {
+				this.movePiece(currentBoard.getBoardArray()[3][7], new Point (7,3));
+				numTurns++;
+				parseCurrentBoard(); 
+				currentBoard.printBoard();
+				System.out.println();
+				return currentBoard;
+				}
+				
+			else {
+				this.movePiece(currentBoard.getBoardArray()[7][3], new Point (5,1));
+				numTurns++;
+				parseCurrentBoard(); 
+				currentBoard.printBoard();
+				System.out.println();
+				return currentBoard;
+				}
+		}
+			
+	else{
+		
+			parseCurrentBoard();
+			numTurns++;
+			
 		//If we're in check, get out of it
 		System.out.println("In check? " + this.inCheck());
 		if (this.inCheck()) {
 			System.out.println("FLY, YOU FOOLS!");
 			return this.getOutOfCheck(currentBoard);
-
 		}
-
+		
 		//Otherwise, find the initial piece to move and the initial destination
 		else {
 			DerpyPiece bestPiece = null; //Our piece to move
@@ -1005,7 +1043,7 @@ public class DerpyAI {
 
 			//If we have any pieces to take, takes the best one of them
 			if (bestPiece != null && bestTarget != null) {
-				System.out.println("Autonomous Move Made by "+ bestPiece.toString() + 
+				System.out.println("Turn " + numTurns + ": Autonomous Move Made by "+ bestPiece.toString() + 
 						" from (" + (int) bestPiece.getLocation().getX() + ","
 						+ (int) bestPiece.getLocation().getY() + ")" +" to ("
 						+ (int) bestTarget.getLocation().getX() + ","
@@ -1020,14 +1058,13 @@ public class DerpyAI {
 			}
 
 			//Otherwise, makes a random move
-			else
-				this.randomMove();
+			else this.randomMove();
 
 			//Sets up the new board
 			parseCurrentBoard();
 			boardStore.add(currentBoard);
 			return currentBoard;
-		}
+			}	
 		}
 	}
 
@@ -1050,7 +1087,7 @@ public class DerpyAI {
 		parseCurrentBoard();
 
 		// DerpyBoard ba = this.prestonAI();
-		DerpyBoard ba = this.samAI();
+		DerpyBoard ba = this.samAI("Blitz");
 		// DerpyBoard ba = this.curtisAI();
 
 		boardStore.add(ba);
