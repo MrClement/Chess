@@ -10,18 +10,21 @@ public class maxTestClass {
 		v1Bobby a=new v1Bobby(new Board(), true);
 		
 		
-		Point w = new Point(3,4);
-		Point y = new Point(3,4);
 		
-
-		
-		a.move(2,7,5,3);
+		//a.move(2,7,5,3);
 		a.move(3,0,4,2);
 		//a.move(7,0,3,7);
-		//a.move(4,7,3,3);
+		a.move(4,7,7,4);
 		a.printBoard();
 		v1Bobby enemy=new v1Bobby(a.getB(), false);
-
+		System.out.println(enemy.numDefenders(0,4));
+		enemy.checkEnemy();
+		a.getB();
+		enemy.printBoard();
+		
+		
+		
+		/*
 		System.out.println(enemy.numDefenderValue(5,5));
 		System.out.println(a.numDefenderValue(5,5));
 		a.randomMove();
@@ -54,6 +57,7 @@ public class maxTestClass {
 	
 		
 		System.out.println(a.allMoves());
+		*/
 		}
 	
 }

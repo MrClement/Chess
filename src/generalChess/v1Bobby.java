@@ -1262,10 +1262,9 @@ public class v1Bobby {
 		// numDefenders starts at -1 because the piece that will be moving to
 		// that square doesnt count as a defende
 		int a = 0;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) != 'X')
-			a = a - 1;
+		
 		for (int i = 0; i < allMovesDefending().size(); i++) {
-			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
+			for (int j = 2; j < allMovesDefending().get(i).size(); j++) {
 				if (((Point) allMovesDefending().get(i).get(j)).getX() == x
 						&& ((Point) allMovesDefending().get(i).get(j)).getY() == y)
 					a++;
@@ -1287,21 +1286,10 @@ public class v1Bobby {
 		// your other rook, and attacked by their knight, you wouldn't want to
 		// trade
 		int a = 0;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'K')
-			a = a - 2;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'Q')
-			a = a - 9;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'R')
-			a = a - 5;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'B')
-			a = a - 3;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'N')
-			a = a - 3;
-		if (this.b[x][y].getColor() == color && this.b[x][y].toString().charAt(1) == 'P')
-			a = a - 1;
+
 
 		for (int i = 0; i < allMovesDefending().size(); i++) {
-			for (int j = 1; j < allMovesDefending().get(i).size(); j++) {
+			for (int j = 2; j < allMovesDefending().get(i).size(); j++) {
 				if (((Point) allMovesDefending().get(i).get(j)).getX() == x
 						&& ((Point) allMovesDefending().get(i).get(j)).getY() == y) {
 					// finds the current location of the piece that is
@@ -1365,7 +1353,7 @@ public class v1Bobby {
 
 	public boolean willThisMoveCauseCheckOrEaten(int x, int y, int a, int b)
 	{
-		boolean causeCheck=false;
+	boolean causeCheck=false;
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
 		Point oldLocation= new Point(x,y);
 		Point p4=new Point(a,b);
@@ -1387,12 +1375,70 @@ public class v1Bobby {
 		if(check()==true) causeCheck=true;
 		move(a,b,x,y);
 		}
-		enemy.getBoard(this.b);
+		enemy.getBoard(this.b);	
 		
 		
 		
 		return causeCheck;
 	}
+	
+	public void checkEnemy()
+	{
+		
+		boolean tryNextPiece=true;
+		v1Bobby enemy = new v1Bobby(this.getB(), !color);
+		
+		Point oldLocation= new Point();
+		Point p4=new Point();
+		
+		for (int i = 0; i < allMoves().size() && tryNextPiece==true; i++) {
+			for (int j = 2; j < allMoves().get(i).size() && tryNextPiece==true; j++) {
+				int x=(int)((Point)allMoves().get(i).get(1)).getX();
+				int y=(int)((Point)allMoves().get(i).get(1)).getY();
+				oldLocation.setLocation(x,y);
+				int a= (int)((Point)allMoves().get(i).get(j)).getX();
+				int b= (int)((Point)allMoves().get(i).get(j)).getY();
+				p4.setLocation(a,b);
+			
+				tryNextPiece=false;
+				boolean dontLook= false;
+				if(this.b[a][b].toString().charAt(1) != 'X'){
+					dontLook=true;
+				}
+				if(dontLook==true)
+				{
+					if(enemy.check()!=true || numDefenders(a,b)==0 || check()==true) tryNextPiece=true;
+				}
+				if(dontLook==false)
+				{	
+				move(x,y,a,b);
+				enemy.getBoard(this.b);
+				int bob= enemy.numDefenders(a,b);
+				if(bob!=0 && bob>numDefenders(a,b)) tryNextPiece=true;
+				
+				if(check()==true) tryNextPiece=true;
+
+				if(enemy.check()!=true) tryNextPiece=true;
+
+				move(a,b,x,y);
+				
+				}
+				enemy.getBoard(this.b);	
+				
+				
+				if(tryNextPiece==false) 
+				{
+					move(x,y,a,b);
+		System.out.println("Suck it you're in check!");
+					this.numTurns++;
+				}
+				
+			}
+			}
+		
+		
+	}
+	
 	public void randomMove() {
 		
 		//MAKE ARRAY OF PIECES THAT CAN MOVE RIGHT OFF THE BAT, THEN SEARCH THROUGH THOSE
