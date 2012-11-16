@@ -1070,6 +1070,7 @@ public class DerpyAI {
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
+		/*
 		if(wereInCheckmate() || !weHaveOurKingStill()) {
 			System.out.println("DerpyAI has lost....press enter to continue.");
 			sc = new Scanner(System.in);
@@ -1081,13 +1082,14 @@ public class DerpyAI {
 			sc = new Scanner(System.in);
 		       while(!sc.nextLine().equals(""));
 		}
+		*/
 
 		boardStore.add(b);
 		currentBoard = b;
 		parseCurrentBoard();
 
 		// DerpyBoard ba = this.prestonAI();
-		DerpyBoard ba = this.samAI("Blitz");
+		DerpyBoard ba = this.samAI("Normal");
 		// DerpyBoard ba = this.curtisAI();
 
 		boardStore.add(ba);
