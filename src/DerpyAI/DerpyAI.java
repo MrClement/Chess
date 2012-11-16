@@ -199,8 +199,7 @@ public class DerpyAI {
 			if (x instanceof DerpyKing) {
 				if (this.pieceIsThreatened(x)) {
 					return true;
-				} else
-					return false;
+				}
 			}
 		}
 		// System.out.println("THIS SHOULD NEVER RUN");
@@ -489,9 +488,9 @@ public class DerpyAI {
 						}
 					}
 					// if the pawn wants to take diagonally
-					if ((piece.getLocation().getY() == yPos - 1 && piece
+					if (((int) piece.getLocation().getY() == yPos - 1 && (int) piece
 							.getLocation().getX() == xPos - 1)
-							|| (piece.getLocation().getY() == yPos - 1 && piece
+							|| ((int) piece.getLocation().getY() == yPos - 1 && (int) piece
 									.getLocation().getX() == xPos + 1)) {
 						// makes sure the space has a takeable piece
 						if (!((currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank))) {
@@ -578,8 +577,8 @@ public class DerpyAI {
 			if (piece instanceof DerpyRook || piece instanceof DerpyQueen) {
 				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
 				// destination has to be on the same rank or file
-				if (piece.getLocation().getY() == yPos
-						|| piece.getLocation().getX() == xPos) {
+				if ((int) piece.getLocation().getY() == yPos
+						|| (int) piece.getLocation().getX() == xPos) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
 							pieceAtDestination, piece);
@@ -604,8 +603,8 @@ public class DerpyAI {
 			if (piece instanceof DerpyBishop || piece instanceof DerpyQueen) {
 				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
 				// destination has to be on the same diagonal
-				if (Math.abs(piece.getLocation().getY() - yPos) == Math
-						.abs(piece.getLocation().getX() - xPos)) {
+				if (Math.abs((int) piece.getLocation().getY() - yPos) == Math
+						.abs((int) piece.getLocation().getX() - xPos)) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
 							pieceAtDestination, piece);
