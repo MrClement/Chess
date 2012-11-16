@@ -614,14 +614,7 @@ public class DerpyAI {
 							return false;
 						}
 					}
-					// checks if it puts the king in check
-					/*
-					 * DerpyBoard oldBoard = currentBoard; DerpyBoard testBoard
-					 * = this.movePiece(piece, position); currentBoard =
-					 * testBoard; if (!(this.inCheck())) { currentBoard =
-					 * oldBoard; return true; } else { currentBoard = oldBoard;
-					 * }
-					 */
+				
 					return true;
 				}
 			}
@@ -695,14 +688,8 @@ public class DerpyAI {
 
 		// Edit the _*BOARD*_ so it knows where the pieces are now
 		newBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(
-				oL); // Put
-						// a
-						// blank
-						// piece
-						// in
-						// the
-						// old
-						// location
+				oL); // Put a blank piece in the old location
+		
 		newBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p;
 
 		Move m = new Move(myColor, p, oL, mL);
