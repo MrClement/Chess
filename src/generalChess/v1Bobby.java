@@ -1824,8 +1824,8 @@ public class v1Bobby {
 	public Piece[][] turn(Piece[][] b) {
 		getBoard(b);
 		int currNumTurns = numTurns;
-
-		if (numTurns < 6) {
+		if(check()==true && numTurns<6) numTurns+=6;
+		if (numTurns < 6 && check()==false) {
 			if (this.numTurns == 0 && this.color == true) {
 				move(4, 6, 4, 4);
 			}
