@@ -615,14 +615,7 @@ public class DerpyAI {
 							return false;
 						}
 					}
-					// checks if it puts the king in check
-					/*
-					 * DerpyBoard oldBoard = currentBoard; DerpyBoard testBoard
-					 * = this.movePiece(piece, position); currentBoard =
-					 * testBoard; if (!(this.inCheck())) { currentBoard =
-					 * oldBoard; return true; } else { currentBoard = oldBoard;
-					 * }
-					 */
+				
 					return true;
 				}
 			}
