@@ -15,7 +15,7 @@ public class DerpyAI {
 	private ArrayList<DerpyPiece> takenPieces; // The pieces we took
 	public ArrayList<DerpyPiece> ourPieces; // Our Array of Pieces
 	public ArrayList<DerpyPiece> theirPieces; // Our Array of their Pieces
-	private DerpyBoard currentBoard; // currentBoard is the current chess board
+	protected DerpyBoard currentBoard; // currentBoard is the current chess board
 	public ArrayList<Point> ourPiecesPoints; // array of the locations of our
 												// pieces
 	public ArrayList<Point> theirPiecesPoints; // array of the locations of
@@ -429,7 +429,7 @@ public class DerpyAI {
 	}
 
 	// asks if a piece can legally move to a position
-	public boolean pieceCanMoveToPosition(DerpyPiece piece, Point position) {
+	protected boolean pieceCanMoveToPosition(DerpyPiece piece, Point position) {
 
 		int xPos = (int) position.getX();
 		int yPos = (int) position.getY();
@@ -711,7 +711,7 @@ public class DerpyAI {
 		return newBoard;
 	}
 
-	public void parseCurrentBoard() {
+	protected void parseCurrentBoard() {
 
 		// This method should not modify the following pieces of instance data
 		// 1. currentBoard
