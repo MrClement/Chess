@@ -183,10 +183,22 @@ public class DerpyAI {
 
 	// asks if a piece is threatened
 	public boolean pieceIsThreatened(DerpyPiece p) {
-		for (DerpyPiece a : (myColor ? theirPieces : ourPieces)) {
-			if (this.pieceCanMoveToPosition(a, p.getLocation())) {
-				if (this.makeTrade(a, p)) {
-					return true;
+		if (p.getColor() != myColor) {
+			for (DerpyPiece a : theirPieces) {
+				if (this.pieceCanMoveToPosition(a, p.getLocation())) {
+					if (this.makeTrade(a, p)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		if (p.getColor() == myColor) {
+			for (DerpyPiece a : ourPieces) {
+				if (this.pieceCanMoveToPosition(a, p.getLocation())) {
+					if (this.makeTrade(a, p)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -614,7 +626,7 @@ public class DerpyAI {
 							return false;
 						}
 					}
-				
+
 					return true;
 				}
 			}
@@ -689,7 +701,7 @@ public class DerpyAI {
 		// Edit the _*BOARD*_ so it knows where the pieces are now
 		newBoard.getBoardArray()[(int) oL.getX()][(int) oL.getY()] = new DerpyBlank(
 				oL); // Put a blank piece in the old location
-		
+
 		newBoard.getBoardArray()[(int) mL.getX()][(int) mL.getY()] = p;
 
 		Move m = new Move(myColor, p, oL, mL);
