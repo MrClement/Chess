@@ -1,7 +1,5 @@
 package DerpyAI;
-
 import java.awt.Point;
-
 
 //NOTE TO EVERYONE
 //This is Preston's pieceCanMoveToPosition tester class. Please do not delete!
@@ -52,11 +50,8 @@ public class DerpyAITester extends DerpyAI {
 		
 	}
 
-	
 	public DerpyAITester(Boolean b) {
 		super(b);
 	}
 	
-	
-
 }
