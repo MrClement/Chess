@@ -45,7 +45,13 @@ public class DerpyAITester extends DerpyAI {
 		System.out.print("Test 20: "); if(tester.pieceCanMoveToPosition(b.getBoardArray()[0][0], new Point(0,1))){System.out.println("Passed");} else {System.out.println("FAILED!  <<<");}
 		System.out.print("Test 21: "); if(tester.pieceCanMoveToPosition(b.getBoardArray()[7][0], new Point(7,1))){System.out.println("Passed");} else {System.out.println("FAILED!  <<<");}
 		
+		System.out.println("\nQueen\n");
+		System.out.print("Test 22: "); if(tester.pieceCanMoveToPosition(b.getBoardArray()[3][0], new Point(3,4))){System.out.println("Passed");} else {System.out.println("FAILED!  <<<");}
+		System.out.print("Test 23: "); if(tester.pieceCanMoveToPosition(b.getBoardArray()[3][0], new Point(3,1))){System.out.println("Passed");} else {System.out.println("FAILED!  <<<");}
+
+		
 	}
+
 	
 	public DerpyAITester(Boolean b) {
 		super(b);
