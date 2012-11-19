@@ -59,6 +59,7 @@ public class Board {
 				System.out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
 			}
 			System.out.println();
+			System.out.println("---------------------------------------");
 
 		}
 
