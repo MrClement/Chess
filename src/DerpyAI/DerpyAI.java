@@ -15,7 +15,8 @@ public class DerpyAI {
 	private ArrayList<DerpyPiece> takenPieces; // The pieces we took
 	public ArrayList<DerpyPiece> ourPieces; // Our Array of Pieces
 	public ArrayList<DerpyPiece> theirPieces; // Our Array of their Pieces
-	protected DerpyBoard currentBoard; // currentBoard is the current chess board
+	protected DerpyBoard currentBoard; // currentBoard is the current chess
+										// board
 	public ArrayList<Point> ourPiecesPoints; // array of the locations of our
 												// pieces
 	public ArrayList<Point> theirPiecesPoints; // array of the locations of
@@ -287,25 +288,25 @@ public class DerpyAI {
 		if (theirs instanceof DerpyRook || theirs instanceof DerpyQueen) {
 			if (theirs.getLocation().getX() == ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getY(); i >= ours
+					for (double i = theirs.getLocation().getY() - 1; i > ours
 							.getLocation().getY(); i--) {
-						Point ourPoint = new Point((int) i, ((int) theirs
-								.getLocation().getY()));
+						Point ourPoint = new Point((int) theirs.getLocation()
+								.getX(), (int) i);
 						points.add(ourPoint);
 					}
 				}
 				if (theirs.getLocation().getY() < ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getY(); i <= ours
+					for (double i = theirs.getLocation().getY() + 1; i < ours
 							.getLocation().getY(); i++) {
-						Point ourPoint = new Point((int) i, ((int) theirs
-								.getLocation().getY()));
+						Point ourPoint = new Point((int) theirs.getLocation()
+								.getX(), (int) i);
 						points.add(ourPoint);
 					}
 				}
 			}
 			if (theirs.getLocation().getY() == ours.getLocation().getY()) {
 				if (theirs.getLocation().getX() > ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i >= ours
+					for (double i = theirs.getLocation().getX() - 1; i > ours
 							.getLocation().getX(); i--) {
 						Point ourPoint = new Point((int) i, ((int) theirs
 								.getLocation().getY()));
@@ -313,7 +314,7 @@ public class DerpyAI {
 					}
 				}
 				if (theirs.getLocation().getX() < ours.getLocation().getX()) {
-					for (double i = theirs.getLocation().getX(); i <= ours
+					for (double i = theirs.getLocation().getX() + 1; i < ours
 							.getLocation().getX(); i++) {
 						Point ourPoint = new Point((int) i, ((int) theirs
 								.getLocation().getY()));
@@ -327,9 +328,9 @@ public class DerpyAI {
 		if (theirs instanceof DerpyBishop || theirs instanceof DerpyQueen) {
 			if (theirs.getLocation().getX() > ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() < ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i >= ours
+					for (double i = theirs.getLocation().getX() - 1; i > ours
 							.getLocation().getX(); i--) {
-						for (double j = theirs.getLocation().getY(); j <= ours
+						for (double j = theirs.getLocation().getY() + 1; j < ours
 								.getLocation().getY(); j++) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
@@ -337,9 +338,9 @@ public class DerpyAI {
 					}
 				}
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i >= ours
+					for (double i = theirs.getLocation().getX() - 1; i > ours
 							.getLocation().getX(); i--) {
-						for (double j = theirs.getLocation().getY(); j >= ours
+						for (double j = theirs.getLocation().getY() - 1; j > ours
 								.getLocation().getY(); j--) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
@@ -350,9 +351,9 @@ public class DerpyAI {
 			}
 			if (theirs.getLocation().getX() < ours.getLocation().getX()) {
 				if (theirs.getLocation().getY() < ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i <= ours
+					for (double i = theirs.getLocation().getX() + 1; i < ours
 							.getLocation().getX(); i++) {
-						for (double j = theirs.getLocation().getY(); j <= ours
+						for (double j = theirs.getLocation().getY() + 1; j < ours
 								.getLocation().getY(); j++) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
@@ -360,9 +361,9 @@ public class DerpyAI {
 					}
 				}
 				if (theirs.getLocation().getY() > ours.getLocation().getY()) {
-					for (double i = theirs.getLocation().getX(); i <= ours
+					for (double i = theirs.getLocation().getX() + 1; i < ours
 							.getLocation().getX(); i++) {
-						for (double j = theirs.getLocation().getY(); j >= ours
+						for (double j = theirs.getLocation().getY() - 1; j > ours
 								.getLocation().getY(); j--) {
 							Point ourPoint = new Point((int) i, (int) j);
 							points.add(ourPoint);
@@ -615,8 +616,8 @@ public class DerpyAI {
 			if (piece instanceof DerpyBishop || piece instanceof DerpyQueen) {
 				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
 				// destination has to be on the same diagonal
-				if (Math.abs((int) piece.getLocation().getY() - yPos) == Math
-						.abs((int) piece.getLocation().getX() - xPos)) {
+				if ((Math.abs((int) (piece.getLocation().getY() - yPos))) == (Math
+						.abs((int) (piece.getLocation().getX() - xPos)))) {
 					// no pieces blocking
 					ArrayList<Point> betweenSpace = this.findBlockablePoints(
 							pieceAtDestination, piece);
