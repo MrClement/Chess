@@ -215,6 +215,7 @@ public class v1Bobby {
 
 	}
 
+
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
 		// king can't move into check
@@ -240,19 +241,35 @@ public class v1Bobby {
 											Point oldLocation= new Point(x,y);
 											Point p4=new Point(a,b);
 											boolean possibleMove=false;
-											boolean dontLook= false;
-											if(this.b[a][b].toString().charAt(1) != 'X'){
-												dontLook=true;
+											
+											Piece[][] tempBoard=new Piece [8][8];
+											
+											for (int i = 0; i < tempBoard.length; i++) {
+												for (int l = 0; l < tempBoard[i].length; l++) {
+													tempBoard[i][l]=this.b[i][l];
+												}
+												
 											}
-											if(dontLook==false)
-											{	
+											
+											
+											
+											
 											move(x,y,a,b);
 											enemy.getBoard(this.b);
 											if(enemy.numDefenders(a,b)==0) possibleMove=true;
 											move(a,b,x,y);
-											}
-											enemy.getBoard(this.b);
 											
+											
+											this.b=new Piece[8][8];
+											for (int i = 0; i < tempBoard.length; i++) {
+												for (int l = 0; l < tempBoard[i].length; l++) {
+													this.b[i][l] = tempBoard[i][l];
+												}
+												
+											}
+											
+											this.getBoard(this.b);
+											enemy.getBoard(this.b);
 										if(possibleMove==true) g.add(new Point(a, b));
 									}
 								}
@@ -2479,6 +2496,32 @@ public class v1Bobby {
 			a.add(kMovesDefending().get(i));
 		}
 		return a;
+	}
+
+	public boolean isPromotionPossible(){
+		boolean promote =false;
+		if(color==true)
+		{
+			for(int i=0;i<pMoves().size();i++)
+			{
+				if((int)((Point)(pMoves().get(i).get(1))).getY() == 0) promote=true;
+			}
+		}
+		else
+		{
+			for(int i=0;i<pMoves().size();i++)
+			{
+				if((int)((Point)(pMoves().get(i).get(1))).getY() == 7) promote=true;
+			}
+		}
+		
+		
+		
+		return promote;
+	}
+	
+	public void promotePawn(){
+		
 	}
 
 	public ArrayList<Point> castle(){
