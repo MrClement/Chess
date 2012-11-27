@@ -1093,6 +1093,36 @@ public class DerpyAI {
 		}
 	}
 
+	public DerpyBoard promoteIfPossible(DerpyBoard ba) {
+
+		// if we're white...
+		if (myColor) {
+			// searches the back row for pawns
+			for (int i = 0; i < 8; i++) {
+				if (ba.getBoardArray()[i][0] instanceof DerpyPawn) {
+					// if it finds one, makes a new queen and puts it where the
+					// pawn was
+					DerpyQueen newQueen = new DerpyQueen(true, new Point(i, 0));
+					ba.getBoardArray()[i][0] = newQueen;
+				}
+			}
+		}
+		// if we're black
+		else if (!myColor) {
+			// searches the back row for pawns
+			for (int i = 0; i < 8; i++) {
+				if (ba.getBoardArray()[i][7] instanceof DerpyPawn) {
+					// if it finds one, makes a new queen and puts it where the
+					// pawn was
+					DerpyQueen newQueen = new DerpyQueen(false, new Point(i, 0));
+					ba.getBoardArray()[i][7] = newQueen;
+				}
+			}
+		}
+		// returns the board, whether or not a pawn was promoted
+		return ba;
+	}
+
 	public DerpyBoard makeMove(DerpyBoard b) {
 
 		/*
@@ -1112,6 +1142,8 @@ public class DerpyAI {
 		// DerpyBoard ba = this.prestonAI();
 		DerpyBoard ba = this.samAI("Blitz");
 		// DerpyBoard ba = this.curtisAI();
+
+		ba = this.promoteIfPossible(ba);
 
 		boardStore.add(ba);
 		// ba.printBoard();
