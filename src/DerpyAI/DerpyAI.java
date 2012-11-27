@@ -1091,7 +1091,7 @@ public class DerpyAI {
 		parseCurrentBoard();
 
 		// DerpyBoard ba = this.prestonAI();
-		DerpyBoard ba = this.samAI("Blitz");
+		DerpyBoard ba = this.samAI("Normal");
 		// DerpyBoard ba = this.curtisAI();
 
 		boardStore.add(ba);
