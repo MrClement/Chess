@@ -895,43 +895,43 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard samAI(String opening) {
-
-		if (myColor == true && opening == "Normal" && numTurns < 5) {
-			if (numTurns == 1) {
-				// currentBoard.getBoardArray()[4][6].changeLocation(new Point
-				// (4,4));
-				this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
+		
+		if (numTurns == 1) {
+			// currentBoard.getBoardArray()[4][6].changeLocation(new Point
+			// (4,4));
+			this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
+					4));
+			numTurns++;
+			parseCurrentBoard();
+			currentBoard.printBoard();
+			System.out.println();
+			return currentBoard;
+		}
+		
+		if (numTurns == 2) {
+			// currentBoard.getBoardArray()[4][6].changeLocation(new Point
+			// (4,4));
+			this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
 						4));
-				numTurns++;
-				parseCurrentBoard();
-				currentBoard.printBoard();
-				System.out.println();
-				return currentBoard;
-			}
-
-			else if (numTurns == 2) {
-				// currentBoard.getBoardArray()[5][7].changeLocation(new Point
-				// (2,4));
-				this.movePiece(currentBoard.getBoardArray()[5][7], new Point(2,
-						4));
-				numTurns++;
-				parseCurrentBoard();
-				currentBoard.printBoard();
-				System.out.println();
-				return currentBoard;
-			}
-
-			else if (numTurns == 3) {
+			numTurns++;
+			parseCurrentBoard();
+			currentBoard.printBoard();
+			System.out.println();
+			return currentBoard;
+		}
+		
+		else if (myColor == true && opening == "Normal" && numTurns < 5) {
+				if (numTurns == 3) {
 				// currentBoard.getBoardArray()[6][7].changeLocation(new Point
 				// (5,5));
-				this.movePiece(currentBoard.getBoardArray()[6][7], new Point(5,
-						5));
-				numTurns++;
-				parseCurrentBoard();
-				currentBoard.printBoard();
-				System.out.println();
-				return currentBoard;
-			}
+					this.movePiece(currentBoard.getBoardArray()[6][7], new Point(5,
+					5));
+					numTurns++;
+					parseCurrentBoard();
+					currentBoard.printBoard();
+					System.out.println();				
+					return currentBoard;
+				}
 
 			else {
 				// currentBoard.getBoardArray()[4][7].changeLocation(new Point
@@ -948,29 +948,9 @@ public class DerpyAI {
 				return currentBoard;
 			}
 		}
-
+		
 		else if (myColor == true && opening == "Blitz" && numTurns < 5) {
-			if (numTurns == 1) {
-				this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
-						4));
-				numTurns++;
-				parseCurrentBoard();
-				currentBoard.printBoard();
-				System.out.println();
-				return currentBoard;
-			}
-
-			else if (numTurns == 2) {
-				this.movePiece(currentBoard.getBoardArray()[5][7], new Point(2,
-						4));
-				numTurns++;
-				parseCurrentBoard();
-				currentBoard.printBoard();
-				System.out.println();
-				return currentBoard;
-			}
-
-			else if (numTurns == 3) {
+			if (numTurns == 3) {
 				this.movePiece(currentBoard.getBoardArray()[3][7], new Point(7,
 						3));
 				numTurns++;
@@ -1092,6 +1072,7 @@ public class DerpyAI {
 			}
 		}
 	}
+	
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
