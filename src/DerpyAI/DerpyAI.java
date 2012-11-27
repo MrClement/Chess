@@ -904,7 +904,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -916,7 +916,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -928,7 +928,7 @@ public class DerpyAI {
 						5));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -943,7 +943,7 @@ public class DerpyAI {
 				movePiece(currentBoard.getBoardArray()[7][7], new Point(5, 7));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -955,7 +955,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -965,7 +965,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -975,7 +975,7 @@ public class DerpyAI {
 						3));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -985,7 +985,7 @@ public class DerpyAI {
 						1));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				//currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -1077,7 +1077,7 @@ public class DerpyAI {
 					System.out.println();
 					parseCurrentBoard();
 					boardStore.add(currentBoard);
-					currentBoard.printBoard();
+					//currentBoard.printBoard();
 					System.out.println();
 				}
 
@@ -1110,7 +1110,7 @@ public class DerpyAI {
 		parseCurrentBoard();
 
 		// DerpyBoard ba = this.prestonAI();
-		DerpyBoard ba = this.samAI("Blitz");
+		DerpyBoard ba = this.samAI("Normal");
 		// DerpyBoard ba = this.curtisAI();
 
 		boardStore.add(ba);
