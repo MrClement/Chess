@@ -849,7 +849,7 @@ public class DerpyAI {
 			this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4, 4));
 			numTurns++;
 			parseCurrentBoard();
-			currentBoard.printBoard();
+			// currentBoard.printBoard();
 			System.out.println();
 			return currentBoard;
 		}
@@ -860,7 +860,7 @@ public class DerpyAI {
 			this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4, 4));
 			numTurns++;
 			parseCurrentBoard();
-			currentBoard.printBoard();
+			// currentBoard.printBoard();
 			System.out.println();
 			return currentBoard;
 		}
@@ -872,7 +872,7 @@ public class DerpyAI {
 				this.movePiece(currentBoard.getBoardArray()[6][7], new Point(5, 5));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -886,7 +886,7 @@ public class DerpyAI {
 				movePiece(currentBoard.getBoardArray()[7][7], new Point(5, 7));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -897,7 +897,7 @@ public class DerpyAI {
 				this.movePiece(currentBoard.getBoardArray()[3][7], new Point(7, 3));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -906,7 +906,7 @@ public class DerpyAI {
 				this.movePiece(currentBoard.getBoardArray()[7][3], new Point(5, 1));
 				numTurns++;
 				parseCurrentBoard();
-				currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -986,7 +986,7 @@ public class DerpyAI {
 					System.out.println();
 					parseCurrentBoard();
 					boardStore.add(currentBoard);
-					currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 				}
 
