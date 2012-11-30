@@ -129,6 +129,15 @@ public class DerpyBoard {
 	public DerpyPiece[][] getBoardArray() {
 		return arr;
 	}
+	
+	public void clearPieces() {
+		
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				arr[x][y] = new DerpyBlank(new Point(x,y));
+			}
+		}
+	}
 
 	public void printBoard() {
 		for (int y = 0; y < 8; y++) {
