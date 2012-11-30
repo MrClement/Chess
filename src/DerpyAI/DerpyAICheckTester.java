@@ -1,5 +1,4 @@
 package DerpyAI;
-
 import java.awt.Point;
 
 public class DerpyAICheckTester extends DerpyAI {
@@ -15,8 +14,9 @@ public class DerpyAICheckTester extends DerpyAI {
 		
 		b.getBoardArray()[4][0] = new DerpyKing(true, new Point(4,0));
 		
-		if(tester.inCheck())System.out.println("Passed"); else System.out.println("Failed");
-
+		b.printBoard();
+		
+		System.out.print("Test result: "); if(tester.inCheck())System.out.println("Passed"); else System.out.println("Failed");
 	}
 
 	public DerpyAICheckTester(Boolean b) {
