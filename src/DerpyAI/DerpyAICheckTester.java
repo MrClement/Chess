@@ -10,7 +10,7 @@ public class DerpyAICheckTester extends DerpyAI {
 		DerpyBoard b = tester.currentBoard;
 		b.clearPieces();
 		for(int y = 0; y < 8; y++) {
-			b.getBoardArray()[7][y] = new DerpyQueen(false, new Point(7,y));
+			b.getBoardArray()[7][y] = new DerpyRook(false, new Point(7,y));
 		}
 		
 		b.getBoardArray()[4][0] = new DerpyKing(true, new Point(4,0));
