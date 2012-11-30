@@ -438,8 +438,8 @@ public class DerpyAI {
 		if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 			indicator = true;
 		}
-		if (!(currentBoard.getBoardArray()[xPos][yPos].getColor() == myColor)
-				|| indicator) {
+		if (!(currentBoard.getBoardArray()[xPos][yPos].getColor() == piece
+				.getColor()) || indicator) {
 
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
@@ -449,7 +449,7 @@ public class DerpyAI {
 					// piece
 					if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
 							&& (currentBoard.getBoardArray()[xPos][yPos]
-									.getColor()) == myColor) {
+									.getColor()) == piece.getColor()) {
 						// makes sure moving doesn't put him in check
 						/*
 						 * DerpyBoard oldBoard = currentBoard; DerpyBoard
@@ -884,7 +884,7 @@ public class DerpyAI {
 				+ "," + (int) oldDest.getY() + ") " + "to ("
 				+ (int) randomDestination.getX() + ","
 				+ (int) randomDestination.getY() + ")");
-		//currentBoard.printBoard();
+		// currentBoard.printBoard();
 		return currentBoard;
 		// To clarify, this method isn't perfect. It tries to make moves in the
 		// following order:
@@ -904,7 +904,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -916,7 +916,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -928,7 +928,7 @@ public class DerpyAI {
 						5));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -943,7 +943,7 @@ public class DerpyAI {
 				movePiece(currentBoard.getBoardArray()[7][7], new Point(5, 7));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -955,7 +955,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -965,7 +965,7 @@ public class DerpyAI {
 						4));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -975,7 +975,7 @@ public class DerpyAI {
 						3));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -985,7 +985,7 @@ public class DerpyAI {
 						1));
 				numTurns++;
 				parseCurrentBoard();
-				//currentBoard.printBoard();
+				// currentBoard.printBoard();
 				System.out.println();
 				return currentBoard;
 			}
@@ -1077,7 +1077,7 @@ public class DerpyAI {
 					System.out.println();
 					parseCurrentBoard();
 					boardStore.add(currentBoard);
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 				}
 
