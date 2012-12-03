@@ -13,7 +13,7 @@ import sharedfiles.Piece;
 
 public class ServerDriver {
 
-	public static final String hostname = "localhost";
+	public static final String hostname = "10.80.4.31";
 	public static final int port = 8080;
 
 	@SuppressWarnings("resource")
@@ -78,7 +78,7 @@ public class ServerDriver {
 				}
 			}
 			String[] stuffArr = stuff.toArray(new String[stuff.size()]);
-			System.out.println(stuffArr);
+			//System.out.println(stuffArr);
 			Board board = new Board();
 			board.buildBoard(stuffArr);
 			DerpyBoard input = new DerpyBoard(board);
