@@ -1153,7 +1153,7 @@ public class DerpyAI {
 		// If we're still in check even after all that,
 		// there's no way out of check. Concede to the other player.
 		if (this.inCheck())
-			concedeGame();
+			ba = getOutOfCheck(ba);
 
 		currentBoard = ba;
 		parseCurrentBoard();
