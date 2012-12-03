@@ -184,6 +184,7 @@ public class DerpyAI {
 
 	// asks if a piece is threatened
 	public boolean pieceIsThreatened(DerpyPiece p) {
+		parseCurrentBoard();
 		if (p.getColor() != myColor) {
 			for (DerpyPiece a : ourPieces) {
 				if (this.pieceCanMoveToPosition(a, p.getLocation())) {
@@ -194,7 +195,7 @@ public class DerpyAI {
 			}
 			return false;
 		}
-		if (p.getColor() == myColor) {
+		else if (p.getColor() == myColor) {
 			for (DerpyPiece a : theirPieces) {
 				if (this.pieceCanMoveToPosition(a, p.getLocation())) {
 					if (this.makeTrade(a, p)) {
@@ -208,6 +209,7 @@ public class DerpyAI {
 
 	// Returns if the king is in check
 	public boolean inCheck() {
+		parseCurrentBoard();
 		for (DerpyPiece x : ourPieces) {
 			if (x instanceof DerpyKing) {
 				if (this.pieceIsThreatened(x)) {
