@@ -897,7 +897,7 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard samAI(String opening) {
-
+	boolean covered = false; 
 		if (myColor == true && opening == "Normal" && numTurns < 5) {
 			if (numTurns == 1) {
 				// currentBoard.getBoardArray()[4][6].changeLocation(new Point
@@ -1016,24 +1016,23 @@ public class DerpyAI {
 					if (ourPieces.get(i) instanceof DerpyKing)
 						ourPieces.remove(i);
 				}
-
+				
 				// Goes through each of our pieces
 				for (int f = 0; f < ourPieces.size(); f++) {
 					// Finds the possible destinations of that respective piece
 					ArrayList<Point> destinationArray = this
 							.movablePoints(ourPieces.get(f));
 					ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
-					// Finds all possible pieces that piece can take
+					// Finds all possible pieces that piece can take that are not covered
 					for (int i = 0; i < destinationArray.size(); i++) {
-						if (!(currentBoard.getBoardArray()[(int) destinationArray
-								.get(i).getX()][(int) destinationArray.get(i)
-								.getY()] instanceof DerpyBlank)) {
-							piecesToTake
-									.add(currentBoard.getBoardArray()[(int) destinationArray
-											.get(i).getX()][(int) destinationArray
-											.get(i).getY()]);
-							System.out.println(piecesToTake.get(piecesToTake
-									.size() - 1));
+						if (!(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyBlank)) {
+							for (int z = 0; z < theirPieces.size(); z++) {
+								if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())) && makeTrade(theirPieces.get(z),ourPieces.get(f))) covered = true; 
+							}
+							if (!covered){
+							piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+							System.out.println(piecesToTake.get(piecesToTake.size()-1));
+							}
 						}
 					}
 
