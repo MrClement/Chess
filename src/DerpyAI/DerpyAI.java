@@ -387,9 +387,15 @@ public class DerpyAI {
 				for (int j = 0; j < listOfPoints.size(); j++) {
 					if (this.pieceCanMoveToPosition(ourPieces.get(i),
 							listOfPoints.get(j))) {
+						DerpyBoard storeBoard=currentBoard;
+						this.movePiece(ourPieces.get(i), listOfPoints.get(j));
+							if(this.inCheck()){
+								currentBoard=storeBoard;
 						return this.movePiece(ourPieces.get(i),
 								listOfPoints.get(j));
-					}
+							}
+							currentBoard=storeBoard;					
+							}
 				}
 			}
 		}
@@ -403,7 +409,13 @@ public class DerpyAI {
 					if (this.threateningPiecesToThem(threat).size() >= 1) {
 						DerpyPiece taker = this.threateningPiecesToThem(threat)
 								.get(0);
+						DerpyBoard storeBoard=currentBoard;
+						this.movePiece(taker, threat.getLocation());
+						if(this.inCheck()){
+							currentBoard=storeBoard;
 						return this.movePiece(taker, threat.getLocation());
+						}
+						currentBoard=storeBoard;
 					}
 				}
 
@@ -413,18 +425,24 @@ public class DerpyAI {
 			if (ourPieces.get(i) instanceof DerpyKing) {
 				DerpyPiece ourKing = ourPieces.get(i);
 				ArrayList<DerpyPiece> threats = threateningPiecesToUs(ourKing);
-				if (threats.size() == 0) {
+				if (threats.size() == 1) {
 					ArrayList<Point> betweenSpaces = this.findBlockablePoints(
 							ourKing, threats.get(0));
 					for (Point p : betweenSpaces) {
 						for (DerpyPiece c : ourPieces) {
 							if (this.pieceCanMoveToPosition(c, p)) {
+								DerpyBoard storeBoard=currentBoard;
+								this.movePiece(c, p);
+								if(this.inCheck()){
+									currentBoard=storeBoard;
 								return this.movePiece(c, p);
 							}
+								currentBoard=storeBoard;
 						}
 					}
 				}
 			}
+		}
 		}
 
 		// this.concedeGame();
