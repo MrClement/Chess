@@ -1031,7 +1031,7 @@ public class DerpyAI {
 							}
 							if (!covered){
 							piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
-							System.out.println(piecesToTake.get(piecesToTake.size()-1));
+							System.out.println(piecesToTake);
 							}
 						}
 					}
@@ -1226,112 +1226,5 @@ public class DerpyAI {
 		System.exit(0); // Exit with terminated status 0
 	}
 
-	// Extra, Currently Unused Code////
-	// public DerpyBoard prestonAI() {
-	//
-	// parseCurrentBoard();
-	//
-	//
-	//
-	// // randomMove if nothing can be done
-	// this.randomMove();
-	// // End logic
-	//
-	// parseCurrentBoard();
-	// boardStore.add(currentBoard);
-	// return currentBoard;
-	// }
-	// makes a move that advances our position or takes an enemy piece--for use
-	// during autonomous play when none of our pieces are threatened
-	// public DerpyBoard curtisAI() {
-	// // first tries to take an enemy piece, if it can (and its not
-	// // threatened)
-	// if (this.ourThreats(currentBoard).size() > 0) {
-	// ArrayList<DerpyPiece> piecesWeCanTake = this
-	// .ourThreats(currentBoard);
-	// for (DerpyPiece p : piecesWeCanTake) {
-	// ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-	// .threateningPiecesToThem(p);
-	// if (piecesWeCanTakeWith.size() > 0) {
-	// if (p.getLocation().distance(
-	// this.findEnemyKing().getLocation()) <= 4) {
-	// if (Math.random() <= 0.5) {
-	// return this.movePiece(piecesWeCanTakeWith.get(0),
-	// p.getLocation());
-	// }
-	// }
-	// }
-	// }
-	// for (DerpyPiece p : piecesWeCanTake) {
-	// ArrayList<DerpyPiece> piecesWeCanTakeWith = this
-	// .threateningPiecesToThem(p);
-	// if (piecesWeCanTakeWith.size() > 0) {
-	// if (Math.random() <= 0.5) {
-	// return this.movePiece(piecesWeCanTakeWith.get(0),
-	// p.getLocation());
-	// }
-	// }
-	// }
-	//
-	// }
-	// // if that doesn't work, it makes sure its not threatened, if it is, it
-	// // tries to save the piece
-	// if (this.enemyThreats(currentBoard).size() == 1) {
-	// return this.savePiece(this.enemyThreats(currentBoard).get(0));
-	// } else if (this.enemyThreats(currentBoard).size() > 1) {
-	// DerpyPiece pieceToSave = this.findValuablePiece(this
-	// .enemyThreats(currentBoard));
-	// return this.savePiece(pieceToSave);
-	// }
-	// // finally, if it has no pieces to save or to take, it move a piece
-	// // closer to the enemy king.
-	// else {
-	// DerpyPiece enemyKing = this.findEnemyKing();
-	// for (DerpyPiece p : ourPieces) {
-	// for (Point d : this.movablePoints(p)) {
-	// if (d.distance(enemyKing.getLocation()) < p.getLocation()
-	// .distance(enemyKing.getLocation())) {
-	// if (Math.random() <= 0.2) {
-	// DerpyBoard testBoard = this.movePiece(p, d);
-	// DerpyBoard oldBoard = currentBoard;
-	// currentBoard = testBoard;
-	// if (!(this.pieceIsThreatened(p))) {
-	// currentBoard = oldBoard;
-	// return testBoard;
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
-	// return currentBoard;
-	// }
-
-	// master move choice method. Decides what move to make, then makes it.
-
-	/*
-	 * 
-	 * public boolean executeCzechDefense() { // we need code to call this
-	 * method // again after white's moved once // more if (myColor == false) {
-	 * if (allMoves.size() == 0) { Point destination = new Point(5, 2);
-	 * this.movePiece(currentBoard.getBoardArray()[6][0], destination); return
-	 * true; } else if (allMoves.size() == 1) { Point destination = new Point(3,
-	 * 2); this.movePiece(currentBoard.getBoardArray()[3][1], destination);
-	 * return true; } else if (allMoves.size() == 2) { Point destination = new
-	 * Point(2, 2); this.movePiece(currentBoard.getBoardArray()[2][1],
-	 * destination); return true; } else return false; } else return false; }
-	 * 
-	 * public boolean executeSicilianDefense() { if (myColor == false) { if
-	 * (currentBoard.getBoardArray()[4][5] instanceof DerpyPawn) {
-	 * this.movePiece(currentBoard.getBoardArray()[2][1], new Point(2, 3));
-	 * return true; } else return false; } else return false; }
-	 * 
-	 * public boolean executeRuyLopezOpening() { if (myColor == true) { // e4,
-	 * Nf3 if (allMoves.size() == 0) {
-	 * this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4, 4));
-	 * return true; } else if (allMoves.size() == 1) {
-	 * this.movePiece(currentBoard.getBoardArray()[6][7], new Point(6, 5));
-	 * return true; } else return false; } else return false; }
-	 */
-
+	
 }
