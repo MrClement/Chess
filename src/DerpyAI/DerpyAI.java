@@ -1050,7 +1050,7 @@ public class DerpyAI {
 									//&& makeTrade(theirPieces.get(z),ourPieces.get(f))
 									if (!covered){
 									piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
-									System.out.println(piecesToTake);
+									//System.out.println(piecesToTake);
 								}
 								}
 							}
