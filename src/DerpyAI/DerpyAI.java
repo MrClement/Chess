@@ -1161,12 +1161,8 @@ public class DerpyAI {
 			 }
 			*/
 		
-		System.out.println("We're in check: " + inCheck());
-		System.out.println("They're in check: " + theyreinCheck());
-		System.out.println("We're in checkmate:" + wereInCheckmate());
-		System.out.println("They're in checkmate:" + theyreInCheckmate());
-		
-		 
+		System.out.println("We're in check: " + inCheck() + " –– mate: " + wereInCheckmate());
+		System.out.println("They're in check: " + theyreinCheck() + " -- mate: " + theyreInCheckmate());
 
 		boardStore.add(b);
 		currentBoard = b;
