@@ -1160,6 +1160,12 @@ public class DerpyAI {
 			 sc = new Scanner(System.in); while (!sc.nextLine().equals("")); 
 			 }
 			*/
+		
+		System.out.println("We're in check: " + inCheck());
+		System.out.println("They're in check: " + theyreinCheck());
+		System.out.println("We're in checkmate:" + wereInCheckmate());
+		System.out.println("They're in checkmate:" + theyreInCheckmate());
+		
 		 
 
 		boardStore.add(b);
