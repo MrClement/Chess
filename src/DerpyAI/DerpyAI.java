@@ -1150,15 +1150,16 @@ public class DerpyAI {
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		/*
-		 * if (wereInCheckmate() || !weHaveOurKingStill()) {
-		 * System.out.println("DerpyAI has lost....press enter to continue.");
-		 * sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
-		 * 
-		 * if (theyreInCheckmate()) {
-		 * System.out.println("DerpyAI has won....press enter to continue."); sc
-		 * = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
-		 */
+		
+		  if (wereInCheckmate() || !weHaveOurKingStill()) {
+		  System.out.println("DerpyAI has lost....press enter to continue.");
+		  sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
+		 
+		 if (theyreInCheckmate()) {
+			 System.out.println("DerpyAI has won....press enter to continue."); 
+			 sc = new Scanner(System.in); while (!sc.nextLine().equals("")); 
+			 }
+		 
 
 		boardStore.add(b);
 		currentBoard = b;
@@ -1167,11 +1168,6 @@ public class DerpyAI {
 		// DerpyBoard ba = this.prestonAI();
 		DerpyBoard ba = this.samAI("Normal");
 		// DerpyBoard ba = this.curtisAI();
-		
-		if(wereInCheckmate() || theyreInCheckmate()) {
-			System.out.println("SOMEONE WAS IN CHECKMATE, EXITING");
-			System.exit(0);
-		}
 
 		ba = this.promoteIfPossible(ba);
 
