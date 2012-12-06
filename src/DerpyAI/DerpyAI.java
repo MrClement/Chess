@@ -1150,15 +1150,16 @@ public class DerpyAI {
 
 	public DerpyBoard makeMove(DerpyBoard b) {
 
-		
+		/*
 		  if (wereInCheckmate() || !weHaveOurKingStill()) {
-		  System.out.println("DerpyAI has lost....press enter to continue.");
-		  sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
+			  System.out.println("DerpyAI has lost....press enter to continue.");
+			  sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
 		 
 		 if (theyreInCheckmate()) {
 			 System.out.println("DerpyAI has won....press enter to continue."); 
 			 sc = new Scanner(System.in); while (!sc.nextLine().equals("")); 
 			 }
+			*/
 		 
 
 		boardStore.add(b);
