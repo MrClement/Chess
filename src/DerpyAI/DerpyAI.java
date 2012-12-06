@@ -1167,6 +1167,11 @@ public class DerpyAI {
 		// DerpyBoard ba = this.prestonAI();
 		DerpyBoard ba = this.samAI("Normal");
 		// DerpyBoard ba = this.curtisAI();
+		
+		if(wereInCheckmate() || theyreInCheckmate()) {
+			System.out.println("SOMEONE WAS IN CHECKMATE, EXITING");
+			System.exit(0);
+		}
 
 		ba = this.promoteIfPossible(ba);
 
