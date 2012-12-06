@@ -1044,12 +1044,18 @@ public class DerpyAI {
 					// Finds all possible pieces that piece can take that are not covered
 					for (int i = 0; i < destinationArray.size(); i++) {
 						if (!(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyBlank)) {
-							for (int z = 0; z < theirPieces.size(); z++) {
-								if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())) && makeTrade(theirPieces.get(z),ourPieces.get(f))) covered = true; 
+							if(!(makeTrade(ourPieces.get(f),currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]))){
+								for (int z = 0; z < theirPieces.size(); z++) {
+									if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
+									//&& makeTrade(theirPieces.get(z),ourPieces.get(f))
+									if (!covered){
+									piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+									System.out.println(piecesToTake);
+								}
+								}
 							}
-							if (!covered){
+							else {
 							piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
-							System.out.println(piecesToTake);
 							}
 						}
 					}
