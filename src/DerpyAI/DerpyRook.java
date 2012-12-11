@@ -8,6 +8,7 @@ public class DerpyRook extends DerpyPiece {
 		currentLocation = p; 
 		xMoveConstraint = 8; 
 		yMoveConstraint = 8; 
+		pvalue = 5; 
 	}
 
 

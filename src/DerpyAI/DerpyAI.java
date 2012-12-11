@@ -1192,7 +1192,7 @@ public class DerpyAI {
 		}
 		
 		else if (rvalue == 5){
-			trash = "I SHALL BURN YOUR WOMEN AND RAPE YOUR CHURCHES!!!";
+			trash = "INFIDEL!!!";
 		}
 		
 		else if (rvalue == 6){

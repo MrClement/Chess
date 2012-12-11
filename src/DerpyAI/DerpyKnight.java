@@ -8,6 +8,7 @@ public class DerpyKnight extends DerpyPiece {
 		currentLocation = p; 
 		xMoveConstraint = 2;
 		yMoveConstraint = 2;
+		pvalue = 3; 
 	}
 	
 	

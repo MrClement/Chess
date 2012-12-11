@@ -9,6 +9,7 @@ public class DerpyKing extends DerpyPiece {
 		currentLocation = p;
 		xMoveConstraint = 1;
 		yMoveConstraint = 1;
+		pvalue = 100; 
 	}
 
 }
