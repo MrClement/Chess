@@ -371,7 +371,7 @@ public class DerpyAI {
 		 * System.out.println("DerpyAI has won....press enter to continue."); sc
 		 * = new Scanner(System.in); while (!sc.nextLine().equals("")); }
 		 */
-
+		System.out.println(trashTalk()); 
 		System.out.println("We're in check: " + inCheck() + " –– mate: "
 				+ wereInCheckmate());
 		System.out.println("They're in check: " + theyreinCheck()
@@ -926,6 +926,7 @@ public class DerpyAI {
 
 		parseCurrentBoard();
 		boardStore.add(currentBoard);
+		System.out.println("DO SOMETHING!!!");
 		System.out.println("Turn " + numTurns + ": Random Move Made by "
 				+ randomPiece.toString() + " from (" + (int) oldDest.getX()
 				+ "," + (int) oldDest.getY() + ") " + "to ("
