@@ -1074,22 +1074,18 @@ public class DerpyAI {
 						for (int i = 0; i < destinationArray.size(); i++) {
 							//Checks to see that the destination isn't a blank
 							if (!(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyBlank)) {
-							System.out.println("Our Piece: " + ourPieces.get(f));
-							System.out.println("Not a blank");
-							DerpyBoard tempBoard = currentBoard; 
+//							System.out.println("Our Piece: " + ourPieces.get(f));
+//							System.out.println("Not a blank");
 							//Checks to see if the enemy piece is worth less than our taking piece
 								if((currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()].toValue())<ourPieces.get(f).toValue()){
 								//If the enemy piece is worth less, check to see if any other enemy pieces can take our piece once we take the first piece	
-									System.out.println("Target is worth less");
-									this.movePiece(ourPieces.get(f), new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()));
 									for (int z = 0; z < theirPieces.size(); z++) {
-										System.out.println("Their Piece: " + theirPieces.get(z));
-										System.out.println("Can it Cover? " + pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
+//										System.out.println("Their Piece: " + theirPieces.get(z));
+//										System.out.println("Can it Cover? " + pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
 										if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
 									}
-									currentBoard = tempBoard; 
 										//If none can, still take the piece
-									if (covered==false){
+									if (!covered){
 										System.out.println("Target is not covered");
 										piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
 									}
