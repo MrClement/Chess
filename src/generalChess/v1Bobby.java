@@ -810,10 +810,9 @@ public class v1Bobby {
 		int bishop = 1;
 		int knight = 1;
 		int pawn = 1;
-
+		
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
 		for (int i = 2; i < a.size(); i++) {
-
 			if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].getColor() == !color
 					&& b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) != 'X') {
 				if (b[(int) ((Point) a.get(i)).getX()][(int) ((Point) a.get(i)).getY()].toString().charAt(1) == 'K') {
@@ -1719,14 +1718,12 @@ public class v1Bobby {
 		else
 		{
 		v1Bobby enemy = new v1Bobby(this.getB(), !color);
-		System.out.println("here");
 		Point enemyCoord=new Point(-1,-1);
 		Point kingCoord=new Point((int)((Point)kMoves().get(0).get(1)).getX(),(int)((Point)kMoves().get(0).get(1)).getY());
 		//finds loc of enemy attacking king
 		for (int i = 0; i < enemy.allMoves().size(); i++) {
 				if(((Point)enemy.allMoves().get(i).get(takeIfPossible(enemy.allMoves().get(i)))).equals((Point)this.kMoves().get(0).get(1)))
 				{
-					System.out.println("here1");
 					enemyCoord.setLocation(((Point)enemy.allMoves().get(i).get(1)).getX(), ((Point)enemy.allMoves().get(i).get(1)).getY());
 				}
 		}
@@ -1740,7 +1737,6 @@ public class v1Bobby {
 				{
 					if(((Point)allMoves().get(r).get(c)).equals(enemyCoord)) 
 				{
-						System.out.println("here3");
 						move((int)((Point)allMoves().get(r).get(1)).getX(),(int)((Point)allMoves().get(r).get(1)).getY(),
 						(int)((Point)allMoves().get(r).get(c)).getX(),(int)((Point)allMoves().get(r).get(c)).getY());
 				numTurns++;
@@ -1753,7 +1749,6 @@ public class v1Bobby {
 			
 		if(currTurns==numTurns)
 		{
-			System.out.println("her4e");
 			getOutOfCheck();
 		}
 		
