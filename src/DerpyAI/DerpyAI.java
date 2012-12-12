@@ -780,6 +780,259 @@ public class DerpyAI {
 		return false;
 	}
 	
+	protected boolean pieceCanMoveToPositionEnemy(DerpyPiece piece, Point position) {
+
+		int xPos = (int) position.getX();
+		int yPos = (int) position.getY();
+		boolean indicator = false;
+		if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
+			indicator = true;
+		}
+
+			if (piece instanceof DerpyKing) {
+				// can only move 1 space
+				if (piece.getLocation().distanceSq(position) == 1
+						|| piece.getLocation().distanceSq(position) == 2) {
+					// makes sure the destination is not occupied by a friendly
+					// piece
+					if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
+							&& currentBoard.getBoardArray()[xPos][yPos]
+									.getColor() == piece.getColor()) {
+						// makes sure moving doesn't put him in check
+						/*
+						 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+						 * testBoard = this.movePiece(piece, position);
+						 * currentBoard = testBoard; if (!(this.inCheck())) {
+						 * currentBoard = oldBoard; return true; } else {
+						 * currentBoard = oldBoard; }
+						 */
+						return true;
+					}
+
+				}
+			}
+			if (piece instanceof DerpyPawn) {
+				// if the pawn is black...
+					// if the pawn wants to move up two spaces and is on its
+					// starting area
+					if (piece.getLocation().getY() == 1 && position.getY() == 3
+							&& piece.getLocation().getX() == xPos) {
+						// can only move if not blocked by another piece
+						if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
+								&& currentBoard.getBoardArray()[xPos][2] instanceof DerpyBlank) {
+							// makes sure moving doesn't put the king in check
+							/*
+							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+							 * testBoard = this.movePiece(piece, position);
+							 * currentBoard = testBoard; if (!(this.inCheck()))
+							 * { currentBoard = oldBoard; return true; } else {
+							 * currentBoard = oldBoard; }
+							 */
+							return true;
+						}
+					}
+					// if the pawn wants to move up one space
+					if (piece.getLocation().getY() - yPos == -1
+							&& piece.getLocation().getX() == xPos) {
+						// makes sure the space is not blocked
+						if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
+							// makes sure moving does not put the king in check
+							/*
+							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+							 * testBoard = this.movePiece(piece, position);
+							 * currentBoard = testBoard; if (!(this.inCheck()))
+							 * { currentBoard = oldBoard; return true; } else {
+							 * currentBoard = oldBoard; }
+							 */
+							return true;
+						}
+					}
+					// if the pawn wants to take diagonally
+					if ((int) piece.getLocation().getY() == yPos - 1 && (int) piece
+							.getLocation().getX() == xPos - 1
+							|| (int) piece.getLocation().getY() == yPos - 1 && (int) piece
+									.getLocation().getX() == xPos + 1) {
+						// makes sure the space has a takeable piece
+						if (!(currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)) {
+							if (currentBoard.getBoardArray()[xPos][yPos]
+									.getColor()) {
+								// makes sure moving does not put the king in
+								// check
+								/*
+								 * DerpyBoard oldBoard = currentBoard;
+								 * DerpyBoard testBoard = this.movePiece(piece,
+								 * position); currentBoard = testBoard; if
+								 * (!(this.inCheck())) { currentBoard =
+								 * oldBoard; return true; } else { currentBoard
+								 * = oldBoard; }
+								 */
+								return true;
+							}
+						}
+					}
+				}
+				// if the pawn is white...
+				if (piece.getColor()) {
+					// if the pawn wants to move up two spaces and is on its
+					// starting area
+					if (piece.getLocation().getY() == 6 && position.getY() == 4
+							&& piece.getLocation().getX() == xPos) {
+						// can only move if not blocked by another piece
+						if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank
+								&& currentBoard.getBoardArray()[xPos][5] instanceof DerpyBlank) {
+							// makes sure moving doesn't put the king in check
+							/*
+							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+							 * testBoard = this.movePiece(piece, position);
+							 * currentBoard = testBoard; if (!(this.inCheck()))
+							 * { currentBoard = oldBoard; return true; } else {
+							 * currentBoard = oldBoard; }
+							 */
+							return true;
+						}
+					}
+					// if the pawn wants to move up one space
+					if (piece.getLocation().getY() - yPos == 1
+							&& piece.getLocation().getX() == xPos) {
+						// makes sure the space is not blocked
+						if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
+							// makes sure moving does not put the king in check
+							/*
+							 * DerpyBoard oldBoard = currentBoard; DerpyBoard
+							 * testBoard = this.movePiece(piece, position);
+							 * currentBoard = testBoard; if (!(this.inCheck()))
+							 * { currentBoard = oldBoard; return true; } else {
+							 * currentBoard = oldBoard; }
+							 */
+							return true;
+						}
+					}
+					// if the pawn wants to take diagonally
+					if (piece.getLocation().getY() == yPos + 1 && piece
+							.getLocation().getX() == xPos - 1
+							|| piece.getLocation().getY() == yPos + 1 && piece
+									.getLocation().getX() == xPos + 1) {
+						// makes sure the space has a takeable piece
+						if (!(currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank)) {
+							if (!currentBoard.getBoardArray()[xPos][yPos]
+									.getColor()) {
+								// makes sure moving does not put the king in
+								// check
+								/*
+								 * DerpyBoard oldBoard = currentBoard;
+								 * DerpyBoard testBoard = this.movePiece(piece,
+								 * position); currentBoard = testBoard; if
+								 * (!(this.inCheck())) { currentBoard =
+								 * oldBoard; return true; } else { currentBoard
+								 * = oldBoard; }
+								 */
+								return true;
+							}
+						}
+					}
+				
+
+			
+			// if the piece is a rook or queen moving on a rank or file
+			if (piece instanceof DerpyRook || piece instanceof DerpyQueen) {
+				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
+				// destination has to be on the same rank or file
+				if ((int) piece.getLocation().getY() == yPos
+						|| (int) piece.getLocation().getX() == xPos) {
+					// no pieces blocking
+					ArrayList<Point> betweenSpace = findBlockablePoints(
+							pieceAtDestination, piece);
+					for (Point d : betweenSpace) {
+						if (!(currentBoard.getBoardArray()[(int) d.getX()][(int) d
+								.getY()] instanceof DerpyBlank)) {
+							return false;
+						}
+					}
+					// checks if it puts the king in check
+					/*
+					 * DerpyBoard oldBoard = currentBoard; DerpyBoard testBoard
+					 * = this.movePiece(piece, position); currentBoard =
+					 * testBoard; if (!(this.inCheck())) { currentBoard =
+					 * oldBoard; return true; } else { currentBoard = oldBoard;
+					 * }
+					 */
+					return true;
+				}
+			}
+			// if the piece is a bishop or queen moving diagonally
+			if (piece instanceof DerpyBishop || piece instanceof DerpyQueen) {
+				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
+				// destination has to be on the same diagonal
+				if (Math.abs((int) (piece.getLocation().getY() - yPos)) ==
+						Math.abs((int) (piece.getLocation().getX() - xPos))) {
+					// no pieces blocking
+					ArrayList<Point> betweenSpace = findBlockablePoints(
+							pieceAtDestination, piece);
+					for (Point d : betweenSpace) {
+						if (!(currentBoard.getBoardArray()[(int) d.getX()][(int) d
+								.getY()] instanceof DerpyBlank)) {
+							return false;
+						}
+					}
+
+					return true;
+				}
+			}
+			// for knights
+			if (piece instanceof DerpyKnight) {
+				// destination has to be one of eight destinations around the
+				// knight
+				// that are valid
+				if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece
+						.getLocation().getX() + 1)) {
+					if (!(yPos == piece.getLocation().getY() + 2 && xPos == piece
+							.getLocation().getX() - 1)) {
+						if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece
+								.getLocation().getX() + 2)) {
+							if (!(yPos == piece.getLocation().getY() + 1 && xPos == piece
+									.getLocation().getX() - 2)) {
+								if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece
+										.getLocation().getX() + 2)) {
+									if (!(yPos == piece.getLocation().getY() - 1 && xPos == piece
+											.getLocation().getX() - 2)) {
+										if (!(yPos == piece.getLocation()
+												.getY() - 2 && xPos == piece
+												.getLocation().getX() + 1)) {
+											if (!(yPos == piece.getLocation()
+													.getY() - 2 && xPos == piece
+													.getLocation().getX() - 1)) {
+												return false;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				/*
+				 * DerpyBoard oldBoard = currentBoard; DerpyBoard testBoard =
+				 * this.movePiece(piece, position); currentBoard = testBoard; if
+				 * (!(this.inCheck())) { currentBoard = oldBoard; return true; }
+				 * else { currentBoard = oldBoard; }
+				 */
+				return true;
+			}
+			// We need to get the Piece object at that position
+
+			// Iterate through each Piece to figure out whether there's a piece
+			// at
+			// that position, or is it blank?
+
+			for (Piece p : ourPieces) {
+				DerpyPiece d = (DerpyPiece) p;
+				d.getLocation();
+			}
+		}
+
+		return false;
+	}
+	
 	// tells if a piece is protected
 	public boolean pieceIsProtected(DerpyPiece p) {
 		DerpyPiece d = p;
@@ -1081,8 +1334,8 @@ public class DerpyAI {
 								//If the enemy piece is worth less, check to see if any other enemy pieces can take our piece once we take the first piece	
 									for (int z = 0; z < theirPieces.size(); z++) {
 //										System.out.println("Their Piece: " + theirPieces.get(z));
-//										System.out.println("Can it Cover? " + pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
-										if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
+//										System.out.println("Can it Cover? " + pieceCanMoveToPositionEnemy(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
+										if (pieceCanMoveToPositionEnemy(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
 									}
 										//If none can, still take the piece
 									if (!covered){
