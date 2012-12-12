@@ -8,6 +8,7 @@ public class DerpyQueen extends DerpyPiece {
 		currentLocation = p; 
 		xMoveConstraint = 8; 
 		yMoveConstraint = 8; 
+		pvalue = 10; 
 	}
 
 

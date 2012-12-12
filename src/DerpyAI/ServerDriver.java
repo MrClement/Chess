@@ -13,7 +13,7 @@ import sharedfiles.Piece;
 
 public class ServerDriver {
 
-	public static final String hostname = "localhost";
+	public static final String hostname = "10.80.4.31";
 	public static final int port = 8080;
 
 	@SuppressWarnings("resource")
@@ -62,17 +62,23 @@ public class ServerDriver {
 		//String[] stuff = new String[8];
 		//ArrayList<String> stuff = new ArrayList<String>();
 
-		//white(true) loop
+		//while(true) loop
 		while (true) {
 			ArrayList<String> stuff = new ArrayList<String>();
 			String line = in.readLine();
-			while(line != null && !line.equals(".")) {
-				System.out.println("In the while(line != null && !line.equals( loop");
-				stuff.add(line);
-				line = in.readLine();
+			while(true) {
+				if(line == null)in.readLine();
+				else {
+
+					if(line.equals("."))break;
+
+					stuff.add(line);
+					line = in.readLine();
+
+				}
 			}
 			String[] stuffArr = stuff.toArray(new String[stuff.size()]);
-
+			//System.out.println(stuffArr);
 			Board board = new Board();
 			board.buildBoard(stuffArr);
 			DerpyBoard input = new DerpyBoard(board);
@@ -83,7 +89,7 @@ public class ServerDriver {
 			for (int y = 0; y < 8; y++) {
 
 				for (int x = 0; x < 8; x++) {
-					out.print((arr[x][y].toString().equals("WX") ? "  " : arr[x][y].toString()) + " | ");
+					out.print((arr[x][y].toString()) + " | ");
 				}
 				out.println();
 

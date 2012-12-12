@@ -215,7 +215,6 @@ public class v1Bobby {
 
 	}
 
-
 	public ArrayList<ArrayList> kMoves() {
 		ArrayList<ArrayList> d = new ArrayList();
 		// king can't move into check
@@ -241,35 +240,19 @@ public class v1Bobby {
 											Point oldLocation= new Point(x,y);
 											Point p4=new Point(a,b);
 											boolean possibleMove=false;
-											
-											Piece[][] tempBoard=new Piece [8][8];
-											
-											for (int i = 0; i < tempBoard.length; i++) {
-												for (int l = 0; l < tempBoard[i].length; l++) {
-													tempBoard[i][l]=this.b[i][l];
-												}
-												
+											boolean dontLook= false;
+											if(this.b[a][b].toString().charAt(1) != 'X'){
+												dontLook=true;
 											}
-											
-											
-											
-											
+											if(dontLook==false)
+											{	
 											move(x,y,a,b);
 											enemy.getBoard(this.b);
 											if(enemy.numDefenders(a,b)==0) possibleMove=true;
 											move(a,b,x,y);
-											
-											
-											this.b=new Piece[8][8];
-											for (int i = 0; i < tempBoard.length; i++) {
-												for (int l = 0; l < tempBoard[i].length; l++) {
-													this.b[i][l] = tempBoard[i][l];
-												}
-												
 											}
-											
-											this.getBoard(this.b);
 											enemy.getBoard(this.b);
+											
 										if(possibleMove==true) g.add(new Point(a, b));
 									}
 								}
@@ -803,6 +786,10 @@ public class v1Bobby {
 		return v;
 	}
 
+	// takes an array of possible returns the index of the highest ranking
+	// opponent piece that any specific piece
+	// has in its possible moves
+	// 1 if no possible pieces to take
 	public int takeIfPossible(ArrayList a) {
 		int king = 1;
 		int queen = 1;
@@ -1264,6 +1251,10 @@ public class v1Bobby {
 			
 	}
 		
+	
+
+	// return numDefenders, 0 if no piece is defending that location, there may
+	// be a piece on that location
 	public int numDefenders(int x, int y) {
 		// num defenders takes in the coordinates of a piece and returns the
 		// number of pieces on its team that are defending it.
@@ -2493,75 +2484,4 @@ public class v1Bobby {
 		return a;
 	}
 
-	public boolean isPromotionPossible(){
-		boolean promote =false;
-		if(color==true)
-		{
-			for(int i=0;i<pMoves().size();i++)
-			{
-				if((int)((Point)(pMoves().get(i).get(1))).getY() == 0) promote=true;
-			}
-		}
-		else
-		{
-			for(int i=0;i<pMoves().size();i++)
-			{
-				if((int)((Point)(pMoves().get(i).get(1))).getY() == 7) promote=true;
-			}
-		}
-		
-		
-		
-		return promote;
-	}
-	
-	public void promotePawn(){
-		
-	}
-
-	public ArrayList<Point> castle(){
-		ArrayList<Point> a=new ArrayList<Point>();
-		if(color==false){
-			if(b[4][0].getColor()==color&&b[4][0].toString().charAt(1)=='K'&&b[5][0].toString().charAt(1)=='X'&&b[6][0].toString().charAt(1)=='X'&&b[7][0].getColor()==color&&b[7][0].toString().charAt(1)=='R'){
-				a.add(new Point(4, 0));
-				a.add(new Point(6, 0));
-				a.add(new Point(7, 0));
-				a.add(new Point(5, 0));
-				return a;
-			}
-			if(b[4][0].getColor()==color&&b[4][0].toString().charAt(1)=='K'&&b[3][0].toString().charAt(1)=='X'&&b[2][0].toString().charAt(1)=='X'&&b[1][0].toString().charAt(1)=='X'&&b[0][0].getColor()==color&&b[0][0].toString().charAt(1)=='R'){
-				a.add(new Point(4, 0));
-				a.add(new Point(2, 0));
-				a.add(new Point(0, 0));
-				a.add(new Point(3, 0));
-				return a;
-			}
-		}
-		if(color==true){
-			if(b[4][7].getColor()==color&&b[4][7].toString().charAt(1)=='K'&&b[5][7].toString().charAt(1)=='X'&&b[6][7].toString().charAt(1)=='X'&&b[7][7].getColor()==color&&b[7][7].toString().charAt(1)=='R'){
-				a.add(new Point(4, 7));
-				a.add(new Point(6, 7));
-				a.add(new Point(7, 7));
-				a.add(new Point(5, 7));
-				return a;
-			}
-			if(b[4][7].getColor()==color&&b[4][7].toString().charAt(1)=='K'&&b[3][7].toString().charAt(1)=='X'&&b[2][7].toString().charAt(1)=='X'&&b[1][7].toString().charAt(1)=='X'&&b[0][7].getColor()==color&&b[0][7].toString().charAt(1)=='R'){
-				a.add(new Point(4, 7));
-				a.add(new Point(2, 7));
-				a.add(new Point(0, 7));
-				a.add(new Point(3, 7));
-				return a;
-			}
-		}
-		return a;
-	}
-	
-	public void clear(){
-		for(int i=0;i<8;i++){
-			for(int k=0;k<8;k++){
-				b[i][k]=new Blank(true);
-			}
-		}
-	}
-	
 }
