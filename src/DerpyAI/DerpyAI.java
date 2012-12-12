@@ -22,7 +22,7 @@ public class DerpyAI {
 	public ArrayList<DerpyPiece> theirPieces; // Our Array of their Pieces
 	// pieces
 	public ArrayList<Point> theirPiecesPoints; // array of the locations of
-	
+	Boolean covered; 
 
 	// A new constructor that doesn't take a board, just a color. This is
 	// because moves/board parsing
@@ -41,6 +41,7 @@ public class DerpyAI {
 		allMoves = new ArrayList<Move>();
 		findOurPieces();
 		findTheirPieces();
+		covered = true; 
 	}
 
 	public void concedeGame() {
@@ -371,11 +372,11 @@ public class DerpyAI {
 		 * System.out.println("DerpyAI has won....press enter to continue."); sc
 		 * = new Scanner(System.in); while (!sc.nextLine().equals("")); }
 		 */
-		System.out.println(trashTalk()); 
-		System.out.println("We're in check: " + inCheck() + " –– mate: "
-				+ wereInCheckmate());
-		System.out.println("They're in check: " + theyreinCheck()
-				+ " -- mate: " + theyreInCheckmate());
+//		System.out.println(trashTalk()); 
+//		System.out.println("We're in check: " + inCheck() + " –– mate: "
+//				+ wereInCheckmate());
+//		System.out.println("They're in check: " + theyreinCheck()
+//				+ " -- mate: " + theyreInCheckmate());
 
 		boardStore.add(b);
 		currentBoard = b;
@@ -778,7 +779,7 @@ public class DerpyAI {
 
 		return false;
 	}
-
+	
 	// tells if a piece is protected
 	public boolean pieceIsProtected(DerpyPiece p) {
 		DerpyPiece d = p;
@@ -943,7 +944,7 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard samAI(String opening) {
-		boolean covered = false; 
+			covered = false; 
 			if (myColor == true && opening == "Normal" && numTurns < 5) {
 				if (numTurns == 1) {
 					//currentBoard.getBoardArray()[4][6].changeLocation(new Point
@@ -1073,20 +1074,30 @@ public class DerpyAI {
 						for (int i = 0; i < destinationArray.size(); i++) {
 							//Checks to see that the destination isn't a blank
 							if (!(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyBlank)) {
+							System.out.println("Our Piece: " + ourPieces.get(f));
+							System.out.println("Not a blank");
+							DerpyBoard tempBoard = currentBoard; 
 							//Checks to see if the enemy piece is worth less than our taking piece
 								if((currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()].toValue())<ourPieces.get(f).toValue()){
 								//If the enemy piece is worth less, check to see if any other enemy pieces can take our piece once we take the first piece	
+									System.out.println("Target is worth less");
+									this.movePiece(ourPieces.get(f), new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()));
 									for (int z = 0; z < theirPieces.size(); z++) {
+										System.out.println("Their Piece: " + theirPieces.get(z));
+										System.out.println("Can it Cover? " + pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
 										if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
 									}
+									currentBoard = tempBoard; 
 										//If none can, still take the piece
-									if (!covered){
+									if (covered==false){
+										System.out.println("Target is not covered");
 										piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
 									}
 								}
 								//If the enemy piece is worth more, add it to the array to be taken
 								else {
 								piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+								System.out.println("Target is worth more");
 								}
 							}
 						}
