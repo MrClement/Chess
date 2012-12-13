@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 
@@ -66,7 +67,7 @@ public class BoardGUIDevelopment {
 
 	private void initialize() {
 		Board b = new Board();
-		b.randomize();
+		//b.randomize();
 		readBoard(b);
 
 		frame = new JFrame();
@@ -88,6 +89,8 @@ public class BoardGUIDevelopment {
 			for (int n = 0; n < j; n++) {
 				panelHolder[m][n] = new JPanel();
 				panelHolder[m][n].setSize(60, 60);
+				if((n%2 + m%2)%2 == 0)panelHolder[m][n].setBackground(Color.WHITE);
+				else panelHolder[m][n].setBackground(Color.GRAY);
 				frame.add(panelHolder[m][n]);
 			}
 		}
@@ -126,7 +129,7 @@ public class BoardGUIDevelopment {
 						break;
 				}
 
-				tempResourceName.concat(".png");
+				tempResourceName = tempResourceName.concat(".png");
 
 				ImageIcon icon = createImageIcon(tempResourceName, "Derpy Spot");
 
