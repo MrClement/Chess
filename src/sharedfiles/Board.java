@@ -1,5 +1,7 @@
 package sharedfiles;
 
+import java.util.Random;
+
 public class Board {
 
 	protected Piece[][] arr;
@@ -69,6 +71,10 @@ public class Board {
 	public static void main(String args[]) {
 		Board a = new Board();
 		a.printBoard();
+		a.Randomize();
+		a.printBoard();
+		a.Randomize();
+		a.printBoard();
 	}
 
 	public void buildBoard(String[] stringRep) {
@@ -102,6 +108,28 @@ public class Board {
 			default:
 				return null;
 		}
+	}
+
+	public void Randomize() {
+		Random r = new Random();
+		Piece[][] temp = new Piece[8][8];
+		for (int i = 0; i < temp.length; i++) {
+			for (int j = 0; j < temp.length; j++) {
+				temp[i][j] = null;
+			}
+		}
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr.length; j++) {
+				int a = r.nextInt(8);
+				int b = r.nextInt(8);
+				while (temp[a][b] != null) {
+					a = r.nextInt(8);
+					b = r.nextInt(8);
+				}
+				temp[a][b] = arr[i][j];
+			}
+		}
+		arr = temp;
 	}
 
 }

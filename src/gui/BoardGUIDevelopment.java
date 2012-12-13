@@ -1,25 +1,15 @@
 package gui;
 
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sharedfiles.Bishop;
-import sharedfiles.Blank;
 import sharedfiles.Board;
-import sharedfiles.King;
-import sharedfiles.Knight;
-import sharedfiles.Pawn;
 import sharedfiles.Piece;
-import sharedfiles.Queen;
-import sharedfiles.Rook;
 
 public class BoardGUIDevelopment {
 
@@ -75,9 +65,10 @@ public class BoardGUIDevelopment {
 	 */
 
 	private void initialize() {
-		
-		readBoard(new Board());
-		
+		Board b = new Board();
+		b.Randomize();
+		readBoard(b);
+
 		frame = new JFrame();
 		frame.setSize(425, 425);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +94,7 @@ public class BoardGUIDevelopment {
 
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				
+
 				String pieceType = pieces[m][n];
 				String tempResourceName = "" + Character.toLowerCase(pieceType.charAt(0));
 				switch (pieceType.charAt(1)) {
@@ -134,11 +125,11 @@ public class BoardGUIDevelopment {
 						System.exit(1);
 						break;
 				}
-				
+
 				tempResourceName.concat(".png");
-				
+
 				ImageIcon icon = createImageIcon(tempResourceName, "Derpy Spot");
-				
+
 				JLabel label = new JLabel();
 				label.setIcon(icon);
 				panelHolder[m][n].add(label);
@@ -147,5 +138,4 @@ public class BoardGUIDevelopment {
 
 		frame.getContentPane().setLayout(steven);
 	}
-
 }
