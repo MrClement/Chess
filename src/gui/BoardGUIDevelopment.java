@@ -39,6 +39,7 @@ public class BoardGUIDevelopment {
 	 * Create the application.
 	 */
 	public BoardGUIDevelopment() {
+		pieces = new String[8][8];
 		readBoard(new Board());
 		initialize();
 	}
