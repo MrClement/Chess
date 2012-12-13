@@ -1198,55 +1198,55 @@ public class DerpyAI {
 	}
 
 	public DerpyBoard samAI(String opening) {
-			covered = false; 
+		boolean covered = false; 
 			if (myColor == true && opening == "Normal" && numTurns < 5) {
 				if (numTurns == 1) {
-					//currentBoard.getBoardArray()[4][6].changeLocation(new Point
-					//(4,4));
+					// currentBoard.getBoardArray()[4][6].changeLocation(new Point
+					// (4,4));
 					this.movePiece(currentBoard.getBoardArray()[4][6], new Point(4,
 							4));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
 
 				else if (numTurns == 2) {
-					//currentBoard.getBoardArray()[5][7].changeLocation(new Point
-					//(2,4));
+					// currentBoard.getBoardArray()[5][7].changeLocation(new Point
+					// (2,4));
 					this.movePiece(currentBoard.getBoardArray()[5][7], new Point(2,
 							4));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
 
 				else if (numTurns == 3) {
-					//currentBoard.getBoardArray()[6][7].changeLocation(new Point
-					//(5,5));
+					// currentBoard.getBoardArray()[6][7].changeLocation(new Point
+					// (5,5));
 					this.movePiece(currentBoard.getBoardArray()[6][7], new Point(5,
 							5));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
 
 				else {
-					//currentBoard.getBoardArray()[4][7].changeLocation(new Point
-					//(6,7));
+					// currentBoard.getBoardArray()[4][7].changeLocation(new Point
+					// (6,7));
 					this.movePiece(currentBoard.getBoardArray()[4][7], new Point(6,
 							7));
-					//currentBoard.getBoardArray()[7][7].changeLocation(new Point
-					//(5,7));
+					// currentBoard.getBoardArray()[7][7].changeLocation(new Point
+					// (5,7));
 					movePiece(currentBoard.getBoardArray()[7][7], new Point(5, 7));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
@@ -1258,7 +1258,7 @@ public class DerpyAI {
 							4));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
@@ -1268,7 +1268,7 @@ public class DerpyAI {
 							4));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
@@ -1278,7 +1278,7 @@ public class DerpyAI {
 							3));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
@@ -1288,7 +1288,7 @@ public class DerpyAI {
 							1));
 					numTurns++;
 					parseCurrentBoard();
-					//currentBoard.printBoard();
+					// currentBoard.printBoard();
 					System.out.println();
 					return currentBoard;
 				}
@@ -1299,55 +1299,46 @@ public class DerpyAI {
 				parseCurrentBoard();
 				numTurns++;
 
-				//If we're in check, get out of it
+				// If we're in check, get out of it
 				System.out.println("In check? " + this.inCheck());
 				if (this.inCheck()) {
-					System.out.println("FLY, YOU FOOLS!!!");
+					System.out.println("FLY, YOU FOOLS!");
 					return this.getOutOfCheck(currentBoard);
 				}
 
-				//Otherwise, find the initial piece to move and the initial
-				//destination
+				// Otherwise, find the initial piece to move and the initial
+				// destination
 				else {
-					DerpyPiece bestPiece = null; //Our piece to move
-					DerpyPiece bestTarget = null; //Enemy piece to take
+					DerpyPiece bestPiece = null; // Our piece to move
+					DerpyPiece bestTarget = null; // Enemy piece to take
 
-					//If we aren't in check, we shouldn't move our king
+					// If we aren't in check, we shouldn't move our king
 					for (int i = 0; i < ourPieces.size(); i++) {
 						if (ourPieces.get(i) instanceof DerpyKing)
 							ourPieces.remove(i);
 					}
 					
-					//Goes through each of our pieces
+					// Goes through each of our pieces
 					for (int f = 0; f < ourPieces.size(); f++) {
-						//Finds the possible destinations of that respective piece
-						ArrayList<Point> destinationArray = this.movablePoints(ourPieces.get(f));
-						//Create an array of pieces we should take
+						// Finds the possible destinations of that respective piece
+						ArrayList<Point> destinationArray = this
+								.movablePoints(ourPieces.get(f));
 						ArrayList<DerpyPiece> piecesToTake = new ArrayList<DerpyPiece>();
-						//Goes through each destination of the piece
+						// Finds all possible pieces that piece can take that are not covered
 						for (int i = 0; i < destinationArray.size(); i++) {
-							//Checks to see that the destination isn't a blank
 							if (!(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()] instanceof DerpyBlank)) {
-//							System.out.println("Our Piece: " + ourPieces.get(f));
-//							System.out.println("Not a blank");
-							//Checks to see if the enemy piece is worth less than our taking piece
-								if((currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()].toValue())<ourPieces.get(f).toValue()){
-								//If the enemy piece is worth less, check to see if any other enemy pieces can take our piece once we take the first piece	
+								if(!(makeTrade(ourPieces.get(f),currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]))){
 									for (int z = 0; z < theirPieces.size(); z++) {
-//										System.out.println("Their Piece: " + theirPieces.get(z));
-//										System.out.println("Can it Cover? " + pieceCanMoveToPositionEnemy(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
 										if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
-									}
-										//If none can, still take the piece
-									if (!covered){
-										//System.out.println("Target is not covered");
+										//&& makeTrade(theirPieces.get(z),ourPieces.get(f))
+										if (!covered){
 										piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
+										//System.out.println(piecesToTake);
+									}
 									}
 								}
-								//If the enemy piece is worth more, add it to the array to be taken
 								else {
 								piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
-								System.out.println("Target is worth more");
 								}
 							}
 						}
@@ -1377,8 +1368,8 @@ public class DerpyAI {
 
 					// If we have any pieces to take, takes the best one of them
 					if (bestPiece != null && bestTarget != null) {
-						System.out.println("TERMINATE");
-						System.out.println("Turn " + numTurns
+						System.out
+								.println("Turn " + numTurns
 										+ ": Autonomous Move Made by "
 										+ bestPiece.toString() + " from ("
 										+ (int) bestPiece.getLocation().getX()
@@ -1409,9 +1400,7 @@ public class DerpyAI {
 				}
 			}
 		}
-
-
-
+	
 	// returns a board that moves a piece out of being threatened
 	public DerpyBoard savePiece(DerpyPiece p) {
 		ArrayList<Point> placesToMove = movablePoints(p);
