@@ -532,8 +532,7 @@ public class DerpyAI {
 		if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 			indicator = true;
 		}
-		if (!(currentBoard.getBoardArray()[xPos][yPos].getColor() == piece
-				.getColor()) || indicator) {
+		if (!(currentBoard.getBoardArray()[xPos][yPos].getColor() == piece.getColor()) || indicator) {
 
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
@@ -788,6 +787,7 @@ public class DerpyAI {
 		if (currentBoard.getBoardArray()[xPos][yPos] instanceof DerpyBlank) {
 			indicator = true;
 		}
+		if (!(currentBoard.getBoardArray()[xPos][yPos].getColor() != piece.getColor()) || indicator) {
 
 			if (piece instanceof DerpyKing) {
 				// can only move 1 space
@@ -813,6 +813,7 @@ public class DerpyAI {
 			}
 			if (piece instanceof DerpyPawn) {
 				// if the pawn is black...
+				if (!piece.getColor()) {
 					// if the pawn wants to move up two spaces and is on its
 					// starting area
 					if (piece.getLocation().getY() == 1 && position.getY() == 3
@@ -930,9 +931,9 @@ public class DerpyAI {
 							}
 						}
 					}
-				
+				}
 
-			
+			}
 			// if the piece is a rook or queen moving on a rank or file
 			if (piece instanceof DerpyRook || piece instanceof DerpyQueen) {
 				DerpyPiece pieceAtDestination = currentBoard.getBoardArray()[xPos][yPos];
@@ -1335,11 +1336,11 @@ public class DerpyAI {
 									for (int z = 0; z < theirPieces.size(); z++) {
 //										System.out.println("Their Piece: " + theirPieces.get(z));
 //										System.out.println("Can it Cover? " + pieceCanMoveToPositionEnemy(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY())));
-										if (pieceCanMoveToPositionEnemy(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
+										if (pieceCanMoveToPosition(theirPieces.get(z),new Point((int) destinationArray.get(i).getX(),(int) destinationArray.get(i).getY()))) covered = true; 
 									}
 										//If none can, still take the piece
 									if (!covered){
-										System.out.println("Target is not covered");
+										//System.out.println("Target is not covered");
 										piecesToTake.add(currentBoard.getBoardArray()[(int) destinationArray.get(i).getX()][(int) destinationArray.get(i).getY()]);
 									}
 								}
