@@ -66,7 +66,7 @@ public class BoardGUIDevelopment {
 
 	private void initialize() {
 		Board b = new Board();
-		b.Randomize();
+		b.randomize();
 		readBoard(b);
 
 		frame = new JFrame();
