@@ -93,14 +93,10 @@ public class BoardGUIDevelopment {
 
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				ImageIcon icon = createImageIcon("bBishop.png", "Derpy Spot");
-				Image img = icon.getImage();
-				BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null),
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 50, 50, null);
+				ImageIcon icon = createImageIcon("Blank.png", "Derpy Spot");
+				
 				JLabel label = new JLabel();
-				label.setIcon(new ImageIcon(bi));
+				label.setIcon(icon);
 				panelHolder[m][n].add(label);
 			}
 		}
