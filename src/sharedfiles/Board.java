@@ -71,10 +71,6 @@ public class Board {
 	public static void main(String args[]) {
 		Board a = new Board();
 		a.printBoard();
-		a.Randomize();
-		a.printBoard();
-		a.Randomize();
-		a.printBoard();
 	}
 
 	public void buildBoard(String[] stringRep) {
