@@ -368,15 +368,15 @@ public class DerpyAI {
 		 * System.out.println("DerpyAI has lost....press enter to continue.");
 		 * sc = new Scanner(System.in); while (!sc.nextLine().equals("")) ; }
 		 * 
-		 * if (theyreInCheckmate()) {
+		 	if (theyreInCheckmate()) {
 		 * System.out.println("DerpyAI has won....press enter to continue."); sc
 		 * = new Scanner(System.in); while (!sc.nextLine().equals("")); }
 		 */
 //		System.out.println(trashTalk()); 
-//		System.out.println("We're in check: " + inCheck() + " –– mate: "
-//				+ wereInCheckmate());
-//		System.out.println("They're in check: " + theyreinCheck()
-//				+ " -- mate: " + theyreInCheckmate());
+		System.out.println("We're in check: " + inCheck() + " –– mate: "
+				+ wereInCheckmate());
+		System.out.println("They're in check: " + theyreinCheck()
+				+ " -- mate: " + theyreInCheckmate());
 
 		boardStore.add(b);
 		currentBoard = b;
