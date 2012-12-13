@@ -11,8 +11,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sharedfiles.Bishop;
+import sharedfiles.Blank;
 import sharedfiles.Board;
+import sharedfiles.King;
+import sharedfiles.Knight;
+import sharedfiles.Pawn;
 import sharedfiles.Piece;
+import sharedfiles.Queen;
+import sharedfiles.Rook;
 
 public class BoardGUIDevelopment {
 
@@ -68,6 +75,9 @@ public class BoardGUIDevelopment {
 	 */
 
 	private void initialize() {
+		
+		readBoard(new Board());
+		
 		frame = new JFrame();
 		frame.setSize(425, 425);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,14 +103,44 @@ public class BoardGUIDevelopment {
 
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				ImageIcon icon = createImageIcon("bBishop.png", "Derpy Spot");
-				Image img = icon.getImage();
-				BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null),
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 50, 50, null);
+				
+				String pieceType = pieces[m][n];
+				String tempResourceName = "" + Character.toLowerCase(pieceType.charAt(0));
+				switch (pieceType.charAt(1)) {
+					case 'X':
+						tempResourceName = "Blank";
+						break;
+					case 'B':
+						tempResourceName.concat("Bishop");
+						break;
+					case 'R':
+						tempResourceName.concat("Rook");
+						break;
+					case 'P':
+						tempResourceName.concat("Pawn");
+						break;
+					case 'Q':
+						tempResourceName.concat("Queen");
+						break;
+					case 'K':
+						tempResourceName.concat("King");
+						break;
+					case 'N':
+						tempResourceName.concat("Knight");
+						break;
+					default:
+						System.out.println("Reached default case in piece string array of BoardGUIDevelopment");
+						System.out.println("Exiting");
+						System.exit(1);
+						break;
+				}
+				
+				tempResourceName.concat(".png");
+				
+				ImageIcon icon = createImageIcon("Blank.png", "Derpy Spot");
+				
 				JLabel label = new JLabel();
-				label.setIcon(new ImageIcon(bi));
+				label.setIcon(icon);
 				panelHolder[m][n].add(label);
 			}
 		}
