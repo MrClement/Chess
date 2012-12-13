@@ -128,7 +128,7 @@ public class BoardGUIDevelopment {
 
 				tempResourceName.concat(".png");
 
-				ImageIcon icon = createImageIcon("Blank.png", "Derpy Spot");
+				ImageIcon icon = createImageIcon(tempResourceName, "Derpy Spot");
 
 				JLabel label = new JLabel();
 				label.setIcon(icon);
