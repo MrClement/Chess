@@ -105,10 +105,7 @@ public class BoardGUIDevelopment {
 			for (int n = 0; n < j; n++) {
 				
 				String pieceType = pieces[m][n];
-				String tempResourceName = null;
-				
-				boolean color = 'W' == pieceType.charAt(0);
-				tempResourceName = "" + Character.toLowerCase(pieceType.charAt(0));
+				String tempResourceName = "" + Character.toLowerCase(pieceType.charAt(0));
 				switch (pieceType.charAt(1)) {
 					case 'X':
 						tempResourceName = "Blank";
