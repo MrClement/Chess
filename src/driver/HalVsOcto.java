@@ -2,22 +2,21 @@ package driver;
 
 import octo.AI;
 import sharedfiles.Board;
-import DerpyAI.DerpyAI;
-import DerpyAI.DerpyBoard;
+import ClementEhrenfriedAI.Hal;
 
-public class DerpyVsOcto {
-	public DerpyVsOcto() {
+public class HalVsOcto {
+
+	public HalVsOcto() {
 
 		Board b = new Board();
+
+		Hal hal = new Hal(true, b);
+		System.out.println();
 		b.printBoard();
 		System.out.println();
-		DerpyBoard db = new DerpyBoard(b);
-		System.out.println();
 
-		System.out.println("Derpy:");
-		DerpyAI aiOne = new DerpyAI(true);
-		db = aiOne.makeMove(db);
-		b = db.boardEquiv();
+		System.out.println("Hal:");
+		b = hal.nextMove(b);
 		b.printBoard();
 		System.out.println();
 
@@ -26,27 +25,24 @@ public class DerpyVsOcto {
 		octo.setColor('B');
 		b = octo.takeTurn(b);
 		b.printBoard();
-		System.out.println();
-		// long start;
-		for (int i = 0; i < 100; i++) {
-			// start = System.currentTimeMillis();
 
-			System.out.println("Derpy:");
-			db = new DerpyBoard(b);
-			db = aiOne.makeMove(db);
-			b = db.boardEquiv();
+		// long start;
+		for (int i = 0; i < 50; i++) {
+
+			System.out.println();
+			System.out.println("Hal:");
+			b = hal.nextMove(b);
 			b.printBoard();
 			System.out.println();
-
 			System.out.println("OCTO:");
 			b = octo.takeTurn(b);
 			b.printBoard();
-			System.out.println();
 
 			// float time = System.currentTimeMillis() - start;
 			// time = time / 1000F;
 			// System.out.println(time);
-		}
-	}
 
+		}
+
+	}
 }

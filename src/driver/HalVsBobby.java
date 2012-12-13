@@ -1,41 +1,37 @@
 package driver;
 
 import generalChess.v1Bobby;
-import octo.AI;
-import sharedfiles.Board;
+import ClementEhrenfriedAI.Hal;
 
-public class BobbyVsOcto {
+public class HalVsBobby {
 
-	public BobbyVsOcto() {
+	public HalVsBobby() {
 
-		Board b = new Board();
-		v1Bobby bobby = new v1Bobby(b, true);
+		sharedfiles.Board b = new sharedfiles.Board();
+		Hal hal = new Hal(true, b);
 		System.out.println();
 		b.printBoard();
 		System.out.println();
 
-		System.out.println("BOBBY:");
+		System.out.println("Hal:");
+		b = hal.nextMove(b);
+		b.printBoard();
+		System.out.println();
+
+		v1Bobby bobby = new v1Bobby(b, false);
+		System.out.println("Bobby:");
 		b.setBoardArray(bobby.turn(b.getBoardArray()));
 		b.printBoard();
-		System.out.println();
-
-		System.out.println("OCTO:");
-		AI octo = new AI();
-		octo.setColor('B');
-		b = octo.takeTurn(b);
-		b.printBoard();
-
 		// long start;
 		for (int i = 0; i < 100; i++) {
 			// start = System.currentTimeMillis();
 			System.out.println();
-			System.out.println("BOBBY:");
-			b.setBoardArray(bobby.turn(b.getBoardArray()));
+			System.out.println("Hal:");
+			b = hal.nextMove(b);
 			b.printBoard();
-
 			System.out.println();
-			System.out.println("OCTO:");
-			b = octo.takeTurn(b);
+			System.out.println("Bobby:");
+			b.setBoardArray(bobby.turn(b.getBoardArray()));
 			b.printBoard();
 
 			// float time = System.currentTimeMillis() - start;
