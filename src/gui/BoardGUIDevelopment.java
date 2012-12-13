@@ -95,29 +95,29 @@ public class BoardGUIDevelopment {
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
 
-				String pieceType = pieces[m][n];
+				String pieceType = pieces[n][m];
 				String tempResourceName = "" + Character.toLowerCase(pieceType.charAt(0));
 				switch (pieceType.charAt(1)) {
 					case 'X':
 						tempResourceName = "Blank";
 						break;
 					case 'B':
-						tempResourceName.concat("Bishop");
+						tempResourceName = tempResourceName.concat("Bishop");
 						break;
 					case 'R':
-						tempResourceName.concat("Rook");
+						tempResourceName = tempResourceName.concat("Rook");
 						break;
 					case 'P':
-						tempResourceName.concat("Pawn");
+						tempResourceName = tempResourceName.concat("Pawn");
 						break;
 					case 'Q':
-						tempResourceName.concat("Queen");
+						tempResourceName = tempResourceName.concat("Queen");
 						break;
 					case 'K':
-						tempResourceName.concat("King");
+						tempResourceName = tempResourceName.concat("King");
 						break;
 					case 'N':
-						tempResourceName.concat("Knight");
+						tempResourceName = tempResourceName.concat("Knight");
 						break;
 					default:
 						System.out.println("Reached default case in piece string array of BoardGUIDevelopment");
