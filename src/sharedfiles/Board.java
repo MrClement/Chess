@@ -110,7 +110,7 @@ public class Board {
 		}
 	}
 
-	public void Randomize() {
+	public void randomize() {
 		Random r = new Random();
 		Piece[][] temp = new Piece[8][8];
 		for (int i = 0; i < temp.length; i++) {
