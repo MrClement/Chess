@@ -55,7 +55,7 @@ public class BoardGUIDevelopment {
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
+		frame.setSize(425,425);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.setLocationRelativeTo(null);
@@ -67,18 +67,17 @@ public class BoardGUIDevelopment {
 		steven.setVgap(2);
 
 		
-		JPanel[][] panelHolder = new JPanel[i][j];    
+		JPanel[][] panelHolder = new JPanel[i][j];   
 		frame.setLayout(steven);
 
 		for(int m = 0; m < i; m++) {
 		   for(int n = 0; n < j; n++) {
 		      panelHolder[m][n] = new JPanel();
+		      panelHolder[m][n].setSize(60, 60);
 		      frame.add(panelHolder[m][n]);
 		   }
 		}
 
-
-		
 		for(int m = 0; m < i; m++) {
 			   for(int n = 0; n < j; n++) {
 					ImageIcon icon = createImageIcon("bBishop.png","Derpy Spot");
