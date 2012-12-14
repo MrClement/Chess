@@ -10,7 +10,7 @@ import sharedfiles.Piece;
 import sharedfiles.Board;
 public class BobbyServerDriver {
 
-		private static String hostname = "localhost";
+		private static String hostname = "10.80.4.31";
 		private static int port = 8080;
 
 		public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class BobbyServerDriver {
 			BufferedReader in;
 			PrintStream out;
 			Board b=new Board();
-			v1Bobby bobby=new v1Bobby(b, true);
+			v1Bobby bobby=new v1Bobby(b, false);
 			Socket myClient;
 			try {
 				myClient = new Socket(hostname, port);
@@ -39,32 +39,16 @@ public class BobbyServerDriver {
 						}
 					}
 					b.buildBoard(stuff);
+					
 					bobby.turn(b.getBoardArray());
-					
-					stuff=new String[8];
-					
-					Piece[][] x =b.getBoardArray();
-					
-					for(int w=0; w<x.length; w++)
-					{
-						stuff[w]="";
-						for(int z=0; z<x[w].length; z++)
-						{
-							stuff[w]+=x[w][z].toString() + " | ";
-							
+										
+					for(int i=0;i<8;i++){
+						for(int j=0;j<8;j++){
+							out.print(bobby.getB()[i][j]);
 						}
-						
-					}
-					
-					
-					for (int j = 0; j < 8; j++) {
-						System.out.println(stuff[j]);
-					}
-					for (int j = 0; j < 8; j++) {
-						out.println(stuff[j]);
+						out.println();
 					}
 					out.println(".");
-					out.flush();
 				}
 
 			} catch (UnknownHostException e) {
