@@ -3,37 +3,26 @@ package gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 
 import sharedfiles.Board;
 import sharedfiles.Piece;
 
-import communicator.AIServerInstance;
-
 public class IntegratedGUI {
 
 	private JFrame frame;
-	private String selected1;
-	private String selected2;
 	private String[][] pieces;
-	private JList<String> list_1;
-	private JList<String> list;
-	private AIServerInstance server;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IntegratedGUI window = new IntegratedGUI();
+					Board b = new Board();
+					IntegratedGUI window = new IntegratedGUI(b);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,83 +31,13 @@ public class IntegratedGUI {
 		});
 	}
 
-	public IntegratedGUI() {
+	public IntegratedGUI(Board b) {
+		pieces = new String[8][8];
 		frame = new JFrame();
 		frame.setSize(425, 425);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		initialize();
-
-	}
-
-	private void initialize() {
-		frame.getContentPane().setLayout(null);
-
-		JLabel lblVs = new JLabel("VS");
-		lblVs.setBounds(210, 106, 29, 25);
-		frame.getContentPane().add(lblVs);
-
-		JButton btnNewButton = new JButton("Submit");
-		btnNewButton.setActionCommand("Submit");
-		btnNewButton.setBounds(161, 198, 112, 23);
-		btnNewButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				selected1 = list_1.getSelectedValue();
-				selected2 = list.getSelectedValue();
-				frame.getContentPane().removeAll();
-				Board b = new Board();
-				server = new AIServerInstance(b);
-				Thread t = new Thread(server);
-				t.start();
-				while (t.isAlive()) {
-					initializeBoard(b);
-					frame.getContentPane().validate();
-					frame.getContentPane().repaint();
-				}
-
-			}
-		});
-		frame.getContentPane().add(btnNewButton);
-
-		JLabel lblNewLabel = new JLabel("Checkers");
-		lblNewLabel.setBounds(192, 32, 81, 25);
-		frame.getContentPane().add(lblNewLabel);
-
-		list_1 = new JList<String>();
-		list_1.setModel(new AbstractListModel<String>() {
-			String[] values = new String[] { "Hal", "Derpy", "Octo", "Bobby" };
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public String getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list_1.setBounds(273, 78, 89, 75);
-
-		frame.getContentPane().add(list_1);
-
-		list = new JList<String>();
-		list.setModel(new AbstractListModel<String>() {
-			String[] values = new String[] { "Hal", "Derpy", "Octo", "Bobby" };
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public String getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setBounds(72, 78, 89, 75);
-		frame.getContentPane().add(list);
-		selected1 = list_1.getSelectedValue();
-		selected2 = list.getSelectedValue();
-
+		initializeBoard(b);
 	}
 
 	private void readBoard(Board board) {
@@ -215,6 +134,17 @@ public class IntegratedGUI {
 		}
 
 		frame.getContentPane().setLayout(steven);
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void redraw(Board b) {
+		frame.getContentPane().removeAll();
+		initializeBoard(b);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
 	}
 
 }

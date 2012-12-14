@@ -128,4 +128,15 @@ public class Board {
 		arr = temp;
 	}
 
+	public boolean equals(Board b) {
+		Piece[][] them = b.getBoardArray();
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr.length; j++) {
+				if (!them[i][j].toString().equals(arr[i][j]))
+					return false;
+			}
+		}
+		return true;
+	}
+
 }

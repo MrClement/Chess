@@ -1,5 +1,7 @@
 package communicator;
 
+import gui.IntegratedGUI;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,7 +27,7 @@ public class AIServer {
 		PrintStream out;
 		BufferedReader in2;
 		PrintStream out2;
-		
+
 		Scanner scan = new Scanner(System.in);
 
 		String[] stuff = new String[8];
@@ -41,6 +43,8 @@ public class AIServer {
 			in2 = new BufferedReader(new InputStreamReader(client2.getInputStream()));
 			out2 = new PrintStream(client2.getOutputStream());
 			Board b = new Board();
+			IntegratedGUI gui = new IntegratedGUI(b);
+			gui.getFrame().setVisible(true);
 			Piece[][] arr = b.getBoardArray();
 			for (int y = 0; y < 8; y++) {
 				for (int x = 0; x < 8; x++) {
@@ -74,6 +78,7 @@ public class AIServer {
 				System.out.println(stuff);
 				b.buildBoard(stuff);
 				b.printBoard();
+				gui.redraw(b);
 				System.out.println();
 				scan.nextLine();
 				System.out.println("Client 2 move");
@@ -94,6 +99,7 @@ public class AIServer {
 				}
 				b.buildBoard(stuff);
 				b.printBoard();
+				gui.redraw(b);
 				scan.nextLine();
 			}
 			System.out.println("done!");
