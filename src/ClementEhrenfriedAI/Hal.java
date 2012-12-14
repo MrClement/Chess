@@ -97,17 +97,6 @@ public class Hal {
 		return b;
 	}
 
-	private Board boardBuilder(HashMap<Point, Piece> pieceLocations2) {
-		Board b = new Board();
-		Piece[][] temp = new Piece[8][8];
-		for (Entry<Point, Piece> e : pieceLocations2.entrySet()) {
-			// System.out.println(pieceLocations.toString());
-			temp[(int) e.getKey().getX()][(int) e.getKey().getY()] = e.getValue();
-		}
-		b.setBoardArray(temp);
-		return b;
-	}
-
 	public void indianDefense() {
 
 		Move tempMove;

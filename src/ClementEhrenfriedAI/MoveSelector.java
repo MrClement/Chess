@@ -49,9 +49,7 @@ public class MoveSelector {
 				return m;
 			}
 		}
-		if (m == null)
-			return findAndTakeKing(color);
-		return m;
+		return findAndTakeKing(color);
 
 	}
 
@@ -70,9 +68,7 @@ public class MoveSelector {
 			}
 		}
 
-		if (m == null)
-			return promoteSelf(color);
-		return m;
+		return promoteSelf(color);
 	}
 
 	public Move promoteSelf(boolean color) {
@@ -107,14 +103,11 @@ public class MoveSelector {
 
 		}
 
-		if (m == null)
-			return prioritizedAggressiveMove(color);
-		return m;
+		return prioritizedAggressiveMove(color);
 	}
 
 	public Move prioritizedAggressiveMove(boolean color) {
 
-		Move m = null;
 		HashMap<Piece, Move> tempMoves = new HashMap<Piece, Move>();
 
 		for (Entry<Point, ChessSquare> e : potentialMoves.entrySet()) {
@@ -151,12 +144,7 @@ public class MoveSelector {
 			}
 		}
 
-		if (m == null) {
-			return aggressiveMove(color);
-		} else {
-			// System.out.println(m.toString());
-			return m;
-		}
+		return aggressiveMove(color);
 	}
 
 	public Move aggressiveMove(boolean color) {
@@ -176,9 +164,7 @@ public class MoveSelector {
 
 		}
 
-		if (m == null)
-			return randomMove(color);
-		return m;
+		return randomMove(color);
 	}
 
 	public Move randomMove(boolean color) {
